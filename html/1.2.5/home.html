@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: home — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>10% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manual, tutorials & references</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocja.appspot.com/documentation/1.2.5"> 
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Select language</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Documentation">Documentation</h1> 
+<p>Welcome to the <strong>Play framework 1.2.5</strong> documentation. See the <a href="releasenotes-1.2.5">version 1.2.5 release notes</a>.</p> 
+<h2 id="anamestartedGettingstarteda"><a name="started">Getting started</a></h2> 
+<p>Your first steps with Play and your first 5 minutes of fun.</p> 
+<ol> 
+ <li><a href="overview">Play framework overview</a></li> 
+ <li><a href="http://vimeo.com/7087610">Watch the screencast</a></li> 
+ <li><a href="5things">Five cool things you can do with Play</a></li> 
+ <li><a href="usability">Usability - details matter as much as features</a></li> 
+ <li><a href="faq">Frequently Asked Questions</a></li> 
+ <li><span class="next"><a href="install">Installation guide</a></span></li> 
+ <li><a href="ide">Setting-up your preferred IDE</a></li> 
+ <li><a href="firstapp">Your first application — the ‘Hello World’ tutorial</a></li> 
+ <li><a href="samples">Sample applications</a></li> 
+</ol> 
+<h2 id="anameguideTutorialPlayguidearealworldappstepbystepa"><a name="guide">Tutorial — Play guide, a real world app step-by-step</a></h2> 
+<p>Aprenda Play by coding <b>‘Yet Another Blog Engine’</b>, from start to finish. Each chapter will be a chance to learn one more cool Play feature.</p> 
+<ol> 
+ <li><a href="guide1">Starting up the project</a></li> 
+ <li><a href="guide2">A first iteration of the data model</a></li> 
+ <li><a href="guide3">Building the first screen</a></li> 
+ <li><a href="guide4">The comments page</a></li> 
+ <li><a href="guide5">Setting up a Captcha</a></li> 
+ <li><a href="guide6">Add tagging support</a></li> 
+ <li><a href="guide7">A basic admin area using CRUD</a></li> 
+ <li><a href="guide8">Adding authentication</a></li> 
+ <li><a href="guide9">Creating a custom editor area</a></li> 
+ <li><a href="guide10">Completing the application tests</a></li> 
+ <li><a href="guide11">Preparing for production</a></li> 
+ <li><a href="guide12">Internationalisation and localisation</a></li> 
+</ol> 
+<h2 id="anamemanualTheessentialdocumentationa"><a name="manual">The essential documentation</a></h2> 
+<p>Everything you need to know about Play.</p> 
+<ol> 
+ <li><a href="main">Main concepts</a> 
+  <ol> 
+   <li><a href="main#mvc">The MVC application model</a></li> 
+   <li><a href="main#request">A request life cycle</a></li> 
+   <li><a href="main#application">Application layout &amp; organization</a></li> 
+   <li><a href="main#lifecycle">Development lifecycle</a></li> 
+  </ol></li> 
+ <li><a href="routes">HTTP routing</a> 
+  <ol> 
+   <li><a href="routes#syntax">The routes file syntax</a></li> 
+   <li><a href="routes#priority">Routes priority</a></li> 
+   <li><a href="routes#static">Serving static resources</a></li> 
+   <li><a href="routes#reverse">Reverse routing: generate some URL</a></li> 
+   <li><a href="routes#content-types">Setting content types</a></li> 
+   <li><a href="routes#content-negotiation">Content negotiation</a></li> 
+  </ol></li> 
+ <li><a href="controllers">Controllers</a> 
+  <ol> 
+   <li><a href="controllers#overview">A Controller overview</a></li> 
+   <li><a href="controllers#params">Retrieve HTTP parameters</a></li> 
+   <li><a href="controllers#binding">Advanced HTTP to Java binding</a></li> 
+   <li><a href="controllers#result">Return a result</a></li> 
+   <li><a href="controllers#interceptions">Interceptions</a></li> 
+   <li><a href="controllers#session">Session and Flash scopes</a></li> 
+  </ol></li> 
+ <li><a href="templates">The template engine</a> 
+  <ol> 
+   <li><a href="templates#syntax">Template syntax</a></li> 
+   <li><a href="templates#inheritance">Template inheritance</a></li> 
+   <li><a href="templates#tags">Create tags</a></li> 
+   <li><a href="templates#extensions">Extending the templates language</a></li> 
+   <li><a href="templates#implicits">Implicit objects</a></li> 
+  </ol></li> 
+ <li><a href="validation">HTTP form data validation</a> 
+  <ol> 
+   <li><a href="validation#how">How does it work?</a></li> 
+   <li><a href="validation#messages">Retrieving error messages</a></li> 
+   <li><a href="validation#display">Displaying errors in the template</a></li> 
+   <li><a href="validation#annotations">Using annotations</a></li> 
+   <li><a href="validation#objects">Validating objects</a></li> 
+   <li><a href="validation#custom">Custom validation</a></li> 
+  </ol></li> 
+ <li><a href="model">The domain object model</a> 
+  <ol> 
+   <li><a href="model#properties">Properties simulation</a></li> 
+   <li><a href="model#database">Setup a database to persist your model objects</a></li> 
+   <li><a href="model#hibernate">Persist your object model with Hibernate</a></li> 
+   <li><a href="model#stateless">The stateless model</a></li> 
+  </ol></li> 
+ <li><a href="jpa">JPA persistence</a> 
+  <ol> 
+   <li><a href="jpa#starting">Starting the JPA entity manager</a></li> 
+   <li><a href="jpa#obtaining">Obtaining the JPA entity manager</a></li> 
+   <li><a href="jpa#transactions">Transaction management</a></li> 
+   <li><a href="jpa#support">The play.db.jpa.Model support class</a></li> 
+   <li><a href="jpa#finding">Finding objects</a></li> 
+   <li><a href="jpa#counting">Counting objects</a></li> 
+   <li><a href="jpa#save">Explicit save</a></li> 
+   <li><a href="jpa#typing">More about generic typing problems</a></li> 
+  </ol></li> 
+ <li><a href="libs">Play libs</a> 
+  <ol> 
+   <li><a href="libs#ParsingXMLusingXPath">XML parsing using XPath</a></li> 
+   <li><a href="libs#WebServiceclient">Web Service client</a></li> 
+   <li><a href="libs#FunctionalprogrammingwithJava">Functional programming with Java</a></li> 
+   <li><a href="libs#OAuth">OAuth</a></li> 
+   <li><a href="libs#OpenID">OpenID</a></li> 
+  </ol></li> 
+ <li><a href="jobs">Asynchronous Jobs</a> 
+  <ol> 
+   <li><a href="jobs#concepts">Bootstrap jobs</a></li> 
+   <li><a href="jobs#scheduling">Scheduled jobs</a></li> 
+   <li><a href="jobs#tasks">Triggering task jobs</a></li> 
+  </ol></li> 
+ <li><a href="asynchronous">Asynchronous programming with HTTP</a> 
+  <ol> 
+   <li><a href="asynchronous#SuspendingHTTPrequests">Suspending HTTP requests</a></li> 
+   <li><a href="asynchronous#HTTPresponsestreaming">HTTP response streaming</a></li> 
+   <li><a href="asynchronous#UsingWebSockets">Using WebSockets</a></li> 
+  </ol></li> 
+ <li><a href="ajax">Ajax requests</a> 
+  <ol> 
+   <li><a href="ajax#jsaction">Making Ajax requests with JQuery</a></li> 
+  </ol></li> 
+ <li><a href="i18n">Internationalization</a> 
+  <ol> 
+   <li><a href="i18n#utf8">Only use UTF-8</a></li> 
+   <li><a href="i18n#messages">Externalize your messages</a></li> 
+   <li><a href="i18n#languages">Define languages supported by the application</a></li> 
+   <li><a href="i18n#dates">Define date format according to your locale</a></li> 
+   <li><a href="i18n#retrieve">Retrieve localized messages</a></li> 
+  </ol></li> 
+ <li><a href="cache">Cache</a> 
+  <ol> 
+   <li><a href="cache#api">The cache API</a></li> 
+   <li><a href="cache#session">Don’t use the Session as a cache</a></li> 
+   <li><a href="cache#memcached">Configure memcached</a></li> 
+  </ol></li> 
+ <li><a href="emails">Sending e-mail</a> 
+  <ol> 
+   <li><a href="emails#mvc">Mail and MVC integration</a></li> 
+   <li><a href="emails#smtp">SMTP configuration</a></li> 
+   <li><a href="emails#configuration">More about configuration</a></li> 
+   <li><a href="emails#gmail">Using Gmail</a></li> 
+  </ol></li> 
+ <li><a href="test">Testing the application</a> 
+  <ol> 
+   <li><a href="test#writing">Writing tests</a></li> 
+   <li><a href="test#fixtures">Fixtures</a></li> 
+   <li><a href="test#running">Running the tests</a></li> 
+   <li><a href="test#continuous">Continuous integration</a></li> 
+  </ol></li> 
+ <li><a href="security">Security Guide</a> 
+  <ol> 
+   <li><a href="security#sessions">Sessions</a></li> 
+   <li><a href="security#xss">Cross-Site Scripting</a></li> 
+   <li><a href="security#sql">SQL Injection</a></li> 
+   <li><a href="security#csrf">Cross-Site Request Forgery</a></li> 
+  </ol></li> 
+ <li><a href="modules">Modules and the module repository</a> 
+  <ol> 
+   <li><a href="modules#what">What is a module?</a></li> 
+   <li><a href="modules#loading">How to load a module from an application</a></li> 
+   <li><a href="modules#routes">Load default routes from modules</a></li> 
+   <li><a href="modules#repository">Using the module repository</a></li> 
+   <li><a href="modules#contributing">Contributing a new module to the module repository</a></li> 
+  </ol></li> 
+ <li><a href="dependency">Dependency management</a> 
+  <ol> 
+   <li><a href="dependency#format">Dependency format</a></li> 
+   <li><a href="dependency#yml">dependencies.yml</a></li> 
+   <li><a href="dependency#conflicts">Conflict resolution</a></li> 
+   <li><a href="dependency#repositories">Adding new repositories</a></li> 
+  </ol></li> 
+ <li><a href="evolutions">Managing your database evolutions</a> 
+  <ol> 
+   <li><a href="evolutions#script">Evolutions scripts</a></li> 
+   <li><a href="evolutions#Synchronizingconcurrentchanges">Synchronizing concurrent changes</a></li> 
+   <li><a href="evolutions#Inconsistentstates">Inconsistent states</a></li> 
+   <li><a href="evolutions#Evolutionscommands">Evolutions commands</a></li> 
+  </ol></li> 
+ <li><a href="logs">Logging configuration</a> 
+  <ol> 
+   <li><a href="logs#logging">Logging from your application</a></li> 
+   <li><a href="logs#levels">Configure log levels</a></li> 
+  </ol></li> 
+ <li><a href="ids">Configuration in several environments</a> 
+  <ol> 
+   <li><a href="ids#id">The framework ID</a></li> 
+   <li><a href="ids#command">Setting the framework ID from the command line</a></li> 
+  </ol></li> 
+ <li><a href="production">Production deployment</a> 
+  <ol> 
+   <li><a href="production#application">Configure your application.conf</a></li> 
+   <li><a href="production#logging">Configure logging</a></li> 
+   <li><a href="production#server">Set-up a front-end HTTP server</a></li> 
+  </ol></li> 
+ <li><a href="deployment">Deployment options</a> 
+  <ol> 
+   <li><a href="deployment#standalone">Standalone Play application</a></li> 
+   <li><a href="deployment#appservers">Running on JEE application servers</a></li> 
+   <li><a href="deployment#gae">Google Application Engine</a></li> 
+   <li><a href="deployment#stax">Stax cloud hosting platform</a></li> 
+  </ol></li> 
+</ol> 
+<h2 id="anamereferencesReferencesa"><a name="references">References</a></h2> 
+<p>Extended references for day-to-day hacking.</p> 
+<ol> 
+ <li><a class="navigation" href="index">Quick index</a></li> 
+ <li><a class="navigation" href="http://www.playframework.org/documentation/api/1.2.5/index.html" target="_blank">API documentation (Javadoc)</a></li> 
+ <li><a href="cheatsheet/commandLine">Cheat sheets</a> 
+  <ol> 
+   <li><a href="cheatsheet/commandLine">Command Line</a></li> 
+   <li><a href="cheatsheet/controllers">Controllers</a></li> 
+   <li><a href="cheatsheet/templates">Templates</a></li> 
+   <li><a href="cheatsheet/model">Model</a></li> 
+   <li><a href="cheatsheet/tests">Testing</a></li> 
+   <li><a href="cheatsheet/multiEnvironment">Multi-environment</a></li> 
+  </ol></li> 
+ <li><a href="tags">Built-in extensions</a> 
+  <ol> 
+   <li><a href="tags">Template tags</a></li> 
+   <li><a href="javaextensions">Java extensions</a></li> 
+   <li><a href="validation-builtin">Validations</a></li> 
+  </ol></li> 
+ <li><a class="navigation" href="configuration">Configuration reference</a></li> 
+</ol> 
+<h2 id="anamemodulesDistributionModulesa"><a name="modules">Distribution Modules</a></h2> 
+<p>These optional modules are included with the standard distribution. <a href="http://www.playframework.org/modules">More modules</a>.</p> 
+<ol> 
+ <li><a href="crud">CRUD</a></li> 
+ <li><a href="secure">Secure</a></li> 
+</ol> 
+<h2 id="anameversionnotesVersonotesa"><a name="versionnotes">Vers&atilde;o notes</a></h2> 
+<p>New versions of Play include certain changes. Check older release notes for:</p> 
+<ol> 
+ <li><a href="releasenotes-1.2.5">Play 1.2.5</a></li> 
+ <li><a href="releasenotes-1.2.4">Play 1.2.4</a></li> 
+ <li><a href="releasenotes-1.2">Play 1.2</a></li> 
+ <li><a href="releasenotes-1.1">Play 1.1</a></li> 
+ <li><a href="releasenotes-1.0.3">Play 1.0.3</a></li> 
+ <li><a href="releasenotes-1.0.2">Play 1.0.2</a></li> 
+ <li><a href="releasenotes-1.0.1">Play 1.0.1</a></li> 
+</ol>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/home" target="_blank">Documentation: home — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">目次</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>書籍</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                        <h3>広告</h3>
+        <p>
+            <a href="http://www.amazon.co.jp/gp/product/4873115345/ref=as_li_tf_il?ie=UTF8&camp=247&creative=1211&creativeASIN=4873115345&linkCode=as2&tag=playdocja-22"><img border="0" width="150px" src="http://ws.assoc-amazon.jp/widgets/q?_encoding=UTF8&ASIN=4873115345&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=playdocja-22" ></a><img src="http://www.assoc-amazon.jp/e/ir?t=playdocja-22&l=as2&o=9&a=4873115345" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+        </p>
+        <p>
+            <a href="http://www.amazon.co.jp/gp/product/4798125415/ref=as_li_tf_il?ie=UTF8&camp=247&creative=1211&creativeASIN=4798125415&linkCode=as2&tag=playdocja-22"><img border="0" width="150px" src="http://ws.assoc-amazon.jp/widgets/q?_encoding=UTF8&ASIN=4798125415&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=playdocja-22" ></a><img src="http://www.assoc-amazon.jp/e/ir?t=playdocja-22&l=as2&o=9&a=4798125415" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+        </p>
+    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

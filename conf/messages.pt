@@ -1,0 +1,11 @@
+# You can specialize this file for each language.
+# For example, for French create a messages.fr file
+#
+about.01=Sobre esse site
+about.02=Bem-vindo ao playdocpt
+about.03=Bem-vindo ao site de tradução do Play framework. As informações do site estão abaixo.
+about.04=Esse não é um site oficial.
+about.05=Esse projeto não é feito pela <a href="http://www.playframework.org/">playframework.org</a>.
+about.06=Por favor não questione sobre o conteúdo desse projeto para o playframework.org.
+about.07=Tradutores
+about.08=O projeto é mantido no <a href="https://github.com/boaglio/playdocpt"/>github</a> pelos tradutores abaixo:
