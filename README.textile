@@ -1,8 +1,8 @@
-h2. Welcome to playdocja
+h2. Welcome to playdocbr ( playdocja fork thanks to garbagetown )
 
 This project IS NOT made by playframework.org.
 
-Please DO NOT make any question about the contents of this project to playframework.org. 
+Please DO NOT make any question about the contents of this project to playframework.org.
 
 h2. Licence
 

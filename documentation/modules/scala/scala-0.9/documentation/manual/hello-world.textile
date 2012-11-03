@@ -340,7 +340,7 @@ We have fully tested the application. Just select this test in the test runner a
 !images/guide1-test2!
 
 
-h2. <a>Learn more</a>
+h2. <a>Aprenda more</a>
 
 This was a very simple tutorial about a very dumb application. 
 

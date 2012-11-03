@@ -1,26 +1,26 @@
-h1. デプロイオプション
+h1. Deployment options
 
-事実上、Play アプリケーションはどこにでもデプロイすることができます: サーブレットコンテナの中や、スタンドアロンサーバとして、または Heroku, Google App Engine、Stack、クラウドにもデプロイすることができます。
+Play applications can be deployed virtually anywhere: inside Servlet containers, as standalone servers, on Heroku, Google Application Engine, Stack, a Cloud, etc...
 
-h2. <a name="standalone">スタンドアロン Play アプリケーション</a>
+h2. <a name="standalone">Standalone Play applications</a>
 
-もっとも簡単で堅牢な方法は、Play アプリケーションをどのコンテナにも乗せずに実行することです。バーチャルホストのような高度な HTTP の機能が必要な場合は、フロントに Lighttpd や Apache のような HTTP サーバを使用することができます。
+The simplest and the most robust way is to simply run your Play application without any container. You can use a frontal HTTP server like Lighttpd or Apache if you need more advanced HTTP features like virtual hosting.
 
-内蔵の HTTP サーバは 1 秒あたり数千の HTTP リクエストを捌くことができるので、これが性能のボトルネックになることは決してありません。さらに、この HTTP サーバはより効率的なスレッドモデルを使用します (Servlet コンテナは 1 リクエストあたり 1 つのスレッドを使用します) 。"モジュール":http://playframework.org/modules を使うことで、別のサーバ (Grizzly、Netty、その他...) を使用することもできます。
+The built-in HTTP server can serve thousands of HTTP requests per second so it will never be the performance bottleneck. Moreover it uses a more efficient threading model (where a Servlet container uses 1 thread per request). Different "modules":http://playframework.org/modules allow you to use different servers (Grizzly, Netty, etc...) as well.
 
-これらのサーバは、長時間のポーリングをサポートしており、実行スレッドをブロックせずに非常に長い (長時間タスクの完了を待つ) リクエストや、ファイルオブジェクト (それから、Content-Length を指定すれば、どのような入力ストリームでも) の直接ストリーミングを管理することができます。
+Those servers support long polling and allow to manage very long requests (waiting for a long task to complete), and direct streaming of File objects (and any InputStream if you specify the Content-Length), without blocking the execution thread.
 
-開発工程で使用したものと同じ環境を使用するので、この方法でアプリケーションを実行する場合、問題はほとんど起こりません。JEE アプリケーションサーバにデプロイするときにだけ、大量のバグ (異なるホームディレクトリ、クラスローダの問題、ライブラリの競合、その他...) が検出されます。
+You will have fewer problems running your application this way, as you will use the same environment that you used during the development process. A lot of bugs can be discovered only when you deploy to a JEE application server (different home dir, classloader issues, library conflicts, etc...).
 
-より詳しい情報については、 "アプリケーションの本番稼動":production を参照してください。
+Please refer to the "'Put your application in production' page":production for more information.
 
-h2. <a name="appservers">アプリケーションサーバ</a>
+h2. <a name="appservers">Java EE application servers</a>
 
-Play アプリケーションは、お好みのアプリケーションサーバで実行することもできます。ほとんどのアプリケーションサーバーは特別な設定なしでサポートされています。
+Your Play application can also run inside your favorite application server. Most application servers are supported out of the box.
 
-h3. サポートするアプリケーションサーバ
+h3. Supported application servers
 
-以下ののアプリケーションサーバで Play が動作することが分かっています。この他に動作する配備環境があれば、遠慮なく報告してください。
+The following application servers are known to work with Play. Please feel free to report any other working deployment.
 
 * JBoss 4.2.x
 * JBoss 5.x
@@ -31,23 +31,23 @@ h3. サポートするアプリケーションサーバ
 * Geronimo 2.x
 * Tomcat 6.x
 * Jetty 7.x
-* Resin 4.0.5                                                                
+* Resin 4.0.5
 
-h3. デプロイ
+h3. Deploying
 
-アプリケーションを war ファイルとしてパッケージする必要があります。これは、以下のコマンドで容易に実行できます:
+You need to package your application as a WAR file. This is easily done with the following command:
 
 bc. play war myapp -o myapp.war
 
-p(note). アプリケーションサーバが展開された WAR ファイルの配備をサポートしていることを確認してください。
+p(note). Please note that your application server must support deployment of exploded WAR files.
 
-これでアプリケーションをデプロイする準備が整いました。
+You are now ready to deploy your application.
 
-アプリケーションのライブラリ間におけるバージョン不整合を避けるため、Play アプリケーションを他のアプリケーションから ‘隔離’ するようアドバイスされています。この手順はベンダに特化したものであり、標準的な JEE/サーブレット仕様によるものではありません。
+You are advised to ‘isolate’ your Play application from the other applications to avoid version mismatches between the application libraries. This step is not standardized by the JEE/Servlet specification, and is therefore vendor-specific.
 
-WAR ファイルを ‘隔離’ するために、アプリケーションサーバのマニュアルを参照することをお勧めします。以下の例は、JBoss アプリケーションサーバにおいて war ファイルを隔離する方法です。これがオプションの手順であることに注意してください:
+We recommend you refer to your application server manual in order to ‘isolate’ your WAR. As an example below is how you isolate a war file in JBoss Application server. Note that this is an optional step:
 
-アプリケーションの war ディレクトリにある @myapp.war/WEB-INF/jboss-web.xml@  に以下の内容を挿入 (または新規に作成) してください:
+Insert the following content (or create the file) in your application war directory at @myapp.war/WEB-INF/jboss-web.xml@:
 
 bc. 
 <jboss-web>
@@ -59,25 +59,25 @@ bc.
 </class-loading>
 </jboss-web>
 
-com.example:archive=unique-archive-name を一意であり続ける名前に書き換えてください。
+Replace com.example:archive=unique-archive-name with whatever you wish as long as it is unique.            
 
 
-h3. データソース
+h3. Datasource
 
-Play はデータソースとリソースのルックアップもサポートします。JNDI データソースを使うには、application.conf において "データベース設定":configuration#dbconf を以下のように編集してください。
+Play also supports Datasource and resource look-up. To use a JNDI Datasource, set the "database configuration":configuration#dbconf as shown below:
 
 bc. db=java:comp/env/jdbc/mydb
 jpa.dialect=org.hibernate.dialect.Oracle10gDialect
 jpa.ddl=verify
 
-データソースプラグインは @db=java:@ というパターンを検出し、デフォルトの JDBC システムを非活性化します。
+The database plugin detects the pattern @db=java:@ and will de-activate the default JDBC system.
 
 
-h3. カスタム web.xml
+h3. Custom web.xml
 
-IBM Websphere などのアプリケーションサーバは、サーブレット API 設定ファイル @web.xml@ 中の @resource-ref@ 要素にデータソースを定義することを要求します。デフォルトでは、 @play war@ コマンドを実行すると Play は @web.xml@ ファイルを生成します。生成された @web.xml@ をカスタマイズするには、展開した WAR バージョンを生成し、 @web.xml@ ファイルをアプリケーションの @war/WEB-INF@ フォルダにコピーします。この次に @play war@ コマンドを実行すると、カスタマイズした @web.xml@ が生成されたフォルダへコピーされます。
+Some application servers, such as IBM Websphere, require you to declare a datasource in a @resource-ref@ element in the Servlet API’s @web.xml@ configuration file. By default, @web.xml@ is a file that is generated by Play when you execute the @play war@ command. To customise the generated @web.xml@, generate the exploded WAR version, then copy the generated @web.xml@ file to the @war/WEB-INF@ folder in your application. The next time you will execute the @play war@ command, it will copy your custom @web.xml@ from to the generated folder.
 
-例えば、 @war/WEB=INF/web.xml@ ファイルの @resource-ref@ に IBM Websphere 7 用のデータソースを定義することができます:
+For instance, to declare a datasource for IBM Websphere 7, we can declare a @resource-ref@ in our @war/WEB-INF/web.xml@ file:
 
 bc. <?xml version="1.0" ?>
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
@@ -108,47 +108,46 @@ bc. <?xml version="1.0" ?>
   </resource-ref>
 </web-app>
 
-play.id システムプロパティで play の id を指定することもできます。これは、同じ war を異なる環境にデプロイしたい場合に便利です。これを使うには、例えば @-Dplay.id=test@ のようにしてアプリケーションサーバを起動します。
 
-h2. <a name="cloud">クラウドベースのホスティング</a>
+h2. <a name="cloud">Cloud-based hosting</a>
 
 
 h3. <a name="elasticbeanstalk">AWS Elastic Beanstalk</a>
 
-"AWS Elastic Beanstalk":http://aws.amazon.com/en/elasticbeanstalk/ は、Amazon Web Services インフラストラクチャに基づいた Amazon の Java ホスティングプラットフォームです。Play アプリケーションのデプロイに関する詳しい情報は "Java development 2.0: Play-ing with Amazon RDS":http://www.ibm.com/developerworks/java/library/j-javadev2-19/ を参照してください。
+"AWS Elastic Beanstalk":http://aws.amazon.com/en/elasticbeanstalk/ is Amazon’s Java hosting platform, based on their Amazon Web Services infrastructure. For more information about deploying a Play application, see "Java development 2.0: Play-ing with Amazon RDS":http://www.ibm.com/developerworks/java/library/j-javadev2-19/.
 
 
 h3. <a name="cloudbees">CloudBees</a>
 
-"CloudBees":http://www.cloudbees.com/ は Java アプリケーションのホスティングプラットフォームです。詳しい情報は "CloudBees module":http://www.playframework.org/modules/cloudbees を参照してください。
+"CloudBees":http://www.cloudbees.com/ is a Java application hosting platform. For more information, see the "CloudBees module":http://www.playframework.org/modules/cloudbees.
 
 
 h3. <a name="cloudfondry">Cloud Foundry</a>
 
-"Cloud Foundry":http://www.cloudfoundry.com/ は VMWare のクラウドプロバイダです。詳しい情報は "Running Play Framework Application on CloudFoundry":http://iambivas.blogspot.com/2011/08/running-play-framework-application-on.html と "CloudFoundry module":http://www.playframework.org/modules/cloudfoundry を参照してください。
+"Cloud Foundry":http://www.cloudfoundry.com/ is VMware’s cloud provider. For more information, see "Running Play Framework Application on CloudFoundry":http://iambivas.blogspot.com/2011/08/running-play-framework-application-on.html and the "CloudFoundry module":http://www.playframework.org/modules/cloudfoundry.
 
 
 h3. <a name="gae">Google App Engine (GAE)</a>
 
-"Google App Engine":http://code.google.com/appengine/ は、一般的なホスティングソリューションと比較して異なった長所と短所を持つ最初のクラウドホスティングプラットフォームの一つです。特に、GAE は JPA 永続性をサポートしません。詳しい情報は "GAE module":http://www.playframework.org/modules/gae を参照してください。
+The "Google App Engine":http://code.google.com/appengine/ is one of the first cloud hosting platforms, which has different pros and cons compared to generic hosting solutions. In particular, GAE does not support JPA persistence. For more information, see the "GAE module":http://www.playframework.org/modules/gae.
 
 
 h3. <a name="heroku">Heroku</a>
 
-"Heroku cloud application platform":http://www.heroku.com/ は Play に特化したアプリケーションのホスティングサポートを提供しています。Play アプリケーションをデプロイして実行するには、以下の手順を使います。
+The "Heroku cloud application platform":http://www.heroku.com/ has Play-specific application hosting support. To deploy and run your Play application, use the following steps.
 
-1. Heroku コマンドラインクライアントを "Linux":http://toolbelt.herokuapp.com/linux/readme, "Mac":http://toolbelt.herokuapp.com/osx/download, または "Windows":http://toolbelt.herokuapp.com/windows/download にインストールします。
-2. "git":http://git-scm.com/ をインストールして SSH 鍵を設定します。
-3. "Heroku.com":http://heroku.com/signup アカウントを作成します。
-4. コマンドラインから Heroku にログインします:
+1. Install the Heroku command line client on "Linux":http://toolbelt.herokuapp.com/linux/readme, "Mac":http://toolbelt.herokuapp.com/osx/download, or "Windows":http://toolbelt.herokuapp.com/windows/download.
+2. Install "git":http://git-scm.com/ and setup your SSH key.
+3. Create an account on "Heroku.com":http://heroku.com/signup.
+4. Log in to Heroku from the command line:
 
 bc. heroku auth:login
 
-5. git リポジトリを作成します:
+5. Create a git repository:
 
 bc. git init
 
-6. Play によって生成されたファイルを無視するために、以下の内容を含む @.gitignore@ ファイルを作成します:
+6. Create a @.gitignore@ file containing the following content, to ignore files generated by Play:
 
 bc. /tmp
 /modules
@@ -156,41 +155,41 @@ bc. /tmp
 /test-result
 /logs
 
-7. このファイルを git リポジトリに追加してコミットします:
+7. Add the files to the git repository and commit them:
 
 bc. git add .
 git commit -m init
 
-8. Heroku 上に新しいアプリケーションを作成します:
+8. Create a new application on Heroku:
 
 bc. heroku create -s cedar
 
-9. Heroku にアプリケーションを Push します:
+9. Push the application to Heroku:
 
 bc. git push heroku master
 
-10. ブラウザでアプリケーションを開きます:
+10. Open the application in your browser:
 
 bc. heroku open
 
 
-ログを閲覧するためには、以下を実行します:
+To view the logs run:
 
 bc. heroku logs
 
-複数の ‘dynos’ にアプリケーションをスケールするためには、以下を実行します:
+To scale the application to multiple ‘dynos’ run:
 
 bc. heroku scale web=2
 
-本番環境で "Heroku Shared Database":http://devcenter.heroku.com/articles/database を使うためには、以下を @conf/application.conf@ ファイルに追加します:
+To use the "Heroku Shared Database":http://devcenter.heroku.com/articles/database in production add the following to your @conf/application.conf@ file:
 
 bc. %prod.db=${DATABASE_URL}
 %prod.jpa.dialect=org.hibernate.dialect.PostgreSQLDialect
 %prod.jpa.ddl=update
 
-詳しい情報は "Heroku Dev Center":http://devcenter.heroku.com を参照してください。
+For more information, see the "Heroku Dev Center":http://devcenter.heroku.com.
 
 
 h3. <a name="playapps">playapps.net</a>
 
-"playapps.net":http://www.playapps.net/ は、Play を作成した Zenexity による PLay に特化したホスティングプラットフォームです。詳しい情報は "playapps.net module":http://www.playframework.org/modules/playapps を参照してください。
+"playapps.net":http://www.playapps.net/ is the Play-specific hosting platform from Zenexity, the creators of Play. For more information, see the "playapps.net module":http://www.playframework.org/modules/playapps.

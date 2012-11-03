@@ -42,7 +42,7 @@ bc. <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/style
 
 h2. カスタマイズ
 
-デフォルトでは、"page" というリクエストパラメータはページングされたリストのどのページを閲覧しようとしているかを決定するために使用されます。もし違う名前を使いたい場合、 **conf/application.conf** ファイルでカスタマイズすることができます。
+デフォルトでは、"page" というリクエストパラメータはページングされたリストのどのページをNavegarしようとしているかを決定するために使用されます。もし違う名前を使いたい場合、 **conf/application.conf** ファイルでカスタマイズすることができます。
 
 bc. paginator.parameter.name=__page
 

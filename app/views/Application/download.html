@@ -2,20 +2,15 @@
 #{set title:'Download' /}
 <section id="top">
     <div class="wrapper">
-        <h1>Ready to use packages for Linux, MacOS and Windows</h1>
+        <h1>Pacotes prontos para usar em Linux, MacOS e Windows</h1>
     </div>
 </section>
 <div id="content" class="wrapper">
     <article>
-        <blockquote>
-            <p>
-                どのバイナリパッケージにも、必要なすべてのライブラリ、完全なドキュメント、一式のサンプルアプリケーション、 そして多くの統合開発環境とテキストエディタに対するサポートが含まれています。
-            </p>
-        </blockquote>
-        <h2>最新の公式バージョンを取得する</h2>
+        <h2> Para obter a última versão oficial </h2>
         #{if latest}
         <p>
-            最新の公式バージョンは <strong>${latest.version}</strong> (${latest.date.format('yyyy/MM/dd', 'ja')}) です。
+             A última versão oficial  <strong>${latest.version}</strong> (${latest.date.format('dd/MM/yyyy')})  é
         </p>
         <table>
             <tr>
@@ -26,9 +21,9 @@
         </table>
         #{/if}
         #{if upcomings}
-        <h2>新登場</h2>
+        <h2>Versões anteriores</h2>
         <p>
-            次のバージョンのプレビューとリリース候補です。
+            Procurando por versões antigas do Play ? Você encontra algumas logo abaixo:
         </p>
         #{list upcomings, as:'upcoming'}
         <table>
@@ -40,9 +35,9 @@
             #{/list}
         </table>
         #{/if}
-        <h2>古いバージョン</h2>
+        <h2>Versões anteriores</h2>
         <p>
-            古いバージョンの Play をお探しですか? 以下で、いくつかの古いリリースを見つけることができます。
+            Procurando por versões antigas do Play ? Você encontra algumas logo abaixo:
         </p>
         <table>
             #{list olders, as:'older'}

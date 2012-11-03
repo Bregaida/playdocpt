@@ -1,82 +1,82 @@
 h2. Command line - play command
 
 *classpath*
-算出されたクラスパスを表示します。
+Display the computed classpath
 
 *id*
-複数環境設定用のフレームワーク ID を定義します。
+Define the framework ID, used for multi-environment configuration
 
 *secret*
-暗号化に使われる秘密鍵を生成します。
+Generate a new secret key, used for encryption
 
 *install*
-モジュールをインストールします。
+Install a module
 
 *list-modules*
-セントラルモジュールリポジトリから入手可能なモジュールを列挙します。
+List modules available in the central module repository
 
 *modules*
-算出されたモジュールのリストを表示します。
+Display the computed modules list
 
 *new*
-新しいアプリケーションを作成します。
+Create a new application
 
 *new-module*
-モジュールを作成します。
+Create a module
 
 *build-module*
-モジュールをビルドし、パッケージングします。
+Build and package a module
 
 *eclipsify*
-Eclipse の全ての設定ファイルを作成します。
+Create all Eclipse configuration files
 
 *netbeansify*
-NetBeans の全ての設定ファイルを作成します。
+Create all NetBeans configuration files
 
 *idealize*
-IntelliJ Idea の全ての設定ファイルを作成します。
+Create all IntelliJ Idea configuration files
 
 *javadoc*
-アプリケーションの Javadoc を生成します。
+Generate your application Javadoc
 
 *auto-test*
-全てのアプリケーションのテストを自動的に実行します。
+Automatically run all application tests
 
 *clean*
-(バイトコードキャッシュを含む) 一時ファイルを削除します。
+Delete temporary files (including the bytecode cache)
 
 *test*
-現在のシェルでアプリケーションをテストモードで実行します。
+Run the application in test mode in the current shell
 
 *precompile*
-アプリケーションの起動を高速化するため全ての Java のソースとテンプレートをプリコンパイルします。
+Precompile all Java sources and templates to speed up application start-up
 
 *war*
-スタンドアロンの WAR アーカイブとしてアプリケーションをエクスポートします。
+Export the application as a standalone WAR archive
 
 *run*
-現在のシェルでアプリケーションを実行します。
+Run the application in the current shell
 
 *start*
-バックグラウンドでアプリケーションを起動します。
+Start the application in the background
 
 *stop*
-実行中のアプリケーションを停止します。
+Stop the running application
 
 *restart*
-実行中のアプリケーションを再起動します。
+Restart the running application
 
 *status*
-実行中のアプリケーションの状態を表示します。
+Display the running application’s status
 
 *out*
-logs/system.out ファイルの内容をリアルタイムで表示します。
+Follow logs/system.out file
 
 *pid*
-実行中のアプリケーションの PID を表示します。
+Show the PID of the running application
 
 *check*
-現在のものより新しい Play framework のリリースがあるかどうかチェックします。
+Check for a Play framework release newer than the current one
 
 *help*
-指定したコマンドのヘルプを表示します。
+Display help on a specific command

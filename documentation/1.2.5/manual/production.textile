@@ -1,50 +1,50 @@
-h1. アプリケーションの本番稼動
+h1. Put your application in production
 
-アプリケーションを本番環境向けに最適化するシンプルな tips を紹介します。
+Here some simple tips to optimize your application for production.
 
-h2. <a name="application">本番稼動向け application.conf の設定</a>
+h2. <a name="application">application.conf</a>
 
-まず最初に、本番モードを指定するベストな方法は、本番環境のフレームワークに特別な ID を与えることです。例として @production@ という ID にしてみましょう。どのようにして ID を与えるかについては、"複数環境用 application.conf の管理":ids を参照してください。
+First off, the best way to specify production mode is to give a specific ID to your production framework. Let’s pick @production@ as an example. Refer "manage application.conf in several environments":ids to see how.
 
-h3. フレームワークを本番モードに設定する:
+h3. Set the framework in prod mode:
 
 bc. %production.application.mode=prod
 
-このモードでは、フレームワークは全ての Java ソースとテンプレートをプリコンパイルします。この段階でエラーが見つかった場合、アプリケーションは開始されません。ソースの変更は動的にリロードされません。
+In this mode, the framework will pre-compile all Java sources and templates. If an error is found at this step, the application will not start. Source modifications will not be hot reloaded.
 
-h3. 実際に利用するデータベースを定義する:
+h3. Define a real database:
 
-もし (@db=mem@ または @db=fs@ いずれかの)  開発用データベースを使っていたのであれば、より堅牢なデータベースエンジンを設定すべきです:
+If you have used a development database (either @db=mem@ or @db=fs@), you should configure a more robust database engine:
 
 bc. %production.db.url=jdbc:mysql://localhost/prod
 %production.db.driver=com.mysql.jdbc.Driver
 %production.db.user=root
 %production.db.pass=1515312
 
-h3. JPA の自動スキーマ更新を無効にする:
+h3. Disable JPA automatic schema update:
 
-もし Hibernate が提供する自動スキーマ更新機能を使っていたのであれば、本番環境ではこの機能を無効にすべきです。
+If you have used the automatic schema update feature provided by Hibernate, you should disable this feature for production. 
 
-本番環境サーバにおいて、Hibernate に自動的に本番環境スキーマやデータを ALTER させるというのは、一般的には悪いアイディアです…
+For your production server, it’s usually a bad idea to let Hibernate automatically ALTER your production database’s schema and data…
 
-最初のデプロイについては、別の問題として考えることもできます。この場合のみを指定するには、以下のようにします:
+The initial deployment is potentially a different issue. In this case only specify:
 
 bc. %production.jpa.ddl=create
 
-h3. 安全な秘密鍵を定義する:
+h3. Define a secure secret key:
 
-Play の秘密鍵は、セッション署名のような暗号機能を保証するために使用されます。アプリケーションは、この秘密鍵を厳重に管理しなければなりません。
+The Play secret key is used to secure cryptographic functions, like the session signature. Your application must keep this key very secret.
 
 bc. %production.application.secret=c12d1c59af499d20f4955d07255ed8ea333
 
-@play secret@ コマンドを使って、安全で (少なくとも ‘本物の’ OS 上では) ランダムな新しい秘密鍵を生成することができます。アプリケーションを複数台のサーバに分散させる場合は、すべてのアプリケーションインスタンスに @同じ秘密鍵@ を使用することを忘れないでください!
+You can use the @play secret@ command to generate a new secure and random key (at least on a ‘real’ OS). If you plan to distribute your application to several servers, remember to use the @same key@ for all application instances!
 
 
-h2. <a name="logging">ログの設定</a>
+h2. <a name="logging">Logging configuration</a>
 
-本番環境において、ローテーションするログファイルを使用することは良い考えです。コンソールログは @logs/system.out@ ファイルに書き込まれ、このファイルは制限無しに肥大化するので、ログをコンソールに出力してはいけません!
+For production it’s a good idea to use rolling log files. Do not send logging to the Console, since it will be written to the @logs/system.out@ file and it will grow without bound!
 
-カスタマイズした @log4j.properties@ を @conf/@ ディレクトリに作成してください:
+Create a custom @log4j.properties@ in the @conf/@ directory:
 
 bc. log4j.rootLogger=ERROR, Rolling
  
@@ -58,21 +58,21 @@ log4j.appender.Rolling.MaxBackupIndex=100
 log4j.appender.Rolling.layout=org.apache.log4j.PatternLayout
 log4j.appender.Rolling.layout.ConversionPattern=%d{ABSOLUTE} %-5p ~ %m%n
 
-h2. <a name="server">フロントエンド HTTP サーバ</a>
+h2. <a name="server">Front-end HTTP server</a>
 
-アプリケーションの HTTP ポートを @80@ 番に設定することで、簡単にアプリケーションをスタンドアロンサーバとしてデプロイすることができます:
+You can easily deploy your application as a stand-alone server by setting the application HTTP port to @80@:
 
 bc. %production.http.port=80
 
-しかし、同一サーバ上で複数のアプリケーションを管理したり、拡張性や耐障害性のために複数のアプリケーションインスタンスを負荷分散する場合、フロントエンド HTTP サーバを使用することができます。
+But if you plan to host several applications in the same server or load balance several instances of your application for scalability or fault tolerance, you can use a front-end HTTP server.
 
-**フロントエンド HTTP サーバを使用する場合は、直接 Play サーバを使用する場合よりも決して良いパフォーマンスが得られないことに注意してください!**
+**Note that using a front-end HTTP server will never give you better performance than using Play server directly!**
 
-h3. lighttpd をセットアップする
+h3. Set-up with lighttpd
 
-この例では、"lighttpd":http://www.lighttpd.net/ をフロントエンド web サーバとして設定する方法を紹介します。Apache でも同じことができますが、仮想ホストまたは負荷分散だけが必要な場合、lighttpd はとても良い選択であり、設定はとても簡単です!
+This example shows you how to configure "lighttpd":http://www.lighttpd.net/ as a front-end web server. Note that you can do the same with Apache, but if you only need virtual hosting or load balancing, lighttpd is a very good choice and much easier to configure!
 
-@/etc/lighttpd/lighttpd.conf@ ファイルは、以下のように定義されるでしょう:
+The @/etc/lighttpd/lighttpd.conf@ file should define things like this:
 
 bc. server.modules = (
       "mod_access",
@@ -92,9 +92,9 @@ $HTTP["host"] =~ "www.loadbalancedapp.com" {
     )
 }
 
-h3. Apache をセットアップする
+h3. Set-up with Apache
 
-以下の例は、 標準的設定の Play の前面で動作する "Apache httpd server":http://httpd.apache.org/ のシンプルな設定を示しています。
+The example below shows a simple set-up with "Apache httpd server":http://httpd.apache.org/ running in front of a standard Play configuration. 
 
 bc. LoadModule proxy_module modules/mod_proxy.so
 …
@@ -106,21 +106,21 @@ bc. LoadModule proxy_module modules/mod_proxy.so
 </VirtualHost>
 
 
-h3. アプリケーションの透過的な更新を可能にするプロキシサーバとしての Apache
+h3. Apache as a front proxy to allow transparent upgrade of your application
 
-基本的なアイディアとして、web アプリケーションの 2 つの Play インスタンスを実行し、前面のプロキシにこれらを負荷分散させます。1 つのインスタンスが使用できない場合、すべてのリクエストを使用できるもう 1 つのインスタンスにフォワードします。
+The basic idea is to run two Play instances of your web application and let the front-end proxy load-balance them. In case one is not available, it will forward all the requests to the available one.
 
-同一の Play アプリケーションを 2 つ起動しましょう: ひとつは 9999 番ポートで、もうひとつは 9998 番ポートで実行します。
+Let’s start the same Play application two times: one on port 9999 and one on port 9998.
 
-アプリケーションをコピーして、 @conf@ ディレクトリにある @application.conf@ を編集してポート番号を変更してください。
+Make a copy of the application and edit the @application.conf@ in the @conf@ directory to change the port numbers.
 
-それぞれのアプリケーションディレクトリで、以下のように実行します:
+For each web application directory:
 
 bc. play start mysuperwebapp
 
-ここで、Apache web サーバに負荷分散させるよう設定しましょう。
+Now, let’s configure our Apache web server to have a load balancer.
 
-Apache を次のように設定します:
+In Apache, I have the following configuration:
 
 bc. <VirtualHost mysuperwebapp.com:80>
   ServerName mysuperwebapp.com
@@ -145,46 +145,45 @@ bc. <VirtualHost mysuperwebapp.com:80>
   ProxyPassReverse / http://localhost:9998/
 </VirtualHost>
 
-balancer://mycluster が重要な箇所です。これが負荷分散を宣言します。+H オプションは、二番目の Play アプリケーションがスタンバイ状態にあることを意味します。しかし、負荷分散するよう指示することもできます。
+The important part is balancer://mycluster. This declares a load balancer. The +H option means that the second Play application is on stand-by. But you can also instruct it to load-balance.
 
-mysuperwebapp をアップグレードしたい場合は、毎回、以下を実行する必要があります:
+Every time you want to upgrade mysuperwebapp, here is what you need to do:
 
 bc. play stop mysuperwebapp1
 
-すると、ロードバランサは全てを mysuperwebapp2 にフォワードします。その間に mysuperwebapp1 を更新してください。更新が完了したら、以下を実行してください:
+The load-balancer then forwards everything to mysuperwebapp2. In the meantime update mysuperwebapp1. Once you are done:
 
 bc. play start mysuperwebapp1
 
-これで mysuperwebapp2 を安全に更新することができます。
+You can now safely update mysuperwebapp2.
 
-Apache はクラスタの状態を閲覧する方法も提供します。クラスタの現在の状態を確認するには、単純にブラウザに /balancer-manager を指定してください。
+Apache also provides a way to view the status of your cluster. Simply point your browser to /balancer-manager to view the current status of your clusters.
 
-Play は完全にステートレスなので、2 つのクラスタ間でセッションの管理をする必要はありません。とても簡単に 2 つ以上の Play インスタンスにスケールすることが可能です。
+Because Play is completely stateless you don’t have to manage sessions between the 2 clusters. You can actually easily scale to more than 2 Play instances.
 
-h3. 高度なプロキシ設定
+h3. Advanced proxy settings
 
-フロント HTTP サーバを使用する場合、リクエストアドレスは HTTP サーバからやって来るように見えます。Play アプリケーションとプロキシを同一筐体で実行する、一般的なセットアップにおいては、Play アプリケーションからは、リクエストが 127.0.0.1 からやって来るように見えるでしょう。
+When using an HTTP frontal server, request addresses are seen as coming from the HTTP server. In a usual set-up, where you both have the Play app and the proxy running on the same machine, the Play app will see the requests coming from 127.0.0.1.
 
-プロキシサーバは、プロキシされたアプリケーションにリクエストがどこからやって来たかを伝える特別なヘッダを、リクエストに追加することができます。ほとんどの web サーバは、第一引数をリモートクライアントの IP アドレスとした X-Forwarded-For ヘッダを追加します。 "XForwardedSupport 設定":configuration#XForwardedSupportPlay でのフォワードサポートを有効にするには、Play は request.remoteAddress をプロキシの IP からクライアントの IP に変更します。これが動作するよう、プロキシの IP アドレスをリストする必要があります。
+Proxy servers can add a specific header to the request to tell the proxied application where the request came from. Most web servers will add an X-Forwarded-For header with the remote client IP address as first argument. If you enable the forward support in the "XForwardedSupport configuration":configuration#XForwardedSupport, Play will change the request.remoteAddress from the proxy’s IP to the client’s IP. You have to list the IP addresses of your proxy servers for this to work.
 
-しかし、ホストヘッダが付加されない場合、プロキシの問題は依然として残ってしまいます。Apache 2.x を使用する場合、ディレクティブに以下のように追加することができます:
+However, the host header is untouched, it’ll remain issued by the proxy. If you use Apache 2.x, you can add a directive like: 
 
 bc. ProxyPreserveHost on
 
-host: ヘッダはクライアントから発行されたオリジナルのホストリクエストヘッダになります。これらふたつのテクニックを連携することで、アプリケーションはスタンドアロンと同じようになります。
+The host: header will be the original host request header issued by the client. By combining theses two techniques, your app will appear to be directly exposed.
 
-h2. <a name="https">HTTPS の設定</a>
+h2. <a name="https">HTTPS configuration</a>
 
-本番環境では、組み込みサーバーはHTTPSプロトコルをサポートしています。
-古典的なJava **キーストア** 、または、 @cert@ と @kye@ のファイルでの証明書管理をサポートしています。
-アプリケーションへのHTTPS接続が始まると、 @application.conf@ ファイルでの @https.port@ 設定プロパティを表します。
+The built-in server supports the HTTPS protocol, which you can use it in production. It supports certificate management, either via the classical Java **keystore** or simple @cert@ and @key@ files. To start an HTTPS connector for your application, just declare the @https.port@ configuration property in your @application.conf@ file:
 
 bc. http.port=9000
 https.port=9443
 
-@conf@ ディレクトリに証明書をおく必要があります。Play は X509 証明書とキーストア証明書をサポートします。X509証明書は 証明書は *host.cert* , キーは *host.key* で指定しなければなりません。キーストアを使っていれば、デフォルトで *certificate.jks* を指定します。
+You need to put your certificates in the @conf@ directory. Play supports X509 certificates and keystore certificates. The X509 certificates must be named as follows:
+*host.cert* for the certificate and *host.key* for the key. If you are using keystore, then, by default it should be named *certificate.jks*.
 
-X509証明書を使っていれば、 @application.conf@ ファイルで以下の値を設定します。
+If you are using X509 certificates, then the following parameters can be configured in your @application.conf@ file:
 
 bc. # X509 certificates
 certificate.key.file=conf/host.key
@@ -193,20 +192,20 @@ certificate.file=conf/host.cert
 certificate.password=secret
 trustmanager.algorithm=JKS
 
-キーストアを使っていれば:
+If you are using keystore:
 
 bc. keystore.algorithm=JKS
 keystore.password=secret
 keystore.file=conf/certificate.jks
 
-上記の値はデフォルト値であることに注意してください。
+Note that the values above are the default values.
 
-*openssl* を使って自己署名証明書を生成できます。:
+You can generate self-signed certificates using *openssl*: 
 
 bc. openssl genrsa 1024 > host.key
 openssl req -new -x509 -nodes -sha1 -days 365 -key host.key > host.cert
 
-Java キーストアを使っていれば、 @application.conf@ ファイルで以下のプロパティを設定します。
+If you are using the Java keystore mechanism, then the following properties can be configured in your @application.conf@ file:
 
 bc. # Keystore 
 ssl.KeyManagerFactory.algorithm=SunX509
@@ -214,26 +213,26 @@ trustmanager.algorithm=JKS
 keystore.password=secret
 keystore.file=certificate.jks
 
-上記の値はデフォルト値です。
+The values above are the default values.
 
-h2. <a name="nopython">Python を使わないデプロイ</a>
+h2. <a name="nopython">Deploying Without Python</a>
 
-ほとんどの Unix マシンにはデフォルトで Python がインストールされており、Windows 版の Play には Python が同梱されています。しかしながら、Python を一切実行することなしにアプリケーションをデプロイしなければならないケースがあるかもしれません。
+Python is installed by default on most Unix machines, and a Windows version is embedded with Play. However there may be cases where you need to deploy an application on a server without any Python executable.
 
-このため、機能を制限した build.xml が Play アプリケーションと共に提供されています。
+For that, a build.xml file providing limited functionalities is provided with Play applications.
 
-アプリケーションフォルダから、以下のようにしてサーバを開始することができます:
+From the application folder, you can start the server using:
 
 bc. ant start -Dplay.path=/path/to/playdirectory
 
-警告: @play@ コマンドを使用した場合、出力は @System.out@ にリダイレクトされます; 一方で、ant を使用した場合は標準出力にアクセスすることができません。追記されるファイルを指定する log4j プロパティを提供する必要があります。
+Warning: using the @play@ command the output will be redirected to @System.out@; however using Ant the standard output is not accessible. It is necessary to provide a Log4j properties file where you specify a file appended.
 
-サーバを停止するには、以下のようにします:
+To stop the server:
 
 bc. ant stop -Dplay.path=/path/to/playdirectory
 
-Play フレームワークへのパスを、環境変数、またはアプリケーションの @build.xml@ に直接指定することができることも覚えておいてください。
+Note that you can also specify the path to Play framework in an environment variable or directly in your application's @build.xml@.
 
-p(note). **考察を続けます**
+p(note). **Continuing the discussion**
  
-次: %(next)"デプロイオプション":deployment%
+Next: %(next)"Deployment options":deployment%.

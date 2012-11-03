@@ -1,20 +1,20 @@
-h1. HTTP による非同期プログラミング
+h1. Asynchronous programming with HTTP
 
-この節では、数千の同時接続までスケールし得る典型的な長時間ポーリング、ストリーミング、そしてその他の "Comet スタイル":http://en.wikipedia.org/wiki/Comet_(programming%29 のアプリケーションを達成するために、Play アプリケーションで非同期処理を取り扱う方法を説明します。
+This section explains how to deal with asynchonism in a Play application to achieve typical long-polling, streaming and other "Comet-style":http://en.wikipedia.org/wiki/Comet_(programming%29 applications that can scale to thousands of concurrent connections.
 
-h2. HTTP リクエストの中断
+h2. Suspending HTTP requests
 
-Play はとても短いリクエストで動作することを意図しています。Play は HTTP コネクタによってキューイングされたリクエストを処理するために固定のスレッドプールを使用します。最適な結果を得るために、このスレッドプールは可能な限り小さくあるべきです。デフォルトのプールサイズを設定するための最適値として、典型的には @プロセッサ数 + 1@ を使用します。
+Play is intended to work with very short requests. It uses a fixed thread pool to process requests queued by the HTTP connector. To get optimum results, the thread pool should be as small as possible. We typically use the optimum value of @number of processors + 1@ to set the default pool size.
 
-これは、もしリクエストの処理時間がとても長い場合 (例えば、長い計算を待つなど) に、リクエストがスレッドプールをブロックし、アプリケーションの応答性に不利益をもたらすことを意味します。もちろん、プールにより多くのスレッドを追加することもできますが、リソースを浪費する結果となるかも知れませんし、いずれにしてもプールのサイズは決して無限にはなりません。
+That means that if a request’s processing time is very long (for example waiting for a long computation) it will block the thread pool and penalise your application’s responsiveness. Of course you could add more threads to the pool, but that would result in wasted resources, and anyway the pool size will never be infinite.
 
-ブラウザが画面に表示する新しいメッセージを待つためにブロッキング HTTP リクエストを送信するチャットアプリケーションを考えてみましょう。これらのリクエストはとてもとても長く (典型的には数秒) なることがあり、スレッドプールをブロックします。もしこのチャットアプリケーションに 100 ユーザが同時に接続できるよう計画しているのであれば、最低でも 100 スレッドを供給する必要があるでしょう。ええ、それくらいなら実現可能です。でも 1,000 ユーザではどうでしょう? 10,000 ユーザなら?
+Consider a chat application where browsers send a blocking HTTP request that waits for a new message to display. These requests can be very very long (typically several seconds) and will block the thread pool. If you plan to allow 100 users to connect simultaneously to your chat application you will need to provision at least 100 threads. OK it’s feasible. But what about 1,000 users? Or 10,000?
 
-これらのユースケースを解決するために、Play ではリクエストを一時的に中断することができます。HTTP リクエストは接続されたままですが、リクエストの実行はスレッドプールの外に押し出され、あとで再実行されます。固定した遅延のあとにリクエストを実行するか、または @Promise@ の値が利用可能になるのを待つよう Play に伝えることができます。
+To resolve these use cases, Play allows you to temporarily suspend a request. The HTTP request will stay connected, but the request execution will be popped out of the thread pool and tried again later. You can either tell Play to try the request later after a fixed delay, or wait for a @Promise@ value to be available.
 
-p(note). **Tip**. 本物の例を @samples-and-tests/chat@ で見ることができます。
+p(note). **Tip**. You can see a real example in @samples-and-tests/chat@.
 
-例えば、このアクションはとても長いジョブを起動し、HTTP レスポンスに結果を返す前にジョブの完了を待機します:
+For example, this action will launch a very long job and wait for its completion before returning the result to the HTTP response:
 
 bc. public static void generatePDF(Long reportId) {
     Promise<InputStream> pdf = new ReportAsPDFJob(report).now();
@@ -22,13 +22,13 @@ bc. public static void generatePDF(Long reportId) {
     renderBinary(pdfStream);
 }
 
-ここでは @Promise<InputStream>@ が回復するまでリクエストを中断するよう Play に依頼するために @await(…)@ を使用しています。
+Here we use @await(…)@ to ask Play to suspend the request until the @Promise<InputStream>@ value is redeemed. 
 
-h3. 継続
+h3. Continuations
 
-フレームワークは、他のリクエストに供給するために使用していたスレッドを回収する必要があるので、コードの実行を中断しなければなりません。以前のバージョンの Play の @await(…)@ は、アクションを中断し、その後に最初から再度実行する @waitFor(…)@ と等価でした。
+Because the framework needs to recover the thread you were using in order to use it to serve other requests, it has to suspend your code. In the previous Play version the @await(…)@ equivalent was @waitFor(…)@, which suspended your action, and then called it again later from the beginning.
 
-非同期処理をより簡単に扱うために、継続を紹介します。継続はコードの中断と透過的な再開を可能にします。このため、以下のようにとても命令的にコードを書くことができます:
+To make it easier to deal with asynchronous code we have introduced continuations. Continuations allow your code to be suspended and resumed transparently. So you write your code in a very imperative way, as:
 
 bc. public static void computeSomething() {
     Promise<String> delayedResult = veryLongComputation(…);
@@ -36,9 +36,9 @@ bc. public static void computeSomething() {
     render(result);
 }
 
-ここでは実際のところ、コードは二つのステップ、二つの異なるスレッドで実行されます。しかし、ご覧のとおりアプリケーションコードはとても透過的です。
+In fact here, your code will be executed in two steps, in two different threads. But as you see, it is transparent to your application code.
 
-@await(…)@ と継続を使って、以下のようにループを書くことができます:
+Using @await(…)@ and continuations, you could write a loop:
 
 bc. public static void loopWithoutBlocking() {
     for(int i=0; i<=10; i++) { 
@@ -48,9 +48,9 @@ bc. public static void loopWithoutBlocking() {
     renderText("Loop finished");
 }
 
-リクエストを処理するためにひとつのスレッドしか使いませんが、Play はこれらのループを複数のリクエストに対して同時に並列実行することができます。
+While using only one thread to process requests, the default in development mode, Play is able to run concurrently these loops for several requests at the same time.
 
-より現実的な例として、リモート URL からの非同期なコンテンツ取得があります。次の例では、三つのリモート HTTP リクエストを平行して実行します: それぞれの @play.libs.WS.WSRequest.getAsync()@ メソッドに対する呼び出しは非同期に GET リクエストを実行し、 @play.libs.F.Promise@ を返却します。このアクションメソッドは、三つの @Promise@ インスタンスの組み合わせについて @await(…)@ を呼び出すことで、受け取った HTTP リクエストを中断します。三つ全てのリモート呼び出しがレスポンスを生成したら、スレッドは処理を再開し、レスポンスをレンダリングします。
+A more realistic example is asynchronously fetching content from remote URLs. The following example, performs three remote HTTP requests in parallel: each call to the @play.libs.WS.WSRequest.getAsync()@ method executes a GET request asynchronously and returns a @play.libs.F.Promise@. The action method suspends the incoming HTTP request by calling @await(…)@ on the combination of the three @Promise@ instances. When all three remote calls have a response, a thread will resume processing and render a response.
 
 bc. public class AsyncTest extends Controller {
  
@@ -69,9 +69,9 @@ bc. public class AsyncTest extends Controller {
 }
 
 
-h3. コールバック
+h3. Callbacks
 
-前述した三つの非同期リモートリクエストの例を実装する別の方法は、コールバックを使うことです。ここでは @await(…)@ の呼び出しに、すべての @promises@ が完了した時に実行されるコールバックである @play.libs.F.Action@ の実装が含まれています。
+A different way to implement the previous example of three asynchronous remote requests is to use a callback. This time, the call to @await(…)@ includes a @play.libs.F.Action@ implementation, which is a callback that is executed when the @promises@ are done.
 
 bc. public class AsyncTest extends Controller {
  
@@ -92,11 +92,11 @@ bc. public class AsyncTest extends Controller {
 }
 
 
-h2. HTTP レスポンスストリーミング
+h2. HTTP response streaming
 
-これで、リクエストをブロックせずにループを行うことができるようになったので、処理結果の一部が利用可能になり次第、ブラウザにデータを送りたくなるのではないでしょうか。それこそが @Content-Type:Chunked@ HTTP レスポンス型のポイントです。複数のチャンクを使って HTTP レスポンスを何度も送ることができます。ブラウザはこれらのチャンクが発行され次第、これを受け取ります。
+Now that you can loop without blocking the request, you may want to send data to the browser as soon you have part of the result available. That is the point of the @Content-Type:Chunked@ HTTP response type. It allows to send your HTTP response several times using multiples chunks. The browser will receive these chunks as soon as they are published.
 
-今では @await(…)@ と継続を使ってこれを達成することができます:
+Using @await(…)@ and continuations, you can now achieve that using:
 
 bc. public static void generateLargeCSV() {
     CSVGenerator generator = new CSVGenerator();
@@ -107,30 +107,30 @@ bc. public static void generateLargeCSV() {
     }
 }
 
-もし CSV の生成に一時間かかったとしても、生成されたデータが利用可能になり次第、クライアントに送り返すことで、Play はひとつのスレッドを使って複数のリクエストを同時に処理することができます。
+Even if the CSV generation takes one hour, Play is able to simultaneously process several requests using a single thread, sending back the generated data to the client as soon as they are available.
 
 
-h2. WebSockets の使用
+h2. Using WebSockets
 
-WebSockets は、ブラウザとアプリケーション間の双方向コミュニケーションチャンネルを開く、ひとつの方法です。ブラウザ側で "ws://" という url を使ってソケットを開きます。
+WebSockets are a way to open a two-way communication channel between a browser and your application. On the browser side, you open a socket using a "ws://" url:
 
 bc. new Socket("ws://localhost:9000/helloSocket?name=Guillaume")
 
-Play 側では WS ルートを定義します:
+On the Play side you declare a WS route:
 
 bc. WS   /helloSocket            MyWebSocket.hello
 
-@MyWebSocket@ は @WebSocketController@ です。WebSocket コントローラは標準的な HTTP コントローラに似ていますが、異なる概念を取り扱います。
+@MyWebSocket@ is a @WebSocketController@. A WebSocket controller is like a standard HTTP controller but handles different concepts.
 
-* リクエストオブジェクトを持ちますが、レスポンスオブジェクトは持ちません。
-* セッションにアクセスできますが、読み出し専用です。
-* @renderArgs@, @routeArgs@ とフラッシュスコープを持ちません。
-* ルートパターンまたはクエリ文字列からのパラメータのみ読むことができます。
-* 二つのコミュニケーションチャンネル: inbound と outbound を持ちます。
+* It has a request object, but no response object.
+* It has access to the session, but read-only.
+* It doesn’t have @renderArgs@, @routeArgs@ or flash scope.
+* It can read params only from the route pattern or from the QueryString.
+* It has two communication channels: inbound and outbound.
 
-クライアントが @ws://localhost:9000/helloSocket@ ソケットに接続すると、Play は @MyWebSocket.hello@ アクションメソッドを起動します。一旦 @MyWebSocket.hello@ アクションメソッドが終了するとソケットは閉じられます。
+When the client connects to the @ws://localhost:9000/helloSocket@ socket, Play will invoke the @MyWebSocket.hello@ action method. Once the @MyWebSocket.hello@ action method exits, the socket is closed.
 
-このため、とても基本的なソケットの例は以下のようになります:
+So a very basic socket example would be:
 
 bc. public class MyWebSocket extends WebSocketController {
  
@@ -139,11 +139,11 @@ bc. public class MyWebSocket extends WebSocketController {
     }
 }
 
-ここでは、クライアントはソケットに接続すると‘Hello Guillaume’というメッセージを受け取り、その後 Play はソケットを閉じます。
+In this example, when the client connects to the socket, it receives the ‘Hello Guillaume’ message, and then Play closes the socket.
 
-もちろん、通常は直ちにソケットを閉じたいと思わないでしょう。これは @await(…)@ と継続を使って容易に達成できます。
+Of course usually you don’t want to close the socket immediately. But it is easy to achieve using @await(…)@ and continuations.
 
-基本的なエコーサーバの例です:
+For example a basic Echo server:
 
 bc. public class MyWebSocket extends WebSocketController {
  
@@ -169,11 +169,11 @@ bc. public class MyWebSocket extends WebSocketController {
  
 }
 
-上記の例において、ネストされた‘if’と‘キャスト’の海は書くのが退屈でエラーを起こしがちでした。この点で Java は最低です。このようなシンプルな場合でさえ容易に扱えません。複数のストリームを結びつけ、より多くのイベントタイプが存在するような、より複雑なケースにおいては悪夢のようになることでしょう。
+In this example, the nested ‘if’ and ‘cast’ soup was tedious to write and error prone. And here Java sucks. Even for this simple case it is not easy to handle. And for more complicated cases where you combine several streams and have even more event types, it becomes a nightmare.
 
-これこそが、私たちが "play.libs.F":libs#FunctionalprogrammingwithJava ライブラリにおいてある種の基本的なパターンマッチングを導入した理由です。
+That’s why we have introduced a basic pattern matching in Java in the "play.libs.F":libs#FunctionalprogrammingwithJava library.
 
-これにより上記の例を次のように書き直すことができます:
+So with some static imports, we can rewrite our previous echo sample as:
 
 bc. public static void echo() {
     while(inbound.isOpen()) {
@@ -194,6 +194,6 @@ bc. public static void echo() {
     }
 }
 
-p(note). **考察を続けます**
+p(note). **Continuing the discussion**
  
-次は %(next)"Ajax リクエスト":ajax% を行ってみましょう。
+Next, doing %(next)"Ajax requests":ajax%.

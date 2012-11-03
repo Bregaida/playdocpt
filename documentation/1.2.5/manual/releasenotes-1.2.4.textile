@@ -1,10 +1,10 @@
-h1. Play 1.2.4 -- リリースノート
+h1. Play 1.2.4 -- Release notes
 
-Play! 1.2.4 で直されたバグは "ロードマップ・ページ":http://www.playframework.org/roadmap/1.2.4 で読むことができます。ここでは重要な変更をハイライトします。
+You can read about the bugs fixed in Play 1.2.4 on the "road map page":http://www.playframework.org/roadmap/1.2.4. This page highlights the most important changes.
 
-h2. Java7 サポート
+h2. Support for Java 7
 
-Java7 は Play! で難しい設定などは一切なしでサポートされました。次のコードは問題なく書くことができます。
+Play now supports Java 7 out-of-the-box, so you can write the following code without any problems.
 
 bc. Map<String, List<String>> map = new HashMap<>();
 String version = "1.2.4";
@@ -23,22 +23,22 @@ switch(version) {
 }
 	
 
-h2. 新しいバインダーの実装
+h2. New binder implementation
 
-新しいバインダーの実装はより柔軟になり、jQuery から Play へのマッピングを簡単にします。さらに、この新しい実装を使って、より多くの複合オブジェクトをマッピングすることができます。
+The new binder implementation is more flexible and allows easy mapping from jQuery to Play. It is also possible to map more complex objects using this new implementation.
 
-h2. 最新の Websocket のサポート
+h2. Latest WebSocket support
 
-最新ドラフト (hybi-00 から hybi-10) をサポートしています。 詳しくは "websocket specification":http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-10 を参照して下さい。
+Play now supports the latest draft WebSocket specification, namely hybi-00 to hybi-10. Please refer to the "WebSocket specification":http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-10 for more information.
 
-h2. 複合 ID のサポート
+h2. Support for composite IDs
 
-複合 ID は Fixtures でサポートされました。モデルと Fixture で次のアノテーションもサポートされました。 <code>@IdClass</code>, <code>@EmbeddedId</code> . より詳しくは  "hibernate documentation":http://docs.jboss.org/hibernate/annotations/3.5/reference/en/html/entity.html#d0e2177 を参照してください。
+Fixtures now supports Composite IDs. The following annotations are also supported on your model and directly from the fixtures: <code>@IdClass</code>, <code>@EmbeddedId</code>. Please refer to the "Hibernate documentation":http://docs.jboss.org/hibernate/annotations/3.5/reference/en/html/entity.html#d0e2177 for more information.
 
-h2. IntelliJ サポートの改善
+h2. Better IntelliJ support
 
-<code>play idealize</code> コマンドで完全な IntelliJ プロジェクトが作成できるようになりました。IntelliJ から Play! のプロジェクトを直接開くことができます。
+The <code>play idealize</code> command now creates a complete IntelliJ project. You can directly open your Play project from IntelliJ.
 
-h2. その他の小さな変更
+h2. Other improvements
 
-"86件のバグ修正":https://play.lighthouseapp.com/projects/57987-play-framework/milestones/121681-124 といくつかの小さな改良を行いました。
+There are also a number of small improvements, as well as "86 fixed bugs":https://play.lighthouseapp.com/projects/57987-play-framework/milestones/121681-124.

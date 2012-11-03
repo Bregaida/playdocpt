@@ -1,10 +1,10 @@
-h1. 非同期ジョブ
+h1. Asynchronous Jobs
 
-Play はウェブアプリケーションフレームワークなので、アプリケーションロジックの大部分は HTTP リクエストに応じるコントローラによって行われます。
+Because Play is a web application framework, most of the application logic is done by controllers responding to HTTP requests. 
 
-しかし、どのような HTTP リクエストとも関係のないところで何らかのアプリケーションロジックを実行しなければならないことも時々あります。初期化タスク、保守タスク、あるいは HTTP リクエストの実行プールをブロックせずに実行する長いタスクなどには、役に立つ場合があります。
+But sometimes you will need to execute some application logic outside of any HTTP request. It can be useful for initialization tasks, maintenance tasks or to run long tasks without blocking the HTTP request execution pool.
 
-ジョブはフレームワークによって完全に管理されます。これは、Play が JPA エンティティマネージャの同期と、トランザクション管理といったすべてのデータベース接続関連のものを管理することを意味します。ジョブを作成するのに必要なのは、 @play.jobs.Job@ スーパークラスを継承することだけです。
+Jobs are fully managed by the framework. That means that Play will manage all the database connection stuff, JPA entity manager synchronization and transactions management for you. To create a job you just need to extend the @play.jobs.Job@ super class.
 
 bc. package jobs;
  
@@ -18,7 +18,7 @@ public class MyJob extends Job {
     
 }
 
-結果を返すジョブを作成しなければならない場合があります。そのときは @doJobWithResult()@ メソッドをオーバーライドします。
+Sometimes you need to create jobs that return a result. You then override the @doJobWithResult()@ method.
 
 bc. package jobs;
  
@@ -33,11 +33,11 @@ public class MyJob extends Job<String> {
     
 }
 
-この例では @String@ を使用しましたが、もちろん、ジョブはどんなオブジェクト型でも返すことができます。
+Here the use of @String@ is just for the example, of course a job can return any object type.
 
-h2. <a name="concepts">起動時に実行するジョブ</a>
+h2. <a name="concepts">Bootstrap jobs</a>
 
-ブートストラップジョブはアプリケーション始動時に Play によって実行されます。ブートストラップジョブとしてマークするために必要なのは、 <code>@OnApplicationStart</code> アノテーションを追加することだけです。
+Bootstrap jobs are executed by Play at application start time. To mark your job as a bootstrap job you just need to add the <code>@OnApplicationStart</code> annotation.
 
 bc. import play.jobs.*;
  
@@ -53,21 +53,21 @@ public class Bootstrap extends Job {
     
 }
 
-結果を返す必要はありません。結果を返しても、それは失われます。
+You don’t need to return a result. Even if you do it, the result will be lost.
 
-デフォルトでは、 *@OnApplicationStart* でアノテーションされたすべてのジョブは順番に実行されます。すべてのジョブが完了したところで、アプリケーションはリクエストを受け取り、処理する準備を整えます。
+The default is that all jobs annotated with <code>@OnApplicationStart</code> will be executed in sequence. When all jobs are finished, your application is ready to start processing incoming requests.
 
-アプリケーションの起動時にジョブを開始したいけれど、直ちにリクエストを受け取って処理したい場合、ジョブを <code>@OnApplicationStart(async=true)</code> と註釈することができます。これでジョブはアプリケーション起動時にバックグラウンドで開始するようになります。すべての非同期ジョブは同時に開始します。
+If you want your jobs to start when your application starts, but you want to start processing incoming requests immediately, you can annotate your job like this: <code>@OnApplicationStart(async=true)</code>. Then your job will be started in the background when the application starts. All async jobs will be started at the same time.
 
-p(note). **警告**
+p(note). **Warning**
  
-DEV モードでアプリケーションを実行する場合、アプリケーションは最初の HTTP リクエストがあるまで始動を控えます。さらには、DEV モードの場合、アプリケーションは必要に応じて自動的に再起動することがあります。
+When you run the application in DEV mode, the application waits for the first HTTP request to start. Moreover when you are in DEV mode, the application will sometimes automatically restart when needed. 
  
-PROD モードで実行するとき、アプリケーションはサーバの起動と同時に開始します。
+When you run in PROD mode, the application will start synchronously with the server start.
 
-h2. <a name="scheduling">スケジューリングされたジョブ</a>
+h2. <a name="scheduling">Scheduled jobs</a>
 
-スケジューリングされたジョブは、フレームワークによって定期的に実行されます。 <code>@Every</code> アノテーションを使用することで、特定の間隔でジョブを実行するよう Play に指示することができます。
+Scheduled jobs are run periodically by the framework. You can ask Play to run a job at a specific interval using the <code>@Every</code> annotation.
 
 bc. import play.jobs.*;
  
@@ -83,11 +83,11 @@ public class Bootstrap extends Job {
     
 }
 
-上記は時間用アノテーションであり、分または秒で感覚を指定したい場合は、以下の方法で指定することができます:-
-i) 分 - @Every("3mn"),@Every("30mn")
-ii) 秒 - @Every("35s"),@Every("56s")
+The above annotation is for hours, if you want to specify the time duration in minutes or seconds, you can do it in the following way:-
+i) For Minutes - @Every("3mn"),@Every("30mn")
+ii) For Seconds - @Every("35s"),@Every("56s")
 
-<code>@Every</code> アノテーションで事足りない場合は、CRON 式を使用してジョブを実行する <code>@On</code> アノテーションを使用することができます。
+If the <code>@Every</code> annotation is not enough you can use the <code>@On</code> annotation to run your jobs using a CRON expression.
 
 bc. import play.jobs.*;
  
@@ -104,24 +104,24 @@ public class Bootstrap extends Job {
 
 p(note). **Tip**
  
-Play は "Quartz ライブラリ":http://www.quartz-scheduler.org/docs/tutorials/crontrigger.html の CRON 式パーサを使用します。
+We use the CRON expression parser from the "Quartz library":http://www.quartz-scheduler.org/docs/tutorials/crontrigger.html.
 
-結果を返す必要はありません。結果を返しても、それは失われます。
+You don’t need to return a result. Even if you do it, the result will be lost.
 
 h2. <a name="tasks">Triggering task jobs</a>
 
-Job インスタンスにおいて単に @now()@ をコールすることで、特別なタスクを執り行うジョブをトリガーすることもできます。こうすると、ジョブは何もブロックせずに、速やかに実行されます。
+You can also trigger a Job at any time to perform a specific task by simply calling @now()@ on a Job instance. Then this job will be run immediately in a non blocking way. 
 
 bc. public static void encodeVideo(Long videoId) {
     new VideoEncoder(videoId).now();
     renderText("Encoding started");
 }
 
-Job において @now()@ をコールすると、そのタスクの終了後に結果を読み出すために使用できる @Promise@ を返します。
+Calling @now()@ on a Job returns a @Promise@ value that you can use to retrieve the task result once finished.
 
-h2. <a name="concepts">アプリケーションの停止</a>
+h2. <a name="concepts">Stopping the application</a>
 
-アプリケーションがシャットダウンする前にアクションを実行する必要がある場合があるので、Playは <code>@OnApplicationStop</code> アノテーションを提供します。
+Because you sometimes need to perform some action before the application shutdown, Play also provides a <code>@OnApplicationStop</code> annotation.
 
 bc. import play.jobs.*;
  
@@ -133,6 +133,8 @@ public class Bootstrap extends Job {
     }
 }
 
-p(note). **考察を続けます**
+p(note). **Continuing the discussion**
 
-より強力な %(next)"HTTP による非同期プログラミング":asynchronous% とジョブを組み合わせる方法について学びましょう。
+Let's see how to combine Jobs with more powerful %(next)"Asynchronous programming with HTTP":asynchronous%.
+
+

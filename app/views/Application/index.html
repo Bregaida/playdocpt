@@ -10,59 +10,69 @@
         ${news.raw()}
     </div>
     <section id="introduction">
+
         <div class="wrapper">
             <div id="title">
                 <h1>
-                    Play framework で<br>
-                    Java と Scala の web<br>
-                    アプリケーション開発を<br>
-                    もっと簡単に
+                    O Play framework<br>
+                    facilita a criação de <br>
+                    aplicações web com<br>
+                    Java &amp; Scala.
                 </h1>
                 <p>
-                    Play は web と親和性の高い軽量でステートレスなアーキテクチャに基づいており、Iteratee IO に基づいたリアクティブモデルにより、高度にスケール可能なアプリケーションのための予測可能で最小限のリソース (CPU、メモリ、スレッド) 消費を提供します。 
+                    Play é baseado em uma arquitetura leve, stateless e web-friendly
+                     com comportamente prevísivel e mínimo consumo de recursos de hardware
+                     (CPU, memória, threads) para aplicações escaláveis -
+                     graças ao seu modelo reativo, baseado no Iteratee IO.
                 </p>
             </div>
             <div id="quicklinks">
-                <h2>はじめよう</h2>
+                <h2>Comece agora</h2>
                 <p>
-                    
+
                 </p>
                 <p>
-                    <a href="/documentation/latest/ScalaTodoList">Scala</a> または <a href="/documentation/latest/JavaTodoList">Java</a> 開発者向けのチュートリアルに目を通すか、<a href="/documentation/latest">ドキュメント</a> を参照してください。
+                    Siga o tutorial de desenvolvedores <a href="/documentation/latest/ScalaTodoList">Scala</a> ou <a href="/documentation/latest/JavaTodoList">Java</a>, ou
+                    navegue pela <a href="/documentation/latest">documentação</a>.
                 </p>
-                <h2>ヘルプ</h2>
+                <h2>Ajuda</h2>
                 <p>
-                    <a href="http://groups.google.com/group/play-framework" target="_blank">Google group</a> に参加して話し合ったり助けてもらう、または <a href="http://stackoverflow.com/tags/playframework" target="_blank">Stackoverflow</a> で他の誰かを助けてあげましょう。
+                    Participe do <a href="http://groups.google.com/group/play-framework" target="_blank">Google group</a> para discutir e conseguir ajuda, ou ajudar outras pessoas
+                    no <a href="http://stackoverflow.com/tags/playframework" target="_blank">Stackoverflow</a>.
                 </p>
-                <h2>参加する</h2>
+                <h2>Participe</h2>
                 <p>
-                    <a href="http://github.com/playframework/Play20" target="_blank">Github のソースコード</a> をチェックアウトして、プロジェクトの <a href="http://play.lighthouseapp.com/" target="_blank">バグトラッカ</a> に問題を報告してください。
+                    Confira o <a href="http://github.com/playframework/Play20" target="_blank">código fonte no Github</a>,
+                    e reporte problemas do projeto no <a href="http://play.lighthouseapp.com/" target="_blank">bug tracker</a>.
                 </p>
             </div>
         </div>
     </section>
     <section id="features">
+
         <div class="wrapper">
             <div class="item">
                 <img src="/assets/images/fast.png">
-                <h2>強固で高速</h2>
+                <h2>Poderoso &amp; Rápido</h2>
                 <p>
-                    Play は、すべての型をチェックする Scala コンパイラのパワーを活用します。
-                    実行時エラーと縁を切って、とんでもないパフォーマンスを楽しんでください !
+                    Play aproveita o poder do compilador Scala para fazer o type check de tudo.
+                    Afaste-se de erros de execução e usufruia de um desempenho extremo!
                 </p>
             </div>
             <div class="item">
                 <img src="/assets/images/reactive.png">
-                <h2>リアクティブ</h2>
+                <h2>Reativo</h2>
                 <p>
-                    Play はリアクティブモデルをよく理解し、イベントドリブン、ノンブロッキング IO に基づいて設計されています。リアルタイムへの準備をしてください !
+                    Play é projetada em torno de um modelo reativo: com base orientada a eventos e sem bloqueio de IO.
+                    Prepare-se para o verdadeiro tempo real!
                 </p>
             </div>
             <div class="item">
                 <img src="/assets/images/scalable.png">
-                <h2>スケーラブル</h2>
+                <h2>Escalável</h2>
                 <p>
-                    Play は web と親和性の高いステートレスアーキテクチャに基づいています。サーバをどんどｎ追加すれば簡単にスケールします !
+                    Play é baseado em uma arquitetura stateless e web-friendly.
+                    É fácil de escalar adicionando mais servidores!
                 </p>
             </div>
             <br style="clear:both">
@@ -70,61 +80,78 @@
 
             <ul class="items">
                 <li class="reloading">
-                    素早い改善
+                    Rápido turnaround
                     <p>
-                        ファイルを編集して、保存して、ブラウザを更新すれば、直ちに結果を確認できます ! コンパイルやデプロイ、サーバの再起動は必要ありません。
+                        Edite seus arquivos, salve, atualize seu navegador e verá os resultados imediatamente!
+                        Não há necessidade de compilar, fazer build, deploy ou reiniciar o servidor.
                     </p>
                 </li>
                 <li class="fun">
-                    楽しく、そして生産的
+                    Divertido &amp; Produtivo
                     <p>
-                        アプリケーションの再起動待ちに費やす時間を取り除き、生産性を向上し、プロジェクトをより早く完了します。
+                        Corte o tempo que você gasta à espera de seu aplicativo para reiniciar, aumente sua produtividade e termine seus projetos mais rápido.
                     </p>
                 </li>
                 <li class="fullstack">
-                    本当のスケーラビリティ
+                    Escalabilidade Real
                     <p>
-                        複数の Play サーバでアプリケーションを実行することで、容易にスケールします。Akka アクタを使うことで、複数コア、または複数ノードにバックエンドをスケールアウトします。
+                        Escale facilmente executando sua aplicação em vários servidores com Play.
+                        Dimensione seu backend em múltiplos núcleos, ou nós múltiplos, usando atores Akka.
                     </p>
                 </li>
                 <li class="javascala">
-                    Java と Scala API
+                    Java &amp; Scala API
                     <p>
-                        ひとつのアプリケーションにおいて、Java, Scala または両方の言語を混ぜて使います。Play では、既存の Java コードやライブラリと 100% の互換性を保ちながら Scala のとても優れた機能を簡単に使うことができます。
+                        Use Java, Scala or mix both languages in a single application. Play makes it easier to use the greatest Scala features while keeping 100% compatible with your existing Java code and libraries.
                     </p>
                 </li>
                 <li class="templates">
-                    強力なビルドシステム
+                    Poderoso sistema de build
                     <p>
-                        sbt に基づいたビルドシステムは、シンプルでありながら非常に強力です。Less CSS, Goole Closure や CoffeeScript のような最新の Web 技術を使用する準備が整っています。
+                        Simples, mas extremamente poderoso sistema de construção baseado no SBT.
+                        Pronto para uso com tecnologias da Web mais recentes como Less CSS, Google Closure e CoffeeScript.
                     </p>
                 </li>
                 <li class="sbt">
-                    はじめの準備
+                    Pronto para usar
                     <p>
-                        パッケージをダウンロードすれば完了です。統合された Play コンソールと開発サーバでハックを始めます。本番環境へのプッシュもコマンドひとつです。
+                        Faça o download do pacote e está pronto.
+                        Comece a hackear com o console do Play e o servidor de desenvolvimento.
+                        Empurre para a produção com um único comando.
                     </p>
                 </li>
             </ul>
         </div>
     </section>
     <section id="meet">
-        
+
+
+
 
 <div class="wrapper">
     <div class="half history">
-        <h2>play の歴史</h2>
+        <h2>Re-play da história</h2>
         <p>
-            2007年以来、私たちは Java での Webアプリケーション の開発を容易なものにしようとしてきました。 Play は、 Zenexity における内部的なプロジェクトとしてスタートし、私たちの Web プロジェクトの進め方に強く影響されてきました。つまり、開発者の生産性に焦点を当て、 Web のアーキテクチャを尊重し、初めからパッケージング規約に対して斬新なやり方を採用してきたのです。
+             Desde 2007, temos trabalhado em fazer o desenvolvimento de aplicações web em Java mais fácil.
+             O Play começou como um projeto interno de Zenexity e foi fortemente influenciado
+             pela nossa maneira de fazer projetos web: foco em produtividade do desenvolvedor, respeitando
+             a Arquitetura Web, e desde o início utilizando uma nova abordagem para as convenções de empacotamento.
         </p>
         <p>
-            その後、技術と Web は進化し続けました。Web はすべてのアプリケーションの中央拠点となっています。HTML, CSS そして JavaScript の技術は急速に - サーバ側のフレームワークがほとんど追いつけないほどに - 進化してきました。
+            Desde então, a tecnologia e a Web continuaram a evoluir.
+            A Web tornou-se um ponto central de todas as aplicações.
+            As tecnologias HTML, CSS e JavaScript evoluíram rapidamente -
+            tornando-se quase impossível para um framework server-side acompanhar.
         </p>
         <p>
-            今日、Web アーキテクチャ全体は急速にリアルタイム指向へと動き出しています。プロジェクトの要件も変化しました - 以前は必需品だった SQL などは、もはや独占的なデータストア技術ではありません。プログラミング言語のレベルでは、Scala を含むいくつかの JVM 言語が人気を集めているという、歴史的な変化を目撃しました。
+             Hoje, toda a arquitetura Web está se movendo rapidamente em direção ao tempo real.
+             Os requisitos do projeto se transformaram também - o que significa conceitos anteriores,
+             como o SQL não são mais a nossa única e exclusivo tecnologia de armazenamento de dados.
+             Temos testemunhado algumas mudanças monumentais em algumas linguagens de programação.
+             A  JVM contempla várias linguagens, incluindo Scala, e ganhando popularidade.
         </p>
         <p>
-            それこそが、<a href="/documentation/latest/Philosophy">新時代の web フレームワーク</a> Play 2.0 を開発した理由です。
+            Pos isso criamos o Play 2.0, <a href="/documentation/latest/Philosophy">a um novo framework Web para uma nova era</a>.
         </p>
     </div>
     <div class="half">

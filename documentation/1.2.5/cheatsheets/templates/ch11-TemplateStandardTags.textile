@@ -2,51 +2,51 @@ h2. Template - Standard Tags
 
 *==#{extends ʻpage.htmlʼ/}==*
 *==#{doLayout /}==*
-マスタテンプレートのデコレータ
+Master template decorators
 
 *==#{get 'title'}Used if title not set#{/get}==*
 *==#{set title:ʻHome Pageʼ}==*
-ページとマスタテンプレート間で共有される変数
+Shared variables between page and master templates
 
 *==#{include 'tree.html'/}==*
-ページの断片をインクルードします。 - page コンテキストは共有されます。
+Includes fragment - page context is shared
 
 *==#{script id:'myscript' , src:ʻscript.js', charset:'utf-8' /}==*
 *==#{stylesheet id:'main', media:'print', src:'print.css' /}==*
-スクリプトとスタイルシートをインポートします。
+Imports script & styles in the page
 
 *==#{a @Application.logout() }Disconnect#{/a}==*
 *==#{form @Client.create() , id:'form' enctype:'multipart/form-==*
 *==data' } ... #{/form}==*
-アンカーやフォームを作るのに便利なタグ
+Handy tags to create anchors and forms
 
 *==#{verbatim}${'&amp;'}#{/verbatim}==*
-HTML エスケープを無効化します。
+Disables HTML escaping
 
 *==#{i18n /}==*
-ローカライズされたメッセージを Javascript にエクスポートします。
+Exports localized messages in Javascript
 
 *==#{ifErrors} &lt;p&gt;Error(s) found!&lt;/p&gt; #{/ifErrors}==*
-検証エラーをチェックします。
+Checks for validation errors
 
 *==#{ifError 'user.name'} #{error 'user.name' /} #{/ifError}==*
-指定されたエラーをチェックします。
+Checks a given error
 
 *==#{errors} &lt;li&gt;${error}&lt;/li&gt; #{/errors}==*
-検証エラーを繰り返し処理します。
+Iterates over the current validation errors
 
 *==#{if cond}...#{/if}#{elseif cond}...#{/elseif}#{else}...#{/else}==*
 *==#{ifnot cond}...#{/ifnot}==*
-条件構文
+Conditional constructs
 
 *==#{list items:0..10, as:'i'}${i}#{/list}==*
 *==#{list items:'a'..'z', as:'l'}${l} ${l_isLast ?'':'|' }#{/list}==*
 *==#{list users}${_}#{/list}==*
-ループ構文
+Loop constructs
 
 *==#{list items:task, as:'task'}${task}#{/list}==*
 *==#{else}No tasks on the list#{/else}==*
-Tip: else は list と一緒に使えます。
+Tip: Else can be used along with list
 
 *==#{cache ʻkeyʼ, for:ʼ15minʼ}...#{/cache}==*
-15 分間コンテンツをキャッシュします。
+Caches content for 15 minutes

@@ -1,30 +1,30 @@
-h1. 組込みテンプレートタグ
+h1. Built-in template tags 
 
-以下は、中心となる "テンプレートエンジン構文":templates#syntax に従うことで利用できる、組み込みのタグです。
+These are the built-in tags that are available in addition to the core "template engine syntax":templates#syntax.
 
-p(note). こことは別に %(next)"Java エクステンション":javaextensions% マニュアルページがあります。
+p(note). There is a separate %(next)"Java extensions":javaextensions% manual page.
 
 
 h2. <a name="a">a</a>
 
-@a@ タグはコントローラのアクションへの HTML リンクを挿入します。
+The @a@ tag inserts an HTML link to a controller action.
 
 bc. #{a @Application.logout()}Disconnect#{/a}
 
-以下のようにレンダリングされます:
+Rendered as:
 
 bc. <a href="/application/logout">Disconnect</a>
 
-もし呼び出そうとしているアクションが GET メソッドを使用して起動するどんなルートも持たない場合、Play は自動的に、リンクをクリックしたときに JavaScript を使ってサブミットする隠しフォームを生成します。
+If the action you try to call does not have any route able to invoke it using a GET method, Play will automatically generate a hidden form that will be submitted on link click using JavaScript.
 
 
 h2. <a name="authenticityToken">authenticityToken</a>
 
-"クロスサイトリクエストフォージェリ":security#csrf を防ぐため、どのフォームでも使用できる、生成されたトークンを含む hidden input フィールドをレンダリングします。
+Renders a hidden input field containing a generated token that you can use in any form, to prevent "Cross-Site Request Forgery":security#csrf.
 
 bc. #{authenticityToken /}
 
-以下のようにレンダリングされます:
+Rendered as:
 
 bc. <input type="hidden" name="authenticityToken"
        value="1c6d92fed96200347f06b7c5e1a3a28fa258ef7c">
@@ -32,13 +32,13 @@ bc. <input type="hidden" name="authenticityToken"
 
 h2. <a name="cache">cache</a>
 
-タグパラメータにキャッシュのキーを指定し、 @play.cache.Cache@ API を使ってタグの内容をキャッシュします。
+Caches the tag body using the @play.cache.Cache@ API, for the cache key specified by the tag parameter.
 
 bc. #{cache 'startTime'}
    ${new java.util.Date()}
 #{/cache}
 
-デフォルトでは、タグの内容は永久にキャッシュされますが、 @for@ パラメータで有効期間を指定することができます。
+The body is cached indefinitely by default, but you can specify an expiration duration with the @for@ parameter.
 
 bc. #{cache 'currentTime', for:'3s'}
    ${new java.util.Date()}
@@ -47,7 +47,7 @@ bc. #{cache 'currentTime', for:'3s'}
 
 h2. <a name="dolayout">doLayout</a>
 
-このタグは、テンプレート継承と共に使用し、評価された子テンプレートの内容を挿入します。
+Used with template inheritance, this tag inserts the evaluated sub-template’s contents.
 
 bc. <!-- common header here -->
 <div id="content">
@@ -58,7 +58,7 @@ bc. <!-- common header here -->
 
 h2. <a name="else">else</a>
 
-当然、 @if@ タグと共に使用されます。
+Of course used with the @if@ tag.
 
 bc. #{if user}
     Connected user is ${user}
@@ -67,11 +67,11 @@ bc. #{if user}
     Please log in
 #{/else}
 
-一方で、 @list@ タグと共に使用することも可能であり、list が空の場合に実行されます。
+However, you can also use it with the @list@ tag and it will be executed if the list is empty.
 
 bc. #{list items:task, as:'task'}
     <li>${task}</li>
-#{/li}
+#{/list}
  
 #{else}
     Nothing to do...
@@ -92,16 +92,16 @@ bc. #{if tasks.size() > 1}
     Nothing to do
 #{/else}
 
-@else@ と同様に、 @list@ タグと共に使用することも可能です。
+As for @else@, you can use it with the @list@ tag.
 
 
 h2. <a name="error">error</a>
 
-入力エラーが存在する場合に、タグパラメータでフィールドを指定して、エラーメッセージを出力します。
+Outputs the validation error message, if present, for the field specified by the tag parameter.
 
 bc. #{error 'user.name'/}
 
-オプションの @field@ パラメータを使って、違うフィールドのエラーメッセージを使用することができます。これは、複数のフィールドで共通のエラーメッセージを共有する場合に便利です。
+You can use the optional @field@ parameter to use a different field’s error message. This is useful when you want several fields to share a common error message.
 
 bc. #{error 'contact.street',  field:'contact.address'/}
 #{error 'contact.city',    field:'contact.address'/}
@@ -110,18 +110,18 @@ bc. #{error 'contact.street',  field:'contact.address'/}
 
 h2. <a name="errorClass">errorClass</a>
 
-タグパラメータで指定したフィールドに入力エラーがある場合に @hasError@ という文字列を出力します。これは、エラーがある入力フィールドに対する CSS クラスを設定する場合に便利です。
+Outputs the text @hasError@ if there is a validation error for the field specified by the tag parameter. This is useful for setting a CSS class for input fields with errors:
 
 bc. <input name="name" class="#{errorClass 'name'/}">
 
-これは、以下と等価です:
+which is equivalent to:
 
 bc. <input name="name" class="${errors.forKey('name') ? 'hasError' : ''}">
 
 
 h2. <a name="errors">errors</a>
 
-現在のバリデーションエラーをくり返します。
+Iterates over the current validation errors.
 
 bc. <ul>
 #{errors}
@@ -129,13 +129,13 @@ bc. <ul>
 #{/errors}
 </ul>
 
-このタグはボディに暗黙的な変数を定義します。
+The tag defines implicit variables in its body.
 
-* @error@, エラーです
-* @error_index@, エラーの index で、1 から始まります
-* @error_isLast@, 最後の要素の場合に true になります
-* @error_isFirst@, 最初の要素の場合に true になります
-* @error_parity@, @odd@ と @even@ が交互に値になります
+* @error@, the error
+* @error_index@, the error’s index, starting at 1
+* @error_isLast@, true for the last element
+* @error_isFirst@, true for the first element
+* @error_parity@, alternates between @odd@ and @even@
 
 bc. <table>
 <tr><th>#</th><th>Error</th></tr>
@@ -144,7 +144,7 @@ bc. <table>
 #{/errors}
 </table>
 
-あるフィールドに関連するエラーのみをフィルタリングするためにオプションのフィールドパラメータを使用することも、あるいはデフォルトのパラメータを使用することもできます。
+You can also use the optional field parameter, or just the default parameter, to filter only the errors belonging to a certain field.
 
 bc. <ul>
 #{errors 'myField'}
@@ -156,16 +156,16 @@ bc. <ul>
 
 h2. <a name="extends">extends</a>
 
-そのテンプレートに、他のテンプレートを継承させます。
+Makes the template inherit another template.
 
 bc. #{extends 'main.html' /}
 
 
 h2. <a name="field">field</a>
 
-field タグは Don't Repeat Yourself の精神に基づいたヘルパです。このタグは次のようにして動作します:
+The field tag is a helper, based on the spirit of the Don’t Repeat Yourself. It works this way:
 
-以下のように書く代わりに:
+Instead of writing this:
 
 bc. <p>
   <label>&{'user.name'}</label>
@@ -173,7 +173,7 @@ bc. <p>
   <span class="error">${errors.forKey('user.name')}</span>
 </p>
 
-以下のように書くことができます:
+You can just write:
 
 bc. #{field 'user.name'}
 <p>
@@ -183,57 +183,57 @@ bc. #{field 'user.name'}
 </p>
 #{/field}
 
-何度も何度も @user.name@ をくり返してはいけません。
+So you don’t repeat @user.name@ again and again.
 
 
 h2. <a name="form">form</a>
 
-@form@ タグを挿入します。Play はデフォルトを POST として route ファイルから HTTP メソッドを推測します。URL に対して GET と POST の両方のルートが設定されている場合、このタグは、デフォルトでは定義されたルートのうち最初のルートを使用します。
+Inserts a @form@ tag. Play will guess the HTTP method from the route, with POST as the default. If there are both GET and POST routes configured for the URL, the tag will default to using the first route defined in routes.
 
-* オプションの @method@ は POST または GET です。
-* オプションの @id@ 属性は form 要素に ID を設定します。
-* オプションの @enctype@ 属性は form のデータエンコーディングを設定します。デフォルトは‘application/x-www-form-urlencoded’です。
+* Optional @method@ either POST or GET.
+* Optional @id@ attribute sets an ID to the form element.
+* Optional @enctype@ attribute sets the form’s data encoding. it defaults to ‘application/x-www-form-urlencoded’.
 
-文字コードは常に **utf-8** です。
+Charset encoding is always **utf-8**.
 
 bc. #{form @Client.details(), method:'GET', id:'detailsForm'}
    ...
 #{/form}
 
-は以下のようにレンダリングされます:
+Rendered as:
 
 bc. <form action="/client/details" id="detailsForm" method="GET"
       accept-charset="utf-8">
  ...
 </form>
 
-アクションメソッドの一部として対象のエンティティを指定することもできます:
+You can also specify a target entity as part of the action method:
 
 bc. #{form @Client.details(client.id)}
    ...
 #{/form}
 
-HTTP パラメータの名前はアクションメソッドに定義した名前から検出されます。
+The HTTP parameter name name is detected from what you declared in your action method.
 
 bc. public static void details(String clientId){
        // ...
 }
 
-Play は clientId を含むアクション URL を生成します:
+Play will create an action URL with clientId:
 
 bc. <form action="/client/details?clientId=3442" method="GET"
       accept-charset="utf-8">
  ...
 </form>
 
-@form@ タグは GET 以外のメソッドでは "真性性トークン":#authenticityToken を自動的に含める。
+The @form@ tag also automatically includes an "authenticity token":#authenticityToken, for methods other than GET.
 
 bc. #{form @Client.create(), method:'POST', id:'creationForm',
        enctype:'multipart/form-data' }
    ...
 #{/form}
 
-以下のようにレンダリングされます:
+Rendered as:
 
 bc. <form action="/client/create" id="creationForm" method="POST"
       accept-charset="utf-8" enctype="multipart/form-data">
@@ -242,24 +242,24 @@ bc. <form action="/client/create" id="creationForm" method="POST"
  ...
 </form>
 
-もしフォームがサーバサイドのリソースを更新するのであれば、 **POST** メソッドを使用する _べき_ です。もしフォームがデータをフィルタするために使用され、ドメインを更新しないのであれば GET を使用することができます。 "等べき":http://en.wikipedia.org/wiki/Idempotence を参照してください。GET, PUT そして DELETE が等べきである一方、POST は等べきではありません。
+If your form updates a resource on the server-side, you _should_ use the **POST** method. If your form is used to filter data and does not update your domain, you can use a GET. Please read about "idempotence":http://en.wikipedia.org/wiki/Idempotence. POST is not idempotent, whereas GET, PUT and DELETE are.
 
 
 h2. <a name="get">get</a>
 
-"set":#set タグで定義された値を検索します。get/set メカニズムを使うことで、テンプレート間、すなわちレイアウトと子テンプレート間で値をやり取りすることができます。
+Retrieves a value defined with a "set":#set tag. You may use  the get/set mechanism to exchange values between templates, layouts and sub-templates.
 
 bc. <head>
     <title>#{get 'title' /}</title>
 </head>
 
-以下のように、title が指定されていない場合には "Homepage" を表示するような方法で、このタグを使用することもできます。
+You can also use the get tag in the following way, which will display "Homepage" if title has not been specified.
 
 bc. <head>
     <title>#{get 'title'}Homepage #{/get}</title>
 </head>
 
-@if@ タグを使って値が設定されているかテストすることができます:
+You can test whether a variable is set using the @if@ tag:
 
 bc. #{if get('title')}
     <h1>#{get 'title' /}</h1>
@@ -267,35 +267,35 @@ bc. #{if get('title')}
 
 h2. <a name="i18n">i18n</a>
 
-ローカライズされた Javascript メッセージを外部化します。ローカライズされたメッセージは @i18n()@ 関数を使うことで JavaScript から利用することができます。
+Exports localized messages in JavaScript. Localized messages are available from your JavaScript code using the @i18n()@ function.
 
-@conf/messages@ ファイルに訳語を定義してください。
+Define your translations in the @conf/messages@ file.
 
 bc. hello_world=Hello, World !
 hello_someone=Hello %s !
 
-テンプレート (またはレイアウト) ページにメッセージを取り込んでください:
+Include the messages in your template (or layout) page:
 
 bc. #{i18n /}
 
-そして JavaScript からキーを使って検索してください:
+And retrieve keys from JavaScript:
 
 bc. alert(i18n('hello_world'));
 alert(i18n('hello_someone', 'John'));
 
-オプションとして、このタグをいくつかのメッセージのみに制限することができます。ワイルドカードは末尾に指定することができます:
+Optionally, you can restrict the tag to only some messages. The wildcard character is accepted at the end:
 
 bc. #{i18n keys:['title', 'menu.*'] /}
 
 h2. <a name="if">if</a>
 
-指定された条件を評価し、true の場合はタグボディを評価します。
+Evaluates the given test, and if true, evaluates the tag body.
 
 bc. #{if user.countryCode == 'en' }
     Connected user is ${user}
 #{/if}
 
-条件を組み合わせて使用する場合は、以下のようにします:
+Using composite conditions:
 
 bc. #{if ( request.actionMethod == 'administer'  && user.isAdmin() ) }
     You are admin, allowed to administer.
@@ -304,7 +304,7 @@ bc. #{if ( request.actionMethod == 'administer'  && user.isAdmin() ) }
 
 h2. <a name="iferror">ifError</a>
 
-対応する入力項目がエラーである場合、タグの内容がレンダリングされます。
+Renders the tag body if there is a validation error for the input field field named by the tag parameter.
 
 bc. #{ifError 'user.name'}
   <p>
@@ -315,7 +315,7 @@ bc. #{ifError 'user.name'}
 
 h2. <a name="iferrors">ifErrors</a>
 
-バリデーションエラーが発生している場合、タグの内容がレンダリングされます。
+Renders the tag body if any field has a validation error.
 
 bc. #{ifErrors}
   <p>Error(s) found!</p>
@@ -323,7 +323,7 @@ bc. #{ifErrors}
 
 h2. <a name="ifnot">ifnot</a>
 
-きれいに #{if !condition} を書き換えます。
+Cleaner alternative to #{if !condition}
 
 bc. #{ifnot tasks}
     No tasks today
@@ -332,7 +332,7 @@ bc. #{ifnot tasks}
 
 h2. <a name="include">include</a>
 
-別のテンプレートを取り込みます。取り込み側のテンプレート上の全ての変数は、取り込んだ側のテンプレートにて直接利用することができます。
+Includes another template. All of the current template’s variables are directly available in the included template.
 
 bc. <div id="tree">
     #{include 'tree.html' /}
@@ -341,13 +341,13 @@ bc. <div id="tree">
 
 h2. <a name="jsaction">jsAction</a>
 
-この @#{jsAction /}@ タグは、サーバアクションに基づいた URL と自由な変数から成る JavaScript 関数を返却します。この関数では AJAX リクエストを行わないので、返却された URL を使って手作業で Ajax リクエストを実行する必要があります。
+The @#{jsAction /}@ tag returns a JavaScript function which constructs a URL based on a server action and free variables. It does not perform an AJAX request; these have to be done by hand using the returned URL.
 
-例を見てみましょう:
+Let’s see an example:
 
 bc. GET     /users/{id}        Users.show
 
-クライアント側でこのルートをインポートすることができます:
+Now you can import this route client side:
 
 bc. <script type="text/javascript">
     var showUserAction = #{jsAction @Users.show(':id') /}
@@ -360,7 +360,7 @@ bc. <script type="text/javascript">
 
 h2. <a name="jsroute">jsRoute</a>
 
-@#{jsRoute /}@ タグは @#{jsAction /}@ タグに似ていて,サーバーアクションおよび対応するHTTPメソッド(GET, POST など)に基づくURLを構築する両方の関数を含むオブジェクトを返します。
+The @#{jsRoute /}@ tag is similar to the @#{jsAction /}@ tag, it returns an object containing both the function which consctructs the URL based on the server action, and the corresponding HTTP method (GET, POST, etc.).
 
 Example:
 
@@ -380,7 +380,7 @@ bc. <script type="text/javascript">
 
 h2. <a name="list">list</a>
 
-オブジェクトのコレクションをくり返します。
+Iterates over an object collection.
 
 bc. <ul>
 #{list items:products, as:'product'}
@@ -388,12 +388,12 @@ bc. <ul>
 #{/list}
 </ul>
 
-このタグは、ボディに暗黙的な変数を定義します。変数名には、接頭辞としてループ変数名が付きます。
+The tag defines implicit variables in its body. The variable names are prefixed with the loop variable name.
 
-* @name_index@, アイテムの index で、1 から始まります
-* @name_isLast@, 最後の要素の場合に true になります
-* @name_isFirst@, 最初の要素の場合に true になります
-* @name_parity@, @odd@ と @even@ が交互に値になります
+* @name_index@, the item’s index, starting at 1
+* @name_isLast@, true for the last element
+* @name_isFirst@, true for the first element
+* @name_parity@, alternates between @odd@ and @even@
 
 bc. <ul>
 #{list items:products, as:'product'}
@@ -402,21 +402,21 @@ bc. <ul>
 #{/list}
 </ul>
 
-@items@ パラメータはオプションであり、デフォルトの @arg@ 引数で置き換えることが可能です。
+The @items@ parameter is optional and can be replaced by the default @arg@ argument.
 
-このため:
+So you can rewrite:
 
 bc. #{list items:users, as:'user'}
     <li>${user}</li>
 #{/list}
 
-を、以下のように書き換えることができます:
+as:
 
 bc. #{list users, as:'user'}
     <li>${user}</li>
 #{/list}
 
-Groovy の **range** オブジェクトを使うことで、容易に **for** ループを作ることができます:
+**for** loops are easy to create using Groovy **range** object:
 
 bc. #{list items:0..10, as:'i'}
     ${i}
@@ -426,7 +426,7 @@ bc. #{list items:'a'..'z', as:'letter'}
     ${letter} ${letter_isLast ? '' : '|' }
 #{/list}
 
-@as@ パラメータもまたオプションです。デフォルト変数名として @_@ を使用します:
+The @as@ parameter is optional as well. It uses @_@ as default variable name:
 
 bc. #{list users}
     <li>${_}</li>
@@ -435,25 +435,25 @@ bc. #{list users}
 
 h2. <a name="option">option</a>
 
-テンプレートに @option@ タグを挿入します。
+Insert an @option@ tag in the template.
 
-* @value@ - option の値
+* @value@ - option's value
 
 bc. #{option user.id} ${user.name} #{/option}
 
-これは、以下のように出力されるでしょう:
+Will output:
 
 bc. <option value="42">jto</option>
 
 h2. <a name="script">script</a>
 
-テンプレートに @script@ タグを挿入します。利便性のため、このタグは @/public/javascripts@ 内のスクリプトを参照します。
+Inserts a @script@ tag in the template. By convention, the tag refers to a script in @/public/javascripts@
 
-* @src@ (必須) - @/public/javascripts@ パスを含まないスクリプトファイル名
-* @id@ (オプション) - 生成された @script@ タグの @id@ 属性の値
-* @charset@ (オプション) - ソースのエンコーディングを設定します - デフォルトは UTF-8 です
+* @src@ (required) - script file name, without the leading path @/public/javascripts@
+* @id@ (optional) - an @id@ attribute value for the generated @script@ tag
+* @charset@ (optional) - sets source encoding - defaults to UTF-8
 
-@src@ パラメータはデフォルトの @arg@ 引数に置き換えることもできます。
+The @src@ parameter can be replaced by the default @arg@ argument.
 
 bc. #{script 'jquery-1.4.2.min.js' /}
 #{script id:'datepicker' , src:'ui/ui.datepicker.js', charset:'utf-8' /}
@@ -461,18 +461,18 @@ bc. #{script 'jquery-1.4.2.min.js' /}
 
 h2. <a name="render">render</a>
 
-タグパラメータでパスを指定してテンプレートをレンダリングします。パスは絶対パスか、または @/app/views@ に対する相対パスです。
+Renders the template specified by the path in the tag parameter. The path is either absolute, or relative to @/app/views@
 
 bc. #{render 'Application/other.html'/}
 
 
 h2. <a name="select">select</a>
 
-テンプレートに @select@ タグを挿入します。
+Insert a @select@ tag in the template.
 
-* @name@ (必須) - select 要素に name 属性を設定する
+* @name@ (required) - attribute sets a name to the select element.
 
-不明な属性はすべて HTML 要素として取り扱われ、"そのまま" レンダリングされます。
+Any unknown attribute will be considered as an HTML attribute, and rendered "as is"
 
 bc. #{select 'booking.beds', value:2, id:'select1'}
 	#{option 1}One king-size bed#{/option}
@@ -480,7 +480,7 @@ bc. #{select 'booking.beds', value:2, id:'select1'}
 	#{option 3}Three beds#{/option}
 #{/select}
 
-これは、以下のように出力されるでしょう:
+Will output:
 
 bc. <select name="booking.beds" size="1" id="select1" >
   <option value="1">One king-size bed</option>
@@ -489,20 +489,20 @@ bc. <select name="booking.beds" size="1" id="select1" >
 </select>
 
 
-このタグは @items@ 属性を使って options を生成することもできます。
+This tag can generate options using @items@ attribute.
 
-* @items@ (オプション) - @options@ を作成するために使われるオブジェクトのリスト
-* @value@ (オプション) - @items@ の中の選択された要素(注意: 複数選択はサポートしません)
-* @labelProperty@ (オプション) - それぞれのアイテムについて option のラベルとして使用される属性 
-* @valueProperty@ (オプション) - それぞれのアイテムについて option の値として使用される属性。デフォルトでは @id@ が使用される
+* @items@ (optional) - list of objects, used to create @options@
+* @value@ (optional) - selected element in @items@ (note that multiple selections are not supported)
+* @labelProperty@ (optional) - for each item, attribute used as option's label 
+* @valueProperty@ (optional) - for each item, attribute used as option's value. @id@ is used by default
 
-p(note). @labelProperty@ と @valueProperty@ はプリミティブ値であってはなりません。そのため、例えば @int@ や @long@ を使わずに、 @Integer@ や @Long@ 変数を使ってください。
+p(note). The @labelProperty@ and @valueProperty@ shouldn't be primitive values. So, for example, use an @Integer@ or @Long@ variable instead of an @int@ or @long@.
 
-例えば、それぞれが name 属性を持つ User のリストを与えられた場合:
+For example, giving a list of User, each having a name attribute:
 
 bc. #{select 'users', items:users, valueProperty:'id', labelProperty:'name', value:5, class:'test', id:'select2' /}
 
-これは、以下のように出力されるでしょう:
+Will output:
 
 bc. <select name="users" size="1" class="test" id="select2" >
   <option value="0" >User-0</option>
@@ -515,16 +515,16 @@ bc. <select name="users" size="1" class="test" id="select2" >
 
 h2. <a name="set">set</a>
 
-同じテンプレートかレイアウトにおいて @get@ タグを使って検索できる値を定義します。
+Define a value which can be retrieved in the same template or any layout with the @get@ tag.
 
 bc. #{set title:'Admin' /}
 #{set style:'2columns' /}
 
-変数を使用することも可能です:
+You can also use variables:
 
 bc. #{set title:'Profile of ' + user.login /}
 
-変数の値をボディ内で定義することも可能です:
+You can define the value of variables in the body:
 
 bc. #{set 'title'}
     Profile of ${user.login}
@@ -533,14 +533,14 @@ bc. #{set 'title'}
 
 h2. <a name="stylesheet">stylesheet</a>
 
-テンプレートに @link@ タグを挿入します。利便性のため、このタグは @/public/stylesheets@ 内の CSS ファイルを参照します。
+Inserts a @link@ tag in the template. By convention, the tag refers to a CSS file in @/public/stylesheets@
 
-* @src@ (必須) - @/public/stylesheets@ パスを含まないファイル名
-* @id@ (オプション) - 生成された @link@ タグの @id@ 属性の値
-* @media@ (オプション) - @media@ 属性の値: screen, print, aural, projection…
-* @title@ (オプション) - @title@ 属性の値 (または説明)
+* @src@ (required) - file name, without the leading path @/public/stylesheets@
+* @id@ (optional) - an @id@ attribute value for the generated @link@ tag
+* @media@ (optional) - a @media@ attribute value: screen, print, aural, projection…
+* @title@ (optional) - @title@ attribute value (or description)
 
-@src@ パラメータはデフォルトの @arg@ 引数に置き換えることもできます。
+The @src@ parameter can be replaced by the default @arg@ argument.
 
 bc. #{stylesheet 'default.css' /}
 #{stylesheet id:'main', media:'print', src:'print.css', title:'Print stylesheet' /}
@@ -548,10 +548,11 @@ bc. #{stylesheet 'default.css' /}
 
 h2. <a name="verbatim">verbatim</a>
 
-Java 拡張の "raw()":javaextensions#arawa のように、しかしタグボティ全体のテンプレート出力における HTML エスケープを無効にします。
+Disables HTML escaping in template output, like the "raw()":javaextensions#arawa Java extension, but for the whole tag body.
 
 bc. ${'&amp;'}
 #{verbatim}${'&amp;'}#{/verbatim}
 
-この例の場合、最初の行は @&amp;@ を出力しますが、二番目の行はアンパサンドを出力します。
+In this example, the first line outputs @&amp;@ while the second line outputs an ampersand. 
+
 

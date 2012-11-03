@@ -1,13 +1,14 @@
-h1. Play 1.2.5 -- リリースノート
+h1. Play 1.2.5 -- Release notes
 
-このリリースにおける変更は Lighthouse の "Play 1.2.5 マイルストーン":https://play.lighthouseapp.com/projects/57987-play-framework/milestones/131471-125 に、121 件の解決済みチケットを含めて一覧されています。最も重要な変更は下記のとおりです:
+The changes in this release are listed in the "Play 1.2.5 milestone":https://play.lighthouseapp.com/projects/57987-play-framework/milestones/131471-125 on Lighthouse, including 121 resolved tickets. The most important changes are:
 
-* continuations/await に関する複数のバグの修正
-* hibernate に関する複数の問題の修正
-* ハッシュ衝突攻撃に対するセキュリティ修正
-* Glassfish 3 における JNDI データソース
-* チャンク転送/ストリーミングサポートの改善
-* hibernate 3.6.10 へのアップグレード
-* netty-3.4.2.Final へのアップグレード
-* すべてのブラウザにおける web socket のサポート
-* すべてのライブラリのアップグレード
+* JDK 6 required (hibernate 4 dependency)
+* fixed multiple continuations/await bugs
+* fixed multiple hibernate related issues
+* security fix for hash-colission-atack
+* JNDI DataSource under Glassfish 3
+* improved chunked transfer/streaming support
+* upgraded to hibernate 4.1
+* upgraded to netty-3.4.2.Final 
+* web socket support for all browsers
+* all libraries upgraded.

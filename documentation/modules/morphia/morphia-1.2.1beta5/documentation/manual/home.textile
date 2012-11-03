@@ -30,7 +30,7 @@ Updaets in 1.2beta-4:
 * mongo driver を 0.24 にアップデート。
 
 Updates in 1.2beta-3:
-* 7,8,9 の問題を修正。詳しくは  http://github.com/greenlaw110/play-morphia/issues を閲覧してください。
+* 7,8,9 の問題を修正。詳しくは  http://github.com/greenlaw110/play-morphia/issues をNavegarしてください。
 * 新しい設定： morphia.defaultWriteConcern を追加。
 
 Updates in 1.2beta-2:

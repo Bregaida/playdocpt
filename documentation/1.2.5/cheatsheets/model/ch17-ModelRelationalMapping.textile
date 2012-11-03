@@ -1,31 +1,31 @@
 h2. Model - Relational mapping
 
 *==@Table(name="sql_tbl", catalog="", schema="")==*
-このクラスが保存されるテーブルを定義します。
+Defines the table where this class will be stored
 
 *==@Id==*
-ID となるフィールドを定義します。
+Defines this field as being (part of) the identity for the class
 
 *==@Version==*
-バージョンを保持しているフィールドを定義します。
+Defines this field as storing the version for the class
 
 *==@Basic==*
-永続的なフィールドを定義します。省略可能です。
+Defines this field as being persistent, can be omitted
 
 *==@Transient==*
-(永続的でない) 一時的なフィールドを定義します。
+Defines this field as being transient (not persisted)
 
 *==@Lob(fetch=[LAZY, EAGER], type=[BLOB,CLOB])==*
-ラージオブジェクトとして保存されるフィールドを定義します。
+Defines this field as being stored as a large object
 
 *==@UniqueConstraint(primary=false, String columns[])==*
-セカンダリインデックスを定義します。
+Used to define secondary indexes
 
 *==@Temporal(DATE,TIME,TIMESTAMP)==*
-java.util.Date や Calendar 型のフィールドにだけ使われるべきです。
+Should only be used on java.util.Date and Calendar fields
 
 *==@Enumerated(ORDINAL, STRING)==*
-列挙型のクラスを保持するフィールドを定義します。
+Defines this field as storing an enumerated class
 
 *==@Column(name="sql_column_name")==*
-フィールド名と異なるテーブルのカラム名を定義します。
+Defines a table column name that is different to the field name

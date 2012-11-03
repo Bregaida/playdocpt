@@ -1,91 +1,91 @@
-h1. インストールガイド
+h1. Installation guide
 
 
-h2. <a name="prerequisites">前提条件</a>
+h2. <a name="prerequisites">Prerequisites</a>
 
-Play framework を実行するには、"Java5 以降":http://java.sun.com が必要です。Play をソースからビルドしたいのであれば、ソースコードを取得するために "Git ソースコントロールクライアント":http://git-scm.com/ が必要であり、ビルドするために "Ant":http://ant.apache.org/ が必要になります。
+To run the Play framework, you need "Java 6 or later":http://java.sun.com. If you wish to build Play from source, you will need the "Git source control client":http://git-scm.com/ to fetch the source code and "Ant":http://ant.apache.org/ to build it.
 
-カレントパスで java コマンドが認識できることを確認してください (@java -version@ を入力して確認してみてください) 。Play はデフォルトの java コマンドか、 @$JAVA_HOME@ が定義されている場合は、このパスで実行可能な java コマンドを使用します。
+Be sure to have Java in the current path (enter @java -version@ to check). Play will use the default Java or the one available at the @$JAVA_HOME@ path if defined.
 
-*play* のコマンドラインユーティリティは Python を使用します。ですから、どのような UNIX システムでもそのまま使うことができます (ただし Python 2.5 以上が必要です) 。 Windows で実行する場合でも、フレームワークに Python ランタイムをバンドルしているので、心配する必要はありません。
+The *play* command line utility uses Python. So it should work out of the box on any UNIX system (however it requires at least Python 2.5).
 
 
-h2. <a name="install">Installation from the binary packageバイナリパッケージからのインストール</a>
+h2. <a name="install">Installation from the binary package</a>
 
-h3. 一般的な手順
+h3. Generic instructions
 
-通常、インストール手順は次のとおりです。
+In general, the installation instructions are as follows.
 
-# Java をインストールします。
-# 最新の "Play binary package":http://download.playframework.org/ ダウンロードし、アーカイブを展開します。
-# ‘play’ コマンドをシステムパスに追加し、実行できることを確認します。
+# Install Java.
+# Download the latest "Play binary package":http://download.playframework.org/ and extract the archive.
+# Add the ‘play’ command to your system path and make sure it is executable.
 
 
 h3. Mac OS X
 
-Java は組み込まれているか、自動的にインストールされるので、最初の手順は省略することができます。
+Java is built-in, or installed automatically, so you can skip the first step.
 
-# 最新の "Play binary package":http://download.playframework.org/ をダウンロードし、 @/Applications@ に展開します。
-# @/etc/paths@ を編集し、(例えば) @/Applications/play-1.2.5@ 行を追加します。
+# Download the latest "Play binary package":http://download.playframework.org/ and extract it in @/Applications@.
+# Edit @/etc/paths@ and add the line @/Applications/play-1.2.5@ (for example).
 
-OS X における代替手順は次のとおりです:
+An alternative on OS X is:
 
-# "HomeBrew":http://mxcl.github.com/homebrew/ をインストールします。
-# @brew install play@ を実行します。
+# install "HomeBrew":http://mxcl.github.com/homebrew/
+# run @brew install play@
 
 h3. Linux
 
-Javaをインストールするには、（多くの Linux 上でデフォルトの Java コマンドである GCJ ではなく）Sun-JDK または OpenJDK のいずれかを使用してください。
+To install Java, make sure to use either the Sun-JDK or OpenJDK (and not gcj which is the default Java command on many Linux distros)
 
 
 h3. Windows
 
-Java をインストールするには、最新の JDK パッケージをダウンロードしてインストールします。 Python ランタイムはフレームワークに同梱されているので、別途 Python をインストールする必要はありません。
+To install Java, just download and install the latest JDK package. You do not need to install Python separately, because a Python runtime is bundled with the framework.
 
 
-h2. <a name="build">最新ソースからのビルド</a>
+h2. <a name="build">Build from the latest sources</a>
 
-最新の機能やバグ修正の恩恵を得るために、Play をソースからコンパイルしたくなるかもしれません。ソースコードを取得するためには "Git クライアント":http://git-scm.com/ が必要であり、フレームワークをビルドするためには "Ant":http://ant.apache.org/ が必要です。
+To benefit from the latest improvements and bug fixes, you may want to compile Play from sources. You’ll need a "Git client":http://git-scm.com/ to fetch the sources and "Ant":http://ant.apache.org/ to build the framework.
 
-コマンドラインから下記を実行します:
+From the command line:
 
 bc. # git clone git://github.com/playframework/play.git
 # cd play/framework
 # ant
 
-これで Play framework を使用する準備が整いました。
+The Play framework is ready to use.
 
 
-h2. <a name="run">play コマンドを使用する</a>
+h2. <a name="run">Using the play command</a>
 
-フレームワークを正しくインストールしたら、シェルを開いて *play* コマンドを実行してください。
+When the framework is correctly installed, open a shell and execute *play*. 
 
 bc. $ play
 
-play のデフォルトメッセージが見えるはずです:
+You should see the play default message:
 
 !images/help!
 
-*play help コマンド名* を実行することで、特定のコマンドのより詳細なヘルプを見ることができます。次の例を試してみてください:
+You can get more help on any specific command using *play help any-command-name-here*. For example, try:
 
 bc. # play help run
 
-h2. <a name="new">新しいアプリケーションの作成</a>
+h2. <a name="new">Creating a new application</a>
 
-@new@ コマンドを使って新しいアプリケーションを作成してください。アプリケーションの作成先として、存在しないパスを指定する必要があります。
+Use the @new@ command to create a new application. You must give a non-existent path where the application will be created.
 
 bc. # play new myApp
 
 !images/guide1-1!
 
-新しいアプリケーションが作成されます。以下のコマンドでアプリケーションを開始します:
+Will create a new application. Start it with:
 
 bc. # play run myApp
 
-ブラウザで "http://localhost:9000":http://localhost:9000 を開いて、アプリケーションのデフォルトページを見ることができます。
+You can then open a browser at "http://localhost:9000":http://localhost:9000 and see the default page for the application.
 
 !images/guide1-2!
 
-p(note). **Play を利用する環境が整いました**
+p(note). **Your Play environnement is ready**
  
-次は %(next)"お好みの IDE を設定しましょう":ide%
+Next: %(next)"Set-up your preferred IDE":ide%.

@@ -37,7 +37,7 @@ bc. [...] INFO  - Cobertura plugin: generating test coverage report
 [...]
 [...] INFO  - Test coverage report has been generated: file:/path/to/test-result/code-coverage/index.html
 
-モジュールは、このレポートを閲覧するための URL をコンソールに出力します。"file:/path/to/your/application/test-result/code-coverage/":file:/path/to/your/application/test-result/code-coverage/ のような URL によって、ブラウザからこのレポートを見ることができます。
+モジュールは、このレポートをNavegarするための URL をコンソールに出力します。"file:/path/to/your/application/test-result/code-coverage/":file:/path/to/your/application/test-result/code-coverage/ のような URL によって、ブラウザからこのレポートを見ることができます。
 
 !images/cobertura1!
 

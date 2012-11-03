@@ -1,10 +1,10 @@
-h1. タグ機能のサポート
+h1. Adding tagging support
 
-ブログがたくさんの投稿を含むにつれて、投稿を探すことはどんどん難しくなります。投稿をテーマごとに分類できるようにするために、タグ機能のサポートを追加しましょう。
+As our blog will contain more posts, it will become more and more difficult to retrieve them. To help classify posts by subject we will add tagging support.
 
-h2. <a name="model">Tag モデルオブジェクト</a>
+h2. <a name="model">The Tag model object</a>
 
-ブログのモデル定義にもうひとつオブジェクトを追加します。この @Tag@ クラス自体は本当にとてもシンプルです:
+We will add one more object to the blog model definition. The @Tag@ class itself is indeed very simple:
 
 bc. package models;
  
@@ -17,21 +17,21 @@ import play.db.jpa.*;
 public class Tag extends Model implements Comparable<Tag> {
  
     public String name;
-    
+ 
     private Tag(String name) {
         this.name = name;
     }
-    
+ 
     public String toString() {
         return name;
     }
-    
+ 
     public int compareTo(Tag otherTag) {
         return name.compareTo(otherTag.name);
     }
 }
 
-遅延タグ生成のようなものが欲しいので、タグの取得は常に @findOrCreateByName(String name)@ ファクトリメソッドを使うことにします。これを @Tag@ クラスに追加しましょう:
+Because we want something like lazy tag creation we will always get them using the @findOrCreateByName(String name)@ factory method. Let’s add it to the @Tag@ class:
 
 bc. public static Tag findOrCreateByName(String name) {
     Tag tag = Tag.find("byName", name).first();
@@ -41,15 +41,15 @@ bc. public static Tag findOrCreateByName(String name) {
     return tag;
 }
 
-h2. <a name="tagging">投稿のタグ付け</a>
+h2. <a name="tagging">Tagging posts</a>
 
-それでは、いよいよ新しい @Tag@ モデルを @Post@ に紐付けます。 @Post@ クラスに適切な関連を追加しましょう:
+Now it is time to link the new @Tag@ model with the @Post@ model. Let’s add the correct relationship to the @Post@ class:
 
 bc. …
 @ManyToMany(cascade=CascadeType.PERSIST)
 public Set<Tag> tags;
-    
-public Post(User author, String title, String content) { 
+ 
+public Post(User author, String title, String content) {
     this.comments = new ArrayList<Comment>();
     this.tags = new TreeSet<Tag>();
     this.author = author;
@@ -59,11 +59,11 @@ public Post(User author, String title, String content) {
 }
 …
 
-p(note). タグリストを予測できる順序 (実際は、上記の compareTo の実装によってアルファベット順) に保つために @TreeSet@ を使用することに注意してください。
+p(note). Note that we use a @TreeSet@ here in order to keep the tag list in a predictable order (alphabetical order in fact, because of our previous @compareTo@ implementation).
 
-この関連は単方向のままにします。
+We will keep this relationship unidirectional.
 
-タグ管理をシンプルにするため、ヘルパメソッドをひと揃え追加しましょう。最初の 1 つは、 @Post@ をタグ付けする機能です:
+We will also add a bunch of helper methods to make tag management simpler. The first one tags a @Post@:
 
 bc. …
 public Post tagItWith(String name) {
@@ -72,7 +72,7 @@ public Post tagItWith(String name) {
 }
 …
 
-次のメソッドは指定したタグで全ての投稿を検索するメソッドです。:
+The next one retrieves all posts with a specific tag:
 
 bc. …
 public static List<Post> findTaggedWith(String tag) {
@@ -82,11 +82,11 @@ public static List<Post> findTaggedWith(String tag) {
 }
 …
 
-そろそろこれらをテストする新しいテストケースを書く頃合です。以下をタイプして、サーバを @test@ モードで再起動してください:
+It is time to write a new test case to test this stuff. Restart the server in @test@ mode by typing:
 
 bc. $ play test
 
-そして @BasicTest@ クラスに新しい <code>@Test</code> を追加してください:
+Now add a new <code>@Test</code> to the @BasicTest@ class:
 
 bc. @Test
 public void testTags() {
@@ -96,27 +96,27 @@ public void testTags() {
     // Create a new post
     Post bobPost = new Post(bob, "My first post", "Hello world").save();
     Post anotherBobPost = new Post(bob, "Hop", "Hello world").save();
-    
+ 
     // Well
     assertEquals(0, Post.findTaggedWith("Red").size());
-    
+ 
     // Tag it now
     bobPost.tagItWith("Red").tagItWith("Blue").save();
     anotherBobPost.tagItWith("Red").tagItWith("Green").save();
-    
+ 
     // Check
-    assertEquals(2, Post.findTaggedWith("Red").size());        
+    assertEquals(2, Post.findTaggedWith("Red").size());
     assertEquals(1, Post.findTaggedWith("Blue").size());
     assertEquals(1, Post.findTaggedWith("Green").size());
 }
 
-きちんと動作することを確認してください。
+Make sure that it works.
 
-h2. <a name="multiple">ちょっと難しくなってきました</a>
+h2. <a name="multiple">A little more difficult now</a>
 
-まあ、今すぐこれをブログで使うつもりはありませんが、いくつかの指定されたタグでタグ付けをされた投稿を検索するとしたら、どうするのでしょうか? それは見かけより難しいです。
+Well, we won’t use it in our blog right now, but what if we wanted to retrieve posts tagged with several tags? It’s more difficult than it seems.
 
-いくつかの web プロジェクトで使うことになると思うので、必要な JPQL を以下に提供します:
+I give you the needed JPQL query because you will likely use it in several web projects:
 
 bc. …
 public static List<Post> findTaggedWith(String... tags) {
@@ -126,22 +126,22 @@ public static List<Post> findTaggedWith(String... tags) {
 }
 …
 
-トリッキーなのは、ジョインしたビューから **すべてのタグ** を持つ投稿をフィルタするために @having count@ 構文を使う必要がある点です。
+The tricky part is that we have to use a @having count@ statement to filter only posts that have exactly **all tags** from the joined view.
 
-p(note). @Post.find("...", tags, tags.count)@ というシグネチャをここでは使えないことに **注意してください** 。 @tags@ はすでに **引数** として使われています。
+p(note). **Note** that we cannot use the @Post.find("…", tags, tags.count)@ signature here, because @tags@ is already a **vararg**.
 
-先ほどのテストにチェック項目を追加してこの JPQL をテストすることができます:
+You can test it by adding more checks to the previous test:
 
 bc. …
-assertEquals(1, Post.findTaggedWith("Red", "Blue").size());   
-assertEquals(1, Post.findTaggedWith("Red", "Green").size());   
-assertEquals(0, Post.findTaggedWith("Red", "Green", "Blue").size());  
+assertEquals(1, Post.findTaggedWith("Red", "Blue").size());
+assertEquals(1, Post.findTaggedWith("Red", "Green").size());
+assertEquals(0, Post.findTaggedWith("Red", "Green", "Blue").size());
 assertEquals(0, Post.findTaggedWith("Green", "Blue").size());
 …
 
-h2. <a name="cloud">タグクラウド</a>
+h2. <a name="cloud">The tag cloud</a>
 
-タグがあるところにはタグクラウドが必要です。タグクラウドを生成するメソッドを @Tag@ クラスに追加しましょう:
+Where we have tags, we need a tag cloud. Let’s add a method to the @Tag@ class to generate the tag cloud:
 
 bc. public static List<Map> getCloud() {
     List<Map> result = Tag.find(
@@ -150,24 +150,24 @@ bc. public static List<Map> getCloud() {
     return result;
 }
 
-ここで、JPA クエリから任意のオブジェクトを返せるようにする hibernate の便利な機能を使います。このメソッドは、2 つのキー: タグの名前を示す @tag@ と、タグの数を示す @pound@ を持つ、それぞれのタグの @Map@ を含む @List@ を返します。
+Here we use a handy Hibernate feature that allows us to return a custom object from a JPA query. This results in a @List@ containing a @Map@ for each tag with two keys: @tag@ for the tag name and @pound@ for the tag count.
 
-タグのテストケースにチェック項目をもう 1 つ追加して、このメソッドをテストしましょう:
+Let’s test it by adding one more check to our tags test:
 
 bc. …
 List<Map> cloud = Tag.getCloud();
 assertEquals(
-    "[{tag=Blue, pound=1}, {tag=Green, pound=1}, {tag=Red, pound=2}]", 
+    "[{tag=Blue, pound=1}, {tag=Green, pound=1}, {tag=Red, pound=2}]",
     cloud.toString()
 );
 
-h2. <a name="data">ブログ UI へのタグの追加</a>
+h2. <a name="data">Adding tags to the Blog UI</a>
 
-これで、ブログを閲覧するもう 1 つの方法として、新しいタグ付け機能を追加することができるようになりました。いつも通り効率的に作業するために、初期データセットにテスト用のタグをひと揃え追加します。
+We can now use the new tagging stuff to add one more way to browse the blog. As always, to work efficiently we need to add a bunch of test tags to our initial data set.
 
-テスト用の投稿にいくつかのタグを追加するよう @/yabe/conf/initial-data.yml@ を変更してください。例えば、以下のようにします:
+Modify the @/yabe/conf/initial-data.yml@ file to add some tags to the tests posts. For example:
 
-bc. … 
+bc. …
 Tag(play):
     name:           Play
  
@@ -178,17 +178,17 @@ Tag(test):
     name:           Test
  
 Tag(mvc):
-    name:           MVC    
+    name:           MVC
 …
 
-さらにそれらのタグに対して post の宣言を追加します:
+And then add them to the post’s declaration:
 
 bc. …
 Post(jeffPost):
     title:          The MVC application
     postedAt:       2009-06-06
     author:         jeff
-    tags:           
+    tags:
                     - play
                     - architecture
                     - mvc
@@ -196,18 +196,18 @@ Post(jeffPost):
                     A Play
 …
 
-p(note). どの Post が参照するよりも前に作成されている必要があるので、Tag の宣言は YAML の上部で行ってください。
+p(note). Add the @Tags@ declaration at the top of the YAML file, because they need to be created before any @Post@ references them.
 
-新しい初期データセットを強制的に読み込ませるためにアプリケーションを再起動する必要があります。Play は YAML ファイルにおいてすら、以下のようにして問題を報告することを確認してください:
+You need to restart your application to force loading of the new initial data set. Note how Play even tells you about problems in YAML files:
 
 !images/guide6-1!
 
-続いて、 **full** モードで投稿を閲覧する場合に、タグのセットを表示するよう @#{display /}@ タグを変更します。 @/yabe/app/views/tags/display.html@ ファイルを以下のように編集してください:
+Then modify the @#{display /}@ tag to show the tag set on the **full** post view. Edit the @/yabe/app/views/tags/display.html@ file:
 
 bc. …
 #{if _as != 'full'}
     <span class="post-comments">
-        &nbsp;|&nbsp; ${_post.comments.size() ?: 'no'} 
+        &nbsp;|&nbsp; ${_post.comments.size() ?: 'no'}
         comment${_post.comments.size().pluralize()}
         #{if _post.comments}
             , latest by ${_post.comments[0].author}
@@ -216,7 +216,7 @@ bc. …
 #{/if}
 #{elseif _post.tags}
     <span class="post-tags">
-        - Tagged 
+        - Tagged
         #{list items:_post.tags, as:'tag'}
             <a href="#">${tag}</a>${tag_isLast ? '' : ', '}
         #{/list}
@@ -226,18 +226,18 @@ bc. …
 
 !images/guide6-2!
 
-h2. <a name="page">新しい 'tagged with' ページ</a>
+h2. <a name="page">The new ‘tagged with’ page</a>
 
-ここまでで、タグによって投稿をリスト表示する新たな方法を追加できるようになりました;  #{display /} タグの中に上で空のままにしたリンクを、新しい @listTagged@ アクションへのリンクで置き換えてみましょう:
+Now we can add a new way to list blog posts by tags. In the @#{display /}@ tag, above, we left the link blank; we will now replace it by a link to the new @listTagged@ action:
 
 bc. …
-- Tagged 
+- Tagged
 #{list items:_post.tags, as:'tag'}
     <a href="@{Application.listTagged(tag.name)}">${tag}</a>${tag_isLast ? '' : ', '}
 #{/list}
 …
 
-そして、このアクションを @Application@ コントローラに作成します:
+Create the action method on the @Application@ controller:
 
 bc. …
 public static void listTagged(String tag) {
@@ -246,21 +246,21 @@ public static void listTagged(String tag) {
 }
 …
 
-いつもの通り、URI をクリーンに保つために特定のルートを作成します:
+As always we create a specific route to keep the URI clean:
 
 bc. GET     /posts/{tag}                    Application.listTagged
 
-うーん、新しいルートと競合するルートがすでに存在するため、問題です。これら 2 つのルートは同じ URI にマッチします:
+We have a problem because we have an existing route that conflicts with this new one. These two routes will match the same URI:
 
 bc. GET     /posts/{id}                     Application.show
 GET     /posts/{tag}                    Application.listTagged
 
-しかし、 @id@ は数値、 @tag@ は数値以外を想定しているので、正規表現を使って初めのルートを制限することで、この状況を容易に解決することができます:
+However, because we’ll assume that an @id@ is numeric and a @tag@ is not, we can easily solve the situation using a regular expression to restrict the first route:
 
 bc. GET     /posts/{<[0-9]+>id}             Application.show
-GET     /posts/{tag}                    Application.listTagged 
+GET     /posts/{tag}                    Application.listTagged
 
-最後に、新しい @listTagged@ アクションから使用される @/yabe/app/views/Application/listTagged.html@ テンプレートを作る必要があります:
+Finally, we just have to create the @/yabe/app/views/Application/listTagged.html@ template that will be used by the new @listTagged@ action:
 
 bc. #{extends 'main.html' /}
 #{set title:'Posts tagged with ' + tag /}
@@ -268,10 +268,10 @@ bc. #{extends 'main.html' /}
 *{********* Title ********* }*
  
 #{if posts.size() > 1}
-   <h3>There are ${posts.size()} posts tagged '${tag}'</h3>  
-#{/if} 
+   <h3>There are ${posts.size()} posts tagged '${tag}'</h3>
+#{/if}
 #{elseif posts}
-    <h3>There is 1 post tagged '${tag}'</h3>  
+    <h3>There is 1 post tagged '${tag}'</h3>
 #{/elseif}
 #{else}
     <h3>No post tagged '${tag}'</h3>
@@ -279,12 +279,12 @@ bc. #{extends 'main.html' /}
  
 *{********* Posts list *********}*
  
-<div class="older-posts">    
+<div class="older-posts">
     #{list items:posts, as:'post'}
         #{display post:post, as:'teaser' /}
     #{/list}
-</div> 
+</div>
 
 !images/guide6-3!
 
-p(note). 次: %(next)"CRUD モジュールによる基本的な管理機能":guide7%
+-p(note). Next: %(next)"A basic admin area using CRUD":guide7%.

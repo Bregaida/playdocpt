@@ -14,7 +14,7 @@ Add Scala support to your existing Play installation.
 
 # "Installing Scala support for Play":install
 # "‘Hello World’ tutorial — Your first Play Scala application":hello-world
-# "Learning Scala with Play":learnscala
+# "Aprendaing Scala with Play":learnscala
 
 h2. Manual
 

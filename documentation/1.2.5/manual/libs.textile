@@ -1,34 +1,34 @@
-h1. Play ライブラリ
+h1. Play libs
 
-@play.libs@ パッケージには、一般的なプログラミングタスクを達成する手助けとなる便利ないくつかのライブラリが含まれています。
+The @play.libs@ package contains several useful libraries that will help you to achieve common programming tasks. 
 
-これらライブラリのほとんどは本当に直感的に使うことのできるシンプルなヘルパです:
+Most of these libraries are simple helpers that are really straightforward to use: 
 
-* "Codec":/@api/play/libs/Codec.html: データをエンコードまたはデコードするユーティリティ
-* "Crypto":/@api/play/libs/Crypto.html: 暗号化に関するユーティリティ
-* "Expression":/@api/play/libs/Expression.html: 動的な式の評価
-* "F":/@api/play/libs/F.html: Java による関数プログラミング
-* "ファイル":/@api/play/libs/Files.html: ファイルシステム操作ヘルパ
-* "I18N":/@api/play/libs/I18N.html: 国際化ヘルパ
-* "IO":/@api/play/libs/IO.html: ストリーム操作ヘルパ
-* "Images":/@api/play/libs/Images.html: イメージ操作ヘルパ
-* "Mail":/@api/play/libs/Mail.html: e メール関数
-* "MimeTypes":/@api/play/libs/MimeTypes.html: MIME タイプの取扱い
-* "OAuth":/@api/play/libs/OAuth.html: OAuth クライアントプロトコル
-* "OAuth2":/@api/play/libs/OAuth2.html: OAuth2 クライアントプロトコル
-* "OpenID":/@api/play/libs/OpenID.html: OpenID クライアントプロトコル
-* "Time":/@api/play/libs/Time.html: 時間と期間のユーティリティ
-* "WS":/@api/play/libs/WS.html: 強力な Web サービスクライアント
-* "XML":/@api/play/libs/XML.html: XML 構造のロード
-* "XPath":/@api/play/libs/XPath.html: XPath による XML の解析
+* "Codec":/@api/play/libs/Codec.html: Utilities to encode and decode data.
+* "Crypto":/@api/play/libs/Crypto.html: Cryptographics utilities.
+* "Expression":/@api/play/libs/Expression.html: Evaluate dynamic expressions.
+* "F":/@api/play/libs/F.html: Functional programming with Java.
+* "Files":/@api/play/libs/Files.html: File system manipulation helpers.
+* "I18N":/@api/play/libs/I18N.html: Internationalization helpers.
+* "IO":/@api/play/libs/IO.html: Stream manipulation helpers.
+* "Images":/@api/play/libs/Images.html: Image manipulation utilities.
+* "Mail":/@api/play/libs/Mail.html: E-mail functions.
+* "MimeTypes":/@api/play/libs/MimeTypes.html: Dealing with MIME types.
+* "OAuth":/@api/play/libs/OAuth.html: OAuth client protocol.
+* "OAuth2":/@api/play/libs/OAuth2.html: OAuth2 client protocol.
+* "OpenID":/@api/play/libs/OpenID.html: OpenID client protocol.
+* "Time":/@api/play/libs/Time.html: Time and duration utilities.
+* "WS":/@api/play/libs/WS.html: Powerful Web Service client.
+* "XML":/@api/play/libs/XML.html: Loading XML structures.
+* "XPath":/@api/play/libs/XPath.html: Parsing XML using XPath.
 
-以下の節では、特に重要なライブラリについて、より詳細な情報を提供します。
+The following sections provide more information about the most important libraries.
 
-h2. XPath による XML の解析
+h2. Parsing XML using XPath
 
-"XPath":http://en.wikipedia.org/wiki/XPath は、コード生成ツールを使わずに XML ドキュメントを解析する、おそらくもっとも簡単な方法です。 @play.libs.XPath@ ライブラリは、このタスクを効率的に達成するために必要な基本機能を提供します。
+"XPath":http://en.wikipedia.org/wiki/XPath is probably the easiest way to parse an XML document without having to use code generation tools. The @play.libs.XPath@ library offers all the needed primitives to efficiently achieve this task.
 
-@XPath@ 演算子はすべての @org.w3.dom.Node@ 型を操作します:
+The @XPath@ operations operate on all @org.w3.dom.Node@ types:
 
 bc. org.w3.dom.Document xmlDoc = … // retrieve a Document somewhere
   
@@ -45,45 +45,45 @@ for(Node event: XPath.selectNodes("events//event", xmlDoc)) {
     …
 }
 
-h2. Web サービスクライアント
+h2. Web Service client
 
-@play.libs.WS@ は、強力な HTTP クライアントを提供します。内部では "Async HTTP client":https://github.com/AsyncHttpClient/async-http-client を使用しています。
+The @play.libs.WS@ provides a powerful HTTP client. Under the hood it uses "Async HTTP client":https://github.com/AsyncHttpClient/async-http-client. 
 
-リクエストの作成は簡単です:
+Making a request is easy:
 
 bc. HttpResponse res = WS.url("http://www.google.com").get();
 
-いったん @HttpResponse@ オブジェクトを手に入れてしまえば、すべてのレスポンス属性にアクセスすることができます。
+Once you have an @HttpResponse@ object you can access all the response properties.
 
 bc. int status = res.getStatus();
 String type = res.getContentType();
 
-複数の content-type においてボディの内容を検索することもできます:
+You can also retrieve the body content in several content types:
 
 bc. String content = res.getString();
 Document xml = res.getXml();
 JsonElement json = res.getJson();
 InputStream is = res.getStream();
 
-*async* API を使ってノンブロッキングな HTTP リクエストを作成することもできます。この場合は @Promise<HttpResponse>@ を受け取ります。いったん非同期状態から回復すれば、通常通り @HttpResponse@ を使うことができます:
+You can also use the *async* API to make HTTP requests in a non-blocking way. Then you will receive a @Promise<HttpResponse>@. Once redeemed, you can use the @HttpResponse@ as usual:
 
 bc. Promise<HttpResponse> futureResponse = WS.url(
     "http://www.google.com"
 ).getAsync();
 
-h2. Java による関数プログラミング
+h2. Functional programming with Java
 
-@play.libs.F@ ライブラリは関数プログラミング由来の便利な構成物を提供します。これらの構成物は複雑に抽象化された事象を取り扱うために使用されます。関数プログラミングに慣れている人のために、以下が提供されています:
+The @play.libs.F@ library provide several useful constructs coming from functional programming. These constructs are used to handle complex abstraction cases. For those that are accustomed to functional programming we provide:
 
-* @Option<T>@ (設定できる、または設定できない T 値)
-* @Either<A,B>@ (どちらかが含まれる A 値または B 値)
-* @Tuple<A,B>@ (どちらとも含まれる A 値と B 値)
+* @Option<T>@ (a T value that can be or not set)
+* @Either<A,B>@ (contains either a A value or a B value)
+* @Tuple<A,B>@ (contains both A and B values)
 
-h3. @Option<T>@, @Some<T>@ と @None<T>@
+h3. @Option<T>@, @Some<T>@ and @None<T>@
 
-いくつかのケースでは結果を返さないかもしれない関数 (例えば find) を記述する場合において、一般的な（悪い）Java のパターンは結果がない場合に @null@ を返すことです。この方法は、関数の戻り値の型がオブジェクトを返さない可能性があることを明確に示していないし、null 参照の発明者によって "“billion-dollar mistake”":http://en.wikipedia.org/wiki/Pointer_(computing)#Null_pointer として認識されているおり、危険です。 
-@Option<T>@ はこの問題に対するエレガントなソリューションです: @T@ 型のオブジェクトを返す代わりに、この関数は @Option<T>@ を返します。この関数は成功した場合、(実際の結果をラップする) @Some<T>@ 型、そうでない場合は @None<T>@ 型、いずれも @Option<T>@ のサブタイプであるオブジェクトを返します。
-以下に例を示します:
+When you write a function that may not return a result in some cases (e.g. a @find@ method), a common (bad) Java pattern is to return @null@ when there is no result. This practice is dangerous because the function return type does not clearly shows that it may not return an object and it has been recognized by the nullable references inventor to be a "“billion-dollar mistake”":http://en.wikipedia.org/wiki/Pointer_(computing)#Null_pointer.
+@Option<T>@ is an elegant solution to this problem: instead of returning an object of type @T@, the function returns an @Option<T>@. If the function succeeds, it returns an object of type @Some<T>@ (wrapping the real result), otherwise an object of type @None<T>@, which both are subtypes of @Option<T>@.
+Here is an example:
 
 bc. /* Safe division (will never throw a runtime ArithmeticException) */
 public Option<Double> div(double a, double b) {
@@ -93,24 +93,24 @@ public Option<Double> div(double a, double b) {
         return Some(a / b);
 }
 
-この関数のこのように使います:
+Here is a way to use this function:
 
 bc. Option<Double> q = div(42, 5);
 if (q.isDefined()) {
     Logger.info("q = %s", q.get()); // "q = 8.4"
 }
 
-しかし、これを使うために @Option<T>@ が @Iterable<T>@ を実装していることを利用したもっと便利な構文があります:
+But there is a more convenient syntax to use it, leveraging the fact that @Option<T>@ implements @Iterable<T>@:
 
 bc. for (double q : div(42, 5)) {
     Logger.info("q = %s", q); // "q = 8.4"
 }
 
-この for ループの中身は @div@ 関数が成功した場合にのみ、一回だけ実行されます。
+The body of the for loop is be executed once, only if the @div@ function succeeded.
 
 h3. @Tuple<A, B>@
 
-便利な @Tuple<A, B>@ は、 @A@ および @B@ 型の二つのオブジェクトをラップします。これらのオブジェクトは、それぞれ @_1@ および @_2@ フィールドを使って取得することができます。例えば:
+The handy @Tuple<A, B>@ class wraps two objects of type @A@ and @B@. You can retrieve the objects using the @_1@ and @_2@ fields, respectively. For example:
 
 bc. public Option<Tuple<String, String>> parseEmail(String email) {
     final Matcher matcher = Pattern.compile("(\\w+)@(\\w+)").matcher(email);
@@ -120,24 +120,24 @@ bc. public Option<Tuple<String, String>> parseEmail(String email) {
     return None();
 }
 
-そして:
+Then:
 
 bc. for (Tuple<String, String> email : parseEmail("foo@bar.com")) {
     Logger.info("name = %s", email._1); // "name = foo"
     Logger.info("server = %s", email._2); // "server = bar.com"
 }
 
-p(note). @T2<A, B>@ クラスは @Tuple<A, B>@ のエイリアスです。三要素のタプルを扱う場合は @T3<A, B, C>@ クラスを使い、 @T5<A, B, C, D, E>@ まで同様です。
+p(note). The @T2<A, B>@ class is an alias for @Tuple<A, B>@. To handle tuples of 3 elements use the @T3<A, B, C>@ class, and so on up to @T5<A, B, C, D, E>@.
 
-h3. パターンマッチング
+h3. Pattern Matching
 
-Java にはパターンマッチングが必要だと感じることがありました。残念ながら Java は組み込みのパターンマッチングを持ち合わせておらず、関数構造の欠如により、パターンマッチングをライブラリとして追加することも困難でした。とにかく、私たちはそれほど悪くない解決策に取り組みました。
+Several times we've felt that we needed pattern matching in Java. Unfortunately Java does not have built-in pattern matching, and because of the lack of functional constructs, it is difficult to add it as a library. Anyway we’ve worked on a solution that is not so bad.
 
-私たちのアイディアとは、Java において基礎的なパターンマッチングを達成するために最新の‘for ループ’文法を使うことでした。パターンマッチングは、オブジェクトが求められる条件に合致することを確認し、関心のある値を抽出しなければなりません。Play のパターンマッチングライブラリは @play.libs.F@ ライブラリの一部です。
+Our idea was to use the latest ‘for loop’ syntax to achieve basic pattern matching for Java. Pattern matching must both check if your object matches the required conditions and extract the interesting value. The Pattern matching library for Play is part of the @play.libs.F@ library.
 
-簡単な例を見てみましょう; Object 型の参照があり、これが "command:" から始まる文字列であることを確認したいとします。
+Let’s see a simple example; you have a reference of type Object and you want to check that it is a string that starts by ‘command:’. 
 
-標準的な方法は以下のようになるでしょう:
+The standard way would be:
 
 bc. Object o = anything();
  
@@ -146,21 +146,21 @@ if(o instanceof String && ((String)o).startsWith("command:")) {
     System.out.println(s.toUpperCase());
 }
 
-Play のパターンマッチングを使うと、これを次のように書くことができます:
+Using the Play pattern matching library, you can write it as:
 
 bc. for(String s: String.and(StartsWith("command:")).match(o)) {
     System.out.println(s.toUpperCase());
 }
 
-この for ループは条件に合致する場合に一度だけ実行され、キャストをする必要なく自動的に String の値を抽出します。明示的なキャストが存在しないので、すべてがタイプセーフであり、コンパイラによって型チェックが行われます。
+The for loop is executed once, only if the condition is met, and it automatically extracts the String value without the need for casting. Because there is no explicit cast, everything is type-safe, and checked by the compiler.
 
 h3. Promises
 
-@Promise@ は Play による @Future@ 型のカスタマイズです。実際のところ、 @Promise<T>@ は @Future<T>@ でもあるので、標準的な @Future@ として使用することもできます。しかし、 @Promise@ にはとても興味深い属性: @onRedeem(…)@ を使って、期待する値が利用可能になるとできるだけ早く呼び出されるコールバックを登録する機能が備わっています。
+A @Promise@ is Play’s custom @Future@ type. In fact a @Promise<T>@ is also a @Future<T>@ so you can use it as a standard @Future@. But it has also a very interesting property: the ability to register callback using @onRedeem(…)@ that will be called as soon as the promised value is available. 
 
-@Promise@ インスタンスは Play のいたるところ (Jobs や @WS.async@, その他…) で @Future@ の代わりに使用されています。
+@Promise@ instances are used everywhere in Play in place of @Future@ instances (for Jobs, @WS.async@, etc…).
 
-Promise はいくつかの方法で紐付けることができます。例えば:
+Promises can be combined in several ways. For example:
 
 bc. Promise p = Promise.waitAll(p1, p2, p3)
 Promise p = Promise.waitAny(p1, p2, p3)
@@ -168,30 +168,30 @@ Promise p = Promise.waitEither(p1, p2, p3)
 
 h2. OAuth
 
-"OAuth":http://oauth.net/ は、デスクトップアプリケーションや web アプリケーションに向けた、シンプルで標準的なアプローチを使ったセキュアな認証 API 用オープンプロトコルです。
+"OAuth":http://oauth.net/ is an open protocol for secure API authorization, using a simple and standard approach, from desktop and web applications.
 
-二つの異なる仕様が存在します: OAuth 1.0 と OAuth 2.0 です。Play は、これらのうちどちらかの仕様を提案するサービスにコンシューマとして接続するライブラリを提供します。
+Two different specifications exist: OAuth 1.0 and OAuth 2.0. Play provides libraries to connect as a consumer to services proposing either of these specifications.
 
-一般的な手順は次のようになります:
+The general process is the following:
 
-* ユーザをプロバイダの認証ページへリダイレクトします
-* ユーザが認証されると、プロバイダはユーザを未認証トークンと共にあなたのサーバへ再度リダイレクトします
-* あなたのサーバは、サービスに対するリクエストを処理するために保存されなければならない、現在のユーザ向けに特化したアクセストークンと、この未認証トークンを交換します。この手順はサーバ間のコミュニケーションとして実行されます
+* Redirect the user to the provider’s authorization page
+* After the user grants authorization, he is redirected back to your server along with an unauthorized token
+* Your server exchanges the unauthorized token with an access token specific to the current user, that needs to be saved in order to perform requests to the service. This step is done as server-to-server communication.
 
-Play フレームワークは、この手順の大部分を取り計らいます。
+The Play framework takes care of most of the process.
 
 h3. <a>OAuth 1.0</a>
 
-OAuth 1.0 の機能は "oauth-signpost":http://code.google.com/p/oauth-signpost/ に基づく @play.libs.OAuth@ クラスによって提供されます。OAuth 1.0 は "Twitter":http://apiwiki.twitter.com/ や "Google":http://code.google.com/apis/accounts/docs/OAuth.html のようなサービスで使用されています。
+The OAuth 1.0 functionality is provided by the @play.libs.OAuth@ class and is based on "oauth-signpost":http://code.google.com/p/oauth-signpost/. It is used by services such as "Twitter":http://apiwiki.twitter.com/ or "Google":http://code.google.com/apis/accounts/docs/OAuth.html
 
-サーバへ接続するためには、サービスプロバイダから得られる以下の情報を使ってOAuth.ServiceInfo インスタンスを作成する必要があります:
-* リクエストトークン URL
-* アクセストークン URL
-* 認証 URL
-* コンシューマ・キー
-* コンシューマ・シークレット
+To connect to a service, you need the create a OAuth.ServiceInfo instance using the following information, obtained from the service provider:
+* Request token URL
+* Access token URL
+* Authorize URL
+* Consumer key
+* Consumer secret
 
-アクセストークンはこのようにして読み出すことができます:
+The access token can be retrieved this way:
 
 bc. public static void authenticate() {
     // TWITTER is a OAuth.ServiceInfo object
@@ -217,25 +217,25 @@ bc. public static void authenticate() {
     redirect(twitt.redirectUrl(resp.token));
 }
 
-これで、トークンペアを使って署名したリクエストによって API を呼び出すことができるようになります:
+Calls can now be done by signing the requests using the token pair:
 
-bc. mentions = WS.url(url).oauth(TWITTER, getUser().getTokenPair()).get().getString();
+bc. mentions = WS.url(url).oauth(TWITTER, getUser().token, getUser().secret).get().getString();
 
-この例ではエラーをチェックしていませんが、本番環境ではチェックすべきです。 OAuth.Response オブジェクトは、エラーが起こった場合には null でないエラーフィールドを保持します。それらの多くは、ユーザがあなたにアクセス権を与えていないか、プロバイダがダウンしているか、あるいはプロバイダにバグがある場合です。
+While the example doesn't check for errors, in production you should. The OAuth.Response object holds an error field that is non-null when an error occurred. Most likely it could be that the user didn't grant you access, that the provider is down or buggy.
 
-完全な使用例が @samples-and-tests/twitter-oauth@ にあります。
+The full example usage is available in @samples-and-tests/twitter-oauth@.
 
 h3. <a>OAuth 2.0</a>
 
-OAuth 2.0 は、リクエストの署名を伴わないので、OAuth 1.0 よりもかなりシンプルです。OAuth 2.0 は "Facebook":http://developers.facebook.com/docs/authentication/ と "37signals":http://37signals.com で使用されています。
+OAuth 2.0 is much simpler than OAuth 1.0 because it doesn’t involve signing requests. It is used by "Facebook":http://developers.facebook.com/docs/authentication/ and "37signals":http://37signals.com.
 
-OAuth 2.0 の機能は @play.libs.OAuth2@ として提供されています。
+Functionality is provided by @play.libs.OAuth2@.
 
-サーバへ接続するためには、サービスプロバイダから得られる以下の情報を使って OAuth2 インスタンスを作成する必要があります:
-* アクセストークン URL
-* 認証 URL
-* クライアント ID
-* シークレット
+To connect to a service, you need the create a OAuth2 instance using the following information, obtained from the service provider:
+* Access token URL
+* Authorize URL
+* Client ID
+* Secret
 
 bc. public static void auth() {
     // FACEBOOK is a OAuth2 object
@@ -255,27 +255,27 @@ bc. public static void auth() {
     FACEBOOK.requestVerificationCode(authUrl);
 }
 
-一旦このアクセストークンをユーザと関連づけたあとは、ユーザに代わってサービスへ問い合わせを行うためにこのトークンを使うことができます:
+Once you have the access token associated with the current user, you can use it to query the service on behalf of the user:
 
 bc. WS.url(
     "https://graph.facebook.com/me?access_token=%s", access_token
 ).get().getJson();
 
-完全な使用例が @samples-and-tests/facebook-oauth2@ にあります。
+The full example usage is available in @samples-and-tests/facebook-oauth2@.
 
 
 h2. OpenID
 
-"OpenID":http://openid.net/ オープンで分散した識別システムです。アプリケーションに特化したユーザ情報を保持することなしに、容易に新しいユーザを受け入れることができます。ユーザの **OpenID** を通して認証されたユーザを追跡し続けなければならないだけです。
+"OpenID":http://openid.net/ is an open and decentralized identity system. You can easily accept new users in your application without having to keep specific user information. You just have to keep track of authorized users through their **OpenID**.
 
-この例では、Play アプリケーションにおいて OpenID 認証がどのように使用されるかを高いレベルで見ることができます:
+This example provides a high-level view of how OpenID authentication can be used within a Play application:
 
-* あらゆるリクエストにおいて、ユーザが接続されているか確認する
-* もしユーザが接続されていなければ、ユーザが OpenID を投稿することのできるページを表示する
-* ユーザを OpenID プロバイダにリダイレクトする
-* ユーザが戻ってきたら、検証された OpenID を取得して HTTP セッションに保存する
+* For each request, check if the user is connected
+* If not, display a page where the user can submit his OpenID
+* Redirect the user to the OpenID provider
+* When the user comes back, get the verified OpenID and save it in the HTTP session.
 
-OpenID の機能は @play.libs.OpenID@ クラスとして提供されています。
+The OpenID functionality is provided by the @play.libs.OpenID@ class.
 
 bc. @Before(unless={"login", "authenticate"})
 static void checkAuthenticated() {
@@ -309,7 +309,7 @@ public static void authenticate(String user) {
     }
 }
 
-そして、以下が @login.html@ テンプレートです:
+And the @login.html@ template:
 
 bc. #{if flash.error}
 <h1>${flash.error}</h1>
@@ -318,16 +318,16 @@ bc. #{if flash.error}
 <form action="@{Application.authenticate()}" method="POST">
     <label for="user">What’s your OpenID?</label>
     <input type="text" name="user" id="user" />
-    <input type="submit" value="login..." />
+    <input type="submit" value="login…" />
 </form>
 </code>
 
-最後に、 @routes@ の定義は以下のようになります:
+And finally the @routes@ definitions:
 
 bc. GET   /                     Application.index
 GET   /login                Application.login
 *     /authenticate         Application.authenticate
 
-p(note). **考察を続けます**
+p(note). **Continuing the discussion**
  
-それでは %(next)"非同期ジョブ":jobs% を使って、あらゆる HTTP リクエストの外側で操作を実行する方法を確認しましょう。
+Now we’ll check how to perform operations outside any HTTP request using %(next)"Ansynchronous Jobs":jobs%.

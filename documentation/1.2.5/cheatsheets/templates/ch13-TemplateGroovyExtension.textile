@@ -16,7 +16,7 @@ red blue
 blue
 
 *==${ new Date(new Date().getTime() - 1000000).since() }==*
-16 分前
+16 minutes ago
 
 *==${new Date(1275910970000).format('dd MMMM yyyy==*
 *==hh:mm:ss')}==*

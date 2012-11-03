@@ -17,4 +17,5 @@ h2. Multi-environment
 *==play run --%prod==*
 *==play run --%dev==*
 *==play test==*
-これは適切な設定を選びます。
+Will pick the appropriate configuration
+

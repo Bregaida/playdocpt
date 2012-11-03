@@ -1,17 +1,35 @@
+# General temp files
+.DS_Store
+*.ser
+*.pyc
+
+# Files related to Play build or usage
+dist
+samples-and-tests/*/test-result/
+
+# IDE and editors
 *~
-*.swp
+.idea
+nbproject
+eclipse
+.amateras
+.settings
 .classpath
 .project
-.redcar/*
-.settings/*
-.DS_Store
-eclipse/*
-eclipse/classes/*
-precompiled/*
-tmp/*
-tmp/bytecode/*
-test-result/*
-lib/*
-modules/*
-html/*
+*.iml
+*.ipr
+*.iws
+atlassian-ide-plugin.xml
+
+# modules/: exclude except for core modules
+war/
+bin/
+data/
+db/
+dist/
+logs/
+test-result/
+lib/
+tmp/
+modules/
 

@@ -8,6 +8,6 @@ type('login', 'admin')
 type('password', 'secret')
 clickAndWait('signin')
 
-// ユーザが正常にログインしているか検証します。
+// Verify that the user in correctly logged in
 assertText('success', 'Welcome admin!')
 *==#{/selenium}==*

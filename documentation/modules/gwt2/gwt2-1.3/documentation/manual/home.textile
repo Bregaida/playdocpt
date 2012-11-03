@@ -218,7 +218,7 @@ This sample is just a basic gwt module create with:
 This sample is an basic gwt module wich use Play Model.
 
 
-h2. <a>About</a>
+h2. <a>Sobre</a>
 
 This Module is maintained by **Vincent Buzzano** and was originaly based on the GWT Plugin by **Rustem Suniev**.
 

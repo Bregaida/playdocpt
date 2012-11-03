@@ -6,21 +6,21 @@
     <h1><a href="/documentation/${version}">Manual, tutorials & references</a></h1>
     <nav>
         <form method="get" action="http://www.google.com/search" id="search">
-            <input type="search" placeholder="Search ${version} on Google" name="q" results="10" size="29">
+            <input type="search" placeholder="Buscar ${version} no Google" name="q" results="10" size="29">
             <input type="hidden"  name="sitesearch" value="playdocja.appspot.com/documentation/${version}"> 
             <input type="submit" style="position:absolute;top:-1000em">
         </form>
         <span class="versions">
-            <span>Version ${version}</span>
+            <span>Versão ${version}</span>
             <select>
                 <option disabled>Select version</option>
                 #{list items:versions, as:'item'}
-                    <option ${version == "${item}" ? 'selected ' : ''}value="/documentation/${item}">Version ${item}</option>
+                    <option ${version == "${item}" ? 'selected ' : ''}value="/documentation/${item}">Versão ${item}</option>
                 #{/list}
             </select>
         </span>
         <span class="versions">
-            <span>Browse APIs</span>
+            <span>Navegar nas APIs</span>
             <select>
                 <option selected disabled>Select language</option>
                 <option value="http://www.playframework.org/documentation/api/${version}/index.html">Java API</option>
@@ -55,7 +55,7 @@ $(function(){
         ${article.raw()}
     </article>
     <aside>
-    <h3>公式ドキュメント</h3>
+    <h3>documentação oficial</h3>
         <p>
             <a href="http://www.playframework.org/documentation/${version}/${id}" target="_blank">#{get 'title' /} — Playframework</a>
         </p>
@@ -63,11 +63,11 @@ $(function(){
         ${navigation.raw()}
         #{/if}
         #{else}
-        <h3>閲覧</h3>
+        <h3>Navegar</h3>
         <ul>
             <li id="gotoc"><a href="home">目次</a></li>
         </ul>
-        <h3>内容</h3>
+        <h3>Conteúdo</h3>
         <div id="toc"></div>
         <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
         <script type="text/javascript" charset="utf-8">

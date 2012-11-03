@@ -1,21 +1,21 @@
 h2. Model - Callbacks
 
-データベース依存のトリガを実装する便利な方法
+Convenient ways to implement database-independent triggers.
 
 *==@PrePersist==*
-永続化前のコールバックメソッドを定義します。
+Defines this method as being a callback for pre-persist events
 
 *==@PostPersist==*
-永続化後のコールバックメソッドを定義します。
+Defines this method as being a callback for post-persist events
 
 *==@PreRemove==*
-削除前のコールバックメソッドを定義します。
+Defines this method as being a callback for pre-remove events
 
 *==@PostRemove==*
-削除後のコールバックメソッドを定義します。
+Defines this method as being a callback for post-remove events
 
 *==@PreUpdate==*
-更新前のコールバックメソッドを定義します。
+Defines this method as being a callback for pre-update events
 
 *==@PostLoad==*
-更新後のコールバックメソッドを定義します。
+Defines this method as being a callback for post-load events

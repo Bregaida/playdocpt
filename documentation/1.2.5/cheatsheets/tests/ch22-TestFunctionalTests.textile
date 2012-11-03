@@ -1,7 +1,7 @@
 h2. Test - Functional Tests
 
 *==public class ApplicationTest extends FunctionalTest==*
-機能テストは HTTP を取り入れたユニットテストです。
+Functional test are unit tests with an HTTP orientation
 
 *==newRequest()==*
 *==newResponse()==*

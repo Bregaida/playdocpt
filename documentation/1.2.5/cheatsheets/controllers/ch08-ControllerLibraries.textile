@@ -1,64 +1,63 @@
 h2. Controller - Libraries
 
 *==WS.url("http://s.com/posts").get().toJSON();==*
-HTTP GET リクエストを JSON にします。
+HTTP GET request to JSON
 
 *==WS.withEncoding("iso-8859-1").url("http://s.com/posts").get().toJSON();==*
-HTTP GET リクエストを iso-8859-1 エンコーディングで JSON にします。
+HTTP GET request to JSON using iso-8859-1 encoding
 
 *==WS.url("http://s.com/").post().toXML();==*
-HTTP POST リクエストを XML にします。
+HTTP POST request to XML
 
 *==DB.execute("raw sql");==*
-そのままの SQL を評価します。
+Eval raw SQL
 
 *==XML.getDocument(String);==*
-文字列を XML にします。
+String to XML
 
 *==XML.serialize(Document);==*
-XML を文字列にします。
+XML to String
 
 *==XPath.selectNodes(String xpath, Object node);==*
-XPath 表記の評価
+XPath expression evaluator
 
 *==Files.copy(File,File);==*
-ファイルコピー
+File copy
 
 *==Files.copyDir(File,File);==*
-再帰的なディレクトリコピー
+Recursive directory copy
 
 *==Files.delete(File);==*
 *==Files.deleteDirectory(File);==*
-ファイルやディレクトリの削除
+Deletes file/directory
 
 *==IO.readLines(File);==*
 *==IO.readContentAsString(File);==*
 *==IO.readContent(File);==*
 *==IO.write(byte[],File);==*
-ファイルの内容の読み書き
+Read/Write file contents
 
 *==Images.crop(File orig,File to, int x1, int y1, int x2, int y2);==*
 *==Images.resize(File orig, File to, int w, int h);==*
 *==Images.toBase64(File image);==*
-便利なメソッド
+Handy methods!
 
 *==Crypto.encryptAES(String);==*
 *==Crypto.decryptAES(String);==*
-アプリケーションの秘密鍵を使っての暗号化
+Encryption using the application secret key
 
 *==Crypto.passwordHash(String);==*
-MD5 パスワードハッシュを生成します。
+Create an MD5 password hash
 
 *==Codec.UUID();==*
-ユニークな ID を生成します。
+Generates unique IDs
 
 *==Codec.byteToHexString(byte[] bytes);==*
-バイト配列を 16進数表記の文字列で書き出します。
+Write a byte array as hexadecimal String
 
 *==Codec.encodeBASE64(byte[] value);==*
 *==Codec.decodeBASE64(String base64);==*
 Encode/Decode a base64 value
-base64 のエンコードまたはデコードをします。
 
 *==Codec.hexSHA1(String);==*
-文字列の 16進数表記の SHA1 ハッシュを生成します。
+Build a hexadecimal SHA1 hash for a String

@@ -1,58 +1,58 @@
-h1. 依存性管理
+h1. Dependency management
 
-Play の依存性管理システムによって、アプリケーションの外部依存性を単一の @dependencies.yml@ ファイルに記述することができます。
+Play’s dependency management system allows you to express your application’s external dependencies in a single @dependencies.yml@ file. 
 
-Play アプリケーションには三種類の依存性があります:
+A Play application can have three kinds of dependencies:
 
-* Play フレームワーク自身。Play アプリケーションは常に Play フレームワークに依存します。
-* アプリケーションの @lib/@ ディレクトリにインストールされた **JAR** ファイルとして提供されるあらゆる Java ライブラリ
-* アプリケーションの @modules/@ ディレクトリにインストールされた (実際はアプリケーションの断片である) Play モジュール
+* The Play framework itself, since a Play application always depends on the Play framework.
+* Any Java library, provided as **JAR** file installed in your application’s @lib/@ directory.
+* A Play module (in fact an application fragment) installed in your application’s @modules/@ directory.
 
-これらの依存性をアプリケーションの @conf/dependencies.yml@ ファイルに記述すると、Play はすべての必要な依存性を解決し、ダウンロードしてインストールします。
+Once you have expressed these dependencies in your application’s @conf/dependencies.yml@ file, Play will resolve, download and install all required dependencies.
 
-h2. <a name="format">依存性の書式</a>
+h2. <a name="format">Dependency format</a>
 
-依存性は組織名とリビジョン番号によって記述されます。例えば、以下のように @dependencies.yml@ ファイルに依存性を記述します:
+A dependency is described by an organisation a name and a revision number. In the @dependencies.yml@ file you will write it like this:
 
 bc. organisation -> name revision
 
-このため、例えば "Play PDF モジュール":http://www.playframework.org/modules/pdf のバージョン 1.0 は以下のように表現されます:
+So, for instance version 1.0 of the "Play PDF module":http://www.playframework.org/modules/pdf is expressed like this:
 
 bc. play -> pdf 1.0
 
-"commons-lang":http://commons.apache.org/lang/ のように組織の名称と依存性の名称がぴったり一致する場合があります:
+Sometimes the organisation name exactly matches the dependency name, as is the case for "commons-lang":http://commons.apache.org/lang/:
 
 bc. commons-lang -> commons-lang 2.5
 
-この場合、依存性定義から組織名を省略することができます:
+In this case, you can omit the organisation from the dependency declaration:
 
 bc. commons-lang 2.5
 
-h3. 動的なリビジョン
+h3. Dynamic revisions
 
-リビジョン番号は (例えば 1.2 などのように) 固定にするか、または動的にすることができます。動的なリビジョン番号は許容するリビジョンの範囲を表します。
+The revision can be fixed (1.2, for instance) or dynamic. A dynamic revision expresses a range of allowed revisions. 
 
-例えば:
+For example:
 
-* @[1.0,2.0]@ は 1.0 以上かつ 2.0 以下のすべてのバージョンにマッチします
-* @[1.0,2.0[@ は 1.0 以上かつ 2.0 より小さいすべてのバージョンにマッチします
-* @]1.0,2.0]@ は 1.0 より大きく 2.0 以下のすべてのバージョンにマッチします
-* @]1.0,2.0[@ は 1.0 より大きく 2.0 より小さいすべてのバージョンにマッチします
-* @[1.0,)@ は 1.0 以上のすべてのバージョンにマッチします
-* @]1.0,)@ は 1.0 より大きいすべてのバージョンにマッチします
-* @(,2.0]@ は 2.0 以下のすべてのバージョンにマッチします
-* @(,2.0[@ は 2.0 より小さいすべてのバージョンにマッチします
+* @[1.0,2.0]@ matches all versions greater or equal to 1.0 and lower or equal to 2.0
+* @[1.0,2.0[@ matches all versions greater or equal to 1.0 and lower than 2.0
+* @]1.0,2.0]@ matches all versions greater than 1.0 and lower or equal to 2.0
+* @]1.0,2.0[@ matches all versions greater than 1.0 and lower than 2.0
+* @[1.0,)@ matches all versions greater or equal to 1.0
+* @]1.0,)@ matches all versions greater than 1.0
+* @(,2.0]@ matches all versions lower or equal to 2.0
+* @(,2.0[@ matches all versions lower than 2.0
 
 h2. <a name="yml">dependencies.yml</a>
 
-新しい Play アプリケーションを作成すると、自動的に @dependencies.yml@ 記述子が @conf/@ ディレクトリに作成されます:
+When you create a new Play application, a @dependencies.yml@ descriptor is automatically created in the @conf/@ directory:
 
 bc. # Application dependencies
     
 require:
     - play 1.2
 
-段落 @require@ には、アプリケーションが必要とするすべての依存性が一覧されています。ここでは、この新しいアプリケーションは **Play バージョン 1.2** にのみ依存しています。でも、 "Google Guava":http://code.google.com/p/guava-libraries/" が必要であることにしてみましょう; こんなふうにするでしょう:
+The @require@ section list all dependencies needed by your application. Here the new application only depends on **Play version 1.2**. But let’s say your application needs "Google Guava":http://code.google.com/p/guava-libraries/; you would have:
 
 bc. # Application dependencies
     
@@ -60,9 +60,9 @@ require:
     - play 1.2
     - com.google.guava -> guava r07
 
-h3. ‘play dependencies’ コマンド
+h3. The ‘play dependencies’ command
 
-Play に新しい依存性を解決して、ダウンロードして、インストールするように伝えるには、 @play dependencies@ を実行します:
+To ask Play to resolve, download and install the new dependencies, run @play dependencies@:
 
 bc. $ play dependencies
 ~        _            _ 
@@ -92,15 +92,15 @@ bc. $ play dependencies
 ~ Done!
 ~
 
-これで Play はふたつの JAR (**guava-r07.jar**, **jsr305-1.3.7.jar**) を Maven 中央リポジトリからダウンロードして @lib/@ ディレクトリにインストールしました。
+Now Play has downloaded two JARs (**guava-r07.jar**, **jsr305-1.3.7.jar**) from the central Maven repository, and installed them into the application @lib/@ directory. 
 
-ひとつの依存性しか定義していないのに、なぜふたつの JAR なのでしょうか? それは、Google Buava が透過的な依存性を持つからです。この依存性は実際に必要としているわけではないので外部化したくなるでしょう。
+Why two jars, since we only declared one dependency? Because Google Guava has a transitive dependency. In fact this dependency is not really required and we would like to exclude it. 
 
-h3. 透過的な依存性
+h3. Transitive dependencies
 
-あらゆる推移的な依存性はデフォルトで自動的に解決されます。しかし、必要であればそれらを無効にする方法がいくつかあります。
+By default, any transitive dependencies are automatically retrieved. But there are several ways to exclude them if needed.
 
-1. 特定の依存性について、推移的な依存性を無効にすることができます:
+1. You can disable transitive dependencies for a particular dependency:
 
 bc. # Application dependencies
     
@@ -109,7 +109,7 @@ require:
     - com.google.guava -> guava r07:
         transitive: false
 
-2. プロジェクト全体で推移的な依存性を無効にすることができます:
+2. You can disable transitive dependencies for the whole project:
 
 bc. # Application dependencies
     
@@ -119,7 +119,7 @@ require:
     - play 1.2
     - com.google.guava -> guava r07
 
-3. 特定の依存性を明示的に除外することができます:
+3. You can exclude any specific dependency explicitely:
 
 bc. # Application dependencies
     
@@ -129,9 +129,9 @@ require:
         exclude:
             - com.google.code.findbugs -> *
 
-h3. lib/ と modules/ ディレクトリの同期
+h3. Keep lib/ and modules/ directory in sync
 
-ここでもう一度 @play dependencies@ を実行すると、依存性 findbugs は除外されます:
+Now if you run @play dependencies@ again, the findbugs dependency will be omitted:
 
 bc. $ play deps
 ~        _            _ 
@@ -161,26 +161,26 @@ bc. $ play deps
 ~ Done!
 ~
 
-しかし、以前にダウンロードした **jsr305-1.3.7.jar** アーティファクトは、まだ @lib/@ ディレクトリに存在しています。
+However the **jsr305-1.3.7.jar** artifact downloaded before is still present in the application @lib/@ directory. 
 
-@lib/@ と @modules/@ ディレクトリを依存性管理システムと同期したまま保持するために、 @dependencies@ コマンドに @--sync@ コマンドを指定することができます:
+To keep the @lib/@ and @modules/@ directory synced with the dependency management system, you can specify the @--sync@ command to the @dependencies@ command:
 
 bc. play dependencies --sync
 
-もう一度コマンドを実行すると、不要な **JAR** は削除されます。
+If you run this command again the unwanted **JAR** will be deleted. 
 
-アプリケーションを本番環境にデプロイする際、モジュールのソースコードとドキュメントを削除することでモジュールの容量を縮小することができます。これはコマンドに @--forProd@ オプションを追加することで実行できます:
+When you deploy an application in production, you can reduce the size of its modules by removing module source code and documentation. You can do this by adding the @--forProd@ option to the command:
 
 bc. play dependencies --forProd
 
-これは、各モジュールの @documentation/@, @src/@, @tmp/@, @*sample*/@ そして @*test*/@ ディレクトリを削除します。
+This removes the @documentation/@, @src/@, @tmp/@, @*sample*/@ and @*test*/@ directories from each module.
 
 
-h2. <a name="conflicts">競合の解決</a>
+h2. <a name="conflicts">Conflict resolution</a>
 
-ふたつのコンポーネントが同じ依存性の違うリビジョンを必要とする場合は、コンフリクトマネージャがひとつを選びます。デフォルトではもっとも新しいリビジョンを保持し、他のリビジョンを追い出します。
+Whenever two components need different revisions of the same dependency, the conflicts manager will choose one. The default is to keep the latest revision and to evict the others. 
 
-しかし、例外があります。Play フレームワークのコア自身が競合に巻き込まれた場合は @$PLAY/framework/lib@ で利用可能なバージョンが優先されます。例えば、Play は @commons-lang 2.5@ に依存します。もしアプリケーションが @commons-lang 3.0@ を要求する場合:
+But there is an exception. When a core dependency of Play framework itself is involved in a conflict, the version available in @$PLAY/framework/lib@ is preferred. For instance, Play depends on @commons-lang 2.5@. If your application requires @commons-lang 3.0@:
 
 bc. # Application dependencies
     
@@ -190,7 +190,7 @@ require:
         transitive: false
     - commons-lang 3.0
 
-@play dependencies@ を実行すると、バージョンが新しいにも関わらず @commons-lang 3.0@ は追い出されるでしょう:
+Running @play dependencies@ will evict @commons-lang 3.0@ even if this version is newer:
 
 bc. play dependencies
 ~        _            _ 
@@ -217,11 +217,11 @@ bc. play dependencies
 ~ Done!
 ~
 
-@$PLAY/framework/lib@ にて利用可能な依存性はアプリケーションの @lib/@ ディレクトリにインストールされないことにも注意してください。
+Also, note that dependencies already available in @$PLAY/framework/lib@ will not be installed in your application’s @lib/@ directory.
 
-コアの依存性を上書くか、最新バージョンが利用可能となっている別のリビジョンを選択することで、強制的に依存性のバージョンを指定したくなる場合があるかもしれません。
+Sometimes you want to force a specific dependency version, either to override a core dependency or to choose another revision that the latest version available. 
 
-このため、いずれの依存性にも @force@ オプションを指定することができます:
+So you can specify the @force@ option on any dependency:
 
 bc. # Application dependencies
     
@@ -232,11 +232,11 @@ require:
     - commons-lang 3.0:
         force: true
 
-h2. <a name="repositories">新しいリポジトリの追加</a>
+h2. <a name="repositories">Adding new repositories</a>
 
-デフォルトでは、Play は "Maven 中央リポジトリ":http://repo1.maven.org/maven2/ から **JAR** 依存性を探し、 "Play モジュール中央リポジトリ":http://www.playframework.org/modules から **Play モジュール** を探します。
+By default, Play will search for **JAR** dependencies in the "central Maven repository":http://repo1.maven.org/maven2/, and will search for **Play modules** in the "central Play modules repository":http://www.playframework.org/modules. 
 
-もちろん、 @repositories@ 節で新しいカスタムリポジトリを指定することができます:
+You can, of course, specify new custom repositories in the @repositories@ section:
 
 bc. # Application dependencies
     
@@ -257,11 +257,11 @@ repositories:
         contains:
             - com.zenexity -> *
 
-この設定を使うと、組織 @com.zenexity@ のすべての依存性はリモート HTTP サーバから検索され、ダウンロードされます。
+Using this configuration all dependencies of the @com.zenexity@ organisation will be retrieved and downloaded from a remote HTTP server.
 
-h3. Maven リポジトリ
+h3. Maven repositories
 
-以下のように @iBiblio@ タイプを使うことで、maven2 互換のリポジトリを追加することもできます:
+You can also add maven2-compatible repositories using the @iBiblio@ type, like this:
 
 bc. # Application dependencies
     
@@ -281,17 +281,17 @@ repositories:
             - org.jbpm -> *
             - org.drools -> *
 
-h3. ローカルリポジトリ
+h3. Local repositories
 
-最後とおそらく最初に、ローカルモジュールを参照するリポジトリを定義したいかもしれません。ここでは、(今は非推奨の) @application.conf@ でのモジュール解決に非常に近い形で依存関係を解決します。
+Finally and probably foremost, you may want to define a repository that references local modules. With this scenario, dependencies work very much like @application.conf@’s module resolution (now deprecated).
 
-次のようなフォルダ構成だとします。
+So given the following folder structure,
 
 bc. myplayapp/
 myfirstmodule/
 mysecondmodule/
 
-次の @myplayapp/conf/depencencies.yml@ は意図したとおりに依存関係を解決します。
+The following @myplayapp/conf/depencencies.yml@ will achieve its goal.
 
 bc. # Application dependencies
     
@@ -308,21 +308,21 @@ repositories:
             - myfirstmodule
             - mysecondmodule
 
-注意: @play dependencies myplayapp@ を実行するのを忘れないでください。
+Note: don't forget to run @play dependencies myplayapp@.
 
 
-h3. カスタム ivy 設定
+h3. Custom ivy settings
 
-Play は内部で Ivy を使っています。内部の中央 Maven リポジトリの Basic 認証といったプロキシ設定のように特別な設定が必要なら、ivysettings.xml ファイルを編集することができます。ファイルはホームディレクトリの @.ivy2@ フォルダにあります。
+Play is using Ivy under the hood. If you require a special configuration such as setting a proxy, basic authentication for an internal maven nexus repository, you can edit the ivysettings.xml file. It is located in the @.ivy2@ folder in your home directory.
 
-例 1, Ivy にチェックサムを無視させる:
+Example 1, you want Ivy to ignore checksums:
 
 bc. <!-- .ivy2/ivysettings.xml -->
 <ivysettings>
   <property name="ivy.checksums" value=""/>
 </ivysettings>
 
-例 2, Basic 認証を使う:
+Example 2, you want to use basic authentication:
 
 bc. <!-- .ivy2/ivysettings.xml -->
 <ivysettings>
@@ -330,7 +330,7 @@ bc. <!-- .ivy2/ivysettings.xml -->
     username="user" passwd="reallygreatpassword"/>
 </ivysettings>
 
-例 3, ローカル maven リポジトリとリポジトリマネージャを再利用する:
+Example 3, reuse local maven repository and repository manager:
 
 bc. <!-- .ivy2/ivysettings.xml -->
 <ivy-settings>
@@ -366,18 +366,18 @@ bc. <!-- .ivy2/ivysettings.xml -->
   </resolvers>
 </ivy-settings>
 
-設定項目はたくさんあります: "Ivy の設定ドキュメント":http://ant.apache.org/ivy/history/2.1.0/settings.html を参照してください。
+There are many things you can configure: see the "Ivy settings documentation":http://ant.apache.org/ivy/history/2.1.0/settings.html.
 
 
-h3. Ivy キャッシュをクリアする
+h3. Clearing the Ivy cache
 
-Ivy のキャッシュは、特に @conf/dependencies.yml@ のリポジトリセクションにおいて @http@ タイプを使用すると壊れる場合があります。Ivy キャッシュが壊れて依存性が解決されなくなった場合は、 @--clearcache@ オプションを使ってキャッシュをクリアすることができます。
+The Ivy cache can become corrupted, especially when using the @http@ type in the repositories section of @conf/dependencies.yml@. If this happens, and dependency resolution does not work, you can clear the cache with the @--clearcache@ option.
 
 bc. $ play dependencies --clearcache
 
-これは @rm -r ~/.ivy2/cache@ と等価です。
+This is equivalent to @rm -r ~/.ivy2/cache@.
 
 
-p(note). **考察を続けます**
+p(note). **Continuing the discussion**
 
-次: %(next)"データベースエボリューション":evolutions%
+Next: %(next)"Database evolutions":evolutions%.

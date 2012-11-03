@@ -1,22 +1,22 @@
 h2. Controller.action - Redirection
 
 *render(params...);*
-与えられたパラメータでテンプレートを text/html としてレンダリングします。
+Renders template with given parameters, as text/html
 
 *renderXML(params...);*
-パラメータを application/xml としてレンダリングします。
+Renders parameters as application/xml
 
 *renderJson(params...);*
-パラメータを application/json としてレンダリングします。
+Renders parameters as application/json
 
 *renderText(params...);*
-パラメータを text/plain としてレンダリングします。
+Renders parameters as text/plain
 
 *renderTemplate("Clients/showClient.html", id, client);*
-デフォルトのテンプレートをバイパスします。
+Bypasses default template
 
 *redirect("http://www.crionics.com");*
-指定された URL に HTTP リダイレクトします。
+HTTP redirect to the given URL
 
 *From an action, calling another Controller.action()*
-透過的にリダイレクトを生成します。
+The framework transparently generates a REDIRECT!

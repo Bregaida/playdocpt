@@ -1,28 +1,29 @@
 h2. Template - Implicit objects
 
 *errors*
-コントローラで発生した検証エラー
+The validation errors raised in the controller
 
 *flash*
-flash スコープ
+Flash scope
 
 *lang*
-通信に使用されている言語
+The negotiated language
 
 *messages*
-ローカライズされたメッセージの map
+The map of localised messages
 
 *out*
 The output stream writer
 
 *params*
-パラメータ
+Current parameters
 
 *play*
-フレームワークのメインのクラス
+Main framework class
 
 *request*
-HTTP リクエスト
+The current HTTP request
 
 *session*
-セッションスコープ
+The session scope
+

@@ -17,11 +17,11 @@ h2. Controller.action - Smart binding
 Custom parameter binder
 
 *public static void create(String comment, File attachment)*
-multipart/form-data エンコードの POST リクエストとしてファイルを送信します。
+Send File as multipart/form-data encoded POST request
 
 *==?client.name=paul&client.email=p@example.com==*
 *public static void create(Client client)*
 JavaBean (POJO) binding
 
 *@NoBinding*
-バインドできないフィールドを示します。
+Marks a non-bindable field

@@ -3,13 +3,13 @@ h2. Controller.action - Others
 *==Logger.info("Action executed ...");==*
 *==Logger.debug("A log message");==*
 *==Logger.error(ex, "Oops");==*
-ロギングの設定は application.conf にあります。
+Logging configuration lives in application.conf
 
 *==@CacheFor("1h") public static void index() { ... }==*
-1時間アクションの実行結果をキャッシュします。
+Caches the result of the action for 1 hour
 
 *==Play.configuration.getProperty("blog.title");==*
-設定ファイルにアクセスします。
+Access to the configuration file
 
 *==Query query = JPA.em().createQuery("query");==*
-永続化マネージャにアクセスします。
+Access the persistence manager
