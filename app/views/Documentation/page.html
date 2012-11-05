@@ -3,11 +3,11 @@
 #{set action:'page' /}
 <section id="top">
 <div class="wrapper">
-    <h1><a href="/documentation/${version}">Manual, tutorials & references</a></h1>
+    <h1><a href="/documentation/${version}">Manuais, tutoriais e referências</a></h1>
     <nav>
         <form method="get" action="http://www.google.com/search" id="search">
             <input type="search" placeholder="Buscar ${version} no Google" name="q" results="10" size="29">
-            <input type="hidden"  name="sitesearch" value="playdocja.appspot.com/documentation/${version}"> 
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/${version}">
             <input type="submit" style="position:absolute;top:-1000em">
         </form>
         <span class="versions">
@@ -22,7 +22,7 @@
         <span class="versions">
             <span>Navegar nas APIs</span>
             <select>
-                <option selected disabled>Select language</option>
+                <option selected disabled>Selecione a linguagem</option>
                 <option value="http://www.playframework.org/documentation/api/${version}/index.html">Java API</option>
             </select>
         </span>
@@ -32,7 +32,7 @@
 #{ifnot translated}
 <section id="note">
 <div class="wrapper">
-  このドキュメントはまだ翻訳されていません。
+  Este documento não foi ainda traduzido.
 </div>
 </section>
 #{/ifnot}
@@ -76,7 +76,7 @@ $(function(){
             $('a[href="/@api/index.html"]').attr('href', '/documentation/api/${version}/index.html')
         </script>
         #{/else}
-        <h3>書籍</h3>
+        <h3>Livro</h3>
         #{if version =~ "^1"}
         <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
         <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
@@ -85,12 +85,5 @@ $(function(){
         <p><a title="Play for Scala" href="http://bit.ly/playscala"><img src="/assets/images/play-for-scala-cover.jpg"></a></p>
         <p><a title="Play for Java" href="http://bit.ly/playjava"><img src="/assets/images/play-for-java-cover.jpg"></a></p>
         #{/else}
-        <h3>広告</h3>
-        <p>
-            <a href="http://www.amazon.co.jp/gp/product/4873115345/ref=as_li_tf_il?ie=UTF8&camp=247&creative=1211&creativeASIN=4873115345&linkCode=as2&tag=playdocja-22"><img border="0" width="150px" src="http://ws.assoc-amazon.jp/widgets/q?_encoding=UTF8&ASIN=4873115345&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=playdocja-22" ></a><img src="http://www.assoc-amazon.jp/e/ir?t=playdocja-22&l=as2&o=9&a=4873115345" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-        </p>
-        <p>
-            <a href="http://www.amazon.co.jp/gp/product/4798125415/ref=as_li_tf_il?ie=UTF8&camp=247&creative=1211&creativeASIN=4798125415&linkCode=as2&tag=playdocja-22"><img border="0" width="150px" src="http://ws.assoc-amazon.jp/widgets/q?_encoding=UTF8&ASIN=4798125415&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=playdocja-22" ></a><img src="http://www.assoc-amazon.jp/e/ir?t=playdocja-22&l=as2&o=9&a=4798125415" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-        </p>
     </aside>
 </div>

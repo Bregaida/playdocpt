@@ -61,7 +61,7 @@
     <nav>
         <form method="get" action="http://www.google.com/search" id="search">
             <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
-            <input type="hidden"  name="sitesearch" value="playdocja.appspot.com/documentation/1.2.5"> 
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
             <input type="submit" style="position:absolute;top:-1000em">
         </form>
         <span class="versions">
@@ -97,201 +97,201 @@ $(function(){
 
 <div id="content" class="wrapper doc">
     <article>
-        <h1 id="CRUDAdministrationgenerator">CRUD: Administration generator</h1> 
-<p>The CRUD (Create, Read, Update, Delete) module generates a fully usable web interface for your JPA Model objects.</p> 
-<h2 id="anameusageUsingtheCRUDmodulea"><a name="usage">Using the CRUD module</a></h2> 
-<p>Let’s see a simple example of using the CRUD module to manage user data.</p> 
-<h3 id="anameenableEnabletheCRUDmodulefortheapplicationa"><a name="enable">Enable the CRUD module for the application</a></h3> 
-<p>In the <code>/conf/dependencies.yml</code> file, enable the CRUD module by adding a line after <code>require:</code></p> 
+        <h1 id="CRUDAdministrationgenerator">CRUD: Administration generator</h1>
+<p>The CRUD (Create, Read, Update, Delete) module generates a fully usable web interface for your JPA Model objects.</p>
+<h2 id="anameusageUsingtheCRUDmodulea"><a name="usage">Using the CRUD module</a></h2>
+<p>Let’s see a simple example of using the CRUD module to manage user data.</p>
+<h3 id="anameenableEnabletheCRUDmodulefortheapplicationa"><a name="enable">Enable the CRUD module for the application</a></h3>
+<p>In the <code>/conf/dependencies.yml</code> file, enable the CRUD module by adding a line after <code>require:</code></p>
 <pre><code>require:
     - play -&gt; crud
-</code></pre> 
-<p>Now run the <code>play dependencies</code> command to resolve the new module dependency.</p> 
-<h3 id="anameroutesImportdefaultCRUDroutesa"><a name="routes">Import default CRUD routes</a></h3> 
-<p>In the <code>conf/routes</code> file, import the default module routes by adding this line:</p> 
+</code></pre>
+<p>Now run the <code>play dependencies</code> command to resolve the new module dependency.</p>
+<h3 id="anameroutesImportdefaultCRUDroutesa"><a name="routes">Import default CRUD routes</a></h3>
+<p>In the <code>conf/routes</code> file, import the default module routes by adding this line:</p>
 <pre><code># Import CRUD routes
 *     /admin           module:crud
-</code></pre> 
-<p>This adds several routes for each of your CRUD controllers, which you will add below.</p> 
-<p class="note"><b>Note</b> that using the default routes file is not required. You can also define your own routes, or mix the two.</p> 
-<h3 id="anamemodelCreateaUserclassa"><a name="model">Create a User class</a></h3> 
-<p>The CRUD module provides a user-interface for your application’s model classes. We will start by creating a User model class, which is a <a href="jpa">JPA</a> entity:</p> 
+</code></pre>
+<p>This adds several routes for each of your CRUD controllers, which you will add below.</p>
+<p class="note"><b>Note</b> that using the default routes file is not required. You can also define your own routes, or mix the two.</p>
+<h3 id="anamemodelCreateaUserclassa"><a name="model">Create a User class</a></h3>
+<p>The CRUD module provides a user-interface for your application’s model classes. We will start by creating a User model class, which is a <a href="jpa">JPA</a> entity:</p>
 <pre><code>package models;
- 
+
 import play.*;
 import play.db.jpa.*;
- 
+
 import javax.persistence.*;
 import java.util.*;
- 
+
 @Entity
 public class User extends Model {
- 	
+
 	public String name;
 	public String email;
 	public String address;
- 	
+
 }
-</code></pre> 
-<h3 id="anamecontrollerCreatetheUserscontrollera"><a name="controller">Create the Users controller</a></h3> 
-<p>Next, we create a simple controller that just inherits the CRUD controller. This is a kind of ‘marker’ that the CRUD module uses for generating routes.</p> 
+</code></pre>
+<h3 id="anamecontrollerCreatetheUserscontrollera"><a name="controller">Create the Users controller</a></h3>
+<p>Next, we create a simple controller that just inherits the CRUD controller. This is a kind of ‘marker’ that the CRUD module uses for generating routes.</p>
 <pre><code>package controllers;
- 
+
 public class Users extends CRUD {
-   
+
 }
-</code></pre> 
-<p>Now open <a href="http://localhost:9000/admin">http://localhost:9000/admin</a> and you should see the User admin area.</p> 
-<p><img border="0" src="images/crud1" /></p> 
-<p>The controller’s class name has to be the model class name with a final ‘s’. If you want to name it differently, you can do it using an annotation.</p> 
+</code></pre>
+<p>Now open <a href="http://localhost:9000/admin">http://localhost:9000/admin</a> and you should see the User admin area.</p>
+<p><img border="0" src="images/crud1" /></p>
+<p>The controller’s class name has to be the model class name with a final ‘s’. If you want to name it differently, you can do it using an annotation.</p>
 <pre><code>package controllers;
- 
+
 import models.User;
- 
+
 @CRUD.For(User.class)
 public class AdminUsers extends CRUD {
-   
+
 }
-</code></pre> 
-<h3 id="anameviewTheUserforma"><a name="view">The User form</a></h3> 
-<p>Click the <b>Add</b> button, and you should see the User form.</p> 
-<p><img border="0" src="images/crud2" /></p> 
-<p>Now we can add some validation rules to the User class:</p> 
+</code></pre>
+<h3 id="anameviewTheUserforma"><a name="view">The User form</a></h3>
+<p>Click the <b>Add</b> button, and you should see the User form.</p>
+<p><img border="0" src="images/crud2" /></p>
+<p>Now we can add some validation rules to the User class:</p>
 <pre><code>package models;
- 
+
 import play.*;
 import play.db.jpa.*;
- 
+
 import javax.persistence.*;
 import java.util.*;
- 
+
 import play.data.validation.*;
- 
+
 @Entity
 public class User extends Model {
- 	
+
    @Required
    @MinSize(8)
    public String name;
-	
+
    @Required
    @Email
    public String email;
-	
+
    @Required
    @MaxSize(1000)
    public String address;
- 
+
    public String toString() {
       return email;
    }
-	
+
 }
-</code></pre> 
-<p>Refresh the User form and you will see that the validation is automatically applied.</p> 
-<p><img border="0" src="images/crud3" /></p> 
-<h3 id="anamelabelsChangetheformlabela"><a name="labels">Change the form label</a></h3> 
-<p>Add these lines to the <code>conf/messages</code> file in your application:</p> 
+</code></pre>
+<p>Refresh the User form and you will see that the validation is automatically applied.</p>
+<p><img border="0" src="images/crud3" /></p>
+<h3 id="anamelabelsChangetheformlabela"><a name="labels">Change the form label</a></h3>
+<p>Add these lines to the <code>conf/messages</code> file in your application:</p>
 <pre><code>name=Name
 email=Email address
 address=Postal address
-</code></pre> 
-<p>and refresh the User form:</p> 
-<p><img border="0" src="images/crud4" /></p> 
-<h3 id="anamelistCreateaUserandcustomizethelistviewa"><a name="list">Create a User and customize the list view</a></h3> 
-<p>The default list view uses only one column containing the result of the object’s <code>toString()</code> method.</p> 
-<p><img border="0" src="images/crud5" /></p> 
-<p>To customize this view, we need to create the <code>/app/views/Users/list.html</code> template in the application.</p> 
-<p>Open a shell, go the application directory and type:</p> 
+</code></pre>
+<p>and refresh the User form:</p>
+<p><img border="0" src="images/crud4" /></p>
+<h3 id="anamelistCreateaUserandcustomizethelistviewa"><a name="list">Create a User and customize the list view</a></h3>
+<p>The default list view uses only one column containing the result of the object’s <code>toString()</code> method.</p>
+<p><img border="0" src="images/crud5" /></p>
+<p>To customize this view, we need to create the <code>/app/views/Users/list.html</code> template in the application.</p>
+<p>Open a shell, go the application directory and type:</p>
 <pre><code>play crud:ov --template Users/list
-</code></pre> 
-<p>This will copy the default CRUD <code>list.html</code> template to the <code>Users/list.html</code> template in your application, overwriting it if present.</p> 
-<p>Edit the template like this:</p> 
+</code></pre>
+<p>This will copy the default CRUD <code>list.html</code> template to the <code>Users/list.html</code> template in your application, overwriting it if present.</p>
+<p>Edit the template like this:</p>
 <pre><code>#{extends 'CRUD/layout.html' /}
- 
+
 &lt;div id=&quot;crudList&quot; class=&quot;${type.name}&quot;&gt;
-	
+
 	&lt;h2 id=&quot;crudListTitle&quot;&gt;&amp;{'crud.list.title', type.name}&lt;/h2&gt;
- 
+
 	&lt;div id=&quot;crudListSearch&quot;&gt;
 		#{crud.search /}
 	&lt;/div&gt;
- 
+
 	&lt;div id=&quot;crudListTable&quot;&gt;
 		#{crud.table fields:['email', 'name'] /}
 	&lt;/div&gt;
-	
+
 	&lt;div id=&quot;crudListPagination&quot;&gt;
 		#{crud.pagination /}
 	&lt;/div&gt;
-	
+
 	&lt;p id=&quot;crudListAdd&quot;&gt;
 		&lt;a href=&quot;@{blank()}&quot;&gt;&amp;{'crud.add', type.modelName}&lt;/a&gt;
 	&lt;/p&gt;
 &lt;/div&gt;
-</code></pre> 
-<p>and refresh the list.</p> 
-<p><img border="0" src="images/crud6" /></p> 
-<h3 id="anamecustomCustomfieldrenderingthecrud.customtaga"><a name="custom">Custom field rendering: the crud.custom tag</a></h3> 
-<p>You can go a bit further by customizing the way each field of your <code>User</code> entity is displayed in the list and form views.</p> 
-<p>To customize a field, use the <code>#{crud.custom}</code> tag:</p> 
+</code></pre>
+<p>and refresh the list.</p>
+<p><img border="0" src="images/crud6" /></p>
+<h3 id="anamecustomCustomfieldrenderingthecrud.customtaga"><a name="custom">Custom field rendering: the crud.custom tag</a></h3>
+<p>You can go a bit further by customizing the way each field of your <code>User</code> entity is displayed in the list and form views.</p>
+<p>To customize a field, use the <code>#{crud.custom}</code> tag:</p>
 <pre><code>#{crud.table fields:['name', 'company']}
- 
+
    #{crud.custom 'company'}
      &lt;a href=&quot;@{Companies.show(object.company.id)}&quot;&gt;
       	 ${object.company.name}
      &lt;/a&gt;
    #{/crud.custom}
- 
+
 #{/crud.table}
-</code></pre> 
-<p>You can also display additional columns or form inputs by defining custom handlers:</p> 
+</code></pre>
+<p>You can also display additional columns or form inputs by defining custom handlers:</p>
 <pre><code>#{crud.table fields:['name', 'company', 'edit']}
- 
+
    #{crud.custom 'company'}
       &lt;a href=&quot;@{Companies.show(object.company.id)}&quot;&gt;${object.company.name}&lt;/a&gt;
    #{/crud.custom}
- 
+
    #{crud.custom 'edit'}
       &lt;a href=&quot;@{Users.edit(object.id)}&quot;&gt;Edit&lt;/a&gt;
    #{/crud.custom}
- 
+
 #{/crud.table}
-</code></pre> 
-<h2 id="anamecollectionsListofStringandListofenumerationa"><a name="collections">List of String and List of enumeration</a></h2> 
-<p>The CRUD module is showing them as a text field. In this text field, the list is represented by a comma separated list of String. For example:</p> 
+</code></pre>
+<h2 id="anamecollectionsListofStringandListofenumerationa"><a name="collections">List of String and List of enumeration</a></h2>
+<p>The CRUD module is showing them as a text field. In this text field, the list is represented by a comma separated list of String. For example:</p>
 <pre><code>@Entity
 public class Account extends Model {
- 
+
       @CollectionOfElements
       public Set&lt;ContentType&gt; contentTypes;
- 
+
       @CollectionOfElements
       public Set&lt;String&gt; usernames;
- 
+
       public Account(Set&lt;String&gt; usernames) {
             super();
             this.usernames = usernames;
       }
 }
-</code></pre> 
-<p>This is shown as: “myEnumId1”,“myEnumId2” for the contentTypes and “string1”,“string2” for the user names. By definition, this is what you should first customize in your CRUD module.</p> 
-<h2 id="anameobjecttypeCustomizetheshowandblankviewsinagenericwaya"><a name="objecttype">Customize the <em>show</em> and <em>blank</em> views in a generic way</a></h2> 
-<p>A central influence on the behavior of CRUD views is the <code>ObjectType</code> for each field. So if you want to <br />change the CRUD module’s behaviour in a generic way, for example to hide fields with the <code>@Version</code> annotation, you can create you own <code>ObjectType</code> class. You must also declare a static method in your controller or a superclass of your controller.</p> 
+</code></pre>
+<p>This is shown as: “myEnumId1”,“myEnumId2” for the contentTypes and “string1”,“string2” for the user names. By definition, this is what you should first customize in your CRUD module.</p>
+<h2 id="anameobjecttypeCustomizetheshowandblankviewsinagenericwaya"><a name="objecttype">Customize the <em>show</em> and <em>blank</em> views in a generic way</a></h2>
+<p>A central influence on the behavior of CRUD views is the <code>ObjectType</code> for each field. So if you want to <br />change the CRUD module’s behaviour in a generic way, for example to hide fields with the <code>@Version</code> annotation, you can create you own <code>ObjectType</code> class. You must also declare a static method in your controller or a superclass of your controller.</p>
 <pre><code>protected static ObjectType createObjectType(Class&lt;? extends Model&gt; type) {
    return new VersionObjectType(type);
-} 
-</code></pre> 
-<p>Here is a complete example:</p> 
+}
+</code></pre>
+<p>Here is a complete example:</p>
 <pre><code>public class CustomAdminCompany extends CRUD {
    protected static ObjectType createObjectType(Class&lt;? extends Model&gt; type) {
       return new VersionObjectType(type);
    }
-   
+
    public static class VersionObjectType extends ObjectType {
-      
+
       private final String versionColumn;
-      
+
       public VersionObjectType(Class&lt;? extends Model&gt; modelClass) {
          super(modelClass);
          versionColumn = getVersionColumnName(modelClass);
@@ -313,7 +313,7 @@ public class Account extends Model {
          }
          return null;
       }
- 
+
       @Override
       public List&lt;ObjectField&gt; getFields() {
          List&lt;ObjectField&gt; result = super.getFields();
@@ -324,24 +324,24 @@ public class Account extends Model {
          }
          return result;
       }
-   }   
+   }
 }
-</code></pre> 
-<p>This is not the end; you can also customize <code>findPage</code> and other methods. Have a look at the source code.</p> 
-<h2 id="anamel10nLocalisationa"><a name="l10n">Localisation</a></h2> 
-<p>You can localise the user-interface text by overriding the CRUD module’s messages in your application’s <code>conf/messages</code> file.</p> 
+</code></pre>
+<p>This is not the end; you can also customize <code>findPage</code> and other methods. Have a look at the source code.</p>
+<h2 id="anamel10nLocalisationa"><a name="l10n">Localisation</a></h2>
+<p>You can localise the user-interface text by overriding the CRUD module’s messages in your application’s <code>conf/messages</code> file.</p>
 <pre><code>crud.add=Create new &amp;{%s}
-</code></pre> 
-<p>To see which message keys are used, look in the CRUD module’s own message file: <code>$PLAY_HOME/modules/crud/conf/messages</code>.</p> 
-<h2 id="anamecommandsCommandsa"><a name="commands">Commands</a></h2> 
-<p>The CRUD module provides a <strong>crud:override</strong> command that you use on the command line to override the default templates. This works because the CRUD module loads templates from your application if they are present, instead of its own. You can also use <code>crud:ov</code> instead of <code>crud:override</code>.</p> 
-<h3 id="playcrudoverridetemplatepath">play crud:override --template [path]</h3> 
-<p>Copies the template specified by the path, e.g. <code>Users/list</code>, to your application’s <code>app/views/CRUD/</code> directory. You can also use <code>-t</code> instead of <code>--template</code>.</p> 
-<h3 id="playcrudoverridelayout">play crud:override --layout</h3> 
-<p>Overrides the main page layout template, <code>layout.html</code>.</p> 
-<h3 id="playcrudoverridecss">play crud:override --css</h3> 
-<p>Overrides the style sheet, <code>crud.css</code>, copying it to your the <code>public/stylesheets/</code> directory.</p> 
-<h2 id="anamelimitationLimitationa"><a name="limitation">Limitation</a></h2> 
+</code></pre>
+<p>To see which message keys are used, look in the CRUD module’s own message file: <code>$PLAY_HOME/modules/crud/conf/messages</code>.</p>
+<h2 id="anamecommandsCommandsa"><a name="commands">Commands</a></h2>
+<p>The CRUD module provides a <strong>crud:override</strong> command that you use on the command line to override the default templates. This works because the CRUD module loads templates from your application if they are present, instead of its own. You can also use <code>crud:ov</code> instead of <code>crud:override</code>.</p>
+<h3 id="playcrudoverridetemplatepath">play crud:override --template [path]</h3>
+<p>Copies the template specified by the path, e.g. <code>Users/list</code>, to your application’s <code>app/views/CRUD/</code> directory. You can also use <code>-t</code> instead of <code>--template</code>.</p>
+<h3 id="playcrudoverridelayout">play crud:override --layout</h3>
+<p>Overrides the main page layout template, <code>layout.html</code>.</p>
+<h3 id="playcrudoverridecss">play crud:override --css</h3>
+<p>Overrides the style sheet, <code>crud.css</code>, copying it to your the <code>public/stylesheets/</code> directory.</p>
+<h2 id="anamelimitationLimitationa"><a name="limitation">Limitation</a></h2>
 <p>Limitation The CRUD module only shows bi-directional relationships in one of the two entities: the one that does not have the <code>mappedBy</code> attribute.</p>
     </article>
     <aside>
@@ -364,13 +364,6 @@ public class Account extends Model {
                 <h3>書籍</h3>
                 <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
         <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
-                        <h3>広告</h3>
-        <p>
-            <a href="http://www.amazon.co.jp/gp/product/4873115345/ref=as_li_tf_il?ie=UTF8&camp=247&creative=1211&creativeASIN=4873115345&linkCode=as2&tag=playdocja-22"><img border="0" width="150px" src="http://ws.assoc-amazon.jp/widgets/q?_encoding=UTF8&ASIN=4873115345&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=playdocja-22" ></a><img src="http://www.assoc-amazon.jp/e/ir?t=playdocja-22&l=as2&o=9&a=4873115345" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-        </p>
-        <p>
-            <a href="http://www.amazon.co.jp/gp/product/4798125415/ref=as_li_tf_il?ie=UTF8&camp=247&creative=1211&creativeASIN=4798125415&linkCode=as2&tag=playdocja-22"><img border="0" width="150px" src="http://ws.assoc-amazon.jp/widgets/q?_encoding=UTF8&ASIN=4798125415&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=playdocja-22" ></a><img src="http://www.assoc-amazon.jp/e/ir?t=playdocja-22&l=as2&o=9&a=4798125415" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-        </p>
     </aside>
 </div>
         <footer>

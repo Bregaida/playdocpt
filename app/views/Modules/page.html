@@ -6,29 +6,29 @@
 #{/set}
 <div id="top">
     <p class="category">
-        コミュニティが寄付した拡張
+        Comunidade doou
     </p>
 </div>
 
 <div class="wrapper">
-    
+
     <div id="docSidebar">
-        <h2>バージョン互換性</h2>
+        <h2> Compatibilidade de versões </h2>
         <p>
-            <strong>${id}-${version}</strong> は、このバージョンでテストされています: <strong>${frameworkVersions}</strong>
+            <strong>${id}-${version}</strong>Foi testado nesta versão: <strong>${frameworkVersions}</strong>
         </p>
-        
+
         <h2>Navegar</h2>
         <ul>
-            <li><a href="/modules/${id}">モジュールの説明に戻る</a></li>
-            <li id="gotoc"><a href="home">目次</a></li>
+            <li><a href="/modules/${id}">Voltando à descrição do módulo </a></li>
+            <li id="gotoc"><a href="home"> índice analítico </a></li>
         </ul>
-        
+
         <h2>Conteúdo</h2>
-        
+
         <div id="toc"></div>
-        
-        <h2>モジュールバージョン</h2>
+
+        <h2> versão do módulo   </h2>
         <div id="bc">
             <ul>
             #{list items:versions, as:'item'}
@@ -36,13 +36,13 @@
             #{/list}
             </ul>
         </div>
-        
+
     </div>
-    
+
     <div id="pageContent">
-        
+
         <div class="wikistyle">${html.raw()}</div>
-        
+
     </div>
-    
+
 </div>

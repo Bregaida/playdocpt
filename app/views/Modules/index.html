@@ -2,16 +2,16 @@
 #{set title:'Modules' /}
 #{set action:'modules' /}
 <div id="top">
-    <p class="category">コミュニティが寄付した拡張</p>
+    <p class="category">Contribuido pelo comunidade</p>
 </div>
 
 <div class="wrapper">
-    
+
     <div id="submenu">
-        
+
         <ul class="sidemenu">
             <li class="#{if module.id == ''}selected#{/if}">
-                <a href="/modules">すべてのモジュール</a> <span>⬅</span>
+                <a href="/modules">Todos os módulos</a> <span>⬅</span>
             </li>
             <li class="#{if module.id == 'scala'}selected#{/if}">
                 <a href="/modules/scala">Scala</a> <span>⬅</span>
@@ -40,61 +40,58 @@
         </ul>
 
     </div>
-    
+
     <div class="wrapped wikistyle">
-    
-        <h1>${module.name} [${module.id}] モジュール</h1>
-        
+
+        <h1>${module.name} [${module.id}] módulo</h1>
+
         <p>${module.description.raw()}</p>
-        
+
         <p><a href="${module.url}">${module.url}</a></p>
-        <p>作成者 ${module.author}</p>
-        
-        <h2><a>公開されたリリース</a></h2>
-        
+        <p>Autor: ${module.author}</p>
+
+        <h2><a> Lançamentos que foram publicados </a></h2>
+
         #{if versions}
         <table>
         #{list items:versions, as:'item'}
             <tr>
                 <td><strong>${module.id}-${item.version}&nbsp;#{if item.isDefault}&#9733;#{/if}</strong></td>
                 <td>${item.publishedAt}</td>
-
-                <td><a href="/modules/${module.id}-${item.version}/home">ドキュメント</a></td>
+                <td><a href="/modules/${module.id}-${item.version}/home">documentação </a></td>
                 <td style="text-align:right">
-                    <a href="http://www.playframework.org/modules/${module.id}-${item.version}.zip">ダウンロード</a>
+                    <a href="http://www.playframework.org/modules/${module.id}-${item.version}.zip"> download </a>
                 </td>
             </tr>
         #{/list}
         </table>
-
         <p>
-            このモジュールをインストールするには <strong>install</strong> コマンドを使用してください:
-        </p>        
-        <pre><code>play install ${module.id}-{version}</code></pre>  
-
+           Para instalar este módulo, por favor, use o comando:  <strong>install</strong>
+        </p>
+        <pre><code>play install ${module.id}-{version}</code></pre>
         <p>
-            このモジュールをアプリケーションの依存性としてインストールするには、このモジュールを dependencies.yml ファイルに追加してください: 
+           Para instalar este módulo como uma dependência da sua aplicação, por favor, adicione este ao módulo dependencies.yml:
         </p>
         <pre><code>require:
-    - play -> ${module.id} {version}</code></pre>  
+    - play -> ${module.id} {version}</code></pre>
         <p>
-            バージョン互換性を確認するために各リリースのドキュメントを確認してください。
+          Por favor, verifique a documentação para cada versão para verificar a compatibilidade.
         </p>
         #{/if}
         #{else}
         <p>
-        このモジュールにはまだ公開されたリリースがありません。以前のバージョンを取得する場合はプロジェクトホームページを参照してください。
+         Não nenhuma versão publicada para este módulo. Por favor, consulte o site do projeto,
+     se você deseja obter a versão anterior.
         </p>
         #{/else}
     </div>
 
     <div class="wrapped">
         <div id="comments">
-            <h3>コメント</h3>
-
+            <h3> Comentários </h3>
             <p>
-                このモジュールについて議論するためにこのフォームを使用してください。
-                趣旨に沿わないコメントは警告無しに削除されます。
+               Utilize este formulário para discutir sobre este módulo.
+               Comentários que não estão em conformidade serão apagados.
             </p>
 
         </div>
@@ -111,5 +108,5 @@
             })();
         </script>
     </div>
-        
+
 </div>
