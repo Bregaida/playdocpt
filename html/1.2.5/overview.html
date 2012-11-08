@@ -1,246 +1,463 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Documentação: visão geral — Playframework</title>
-        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
-        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
-                <meta name="viewport" content="width=1024, initial-scale=1">
-        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
-        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
-                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
-        <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-        </script>
-        <script type="text/javascript">
-            try {
-                var pageTracker = _gat._getTracker("UA-13089827-4");
-                pageTracker._trackPageview();
-            } catch(err) {}
-        </script>
-    </head>
-    <body>
-        <header>
-            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
-            <div id="getLogo">
-                <h3>Play! ロゴのダウンロード</h3>
-                <figure>
-                    <img src="/assets/images/logos/normal-mini.png">
-                     <figcaption>
-                        <a href="/assets/images/logos/normal.png">(png)</a>
-                        <a href="/assets/images/logos/normal.svg">(svg)</a>
-                     </figcaption>
-                </figure>
-                <figure>
-                    <img src="/assets/images/logos/black-mini.png">
-                     <figcaption>
-                        <a href="/assets/images/logos/black.png">(png)</a>
-                        <a href="/assets/images/logos/black.svg">(svg)</a>
-                     </figcaption>
-                </figure>
-            </div>
-            <nav>
-                    <a href="/documentation" class="selected learn">Aprenda</a>
-                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
-                    <a href="/code" class="code">Código fonte</a>
-                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
-                    <a href="/about" class="about">Sobre</a>
-                    <a href="/download" class="download">Download</a>
-            </nav>
-            <div id="download">
-
-                    <p>
-                        本番環境に使える最新のパッケージを取得する:
-                    </p>
-                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
-
-                <p>または <a href="/download">すべてのバージョン</a> を参照する</p>
-            </div>
-        </header>
-        <section id="top">
-<div class="wrapper">
-    <h1><a href="/documentation/1.2.5">Manual, tutoriais e referências</a></h1>
-    <nav>
-        <form method="get" action="http://www.google.com/search" id="search">
-            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
-            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
-            <input type="submit" style="position:absolute;top:-1000em">
-        </form>
-        <span class="versions">
-            <span>Versão 1.2.5</span>
-            <select>
-                <option disabled>Selecione a versão</option>
-                                    <option value="/documentation/2.0.4">Versão 2.0.4</option>
-                                    <option value="/documentation/2.0.3">Versão 2.0.3</option>
-                                    <option value="/documentation/2.0.2">Versão 2.0.2</option>
-                                    <option value="/documentation/2.0.1">Versão 2.0.1</option>
-                                    <option value="/documentation/2.0">Versão 2.0</option>
-                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
-                                    <option value="/documentation/1.2.4">Versão 1.2.4</option>
-                                    <option value="/documentation/1.2.3">Versão 1.2.3</option>
-                                    <option value="/documentation/1.2.2">Versão 1.2.2</option>
-                                    <option value="/documentation/1.2.1">Versão 1.2.1</option>
-                                    <option value="/documentation/1.2">Versão 1.2</option>
-                                    <option value="/documentation/1.1.1">Versão 1.1.1</option>
-                                    <option value="/documentation/1.1">Versão 1.1</option>
-                                    <option value="/documentation/1.0.3.2">Versão 1.0.3.2</option>
-                                    <option value="/documentation/1.0.2.1">Versão 1.0.2.1</option>
-                                    <option value="/documentation/1.0.1">Versão 1.0.1</option>
-                                    <option value="/documentation/1.0">Versão 1.0</option>
-                            </select>
-        </span>
-        <span class="versions">
-            <span>Navegar nas APIs</span>
-            <select>
-                <option selected disabled>Select language</option>
-                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
-            </select>
-        </span>
-    </nav>
-</div>
-</section>
-<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<head>
+<title>Documentação: visão geral — Playframework</title>
+<link rel="stylesheet" media="screen"
+	href="/assets/stylesheets/main.css">
+<link rel="shortcut icon" type="image/png"
+	href="/assets/images/favicon.png">
+<meta name="viewport" content="width=1024, initial-scale=1">
+<script src="/assets/javascripts/jquery-1.7.1.min.js"
+	type="text/javascript"></script>
+<script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+<script src="http://www.google-analytics.com/urchin.js"
+	type="text/javascript"></script>
 <script type="text/javascript">
-$(function(){
-    $("pre").addClass("prettyprint scala")
-    window.prettyPrint && prettyPrint()
-    $("select").change(function() {
-        document.location = $(this).val()
-    })
-});
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl."
+			: "http://www.");
+	document
+			.write(unescape("%3Cscript src='"
+					+ gaJsHost
+					+ "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
-<style type="text/css">
-@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+<script type="text/javascript">
+	try {
+		var pageTracker = _gat._getTracker("UA-13089827-4");
+		pageTracker._trackPageview();
+	} catch (err) {
+	}
+</script>
+</head>
+<body>
+	<header>
+		<a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+		<div id="getLogo">
+			<h3>baixe logo o Play!</h3>
+			<figure>
+				<img src="/assets/images/logos/normal-mini.png">
+				<figcaption>
+					<a href="/assets/images/logos/normal.png">(png)</a> <a
+						href="/assets/images/logos/normal.svg">(svg)</a>
+				</figcaption>
+			</figure>
+			<figure>
+				<img src="/assets/images/logos/black-mini.png">
+				<figcaption>
+					<a href="/assets/images/logos/black.png">(png)</a> <a
+						href="/assets/images/logos/black.svg">(svg)</a>
+				</figcaption>
+			</figure>
+		</div>
+		<nav>
+			<a href="/documentation" class="selected learn">Aprenda</a> <a
+				href="http://www.playframework.org/community" target="_blank"
+				class="community">Comunidade</a> <a href="/code" class="code">Código
+				fonte</a> <a href="http://www.playframework.org/modules" target="_blank"
+				class="modules">Módulos</a> <a href="/about" class="about">Sobre</a>
+			<a href="/download" class="download">Download</a>
+		</nav>
+		<div id="download">
+
+			<p>Para obter os últimos pacotes que podem ser usados em um
+				ambiente de produção:</p>
+			<a href="http://download.playframework.org/releases/play-2.0.4.zip"
+				class="button">play-2.0.4.zip</a>
+
+			<p>
+				ou para baixar <a href="/download">todas as versões</a>
+			</p>
+		</div>
+	</header>
+	<section id="top">
+		<div class="wrapper">
+			<h1>
+				<a href="/documentation/1.2.5">Manual, tutoriais e referências</a>
+			</h1>
+			<nav>
+				<form method="get" action="http://www.google.com/search" id="search">
+					<input type="search" placeholder="Buscar 1.2.5 no Google" name="q"
+						results="10" size="29"> <input type="hidden"
+						name="sitesearch"
+						value="playdocpt.herokuapp.com/documentation/1.2.5"> <input
+						type="submit" style="position: absolute; top: -1000em">
+				</form>
+				<span class="versions"> <span>Versão 1.2.5</span> <select>
+						<option disabled>Selecione a versão</option>
+						<option value="/documentation/2.0.4">Versão 2.0.4</option>
+						<option selected value="/documentation/1.2.5">Versão
+							1.2.5</option>
+				</select>
+				</span> <span class="versions"> <span>Navegar nas APIs</span> <select>
+						<option selected disabled>Selecione a linguagem</option>
+						<option
+							value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java
+							API</option>
+				</select>
+				</span>
+			</nav>
+		</div>
+	</section>
+	<script type="text/javascript" charset="utf-8"
+		src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("pre").addClass("prettyprint scala")
+			window.prettyPrint && prettyPrint()
+			$("select").change(function() {
+				document.location = $(this).val()
+			})
+		});
+	</script>
+	<style type="text/css">
+@import
+	"http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css"
+	;
 </style>
 
-<div id="content" class="wrapper doc">
-    <article>
-        <h1 id="Playframework">Play framework の概要</h1>
-<p>Play framework は、肥大化したエンタープライズ Java を代替する洗練されたフレームワークです。開発者の生産性に注目し、RESTful アーキテクチャを目指します。Play は <strong>アジャイルソフトウェア開発</strong> のための完璧なガイドです。</p>
-<p>Play framework のゴールは Java による Web アプリケーション開発を容易にすることです。これをどのようにして達成するのかを見ていきましょう。</p>
-<p class="note"><b>コードを見てみたいですか?</b><br /> <br /><a href="5things">Play でできる 5 つのすごいこと</a> を確認するか、いきなり <a href="firstapp">hello world チュートリアル</a> を始めてみてください。</p>
-<h2 id="anamejavaJavaa"><a name="java">痛みの伴わない Java フレームワーク</a></h2>
-<p>Play は純粋な Java フレームワークであり、あなた好みのツールやライブラリで開発を続けることができます。開発プラットフォームとして既に Java を使用しているのならば、別の言語や IDE、ライブラリに切り替える必要はありません。 <strong>もっと生産的な Java 開発環境に切り替えるだけです!</strong></p>
-<h2 id="anamereloada"><a name="reload">バグを直してリロード</a></h2>
-<p>web アプリケーションの開発生産性が低いことで悪名高い Java EE プラットフォームですが、その主な原因は何度もくり返される退屈なコンパイル-パッケージング-デプロイのサイクルです。</p>
-<p>そこで我々は Play による開発プロセスが効率的になるよう開発サイクルを見直しました。</p>
-<p>play フレームワークは Java のソースコードを直接コンパイルし、サーバを再起動する必要なしに JVM へ動的にリロードします。ちょうど <a href="http://en.wikipedia.org/wiki/LAMP_(software_bundle)">LAMP</a> や <a href="http://en.wikipedia.org/wiki/Ruby_on_Rails">Rails</a> のように、コードを編集してリロードすれば直ちに変更点を見ることができます。</p>
-<p>お望みであれば、フル機能の Java IDE を使わなくてもシンプルなテキストエディタさえあれば作業できます。これはとても楽しいことです。</p>
-<p><img border="0" src="images/editor" /></p>
-<p>どのようなエラーが発生した場合でも、フレームワークはできる限り問題の原因を特定して表示します。</p>
-<p><img border="0" src="images/guide1-3" /></p>
-<p>スタックトレースからは余分な情報が取り除かれ、より簡単に問題を解決できるよう最適化されています。テンプレートの実行についても、いかに Java スタックトレースとうまく統合されているか見てみてください。</p>
-<p><img border="0" src="images/stacktrace" /></p>
-<h2 id="aMVCa"><a>シンプルなステートレス MVC アーキテクチャ</a></h2>
-<p>一方にはデータベースがあり、もう一方には Web ブラウザがあります。これらの間で状態を保持すべきなのでしょうか?</p>
-<p>ステートフルでコンポーネントベースの Java Web フレームワークは、自動的にページの状態を保持するのを容易にしますが、他に多くの問題をもたらします: ユーザがふたつ目のウィンドウを開いたら何が起こるでしょう? ブラウザの戻るボタンを押したら?</p>
-<p><a href="http://zef.me/883/the-share-nothing-architecture">Share Nothing</a> アーキテクチャは、PHP に始まり、Ruby on Rails や Django など数多くの Web フレームワークで奨励されています。ブラウザがどんどん強力になっていくにつれて、今や Ajax やオフラインストレージを使って、クライアントサイドで状態保持の問題を解決することが容易になっています。</p>
-<p>もう Web に紛い物の状態を再構築するために HTTP モデルをハックする必要はありません。‘share nothing’ には、画面の部品を同時にレンダリングすることや、画面の一部を更新 (または段階的に表示する) ことを容易にする側面もあります。</p>
-<h2 id="anamehttpHTTPa"><a name="http">HTTP-コードマッピング</a></h2>
-<p>もしあなたが Servlet API や Strtus のような Java の Web フレームワークを使っているならば、HTTP プロトコルを Java の奇妙な API やコンセプトで抽象化したビューを使ってきたことになります。私たちは違う考え方をします。Web アプリケーションフレームワークは HTTP とそのコンセプトに対して完全かつ容易なアクセス手段を提供すべきです。これが Play とその他の Java web フレームワークの根本的な違いです。</p>
-<p>HTTP, Request/Response パターン, REST アーキテクチャ, content-type ネゴシエーション, URI はいずれも Play framework の主要な概念です。 </p>
-<p>例えば、URI パターンと Java の呼び出しの紐付けはたった一行です:</p>
-<pre><code>GET    /clients/{id}        Clients.show
-</code></pre>
-<p>もし日々の web 開発で Ajax や REST, Web ページ間の戻る/進むといった問題の管理に直面しているのであれば、是非 Play を試してみてください。</p>
-<h2 id="anametemplatesa"><a name="templates">効率的なテンプレートエンジン</a></h2>
-<p>私たちは JSP と式言語の考え方を気に入っています。しかし、なぜタグライブラリを作成するのに大量の設定ファイルが必要なのでしょうか? なぜ表示元となるオブジェクトモデルに完全にアクセスできないのでしょう? JSP には多くの制限があり、フラストレーションが募ります。これが、我々が JSP の影響を受け、JSP のような制約のないテンプレートエンジンを作成した理由です!</p>
-<p>このような書き方にはみんなもう飽き飽きなはずです:</p>
-<pre><code>&lt;%@ taglib uri=&quot;http://java.sun.com/jsp/jstl/core&quot; prefix=&quot;c&quot; %&gt;
-&lt;%@ taglib uri=&quot;http://java.sun.com/jsp/jstl/functions&quot; prefix=&quot;fn&quot; %&gt;
+	<div id="content" class="wrapper doc">
+		<article>
 
-&lt;c:choose&gt;
-    &lt;c:when test=&quot;${emails.unread != null &amp;&amp; fn:size(emails.unread)}&quot;&gt;
+			<h1 id="Playframeworkoverview">Visão geral do Play framework</h1>
+			<p>
+				The Play framework is a clean alternative to bloated Enterprise Java
+				stacks. It focuses on developer productivity and targets RESTful
+				architectures. Play is a perfect companion to <strong>agile
+					software development</strong>.
+			</p>
+			<p>The Play framework’s goal is to ease web applications
+				development while sticking with Java. Let’s see how this is
+				possible.</p>
+			<p class="note">
+				<b>Wanna see some code?</b> <br> <br>Check <a
+					href="5things">Five cool things you can do with play</a>, or start
+				directly with the <a href="firstapp">hello world tutorial</a>.
+			</p>
+			<h2 id="anamejavaAJavaframeworkwithoutthepaina">
+				<a name="java">A Java framework without the pain</a>
+			</h2>
+			<p>
+				Play is a pure Java framework and allows you to keep your preferred
+				development tools and libraries. If you already use Java as a
+				development platform you don’t need to switch to another language,
+				another IDE and other libraries. <strong>Just switch to a
+					more productive Java environment!</strong>
+			</p>
+			<h2 id="anamereloadFixthebugandhitReloada">
+				<a name="reload">Fix the bug and hit Reload</a>
+			</h2>
+			<p>The Java EE platform is infamous for low-productivity web
+				application development, mainly due to repeated and tedious
+				compile-package-deploy cycles.</p>
+			<p>That’s why we rethought the development cycle to make
+				developing with Play an efficient process.</p>
+			<p>
+				The framework compiles your Java sources directly and hot-reloads
+				them into the JVM without the need to restart the server. You can
+				then edit, reload and see your modifications immediately, just as in
+				a <a href="http://en.wikipedia.org/wiki/LAMP_(software_bundle)">LAMP</a>
+				or <a href="http://en.wikipedia.org/wiki/Ruby_on_Rails">Rails</a>
+				environment.
+			</p>
+			<p>It’s so fun that you can even work with a simple text editor
+				and skip a full-featured Java IDE if you want.</p>
+			<p>
+				<img src="images/editor" border="0">
+			</p>
+			<p>Whenever an error occurs, the framework makes its best effort
+				to identify and show you the problem.</p>
+			<p>
+				<img src="images/guide1-3" border="0">
+			</p>
+			<p>Even the stack traces are stripped down and optimized to make
+				it easier to solve problems. Look how template execution is nicely
+				integrated to the Java stack trace.</p>
+			<p>
+				<img src="images/stacktrace" border="0">
+			</p>
+			<h2 id="aSimplestatelessMVCarchitecturea">
+				<a>Simple stateless MVC architecture</a>
+			</h2>
+			<p>You’ve got a database on one side and a web browser on the
+				other. Why should you have a state in between?</p>
+			<p>Stateful and component based Java Web frameworks make it easy
+				to automatically save page state, but that brings a lot of other
+				problems: what happens if the user opens a second window? What if
+				the user hits the browser back button?</p>
+			<p>
+				The <a href="http://zef.me/883/the-share-nothing-architecture">Share
+					Nothing</a> architecture is promoted by many Web application frameworks
+				from PHP to Ruby on Rails or Django. As the browser is becoming more
+				and more powerful, it is now easy to use Ajax or offline storage to
+				solve the state problems client-side.
+			</p>
+			<p>We don’t need to hack the HTTP model anymore to rebuild a fake
+				state over the Web. Another aspect of ‘share nothing’ is to make it
+				easier to render portions of the page in parallel, and to do partial
+				page updates (or progressive enhancements).</p>
+			<h2 id="anamehttpHTTPtocodemappinga">
+				<a name="http">HTTP-to-code mapping</a>
+			</h2>
+			<p>If you’re already using another Java Web framework like the
+				Servlet API or the Struts framework, you have already used an
+				abstract view of the HTTP protocol with strange Java APIs and
+				concepts. We think differently. A Web application framework should
+				give you full, straightforward access to HTTP and its concepts. This
+				is a fundamental difference between Play and other Java web
+				application frameworks.</p>
+			<p>HTTP, the Request/Response pattern, the REST architectural
+				style, content-type negotiation, URI are all major concepts for the
+				Play framework.</p>
+			<p>For instance, binding a URI pattern to a Java call is just one
+				line:</p>
+			<pre class="prettyprint scala">
+				<code>
+					<span class="pln">GET    </span><span class="pun">/</span><span
+						class="pln">clients</span><span class="pun">/{</span><span
+						class="pln">id</span><span class="pun">}</span><span class="pln">        </span><span
+						class="typ">Clients</span><span class="pun">.</span><span
+						class="pln">show</span>
+				</code>
+			</pre>
+			<p>If Ajax, REST and managing back/forward movement between web
+				pages are some of the issues you face in your day-to-day web
+				development, just give Play a try.</p>
+			<h2 id="anametemplatesEfficienttemplatingenginea">
+				<a name="templates">Efficient templating engine</a>
+			</h2>
+			<p>We like the idea behind JSP and Expression Language. But why
+				do we need so many configuration files to create a tag library? Why
+				can’t we have full access to the underlying object model? JSP has a
+				lot of limitations and this is indeed frustrating. That’s why we’ve
+				created a custom template system, inspired by JSP but without its
+				constraints!</p>
+			<p>You and anyone else should be tired of writing things like
+				this:</p>
+			<pre class="prettyprint scala">
+				<code>
+					<span class="pun">&lt;%@</span><span class="pln"> taglib uri</span><span
+						class="pun">=</span><span class="str">"http://java.sun.com/jsp/jstl/core"</span><span
+						class="pln"> prefix</span><span class="pun">=</span><span
+						class="str">"c"</span><span class="pln"> %&gt;
+</span><span class="pun">&lt;%@</span><span class="pln"> taglib uri</span><span
+						class="pun">=</span><span class="str">"http://java.sun.com/jsp/jstl/functions"</span><span
+						class="pln"> prefix</span><span class="pun">=</span><span
+						class="str">"fn"</span><span class="pln"> %&gt;
+
+</span><span class="tag">&lt;c:choose&gt;</span><span class="pln">
+    </span><span class="tag">&lt;c:when</span><span class="pln"> </span><span
+						class="atn">test</span><span class="pun">=</span><span class="atv">"${emails.unread != null &amp;&amp; fn:size(emails.unread)}"</span><span
+						class="tag">&gt;</span><span class="pln">
         You have ${fn:size(emails.unread)} unread email(s)!
-    &lt;/c:when&gt;
-    &lt;c:otherwise&gt;
+    </span><span class="tag">&lt;/c:when&gt;</span><span class="pln">
+    </span><span class="tag">&lt;c:otherwise&gt;</span><span class="pln">
         You have no unread emails!
-    &lt;/c:otherwise&gt;
-&lt;/c:choose&gt;
-</code></pre>
-<p>こんな書き方のほうが気に入ると思います: </p>
-<pre><code>You have ${emails.unread ?: 'no'} ${emails.unread?.pluralize('email')} !
-</code></pre>
-<p>Play のテンプレートエンジンで使用する式言語は Java の構文と一貫性を持つ <a href="http://groovy.codehaus.org/">Groovy</a> です。Play は主に HTML レスポンスをレンダリングするためにテンプレートシステムを使用しますが、email メッセージや JSON レスポンスなどのドキュメントを生成するのにも使えます。</p>
-<h2 id="aJPAa"><a>強化された JPA</a></h2>
-<p>Java Persistence API (JPA) は、Java で利用できる、もっともきれいなオブジェクト-リレーショナルマッピング (ORM) API です。もし JPA を知っているなら、Play で JPA がいとも簡単に利用できることに驚くでしょう。なんの設定も無しに Play は自動的に JPA のエンティティマネージャを起動し、コードがリロードされたときはまるで魔法のように同期を行います。</p>
-<p>さらに、スーパークラス <code>play.db.jpa.Model</code> を使うことでコードをよりきれいにすることもできます。こんな感じです:</p>
-<pre><code>public static void messages(int page) {
-    User connectedUser = User.find(&quot;byEmail&quot;, connected()).first();
-    List&lt;Message&gt; messages = Message.find(
-        &quot;user = ? and read = false order by date desc&quot;,
+    </span><span class="tag">&lt;/c:otherwise&gt;</span><span class="pln">
+</span><span class="tag">&lt;/c:choose&gt;</span>
+				</code>
+			</pre>
+			<p>We think you would certainly prefer to write:</p>
+			<pre class="prettyprint scala">
+				<code>
+					<span class="typ">You</span><span class="pln"> have $</span><span
+						class="pun">{</span><span class="pln">emails</span><span
+						class="pun">.</span><span class="pln">unread </span><span
+						class="pun">?:</span><span class="pln"> </span><span class="str">'no'</span><span
+						class="pun">}</span><span class="pln"> $</span><span class="pun">{</span><span
+						class="pln">emails</span><span class="pun">.</span><span
+						class="pln">unread</span><span class="pun">?.</span><span
+						class="pln">pluralize</span><span class="pun">(</span><span
+						class="str">'email'</span><span class="pun">)}</span><span
+						class="pln"> </span><span class="pun">!</span>
+				</code>
+			</pre>
+			<p>
+				The expression language used by the play template engine is <a
+					href="http://groovy.codehaus.org/">Groovy</a>, which provides a
+				syntax consistent with Java. While Play mainly uses the templating
+				system to render HTML responses, you are free to use it to generate
+				any other documents such as e-mail messages, JSON responses, etc.
+			</p>
+			<h2 id="aJPAonsteroidsa">
+				<a>JPA on steroids</a>
+			</h2>
+			<p>The Java Persistence API (JPA) is the cleanest
+				object-relational mapping (ORM) API available for Java. If you
+				already know it you will be amazed how much simpler it becomes with
+				Play. With nothing to configure, Play will automatically start the
+				JPA Entity Manager and magically synchronize it while the code is
+				reloaded.</p>
+			<p>
+				Moreover if you use the provided
+				<code>play.db.jpa.Model</code>
+				superclass it will help make your code prettier. Have a look:
+			</p>
+			<pre class="prettyprint scala">
+				<code>
+					<span class="kwd">public</span><span class="pln"> </span><span
+						class="kwd">static</span><span class="pln"> </span><span
+						class="kwd">void</span><span class="pln"> messages</span><span
+						class="pun">(</span><span class="kwd">int</span><span class="pln"> page</span><span
+						class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span
+						class="pln">
+    </span><span class="typ">User</span><span class="pln"> connectedUser </span><span
+						class="pun">=</span><span class="pln"> </span><span class="typ">User</span><span
+						class="pun">.</span><span class="pln">find</span><span class="pun">(</span><span
+						class="str">"byEmail"</span><span class="pun">,</span><span
+						class="pln"> connected</span><span class="pun">()).</span><span
+						class="pln">first</span><span class="pun">();</span><span
+						class="pln">
+    </span><span class="typ">List</span><span class="pun">&lt;</span><span
+						class="typ">Message</span><span class="pun">&gt;</span><span
+						class="pln"> messages </span><span class="pun">=</span><span
+						class="pln"> </span><span class="typ">Message</span><span
+						class="pun">.</span><span class="pln">find</span><span class="pun">(</span><span
+						class="pln">
+        </span><span class="str">"user = ? and read = false order by date desc"</span><span
+						class="pun">,</span><span class="pln">
         connectedUser
-    ).from(page * 10).fetch(10);
-    render(connectedUser, messages);
-}
-</code></pre>
-<h2 id="aa"><a>テスト駆動開発 (お好みで) </a></h2>
-<p>組み込みのテストランナーは <a href="http://en.wikipedia.org/wiki/Test-driven_development">テスト駆動開発</a> による作業を容易にします。シンプルなユニットテストから完全な受入テストまで、あらゆる種類のテストを記述し、<a href="http://seleniumhq.org/">Selenium</a> を使用してブラウザでこれらを実行することができます。コードのカバレッジ率も計測されます。</p>
-<p><img border="0" src="images/guide2-2" /></p>
-<h2 id="anamefullstacka"><a name="full-stack">フルスタック・アプリケーションフレームワーク</a></h2>
-<p>Play framework は我々自身の Java アプリケーションから閃きを得ていました。Play は最近の web アプリケーションを作成するのに必要な、以下に示す全てのツールを備えています:</p>
-<ul>
- <li>JDBC を介したリレーショナルデータベースのサポート</li>
- <li>(JPA API と共に) Hibernate を利用したオブジェクト-リレーショナルマッピング</li>
- <li>必要に応じて分散 memchashed システムを簡単に使える組み込みキャッシュサポート</li>
- <li>JSON または XML による簡単な web サービス利用 (SOAP のようなガラクタではない、 <strong>本当</strong> の web サービスの話です)</li>
- <li>分散認証のための OpenID サポート</li>
- <li>どこ (アプリケーションサーバ, Google App Engine, Cloud, その他...) にでもデプロイできる web アプリケーション</li>
- <li>イメージ操作 API</li>
-</ul>
-<p>モジュールアーキテクチャは、色々なものを web アプリケーションに組み込むことを可能にします。<a href="modules">アプリケーションモジュール</a> のおかげで、Java コードやテンプレート、そして (JavaScript や CSS ファイルなどの) 静的なリソースを簡単に再利用する事ができます。</p>
-<p class="note"><b>やってみよう</b><br /> <br /><a href="install">Play framework をインストール</a> して最初のアプリケーション開発を始めてみましょう。</p>
-    </article>
-    <aside>
-    <h3>documentação oficial</h3>
-        <p>
-            <a href="http://www.playframework.org/documentation/1.2.5/overview" target="_blank">Documentation: overview — Playframework</a>
-        </p>
-                        <h3>Navegar</h3>
-        <ul>
-            <li id="gotoc"><a href="home">目次</a></li>
-        </ul>
-        <h3>Conteúdo</h3>
-        <div id="toc"></div>
-        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
-        <script type="text/javascript" charset="utf-8">
-            buildNavigation()
-            // Fix API link
-            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
-        </script>
-                <h3>Livros</h3>
-                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
-        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+    </span><span class="pun">).</span><span class="kwd">from</span><span
+						class="pun">(</span><span class="pln">page </span><span
+						class="pun">*</span><span class="pln"> </span><span class="lit">10</span><span
+						class="pun">).</span><span class="pln">fetch</span><span
+						class="pun">(</span><span class="lit">10</span><span class="pun">);</span><span
+						class="pln">
+    render</span><span class="pun">(</span><span class="pln">connectedUser</span><span
+						class="pun">,</span><span class="pln"> messages</span><span
+						class="pun">);</span><span class="pln">
+</span><span class="pun">}</span>
+				</code>
+			</pre>
+			<h2 id="aTestdrivendevelopmentifyoulikeita">
+				<a>Test driven development (if you like it)</a>
+			</h2>
+			<p>
+				The integrated test runner makes it easy for you do <a
+					href="http://en.wikipedia.org/wiki/Test-driven_development">test-driven
+					development</a>. You can write all kinds of tests, from simple unit
+				tests to full acceptance tests, and run them directly in a browser
+				using <a href="http://seleniumhq.org/">Selenium</a>. Code coverage
+				is also measured.
+			</p>
+			<p>
+				<img src="images/guide2-2" border="0">
+			</p>
+			<h2 id="anamefullstackFullstackapplicationframeworka">
+				<a name="full-stack">Full-stack application framework</a>
+			</h2>
+			<p>The Play framework was initially inspired by our own Java
+				applications. It has all the tools needed to create a modern web
+				application, including:</p>
+			<ul>
+				<li>relational database support through JDBC.</li>
+				<li>object-relational mapping using Hibernate (with the JPA
+					API).</li>
+				<li>integrated cache support, with easy use of the distributed
+					memcached system if needed.</li>
+				<li>straightforward web services consumption either in JSON or
+					XML (we are talking <strong>real</strong> web services here; not
+					the SOAP stuff).
+				</li>
+				<li>OpenID support for distributed authentication.</li>
+				<li>your web application ready to be deployed anywhere
+					(application server, Google App Engine, Cloud, etc…)</li>
+				<li>image manipulation API.</li>
+			</ul>
+			<p>
+				The modular architecture lets you combine a web application with
+				many others. Thanks to <a href="modules">application modules</a>,
+				you can reuse your Java code, templates and static resources (such
+				as JavaScript and CSS files) in a simple way.
+			</p>
+			<p class="note">
+				<b>Give it a try</b><br> <br>
+				<a href="install">Install the Play framework</a> and start
+				developing your first application.
+			</p>
 
-    </aside>
-</div>
-        <footer>
-            <img class="logo" src="/assets/images/logo-footer.png">
-            <div class="links">
-                <dl>
-                    <dt>Play</dt>
-                    <dd><a href="/download">Downloads</a></dd>
-                    <dd><a href="/documentation/latest">Documentação</a></dd>
-                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
-                </dl>
-                <dl>
-                    <dt>Contribuir<//dt>
-                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
-                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
-                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
-                </dl>
-                <dl>
-                    <dt>Ecossistema</dt>
-                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
-                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
-                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
-                </dl>
-            </div>
-            <div class="licence">
-                Play framework is released under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
-                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
-                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
-            </div>
-        </footer>
-    </body>
+		</article>
+		<aside>
+			<h3>documentação oficial</h3>
+			<p>
+				<a href="http://www.playframework.org/documentation/1.2.5/overview"
+					target="_blank">Documentation: overview — Playframework</a>
+			</p>
+			<h3>Navegar</h3>
+			<ul>
+				<li id="gotoc"><a href="home">Índice</a></li>
+			</ul>
+			<h3>Conteúdo</h3>
+			<div id="toc"></div>
+			<script type="text/javascript"
+				src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+			<script type="text/javascript" charset="utf-8">
+				buildNavigation()
+				// Fix API link
+				$('a[href="/@api/index.html"]').attr('href',
+						'/documentation/api/1.2.5/index.html')
+			</script>
+			<h3>Livros</h3>
+			<p>
+				<a href="http://www.packtpub.com/play-framework-cookbook/book"><img
+					src="/assets/images/Cookbook_Frontcover.jpg"></a>
+			</p>
+			<p>
+				<a href="http://www.the-play-book.co.uk/"><img
+					src="/assets/images/introducing_play.gif"></a>
+			</li>
+			</p>
+
+		</aside>
+	</div>
+	<footer>
+		<img class="logo" src="/assets/images/logo-footer.png">
+		<div class="links">
+			<dl>
+				<dt>Play</dt>
+				<dd>
+					<a href="/download">Downloads</a>
+				</dd>
+				<dd>
+					<a href="/documentation/latest">Documentação</a>
+				</dd>
+				<dd>
+					<a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a>
+				</dd>
+			</dl>
+			<dl>
+				<dt>Contribuir<//dt>
+				<dd>
+					<a href="http://github.com/playframework/Play20">Código fonte</a>
+				</dd>
+				<dd>
+					<a href="https://groups.google.com/forum/#!forum/play-framework">Lista
+						de discussão</a>
+				</dd>
+				<dd>
+					<a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a>
+				</dd>
+			</dl>
+			<dl>
+				<dt>Ecossistema</dt>
+				<dd>
+					<a href="http://www.playframework.org/code/team" target="_blank">Equipe
+						&amp; apoio</a>
+				</dd>
+				<dd>
+					<a href="http://typesafe.com/stack">Suporte</a>
+				</dd>
+				<dd>
+					<a href="http://www.playframework.org/modules" target="_blank">Módulos</a>
+				</dd>
+			</dl>
+		</div>
+		<div class="licence">
+			Play framework is released under the <a
+				href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2
+				License</a> <a class="typesafe" href="http://typesafe.com"><img
+				src="/assets/images/typesafe.png" /></a> <a class="zenexity"
+				href="http://zenexity.com"><img
+				src="/assets/images/zenexity.png" /></a>
+		</div>
+	</footer>
+</body>
 </html>

@@ -6,6 +6,8 @@ import helper.*;
 import java.io.*;
 import java.util.*;
 
+import org.mortbay.log.Log;
+
 import jobs.*;
 import play.*;
 import play.libs.*;
@@ -13,15 +15,15 @@ import play.mvc.*;
 
 /**
  * Documentation controller.
- * 
+ *
  * @author garbagetown
- * 
+ *
  */
 public class Documentation extends Controller {
 
     /**
      * page action.
-     * 
+     *
      * @param version
      * @param id
      */
@@ -34,24 +36,32 @@ public class Documentation extends Controller {
             redirect(String.format("/documentation/%s/%s", version, home));
         }
         String html = null;
+        Log.debug("Version="+version+" id="+id);
         try {
             if (Play.mode == Play.Mode.PROD) {
                 File file = new File(Play.applicationPath, String.format("html/%s/%s.html", version, id));
                 if (file == null || !file.exists()) {
+                	 Log.debug("nao achou o arquivo "+String.format("html/%s/%s.html", version, id));
+                	 Log.debug("file == "+file );
+                	 if (file!=null)
+                	  Log.debug("file existe ?  "+(file.exists()));
                     throw new FileNotFoundException();
                 }
+                Log.debug("Abriu o arquivo "+String.format("html/%s/%s.html", version, id));
                 html = IO.readContentAsString(file);
+                Log.debug("html = "+ html);
             } else {
                 html = DocumentParser.parse(version, id);
             }
         } catch (FileNotFoundException e) {
+        	Log.debug(e);
             notFound(request.path);
         }
         renderHtml(html);
     }
 
     /**
-     * 
+     *
      * @param version
      * @param name
      */
@@ -67,7 +77,7 @@ public class Documentation extends Controller {
     }
 
     /**
-     * 
+     *
      * @param version
      * @param path
      */
@@ -80,7 +90,7 @@ public class Documentation extends Controller {
     }
 
     /**
-     * 
+     *
      * @param version
      * @param name
      */
@@ -89,7 +99,7 @@ public class Documentation extends Controller {
     }
 
     /**
-     * 
+     *
      * @param filepath
      */
     private static void renderBinaryFile(String filepath) {
@@ -101,7 +111,7 @@ public class Documentation extends Controller {
     }
 
     /**
-     * 
+     *
      * @param version
      * @param id
      */
