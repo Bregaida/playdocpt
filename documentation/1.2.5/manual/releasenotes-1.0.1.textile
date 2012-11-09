@@ -1,63 +1,63 @@
-h1. Play 1.0.1 -- Release notes
+h1. Play 1.0.1 -- Notas de Lançamento
 
-**Play 1.0.1** is a maintenance release of the Play 1.0 branch. It fixes a lot of small bugs, provides a better binding for persistent JPA objects, auto-escaping of HTML and JavaScript code in templates to avoid XSS security problems.
+**Play 1.0.1** é uma versão de manutenção do branch Play 1.0. Ela conserta vários pequenos erros, provê um melhor binding para os objetos JPA de persistência, detecta automaticamente código HTML e JavaScript nos templates para evitar problemas de segurança com XSS.
 
-p(note). **Play 1.0.1** is a maintenance release and is fully compatible with the 1.0 version. If you encounter any problems please ask us on the Google Group.
+p(note). **Play 1.0.1** é uma versão de manutenção e é totalmente compatível com a versão 1.0. Se você encontrar algum problema, por favor, nos pergunte no Google Group.
 
-You can read about the fixed bugs on the "1.0.1 road map page":http://www.playframework.org/roadmap/1.0.1. The most important changes are highlighted in this page:
+Você pode ler sobre os erros consertados em "1.0.1 road map page":http://www.playframework.org/roadmap/1.0.1. As mudanças mais importantes estão destacadas nesta página:
 
-h2. <a>Automatic escaping for HTML code in templates</a>
+h2. <a>Escaping automático para código HTML nos templates</a>
 
-Now all dynamic expressions are escaped by the template engine to avoid XSS security issues in your application. So the @title@ variable containing <code>==&lt;h1>Title&lt;/h1>==</code> is now escaped:
+Agora todas as dynamic expressions são escaped pelo template engine para evitar erros de segurança XSS na sua aplicação. Então a variável @title@ contendo <code>==&lt;h1>Title&lt;/h1>==</code> agora é escaped para:
 
 bc. ${title} --> &lt;h1&gt;Title&lt;/h1&gt;
 
-If you really want to display it in an unescaped way, you need to explicitely call the @raw()@ method:
+Se você realente quiser mostrar isso em um modo não escaped, você precisa chamar o método @raw()@ explícitamente:
 
 bc. ${title.raw()} --> <h1>Title</h1>
 
-Also, if you want to display a large part of raw HTML, you can use the @#{verbatim /}@ tag:
+Além disso, se você quiser mostrar uma grande parte de HTML puro, você pode user a tag @#{verbatim /}@:
 
 bc. #{verbatim}
     ${title} --> <h1>Title</h1>
 #{/verbatim}
 
-Of course, as this feature can break existing applications, it is not enabled by default. You can enable it by adding the following line to your @application.conf@ file:
+Claro, como esta característica pode quebrar várias aplicações já existentes, ela não está ativada por padrão. Você pode ativá-la adicionando a linha seguinte no arquivo @application.conf@ da sua aplicação:
 
 bc. future.escapeInTemplates=true
 
-This line is  added to new applications created with the 1.0.1 release.
+Esta linha será adicionada automaticamente às novas aplicações criadas com a versão 1.0.1.
 
-h2. <a>@javax.inject.Inject support</a>
+h2. <a>Suporte a @javax.inject.Inject</a>
 
-You can now use the <code>@Inject</code> annotation if you are using a Dependency Injection container like the one provided by the "Spring module":spring. The <code>@Inject</code> annotation automatically injects defined beans in your controllers, jobs and mailer. It works on static fields. 
+Agora você pode usar a anotação <code>@Inject</code> caso você utilize um Dependency Injection container como, por exemplo, um provido pelo "Spring module":spring. A anotação <code>@Inject</code> injeta automaticamente os beans definidos nos seus controllers, jobs e mailer. Isso funciona em fields estáticos.
 
-For example to inject a @PriceWatcher@ service defined in Spring to one of your controllers, just do:
+Por exemplo, para injetar um serviço @PriceWatcher@ definido no Spring em um de seus controllers, somente faça:
 
 bc. public class Application extends Controller {
-    
+
     @Inject
     static PriceWatcher prices;
-    
+
     public static void index() {
-        prices.getAll(); // prices is defined here
+        prices.getAll(); // preços são definidos aqui
     }
-    
+
 }
 
-Auto-reload should work as expected.
+A atualização automática deve funcionar como esperado.
 
-h2. <a>Better binding for JPA objects</a>
+h2. <a>Melhor apontamento de objetos JPA</a>
 
-Previously there was no way to automatically bind a JPA object using the HTTP to Java binding. For example:
+Antes não havia maneira de apontar (bind) um objecto JPA automaticamente utilizando o apontamento HTTP para Java. Por exemplo:
 
 bc. public static void save(User user) {
-    user.save(); // fail in 1.0
+    user.save(); // falha no 1.0
 }
 
-@User@ being a JPA entity class, this code failed because user was a transient object created by the Binder and not yet managed by Hibernate.
+Como @User@ é uma JPA entity class, este código falhou porque user era um objeto transitório criado pelo Binder e ainda não pelo Hibernate.
 
-The old way was to use the @edit()@ method, like:
+O velho modo era usar o método @edit()@, como:
 
 bc. public static void save(Long id) {
     User user = User.findById(id);
@@ -65,72 +65,72 @@ bc. public static void save(Long id) {
     user.save(); // ok
 }
 
-Now you can provide the @user.id@ field yourself in the HTTP parameters. When Play finds the @id@ field, it loads the matching instance from the database before editing it. The other parameters provided by the HTTP request are then applied. So you can save it directly.
+Agora você mesmo pode prover o campo @user.id@ nos paramêtros HTTP. Quando o Play encontra o campo @id@, ele carrega a instância correta a partir da base de dados antes de editá-la. Os outros parâmetros providos pela requisição HTTP são então aplicados. Então você pode salvá-los diretamente.
 
 bc. public static void save(User user) {
-    user.save(); // ok with 1.0.1
+    user.save(); // ok no 1.0.1
 }
 
-Of course as this feature can break existing applications it is not enabled by default. You can enable it by adding the following line to your @application.conf@ file:
+É claro que, como este novo recurso pode quebrar aplicações já existentes, ele não está ativo por padrão. Você pode ativá-lo adicionando a linha abaixo no arquivo @application.conf@ da sua aplicação:
 
 bc. future.bindJPAObjects=true
 
-This line is added to new applications created with the 1.0.1 release.
+Esta linha é adicionada automaticamente nas novas aplicações criadas com a versão 1.0.1.
 
-h2. <a>Framework ID can be set from the command line</a>
+h2. <a>Framework ID pode ser setado através da linha de comando</a>
 
-The framework ID allows you to run different configurations for a same Play application (ie dev, test, staging, production, etc…).
+O framework ID permite que você rode configurações diferentes para uma mesma aplicação Play (por exemplo: dev, test, staging, produção, etc...).
 
-Using the command line, you can now specify the application "framework ID":ids the application will use. For example, to run an application in production mode:
+Usando a linha de comando, agora você pode especificar qual "framework ID":ids a aplicação irá utilizar. Por exemplo, para rodar uma aplicação no modo de produção:
 
 bc. play run --%production
 
-With these lines defined in the @application.conf@ file:
+Com essas linhas definidas no arquivo @application.conf@:
 
 bc. application.mode=dev
 %production.application.mode=prod
 
-It is compatible with all the existing commands using the framework ID information. The default ID is still defined using the @play id@ command.
+Isso é compatível com todas os comandos existentes que utilizam a informação do framework ID. O ID padrão ainda é definido utilizando o comando @play id@.
 
-By the way, @play test@ is then equivalent to:
+A propósito, @play test@ é equivalente a:
 
 bc. play run --%test
 
-h2. <a>Custom validation</a>
+h2. <a>Validações customizadas</a>
 
-Can’t find the validator you need in the @play.data.validation@ package? Write your own. You can use the generic <code>@CheckWith</code> annotation to bind your own @Check@ implementation.
+Não conseguiu achar o validator que você precisa no pacote @play.data.validation@? Escreva uma sua. Você pode usar a anotação genérica <code>@CheckWith</code> para apontar (bind) sua própria implemantação @Check@.
 
-For example:
+Por exemplo:
 
 bc. public class User {
-    
+
     @Required
     @CheckWith(MyPasswordCheck.class)
     public String password;
-    
+
     static class MyPasswordCheck extends Check {
-        
+
         public abstract boolean isSatisfied(Object user, Object password) {
             return notMatchPreviousPasswords(password);
         }
-        
+
     }
 }
 
-h2. <a>Test runner update</a>
+h2. <a>Atualização do Test Runner</a>
 
-We’ve updated Selenium to the 1.0.1 final version and improved the UI. Selenium tests now run in fullscreen. And some new functionality like the "Run all tests" have been added.
+Nós atualizamos o Selenium para a versão 1.0.1 final e melhoramos a UI (User Interface). Os testes do Selenium agora rodam em fullscreen. E algumas novas funcionalidades como "Run all tests" foram adicionadas.
 
 !images/selenium-fullscreen!
 
-Also local documentation is now available when you run your application in test mode.
+A documantação local agora também está disponível, quando você roda suas aplicação no test mode.
 
-h2. <a>HTML5 as default doctype and JQuery in new applications</a>
+h2. <a>HTML5 como doctype padrão e JQuery nas novas aplicações</a>
 
-New applications come with a default HTML skeleton. Previously it was a **XHTML 1.0 Transitional** formatted HTML. Now it comes with a **HTML5** doctype by default:
+Novas aplicações vem com um esqueleto HTML padrão. Antes era um **XHTML 1.0 Transitional** HTML formatado. Agora isso vem como um **HTML5** doctype por padrão:
 
 bc. <!DOCTYPE html>
- 
+
 <html>
     <head>
         <title>#{get 'title' /}</title>
@@ -146,85 +146,85 @@ bc. <!DOCTYPE html>
     </body>
 </html>
 
-It’s just the default and you can of course change it to any doctype if you wish. However "HTML5":http://html5.org is surely the future and is way simpler.
+Este é somente o padrão e é claro que você pode alterar isso para qualquer doctype se desejar. Entretanto "HTML5":http://html5.org é certamente o futuro e a maneira mais fácil.
 
-The default template comes with the **JQuery** JavaScript library. This is because modern web applications need a good JavaScript framework and we love "JQuery":http://www.jquery.com. Again it is just the default and you can of course override it with whatever JavaScript library you want.
+O template padrão vem com a biblioteca **JQuery**. Isso porque aplicações web modernas precisam de um bom framework JavaScript e nós amamos "JQuery":http://www.jquery.com. E novamente, este é somente o padrão e é claro que você pode sobrescrever isso com qualquer biblioteca JavaScript que você quiser.
 
-Oh, and it comes with two default placeholders to inject even more scripts and/or styles. For example, add in your view:
+Oh, e esta versão vem com dois espaços reservados (placeholders) padrões para injetar ainda mais scripts e/ou styles. Por exemplo, adicione na sua view:
 
 bc. #{set 'moreScripts'}
 <script src="@{'/public/javascripts/gears_init.js'}" type="text/javascript">
 </script>
 #{/set}
 
-And the gear JavaScript library will be accessible in your view.
+E a biblioteca JavaScript gear será acessível na sua view.
 
-h2. <a>Improved #{list} tag</a>
+h2. <a>tag #{list} melhorada</a>
 
-The @items@ parameter is now optional and can be replaced by the default @arg@ argument.
+O parâmetro @items@ agora é opicional e pode ser substituído pelo argumento @arg@ padrão.
 
-So you can rewrite:
+Então você pode reescrever:
 
 bc. #{list items:users, as:'user'}
     <li>${user}</li>
 #{/list}
 
-as:
+como:
 
 bc. #{list users, as:'user'}
     <li>${user}</li>
 #{/list}
 
-The @as@ parameter is now optional as well. It uses @_@ as default variable name:
+O parâmetro @as@ agora também é opicional. Ele usa @_@ como nome padrão da variável:
 
 bc. #{list users}
     <li>${_}</li>
 #{/list}
 
-h2. <a>New #{jsAction /} tag</a>
+h2. <a>Nova tag #{jsAction /}</a>
 
-The @#{jsAction /}@ tag allows to import a server-side defined route as a JavaScript function. It is very useful if you need to call an URL with an AJAX call using free variables.
+A tag @#{jsAction /}@ permite importar uma rota definida no servidor como uma função JavaScript. Isso é bem útil se você precisa chamar uma URL com uma chamada AJAX usando variáveis livres.
 
-Let’s see an example:
+Vamos ver um exemplo:
 
 bc. GET     /users/{id}        Users.show
 
-Now you can import this route on the client side:
+Agora você pode importar essa rota do lado cliente:
 
 bc. <script type="text/javascript">
     var showUserAction = #{jsAction @Users.show(':id')}
-    
+
     var displayUserDetail = function(userId) {
         $('#userDetail').load( showUserAction({id: userId}) )
     }
 </script>
 
-As you see you use the @:name@ syntax to declare free variables. You can mix free and fixed variables together. The @#{jsAction /}@ tag generates a JavaScript function. This function takes a JavaScript object as parameter that must define all the free variables.
+Como você ve, utilize a syntax @:name@ para declarar variáveis livres. Você pode misturar variáveis livres e fixas juntas. A tag @#{jsAction /}@ gera a função JavaScript. Essa função recebe um objeto JavaScript como parâmetro que deve definir todas as variáveis livres.
 
-h2. <a>New sample application: ‘booking’</a>
+h2. <a>Nova aplicação de exemplo: 'booking'</a>
 
-The @booking@ application is a port of the well known "booking application from the JBoss Seam framework":http://docs.jboss.com/seam/latest/reference/en-US/html/tutorial.html#booking.
+A aplicação @booking@ é uma porção da bem conhecida "booking application from the JBoss Seam framework":http://docs.jboss.com/seam/latest/reference/en-US/html/tutorial.html#booking.
 
-It demonstrates how you can manage complex states client side in a RESTful way with a stateless web framework.
+Ela demonstra como você pode gerenciar estados complexos do lado cliente de uma maneira RESTful com um framework web stateless.
 
 !images/booking!
 
-h2. <a>Eclipse plug-in is on its way</a>
+h2. <a>O plug-in do Eclipse está a caminho</a>
 
-We are working hard to provide a dedicated Eclipse plug-in. The current status is alpha but already usable. You can find it in the @support/eclipse@ directory of your Play installation.
+Nós estamos trabalhando duro para prover um plugin-in dedicado para o Eclipse. Ele está em status alpha, mas já está usável. Você pode achar ele no diretório @support/eclipse@ da sua instalação do Play framework.
 
 !images/eclipse-plugin!
 
-h2. <a>Support for IntelliJ IDEA</a>
+h2. <a>Suporte para IntelliJ IDEA</a>
 
-The Play framework now supports "IntelliJ IDEA":http://www.jetbrains.com/idea/ out of the box!
+O Play framework agora suporta "IntelliJ IDEA":http://www.jetbrains.com/idea/ fora da caixa!
 
-To convert your Play application into an IntelliJ IDEA project, use the @idealize@ command:
+Para converter sua aplicação Play para um projeto IntelliJ IDEA, use o comando @idealize@:
 
 bc. # play idealize myApp
 
 !images/intellij!
 
-You can use the Run and Debug using the context menu.
+Você pode usar o Run e Debug a partir do menu context da IDE.
 
-p(note). Next release: %(next)"Play 1.0.2 release notes":releasenotes-1.0.2%
+p(note). Próxima versão: %(next)"Play 1.0.2 release notes":releasenotes-1.0.2%

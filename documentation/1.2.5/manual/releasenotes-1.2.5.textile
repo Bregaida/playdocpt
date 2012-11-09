@@ -1,14 +1,14 @@
-h1. Play 1.2.5 -- Release notes
+h1. Play 1.2.5 -- Notas de Lançamento
 
-The changes in this release are listed in the "Play 1.2.5 milestone":https://play.lighthouseapp.com/projects/57987-play-framework/milestones/131471-125 on Lighthouse, including 121 resolved tickets. The most important changes are:
+As mudanças desta versão estão listadas em "Play 1.2.5 milestone":http://play.lighthouseapp.com/projects/57987-play-framework/milestones/131471-125 no Lighthouse, incluindo 121 tickets resolvidos. As mudanças mais importantes são:
 
-* JDK 6 required (hibernate 4 dependency)
-* fixed multiple continuations/await bugs
-* fixed multiple hibernate related issues
-* security fix for hash-colission-atack
-* JNDI DataSource under Glassfish 3
-* improved chunked transfer/streaming support
-* upgraded to hibernate 4.1
-* upgraded to netty-3.4.2.Final 
-* web socket support for all browsers
-* all libraries upgraded.
+* JDK 6 necessário (dependência do hibernate 4)
+* consertados múltiplos problemas contínuos/aguardando
+* consertados múltiplas questão relacionadas ao hibernate relatadas
+* conserto de segurança para hash-colission-atack
+* JNDI DataSource sobre Glassfish 3
+* melhorias diversas ao suporte de transferência/streaming
+* atualizado para hibernate 4.1
+* atualizado para netty-3.4.2.Final
+* suporte a web socket para todos os navegadores
+* todas as bibliotecas atualizadas.
