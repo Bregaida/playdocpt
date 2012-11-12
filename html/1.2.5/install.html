@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: install — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>10% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Guiadeinstalao">Guia de instala&ccedil;&atilde;o</h1> 
+<h2 id="anameprerequisitesPrrequisitosa"><a name="prerequisites">Pr&eacute;-requisitos</a></h2> 
+<p>Para rodar o Play framework, voc&ecirc; precisa do <a href="http://java.sun.com">Java 6 or superior</a>.<br />Se voc&ecirc; quiser compilar o Play dos fontes, voc&ecirc; vai precisar do <a href="http://git-scm.com/">cliente Git</a> para baixar o fonte e <a href="http://ant.apache.org/">Ant</a> para fazer o build.</p> 
+<p>Certifique-se que possui o Java no PATH (digite <code>java -version</code> para verificar).<br />O Play usar&aacute; o Java padr&atilde;o ou o que estiver definido em <code>$JAVA_HOME</code> .</p> 
+<p>O comando de linha <strong>play</strong> usa Python. Portanto, deve funcionar em qualquer UNIX (entretanto precisa ser no m&iacute;nimo Python 2.5).</p> 
+<h2 id="anameinstallInstalaodeumpacotebinrioa"><a name="install">Instala&ccedil;&atilde;o de um pacote bin&aacute;rio</a></h2> 
+<h3 id="Instruesgerais">Instru&ccedil;&otilde;es gerais</h3> 
+<p>Siga os passos a seguir.</p> 
+<ol> 
+ <li>Instale o Java.</li> 
+ <li>Fa&ccedil;a o download do &uacute;ltimo pacote do <a href="http://download.playframework.org/">Play</a> e descompacte o arquivo.</li> 
+ <li>Adicione o comando ‘play’ ao seu PATH e certifique-se que ele seja execut&aacute;vel.</li> 
+</ol> 
+<h3 id="MacOSX">Mac OS X</h3> 
+<p>Java &eacute; built-in, ou instalado automaticamente, portanto voc&ecirc; pode pular essa etapa.</p> 
+<ol> 
+ <li>Fa&ccedil;a o download do &uacute;ltimo pacote do <a href="http://download.playframework.org/">Play</a> e descompacte o arquivo em <code>/Applications</code>.</li> 
+ <li>Edite <code>/etc/paths</code> e adicione a linha <code>/Applications/play-1.2.5</code> (por exemplo).</li> 
+</ol> 
+<p>Uma alternativa no OS X &eacute;:</p> 
+<ol> 
+ <li>Instale o <a href="http://mxcl.github.com/homebrew/">HomeBrew</a></li> 
+ <li>Rode <code>brew install play</code></li> 
+</ol> 
+<h3 id="Linux">Linux</h3> 
+<p>Para instalar o Java, certifique-se que &eacute; a Sun-JDK ou a OpenJDK (e n&atilde;o a gcj que &eacute; a padr&atilde;o Java em v&aacute;rias distribui&ccedil;&otilde;es Linux)</p> 
+<h3 id="Windows">Windows</h3> 
+<p>Para instalar o Java, fa&ccedil;a o download e instale o pacote JDK mais recente.<br />Voc&ecirc; n&atilde;o vai precisar instalar o Python separadamente, o Python runtime est&aacute; embutido no framework.</p> 
+<h2 id="anamebuildCompilardosfontesmaisrecentesa"><a name="build">Compilar dos fontes mais recentes</a></h2> 
+<p>Para se beneficiar das &uacute;ltimas melhorias e corre&ccedil;&otilde;es, voc&ecirc; pode compilar o Play dos fontes.<br />Voc&ecirc; vai precisar do <a href="http://git-scm.com/">cliente Git</a> para baixar os fontes e o <a href="http://ant.apache.org/">Ant</a> para compilar o framework.</p> 
+<p>Da linha de comando:</p> 
+<pre><code># git clone git://github.com/playframework/play.git
+# cd play/framework
+# ant
+</code></pre> 
+<p>E o Play framework Est&aacute; pronto para usar.</p> 
+<h2 id="anamerunUsandoocomandoplaya"><a name="run">Usando o comando play</a></h2> 
+<p>Quando o framework estiver corretamente instalado, abra o console e digite <strong>play</strong>.</p> 
+<pre><code>$ play
+</code></pre> 
+<p>Dever&aacute; aparecer a mensagem abaixo:</p> 
+<p><img border="0" src="images/help" /></p> 
+<p>Voc&ecirc; pode ter ajuda em mais em um comando espec&iacute;fico usando <strong>play help nome-do-comando</strong>.<br />Por exemplo, tente:</p> 
+<pre><code># play help run
+</code></pre> 
+<h2 id="anamenewCriandoumanovaaplicaoa"><a name="new">Criando uma nova aplica&ccedil;&atilde;o</a></h2> 
+<p>Use o comando <code>new</code> para criar uma nova aplica&ccedil;&atilde;o.<br />Voc&ecirc; deve informar um caminho que n&atilde;o existe para a aplica&ccedil;&atilde;o ser criada.</p> 
+<pre><code># play new myApp
+</code></pre> 
+<p><img border="0" src="images/guide1-1" /></p> 
+<p>Isso criar&aacute; uma nova aplica&ccedil;&atilde;o. Execute com:</p> 
+<pre><code># play run myApp
+</code></pre> 
+<p>Voc&ecirc; pode abrir o browser em <a href="http://localhost:9000">http://localhost:9000</a> e ver a p&aacute;gina padr&atilde;o da sua aplica&ccedil;&atilde;o.</p> 
+<p><img border="0" src="images/guide1-2" /></p> 
+<p class="note"><b>Your new application is ready!</b></p> 
+<p>Next: <span class="next"><a href="ide">Configure sua IDE preferida</a></span>.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/install" target="_blank">Documentation: install — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

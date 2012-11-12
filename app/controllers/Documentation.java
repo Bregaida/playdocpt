@@ -49,7 +49,7 @@ public class Documentation extends Controller {
                 }
                 Log.debug("Abriu o arquivo "+String.format("html/%s/%s.html", version, id));
                 html = IO.readContentAsString(file);
-                Log.debug("html = "+ html);
+//                Log.debug("html = "+ html);
             } else {
                 html = DocumentParser.parse(version, id);
             }
