@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: 5things — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>10% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="CincocoisaslegaisquevocpodefazercomPlay">Cinco coisas legais que voc&ecirc; pode fazer com Play</h1>
+<p>Cinco exemplos para mostrar a filosofia por tr&aacute;s do Play framework.</p>
+<h2 id="aVincularbindumparmetroHTTPaumparmetrodeummtodoJavaa"><a>Vincular (bind) um par&acirc;metro HTTP a um par&acirc;metro de um m&eacute;todo Java</a></h2>
+<p>Obter par&acirc;metros HTTP de um c&oacute;digo Java &eacute; realmente simples com Play. S&oacute; declare os par&acirc;metros do m&eacute;todo com o mesmo nome que os par&acirc;metros HTTP.</p>
+<p>Por exemplo, com a requisi&ccedil;&atilde;o (request):</p>
+<pre><code>/articles/archive?date=08/01/08&amp;page=2
+</code></pre>
+<p>Voc&ecirc; pode obter os par&acirc;metros <code>date</code> e <code>page</code> declarando-os como par&acirc;metros de um m&eacute;todo Java:</p>
+<pre><code>public static void archive(Date date, Integer page) {
+    List&lt;Article&gt; articles = Articles.fromArchive(date, page);
+    render(articles);
+}
+</code></pre>
+<p>O Play usar&aacute; o tipo est&aacute;tico dos par&acirc;metros do m&eacute;todo para traduzir o valor HTTP em um objeto Java.</p>
+<p>O vinculador inteligente tamb&eacute;m funciona <b>com qualquer classe.</b></p>
+<pre><code>public class Person {
+    public String name;
+    public Integer age;
+}
+</code></pre>
+<p>Uma action de um controller simples para adicionar uma pessoa talvez se pare&ccedil;a com isso:</p>
+<pre><code>public static void add(Person p) {
+    p.save();
+}
+</code></pre>
+<p>O form HTML define os campos com nomes compostos:</p>
+<pre><code>&lt;form action=&quot;/Directory/add&quot; method=&quot;POST&quot;&gt;
+    Name: &lt;input type=&quot;text&quot; name=&quot;p.name&quot; /&gt;
+    Age: &lt;input type=&quot;text&quot; name=&quot;p.age&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
+<h2 id="aRedirecionarparaumaactionchamandoomtodoJavacorrespondentea"><a>Redirecionar para uma action chamando o m&eacute;todo Java correspondente</a></h2>
+<p>N&atilde;o h&aacute; comando equivalente no Play para o comando <code>forward</code> do Java Servlet. Mas redirecionar para outra action &eacute; bem simples. Somente chame o m&eacute;todo Java correspondente e o Play gerar&aacute; a resposta HTTP ‘redirect’ correspondente.</p>
+<pre><code>public static void show(Long id) {
+    Article article = Article.findById(id);
+    render(article);
+}
+</code></pre>
+<p>public static void edit(Long id, String title) {<br /> Article article = Article.findById(id);<br /> article.title = title;<br /> article.save();<br /> show(id);<br />}</p>
+<p>Note no final da action edit, n&oacute;s redirecionamos para a action show.</p>
+<p>Em qualquer template voc&ecirc; pode usar a sintaxe equivalente para gerar o link:</p>
+<pre><code>&lt;a href=&quot;@{Article.show(article.id)}&quot;&gt;${article.title}&lt;/a&gt;
+</code></pre>
+<p>Isso vai gerar o seguinte HTML:</p>
+<pre><code>&lt;a href=&quot;/articles/15&quot;&gt;My new article&lt;/a&gt;
+</code></pre>
+<h2 id="aNoserepitaquandoestiverparseandoobjetosJavaparaostemplatesa"><a>N&atilde;o se repita quando estiver parseando objetos Java para os templates</a></h2>
+<p>Na maioria dos frameworks Java, para passar objetos Java para o sistema de template voc&ecirc; precisa escrever alguma coisa como:</p>
+<pre><code>Article article = Article.findById(id);
+User user = User.getConnected();
+Map&lt;String, Object&gt; model = new HashMap&lt;String,Object&gt;();
+model.put(&quot;article&quot;, article);
+model.put(&quot;user&quot;, user);
+render(model);
+</code></pre>
+<p>Com Play, voc&ecirc; escreve somente:</p>
+<pre><code>Article article = Article.findById(id);
+User user = User.getConnected();
+render(article, user);
+</code></pre>
+<p>E recupera objetos a partir do nome local no template. Isso salva um monte de linhas de c&oacute;digo in&uacute;teis...</p>
+<h2 id="aJPAsobreesteridesa"><a>JPA sobre ester&oacute;ides</a></h2>
+<p>JPA &eacute; com certeza o melhor object-relational mapping (ORM) API dispon&iacute;vel para Java. Se voc&ecirc; sabe disso voc&ecirc; vai se surpreender qu&atilde;o simples isso fica com Play. Sem nada configurado, Play vai automaticamente iniciar o JPA Entity Manager utilizando Hibernate e magicamente sincronizar isso quando o c&oacute;digo &eacute; recarregado.</p>
+<p>Al&eacute;m disso, se voc&ecirc; usar a superclasse <code>play.db.jpa.Model</code>, ela vai ajud&aacute;-lo a tornar seu c&oacute;digo mais bonito. Olhe:</p>
+<pre><code>public void messages(int page) {
+    User connectedUser = User.find(&quot;byEmail&quot;, connected()).first();
+    List&lt;Message&gt; messages = Message.find(
+        &quot;user = ? and read = false order by date desc&quot;,
+        connectedUser
+    ).from(page * 10).fetch(10);
+    render(connectedUser, messages);
+}
+</code></pre>
+<h2 id="aArquivosimplesparagerenciamentodeuploada"><a>Arquivo simples para gerenciamento de upload</a></h2>
+<p>Gerenciamento de upload de arquivo &eacute; muito simples com Play.</p>
+<p>O form HTML:</p>
+<pre><code>#{form @uploadPhoto(), enctype:'multipart/form-data'}
+    &lt;input type=&quot;text&quot; name=&quot;title&quot; /&gt;
+    &lt;input type=&quot;file&quot; id=&quot;photo&quot; name=&quot;photo&quot; /&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;Send it...&quot; /&gt;
+#{/}
+</code></pre>
+<p>E o c&oacute;digo Java:</p>
+<pre><code>public static void uploadPhoto(String title, File photo) {
+   ...
+}
+</code></pre>
+<p>Como isso poderia ser mais f&aacute;cil?</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/5things" target="_blank">Documentation: 5things — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>
