@@ -40,7 +40,7 @@
                 </figure>
             </div>
             <nav>
-                    <b>10% traduzido</b>
+                    <b>10.1% traduzido</b>
                     <a href="/documentation" class="selected learn">Aprenda</a>
                     <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
                     <a href="/code" class="code">Código fonte</a>
@@ -98,136 +98,136 @@ $(function(){
 
 <div id="content" class="wrapper doc">
     <article>
-        <h1 id="Play1.0.1NotasdeLanamento">Play 1.0.1 — Notas de Lan&ccedil;amento</h1>
-<p><b>Play 1.0.1</b> &eacute; uma vers&atilde;o de manuten&ccedil;&atilde;o do branch Play 1.0. Ela conserta v&aacute;rios pequenos erros, prov&ecirc; um melhor binding para os objetos JPA de persist&ecirc;ncia, detecta automaticamente c&oacute;digo HTML e JavaScript nos templates para evitar problemas de seguran&ccedil;a com XSS.</p>
-<p class="note"><b>Play 1.0.1</b> &eacute; uma vers&atilde;o de manuten&ccedil;&atilde;o e &eacute; totalmente compat&iacute;vel com a vers&atilde;o 1.0. Se voc&ecirc; encontrar algum problema, por favor, nos pergunte no Google Group.</p>
-<p>Voc&ecirc; pode ler sobre os erros consertados em <a href="http://www.playframework.org/roadmap/1.0.1">1.0.1 road map page</a>. As mudan&ccedil;as mais importantes est&atilde;o destacadas nesta p&aacute;gina:</p>
-<h2 id="aEscapingautomticoparacdigoHTMLnostemplatesa"><a>Escaping autom&aacute;tico para c&oacute;digo HTML nos templates</a></h2>
-<p>Agora todas as dynamic expressions s&atilde;o escaped pelo template engine para evitar erros de seguran&ccedil;a XSS na sua aplica&ccedil;&atilde;o. Ent&atilde;o a vari&aacute;vel <code>title</code> contendo <code>&lt;h1&gt;Title&lt;/h1&gt;</code> agora &eacute; escaped para:</p>
+        <h1 id="Play1.0.1NotasdeLanamento">Play 1.0.1 — Notas de Lan&ccedil;amento</h1> 
+<p><b>Play 1.0.1</b> &eacute; uma vers&atilde;o de manuten&ccedil;&atilde;o do branch Play 1.0. Ela conserta v&aacute;rios pequenos erros, prov&ecirc; um melhor binding para os objetos JPA de persist&ecirc;ncia, detecta automaticamente c&oacute;digo HTML e JavaScript nos templates para evitar problemas de seguran&ccedil;a com XSS.</p> 
+<p class="note"><b>Play 1.0.1</b> &eacute; uma vers&atilde;o de manuten&ccedil;&atilde;o e &eacute; totalmente compat&iacute;vel com a vers&atilde;o 1.0. Se voc&ecirc; encontrar algum problema, por favor, nos pergunte no Google Group.</p> 
+<p>Voc&ecirc; pode ler sobre os erros consertados em <a href="http://www.playframework.org/roadmap/1.0.1">1.0.1 road map page</a>. As mudan&ccedil;as mais importantes est&atilde;o destacadas nesta p&aacute;gina:</p> 
+<h2 id="aEscapingautomticoparacdigoHTMLnostemplatesa"><a>Escaping autom&aacute;tico para c&oacute;digo HTML nos templates</a></h2> 
+<p>Agora todas as dynamic expressions s&atilde;o escaped pelo template engine para evitar erros de seguran&ccedil;a XSS na sua aplica&ccedil;&atilde;o. Ent&atilde;o a vari&aacute;vel <code>title</code> contendo <code>&lt;h1&gt;Title&lt;/h1&gt;</code> agora &eacute; escaped para:</p> 
 <pre><code>${title} --&gt; &amp;lt;h1&amp;gt;Title&amp;lt;/h1&amp;gt;
-</code></pre>
-<p>Se voc&ecirc; realente quiser mostrar isso em um modo n&atilde;o escaped, voc&ecirc; precisa chamar o m&eacute;todo <code>raw()</code> expl&iacute;citamente:</p>
+</code></pre> 
+<p>Se voc&ecirc; realente quiser mostrar isso em um modo n&atilde;o escaped, voc&ecirc; precisa chamar o m&eacute;todo <code>raw()</code> expl&iacute;citamente:</p> 
 <pre><code>${title.raw()} --&gt; &lt;h1&gt;Title&lt;/h1&gt;
-</code></pre>
-<p>Al&eacute;m disso, se voc&ecirc; quiser mostrar uma grande parte de HTML puro, voc&ecirc; pode user a tag <code>#{verbatim /}</code>:</p>
+</code></pre> 
+<p>Al&eacute;m disso, se voc&ecirc; quiser mostrar uma grande parte de HTML puro, voc&ecirc; pode user a tag <code>#{verbatim /}</code>:</p> 
 <pre><code>#{verbatim}
     ${title} --&gt; &lt;h1&gt;Title&lt;/h1&gt;
 #{/verbatim}
-</code></pre>
-<p>Claro, como esta caracter&iacute;stica pode quebrar v&aacute;rias aplica&ccedil;&otilde;es j&aacute; existentes, ela n&atilde;o est&aacute; ativada por padr&atilde;o. Voc&ecirc; pode ativ&aacute;-la adicionando a linha seguinte no arquivo <code>application.conf</code> da sua aplica&ccedil;&atilde;o:</p>
+</code></pre> 
+<p>Claro, como esta caracter&iacute;stica pode quebrar v&aacute;rias aplica&ccedil;&otilde;es j&aacute; existentes, ela n&atilde;o est&aacute; ativada por padr&atilde;o. Voc&ecirc; pode ativ&aacute;-la adicionando a linha seguinte no arquivo <code>application.conf</code> da sua aplica&ccedil;&atilde;o:</p> 
 <pre><code>future.escapeInTemplates=true
-</code></pre>
-<p>Esta linha ser&aacute; adicionada automaticamente &agrave;s novas aplica&ccedil;&otilde;es criadas com a vers&atilde;o 1.0.1.</p>
-<h2 id="aSuporteajavax.inject.Injecta"><a>Suporte a @javax.inject.Inject</a></h2>
-<p>Agora voc&ecirc; pode usar a anota&ccedil;&atilde;o <code>@Inject</code> caso voc&ecirc; utilize um Dependency Injection container como, por exemplo, um provido pelo <a href="spring" class="absent">Spring module</a>. A anota&ccedil;&atilde;o <code>@Inject</code> injeta automaticamente os beans definidos nos seus controllers, jobs e mailer. Isso funciona em fields est&aacute;ticos.</p>
-<p>Por exemplo, para injetar um servi&ccedil;o <code>PriceWatcher</code> definido no Spring em um de seus controllers, somente fa&ccedil;a:</p>
+</code></pre> 
+<p>Esta linha ser&aacute; adicionada automaticamente &agrave;s novas aplica&ccedil;&otilde;es criadas com a vers&atilde;o 1.0.1.</p> 
+<h2 id="aSuporteajavax.inject.Injecta"><a>Suporte a @javax.inject.Inject</a></h2> 
+<p>Agora voc&ecirc; pode usar a anota&ccedil;&atilde;o <code>@Inject</code> caso voc&ecirc; utilize um Dependency Injection container como, por exemplo, um provido pelo <a href="spring" class="absent">Spring module</a>. A anota&ccedil;&atilde;o <code>@Inject</code> injeta automaticamente os beans definidos nos seus controllers, jobs e mailer. Isso funciona em fields est&aacute;ticos.</p> 
+<p>Por exemplo, para injetar um servi&ccedil;o <code>PriceWatcher</code> definido no Spring em um de seus controllers, somente fa&ccedil;a:</p> 
 <pre><code>public class Application extends Controller {
-</code></pre> @Inject static PriceWatcher prices; public static void index() { prices.getAll(); // pre&ccedil;os s&atilde;o definidos aqui }
-<p>}</p>
-<p>A atualiza&ccedil;&atilde;o autom&aacute;tica deve funcionar como esperado.</p>
-<h2 id="aMelhorapontamentodeobjetosJPAa"><a>Melhor apontamento de objetos JPA</a></h2>
-<p>Antes n&atilde;o havia maneira de apontar (bind) um objecto JPA automaticamente utilizando o apontamento HTTP para Java. Por exemplo:</p>
+</code></pre> @Inject static PriceWatcher prices; public static void index() { prices.getAll(); // pre&ccedil;os s&atilde;o definidos aqui } 
+<p>}</p> 
+<p>A atualiza&ccedil;&atilde;o autom&aacute;tica deve funcionar como esperado.</p> 
+<h2 id="aMelhorapontamentodeobjetosJPAa"><a>Melhor apontamento de objetos JPA</a></h2> 
+<p>Antes n&atilde;o havia maneira de apontar (bind) um objecto JPA automaticamente utilizando o apontamento HTTP para Java. Por exemplo:</p> 
 <pre><code>public static void save(User user) {
     user.save(); // falha no 1.0
 }
-</code></pre>
-<p>Como <code>User</code> &eacute; uma JPA entity class, este c&oacute;digo falhou porque user era um objeto transit&oacute;rio criado pelo Binder e ainda n&atilde;o pelo Hibernate.</p>
-<p>O velho modo era usar o m&eacute;todo <code>edit()</code>, como:</p>
+</code></pre> 
+<p>Como <code>User</code> &eacute; uma JPA entity class, este c&oacute;digo falhou porque user era um objeto transit&oacute;rio criado pelo Binder e ainda n&atilde;o pelo Hibernate.</p> 
+<p>O velho modo era usar o m&eacute;todo <code>edit()</code>, como:</p> 
 <pre><code>public static void save(Long id) {
     User user = User.findById(id);
     user.edit(params);
     user.save(); // ok
 }
-</code></pre>
-<p>Agora voc&ecirc; mesmo pode prover o campo <code>user.id</code> nos param&ecirc;tros HTTP. Quando o Play encontra o campo <code>id</code>, ele carrega a inst&acirc;ncia correta a partir da base de dados antes de edit&aacute;-la. Os outros par&acirc;metros providos pela requisi&ccedil;&atilde;o HTTP s&atilde;o ent&atilde;o aplicados. Ent&atilde;o voc&ecirc; pode salv&aacute;-los diretamente.</p>
+</code></pre> 
+<p>Agora voc&ecirc; mesmo pode prover o campo <code>user.id</code> nos param&ecirc;tros HTTP. Quando o Play encontra o campo <code>id</code>, ele carrega a inst&acirc;ncia correta a partir da base de dados antes de edit&aacute;-la. Os outros par&acirc;metros providos pela requisi&ccedil;&atilde;o HTTP s&atilde;o ent&atilde;o aplicados. Ent&atilde;o voc&ecirc; pode salv&aacute;-los diretamente.</p> 
 <pre><code>public static void save(User user) {
     user.save(); // ok no 1.0.1
 }
-</code></pre>
-<p>&Eacute; claro que, como este novo recurso pode quebrar aplica&ccedil;&otilde;es j&aacute; existentes, ele n&atilde;o est&aacute; ativo por padr&atilde;o. Voc&ecirc; pode ativ&aacute;-lo adicionando a linha abaixo no arquivo <code>application.conf</code> da sua aplica&ccedil;&atilde;o:</p>
+</code></pre> 
+<p>&Eacute; claro que, como este novo recurso pode quebrar aplica&ccedil;&otilde;es j&aacute; existentes, ele n&atilde;o est&aacute; ativo por padr&atilde;o. Voc&ecirc; pode ativ&aacute;-lo adicionando a linha abaixo no arquivo <code>application.conf</code> da sua aplica&ccedil;&atilde;o:</p> 
 <pre><code>future.bindJPAObjects=true
-</code></pre>
-<p>Esta linha &eacute; adicionada automaticamente nas novas aplica&ccedil;&otilde;es criadas com a vers&atilde;o 1.0.1.</p>
-<h2 id="aFrameworkIDpodesersetadoatravsdalinhadecomandoa"><a>Framework ID pode ser setado atrav&eacute;s da linha de comando</a></h2>
-<p>O framework ID permite que voc&ecirc; rode configura&ccedil;&otilde;es diferentes para uma mesma aplica&ccedil;&atilde;o Play (por exemplo: dev, test, staging, produ&ccedil;&atilde;o, etc...).</p>
-<p>Usando a linha de comando, agora voc&ecirc; pode especificar qual <a href="ids">framework ID</a> a aplica&ccedil;&atilde;o ir&aacute; utilizar. Por exemplo, para rodar uma aplica&ccedil;&atilde;o no modo de produ&ccedil;&atilde;o:</p>
+</code></pre> 
+<p>Esta linha &eacute; adicionada automaticamente nas novas aplica&ccedil;&otilde;es criadas com a vers&atilde;o 1.0.1.</p> 
+<h2 id="aFrameworkIDpodesersetadoatravsdalinhadecomandoa"><a>Framework ID pode ser setado atrav&eacute;s da linha de comando</a></h2> 
+<p>O framework ID permite que voc&ecirc; rode configura&ccedil;&otilde;es diferentes para uma mesma aplica&ccedil;&atilde;o Play (por exemplo: dev, test, staging, produ&ccedil;&atilde;o, etc...).</p> 
+<p>Usando a linha de comando, agora voc&ecirc; pode especificar qual <a href="ids">framework ID</a> a aplica&ccedil;&atilde;o ir&aacute; utilizar. Por exemplo, para rodar uma aplica&ccedil;&atilde;o no modo de produ&ccedil;&atilde;o:</p> 
 <pre><code>play run --%production
-</code></pre>
-<p>Com essas linhas definidas no arquivo <code>application.conf</code>:</p>
+</code></pre> 
+<p>Com essas linhas definidas no arquivo <code>application.conf</code>:</p> 
 <pre><code>application.mode=dev
 %production.application.mode=prod
-</code></pre>
-<p>Isso &eacute; compat&iacute;vel com todas os comandos existentes que utilizam a informa&ccedil;&atilde;o do framework ID. O ID padr&atilde;o ainda &eacute; definido utilizando o comando <code>play id</code>.</p>
-<p>A prop&oacute;sito, <code>play test</code> &eacute; equivalente a:</p>
+</code></pre> 
+<p>Isso &eacute; compat&iacute;vel com todas os comandos existentes que utilizam a informa&ccedil;&atilde;o do framework ID. O ID padr&atilde;o ainda &eacute; definido utilizando o comando <code>play id</code>.</p> 
+<p>A prop&oacute;sito, <code>play test</code> &eacute; equivalente a:</p> 
 <pre><code>play run --%test
-</code></pre>
-<h2 id="aValidaescustomizadasa"><a>Valida&ccedil;&otilde;es customizadas</a></h2>
-<p>N&atilde;o conseguiu achar o validator que voc&ecirc; precisa no pacote <code>play.data.validation</code>? Escreva uma sua. Voc&ecirc; pode usar a anota&ccedil;&atilde;o gen&eacute;rica <code>@CheckWith</code> para apontar (bind) sua pr&oacute;pria implemanta&ccedil;&atilde;o <code>Check</code>.</p>
-<p>Por exemplo:</p>
+</code></pre> 
+<h2 id="aValidaescustomizadasa"><a>Valida&ccedil;&otilde;es customizadas</a></h2> 
+<p>N&atilde;o conseguiu achar o validator que voc&ecirc; precisa no pacote <code>play.data.validation</code>? Escreva uma sua. Voc&ecirc; pode usar a anota&ccedil;&atilde;o gen&eacute;rica <code>@CheckWith</code> para apontar (bind) sua pr&oacute;pria implemanta&ccedil;&atilde;o <code>Check</code>.</p> 
+<p>Por exemplo:</p> 
 <pre><code>public class User {
-</code></pre> @Required @CheckWith(MyPasswordCheck.class) public String password; static class MyPasswordCheck extends Check { public abstract boolean isSatisfied(Object user, Object password) { return notMatchPreviousPasswords(password); } } }
-<h2 id="aAtualizaodoTestRunnera"><a>Atualiza&ccedil;&atilde;o do Test Runner</a></h2>
-<p>N&oacute;s atualizamos o Selenium para a vers&atilde;o 1.0.1 final e melhoramos a UI (User Interface). Os testes do Selenium agora rodam em fullscreen. E algumas novas funcionalidades como “Run all tests” foram adicionadas.</p>
-<p><img border="0" src="images/selenium-fullscreen" /></p>
-<p>A documanta&ccedil;&atilde;o local agora tamb&eacute;m est&aacute; dispon&iacute;vel, quando voc&ecirc; roda suas aplica&ccedil;&atilde;o no test mode.</p>
-<h2 id="aHTML5comodoctypepadroeJQuerynasnovasaplicaesa"><a>HTML5 como doctype padr&atilde;o e JQuery nas novas aplica&ccedil;&otilde;es</a></h2>
-<p>Novas aplica&ccedil;&otilde;es vem com um esqueleto HTML padr&atilde;o. Antes era um <b>XHTML 1.0 Transitional</b> HTML formatado. Agora isso vem como um <b>HTML5</b> doctype por padr&atilde;o:</p>
+</code></pre> @Required @CheckWith(MyPasswordCheck.class) public String password; static class MyPasswordCheck extends Check { public abstract boolean isSatisfied(Object user, Object password) { return notMatchPreviousPasswords(password); } } } 
+<h2 id="aAtualizaodoTestRunnera"><a>Atualiza&ccedil;&atilde;o do Test Runner</a></h2> 
+<p>N&oacute;s atualizamos o Selenium para a vers&atilde;o 1.0.1 final e melhoramos a UI (User Interface). Os testes do Selenium agora rodam em fullscreen. E algumas novas funcionalidades como “Run all tests” foram adicionadas.</p> 
+<p><img border="0" src="images/selenium-fullscreen" /></p> 
+<p>A documanta&ccedil;&atilde;o local agora tamb&eacute;m est&aacute; dispon&iacute;vel, quando voc&ecirc; roda suas aplica&ccedil;&atilde;o no test mode.</p> 
+<h2 id="aHTML5comodoctypepadroeJQuerynasnovasaplicaesa"><a>HTML5 como doctype padr&atilde;o e JQuery nas novas aplica&ccedil;&otilde;es</a></h2> 
+<p>Novas aplica&ccedil;&otilde;es vem com um esqueleto HTML padr&atilde;o. Antes era um <b>XHTML 1.0 Transitional</b> HTML formatado. Agora isso vem como um <b>HTML5</b> doctype por padr&atilde;o:</p> 
 <pre><code>&lt;!DOCTYPE html&gt;
-</code></pre>
-<p><br /> <br /> <title>#{get ‘title’ /}</title><br />
- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><br />
- <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}" /><br /> #{get ‘moreStyles’ /}<br />
- <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}" /><br /> <script src="@{'/public/javascripts/jquery-1.6.min.js'}" type="text/javascript" charset="utf-8"></script><br /> #{get ‘moreScripts’ /}<br /> <br /> <br /> #{doLayout /}<br /> <br /></p>
-<p>Este &eacute; somente o padr&atilde;o e &eacute; claro que voc&ecirc; pode alterar isso para qualquer doctype se desejar. Entretanto <a href="http://html5.org">HTML5</a> &eacute; certamente o futuro e a maneira mais f&aacute;cil.</p>
-<p>O template padr&atilde;o vem com a biblioteca <b>JQuery</b>. Isso porque aplica&ccedil;&otilde;es web modernas precisam de um bom framework JavaScript e n&oacute;s amamos <a href="http://www.jquery.com">JQuery</a>. E novamente, este &eacute; somente o padr&atilde;o e &eacute; claro que voc&ecirc; pode sobrescrever isso com qualquer biblioteca JavaScript que voc&ecirc; quiser.</p>
-<p>Oh, e esta vers&atilde;o vem com dois espa&ccedil;os reservados (placeholders) padr&otilde;es para injetar ainda mais scripts e/ou styles. Por exemplo, adicione na sua view:</p>
+</code></pre> 
+<p><br /> <br /> <title>#{get ‘title’ /}</title><br /> 
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><br /> 
+ <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}" /><br /> #{get ‘moreStyles’ /}<br /> 
+ <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}" /><br /> <script src="@{'/public/javascripts/jquery-1.6.min.js'}" type="text/javascript" charset="utf-8"></script><br /> #{get ‘moreScripts’ /}<br /> <br /> <br /> #{doLayout /}<br /> <br /></p> 
+<p>Este &eacute; somente o padr&atilde;o e &eacute; claro que voc&ecirc; pode alterar isso para qualquer doctype se desejar. Entretanto <a href="http://html5.org">HTML5</a> &eacute; certamente o futuro e a maneira mais f&aacute;cil.</p> 
+<p>O template padr&atilde;o vem com a biblioteca <b>JQuery</b>. Isso porque aplica&ccedil;&otilde;es web modernas precisam de um bom framework JavaScript e n&oacute;s amamos <a href="http://www.jquery.com">JQuery</a>. E novamente, este &eacute; somente o padr&atilde;o e &eacute; claro que voc&ecirc; pode sobrescrever isso com qualquer biblioteca JavaScript que voc&ecirc; quiser.</p> 
+<p>Oh, e esta vers&atilde;o vem com dois espa&ccedil;os reservados (placeholders) padr&otilde;es para injetar ainda mais scripts e/ou styles. Por exemplo, adicione na sua view:</p> 
 <pre><code>#{set 'moreScripts'}
 &lt;script src=&quot;@{'/public/javascripts/gears_init.js'}&quot; type=&quot;text/javascript&quot;&gt;
 &lt;/script&gt;
 #{/set}
-</code></pre>
-<p>E a biblioteca JavaScript gear ser&aacute; acess&iacute;vel na sua view.</p>
-<h2 id="ataglistmelhoradaa"><a>tag #{list} melhorada</a></h2>
-<p>O par&acirc;metro <code>items</code> agora &eacute; opicional e pode ser substitu&iacute;do pelo argumento <code>arg</code> padr&atilde;o.</p>
-<p>Ent&atilde;o voc&ecirc; pode reescrever:</p>
+</code></pre> 
+<p>E a biblioteca JavaScript gear ser&aacute; acess&iacute;vel na sua view.</p> 
+<h2 id="ataglistmelhoradaa"><a>tag #{list} melhorada</a></h2> 
+<p>O par&acirc;metro <code>items</code> agora &eacute; opicional e pode ser substitu&iacute;do pelo argumento <code>arg</code> padr&atilde;o.</p> 
+<p>Ent&atilde;o voc&ecirc; pode reescrever:</p> 
 <pre><code>#{list items:users, as:'user'}
     &lt;li&gt;${user}&lt;/li&gt;
 #{/list}
-</code></pre>
-<p>como:</p>
+</code></pre> 
+<p>como:</p> 
 <pre><code>#{list users, as:'user'}
     &lt;li&gt;${user}&lt;/li&gt;
 #{/list}
-</code></pre>
-<p>O par&acirc;metro <code>as</code> agora tamb&eacute;m &eacute; opicional. Ele usa <code>_</code> como nome padr&atilde;o da vari&aacute;vel:</p>
+</code></pre> 
+<p>O par&acirc;metro <code>as</code> agora tamb&eacute;m &eacute; opicional. Ele usa <code>_</code> como nome padr&atilde;o da vari&aacute;vel:</p> 
 <pre><code>#{list users}
     &lt;li&gt;${_}&lt;/li&gt;
 #{/list}
-</code></pre>
-<h2 id="aNovatagjsActiona"><a>Nova tag #{jsAction /}</a></h2>
-<p>A tag <code>#{jsAction /}</code> permite importar uma rota definida no servidor como uma fun&ccedil;&atilde;o JavaScript. Isso &eacute; bem &uacute;til se voc&ecirc; precisa chamar uma URL com uma chamada AJAX usando vari&aacute;veis livres.</p>
-<p>Vamos ver um exemplo:</p>
+</code></pre> 
+<h2 id="aNovatagjsActiona"><a>Nova tag #{jsAction /}</a></h2> 
+<p>A tag <code>#{jsAction /}</code> permite importar uma rota definida no servidor como uma fun&ccedil;&atilde;o JavaScript. Isso &eacute; bem &uacute;til se voc&ecirc; precisa chamar uma URL com uma chamada AJAX usando vari&aacute;veis livres.</p> 
+<p>Vamos ver um exemplo:</p> 
 <pre><code>GET     /users/{id}        Users.show
-</code></pre>
-<p>Agora voc&ecirc; pode importar essa rota do lado cliente:</p>
+</code></pre> 
+<p>Agora voc&ecirc; pode importar essa rota do lado cliente:</p> 
 <pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
     var showUserAction = #{jsAction @Users.show(':id')}
-</code></pre> var displayUserDetail = function(userId) { $(‘#userDetail’).load( showUserAction({id: userId}) ) }
-<p>Como voc&ecirc; ve, utilize a syntax <code>:name</code> para declarar vari&aacute;veis livres. Voc&ecirc; pode misturar vari&aacute;veis livres e fixas juntas. A tag <code>#{jsAction /}</code> gera a fun&ccedil;&atilde;o JavaScript. Essa fun&ccedil;&atilde;o recebe um objeto JavaScript como par&acirc;metro que deve definir todas as vari&aacute;veis livres.</p>
-<h2 id="aNovaaplicaodeexemplobookinga"><a>Nova aplica&ccedil;&atilde;o de exemplo: 'booking'</a></h2>
-<p>A aplica&ccedil;&atilde;o <code>booking</code> &eacute; uma por&ccedil;&atilde;o da bem conhecida <a href="http://docs.jboss.com/seam/latest/reference/en-US/html/tutorial.html#booking">booking application from the JBoss Seam framework</a>.</p>
-<p>Ela demonstra como voc&ecirc; pode gerenciar estados complexos do lado cliente de uma maneira RESTful com um framework web stateless.</p>
-<p><img border="0" src="images/booking" /></p>
-<h2 id="aOplugindoEclipseestacaminhoa"><a>O plug-in do Eclipse est&aacute; a caminho</a></h2>
-<p>N&oacute;s estamos trabalhando duro para prover um plugin-in dedicado para o Eclipse. Ele est&aacute; em status alpha, mas j&aacute; est&aacute; us&aacute;vel. Voc&ecirc; pode achar ele no diret&oacute;rio <code>support/eclipse</code> da sua instala&ccedil;&atilde;o do Play framework.</p>
-<p><img border="0" src="images/eclipse-plugin" /></p>
-<h2 id="aSuporteparaIntelliJIDEAa"><a>Suporte para IntelliJ IDEA</a></h2>
-<p>O Play framework agora suporta <a href="http://www.jetbrains.com/idea/">IntelliJ IDEA</a> fora da caixa!</p>
-<p>Para converter sua aplica&ccedil;&atilde;o Play para um projeto IntelliJ IDEA, use o comando <code>idealize</code>:</p>
+</code></pre> var displayUserDetail = function(userId) { $(‘#userDetail’).load( showUserAction({id: userId}) ) } 
+<p>Como voc&ecirc; ve, utilize a syntax <code>:name</code> para declarar vari&aacute;veis livres. Voc&ecirc; pode misturar vari&aacute;veis livres e fixas juntas. A tag <code>#{jsAction /}</code> gera a fun&ccedil;&atilde;o JavaScript. Essa fun&ccedil;&atilde;o recebe um objeto JavaScript como par&acirc;metro que deve definir todas as vari&aacute;veis livres.</p> 
+<h2 id="aNovaaplicaodeexemplobookinga"><a>Nova aplica&ccedil;&atilde;o de exemplo: 'booking'</a></h2> 
+<p>A aplica&ccedil;&atilde;o <code>booking</code> &eacute; uma por&ccedil;&atilde;o da bem conhecida <a href="http://docs.jboss.com/seam/latest/reference/en-US/html/tutorial.html#booking">booking application from the JBoss Seam framework</a>.</p> 
+<p>Ela demonstra como voc&ecirc; pode gerenciar estados complexos do lado cliente de uma maneira RESTful com um framework web stateless.</p> 
+<p><img border="0" src="images/booking" /></p> 
+<h2 id="aOplugindoEclipseestacaminhoa"><a>O plug-in do Eclipse est&aacute; a caminho</a></h2> 
+<p>N&oacute;s estamos trabalhando duro para prover um plugin-in dedicado para o Eclipse. Ele est&aacute; em status alpha, mas j&aacute; est&aacute; us&aacute;vel. Voc&ecirc; pode achar ele no diret&oacute;rio <code>support/eclipse</code> da sua instala&ccedil;&atilde;o do Play framework.</p> 
+<p><img border="0" src="images/eclipse-plugin" /></p> 
+<h2 id="aSuporteparaIntelliJIDEAa"><a>Suporte para IntelliJ IDEA</a></h2> 
+<p>O Play framework agora suporta <a href="http://www.jetbrains.com/idea/">IntelliJ IDEA</a> fora da caixa!</p> 
+<p>Para converter sua aplica&ccedil;&atilde;o Play para um projeto IntelliJ IDEA, use o comando <code>idealize</code>:</p> 
 <pre><code># play idealize myApp
-</code></pre>
-<p><img border="0" src="images/intellij" /></p>
-<p>Voc&ecirc; pode usar o Run e Debug a partir do menu context da IDE.</p>
+</code></pre> 
+<p><img border="0" src="images/intellij" /></p> 
+<p>Voc&ecirc; pode usar o Run e Debug a partir do menu context da IDE.</p> 
 <p class="note">Pr&oacute;xima vers&atilde;o: <span class="next"><a href="releasenotes-1.0.2">Play 1.0.2 release notes</a></span></p>
     </article>
     <aside>

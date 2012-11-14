@@ -40,7 +40,7 @@
                 </figure>
             </div>
             <nav>
-                    <b>10% traduzido</b>
+                    <b>10.1% traduzido</b>
                     <a href="/documentation" class="selected learn">Aprenda</a>
                     <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
                     <a href="/code" class="code">Código fonte</a>
@@ -98,70 +98,70 @@ $(function(){
 
 <div id="content" class="wrapper doc">
     <article>
-        <h1 id="CincocoisaslegaisquevocpodefazercomPlay">Cinco coisas legais que voc&ecirc; pode fazer com Play</h1>
-<p>Cinco exemplos para mostrar a filosofia por tr&aacute;s do Play framework.</p>
-<h2 id="aVincularbindumparmetroHTTPaumparmetrodeummtodoJavaa"><a>Vincular (bind) um par&acirc;metro HTTP a um par&acirc;metro de um m&eacute;todo Java</a></h2>
-<p>Obter par&acirc;metros HTTP de um c&oacute;digo Java &eacute; realmente simples com Play. S&oacute; declare os par&acirc;metros do m&eacute;todo com o mesmo nome que os par&acirc;metros HTTP.</p>
-<p>Por exemplo, com a requisi&ccedil;&atilde;o (request):</p>
+        <h1 id="CincocoisaslegaisquevocpodefazercomPlay">Cinco coisas legais que voc&ecirc; pode fazer com Play</h1> 
+<p>Cinco exemplos para mostrar a filosofia por tr&aacute;s do Play framework.</p> 
+<h2 id="aVincularbindumparmetroHTTPaumparmetrodeummtodoJavaa"><a>Vincular (bind) um par&acirc;metro HTTP a um par&acirc;metro de um m&eacute;todo Java</a></h2> 
+<p>Obter par&acirc;metros HTTP de um c&oacute;digo Java &eacute; realmente simples com Play. S&oacute; declare os par&acirc;metros do m&eacute;todo com o mesmo nome que os par&acirc;metros HTTP.</p> 
+<p>Por exemplo, com a requisi&ccedil;&atilde;o (request):</p> 
 <pre><code>/articles/archive?date=08/01/08&amp;page=2
-</code></pre>
-<p>Voc&ecirc; pode obter os par&acirc;metros <code>date</code> e <code>page</code> declarando-os como par&acirc;metros de um m&eacute;todo Java:</p>
+</code></pre> 
+<p>Voc&ecirc; pode obter os par&acirc;metros <code>date</code> e <code>page</code> declarando-os como par&acirc;metros de um m&eacute;todo Java:</p> 
 <pre><code>public static void archive(Date date, Integer page) {
     List&lt;Article&gt; articles = Articles.fromArchive(date, page);
     render(articles);
 }
-</code></pre>
-<p>O Play usar&aacute; o tipo est&aacute;tico dos par&acirc;metros do m&eacute;todo para traduzir o valor HTTP em um objeto Java.</p>
-<p>O vinculador inteligente tamb&eacute;m funciona <b>com qualquer classe.</b></p>
+</code></pre> 
+<p>O Play usar&aacute; o tipo est&aacute;tico dos par&acirc;metros do m&eacute;todo para traduzir o valor HTTP em um objeto Java.</p> 
+<p>O vinculador inteligente tamb&eacute;m funciona <b>com qualquer classe.</b></p> 
 <pre><code>public class Person {
     public String name;
     public Integer age;
 }
-</code></pre>
-<p>Uma action de um controller simples para adicionar uma pessoa talvez se pare&ccedil;a com isso:</p>
+</code></pre> 
+<p>Uma action de um controller simples para adicionar uma pessoa talvez se pare&ccedil;a com isso:</p> 
 <pre><code>public static void add(Person p) {
     p.save();
 }
-</code></pre>
-<p>O form HTML define os campos com nomes compostos:</p>
+</code></pre> 
+<p>O form HTML define os campos com nomes compostos:</p> 
 <pre><code>&lt;form action=&quot;/Directory/add&quot; method=&quot;POST&quot;&gt;
     Name: &lt;input type=&quot;text&quot; name=&quot;p.name&quot; /&gt;
     Age: &lt;input type=&quot;text&quot; name=&quot;p.age&quot; /&gt;
 &lt;/form&gt;
-</code></pre>
-<h2 id="aRedirecionarparaumaactionchamandoomtodoJavacorrespondentea"><a>Redirecionar para uma action chamando o m&eacute;todo Java correspondente</a></h2>
-<p>N&atilde;o h&aacute; comando equivalente no Play para o comando <code>forward</code> do Java Servlet. Mas redirecionar para outra action &eacute; bem simples. Somente chame o m&eacute;todo Java correspondente e o Play gerar&aacute; a resposta HTTP ‘redirect’ correspondente.</p>
+</code></pre> 
+<h2 id="aRedirecionarparaumaactionchamandoomtodoJavacorrespondentea"><a>Redirecionar para uma action chamando o m&eacute;todo Java correspondente</a></h2> 
+<p>N&atilde;o h&aacute; comando equivalente no Play para o comando <code>forward</code> do Java Servlet. Mas redirecionar para outra action &eacute; bem simples. Somente chame o m&eacute;todo Java correspondente e o Play gerar&aacute; a resposta HTTP ‘redirect’ correspondente.</p> 
 <pre><code>public static void show(Long id) {
     Article article = Article.findById(id);
     render(article);
 }
-</code></pre>
-<p>public static void edit(Long id, String title) {<br /> Article article = Article.findById(id);<br /> article.title = title;<br /> article.save();<br /> show(id);<br />}</p>
-<p>Note no final da action edit, n&oacute;s redirecionamos para a action show.</p>
-<p>Em qualquer template voc&ecirc; pode usar a sintaxe equivalente para gerar o link:</p>
+</code></pre> 
+<p>public static void edit(Long id, String title) {<br /> Article article = Article.findById(id);<br /> article.title = title;<br /> article.save();<br /> show(id);<br />}</p> 
+<p>Note no final da action edit, n&oacute;s redirecionamos para a action show.</p> 
+<p>Em qualquer template voc&ecirc; pode usar a sintaxe equivalente para gerar o link:</p> 
 <pre><code>&lt;a href=&quot;@{Article.show(article.id)}&quot;&gt;${article.title}&lt;/a&gt;
-</code></pre>
-<p>Isso vai gerar o seguinte HTML:</p>
+</code></pre> 
+<p>Isso vai gerar o seguinte HTML:</p> 
 <pre><code>&lt;a href=&quot;/articles/15&quot;&gt;My new article&lt;/a&gt;
-</code></pre>
-<h2 id="aNoserepitaquandoestiverparseandoobjetosJavaparaostemplatesa"><a>N&atilde;o se repita quando estiver parseando objetos Java para os templates</a></h2>
-<p>Na maioria dos frameworks Java, para passar objetos Java para o sistema de template voc&ecirc; precisa escrever alguma coisa como:</p>
+</code></pre> 
+<h2 id="aNoserepitaquandoestiverparseandoobjetosJavaparaostemplatesa"><a>N&atilde;o se repita quando estiver parseando objetos Java para os templates</a></h2> 
+<p>Na maioria dos frameworks Java, para passar objetos Java para o sistema de template voc&ecirc; precisa escrever alguma coisa como:</p> 
 <pre><code>Article article = Article.findById(id);
 User user = User.getConnected();
 Map&lt;String, Object&gt; model = new HashMap&lt;String,Object&gt;();
 model.put(&quot;article&quot;, article);
 model.put(&quot;user&quot;, user);
 render(model);
-</code></pre>
-<p>Com Play, voc&ecirc; escreve somente:</p>
+</code></pre> 
+<p>Com Play, voc&ecirc; escreve somente:</p> 
 <pre><code>Article article = Article.findById(id);
 User user = User.getConnected();
 render(article, user);
-</code></pre>
-<p>E recupera objetos a partir do nome local no template. Isso salva um monte de linhas de c&oacute;digo in&uacute;teis...</p>
-<h2 id="aJPAsobreesteridesa"><a>JPA sobre ester&oacute;ides</a></h2>
-<p>JPA &eacute; com certeza o melhor object-relational mapping (ORM) API dispon&iacute;vel para Java. Se voc&ecirc; sabe disso voc&ecirc; vai se surpreender qu&atilde;o simples isso fica com Play. Sem nada configurado, Play vai automaticamente iniciar o JPA Entity Manager utilizando Hibernate e magicamente sincronizar isso quando o c&oacute;digo &eacute; recarregado.</p>
-<p>Al&eacute;m disso, se voc&ecirc; usar a superclasse <code>play.db.jpa.Model</code>, ela vai ajud&aacute;-lo a tornar seu c&oacute;digo mais bonito. Olhe:</p>
+</code></pre> 
+<p>E recupera objetos a partir do nome local no template. Isso salva um monte de linhas de c&oacute;digo in&uacute;teis...</p> 
+<h2 id="aJPAsobreesteridesa"><a>JPA sobre ester&oacute;ides</a></h2> 
+<p>JPA &eacute; com certeza o melhor object-relational mapping (ORM) API dispon&iacute;vel para Java. Se voc&ecirc; sabe disso voc&ecirc; vai se surpreender qu&atilde;o simples isso fica com Play. Sem nada configurado, Play vai automaticamente iniciar o JPA Entity Manager utilizando Hibernate e magicamente sincronizar isso quando o c&oacute;digo &eacute; recarregado.</p> 
+<p>Al&eacute;m disso, se voc&ecirc; usar a superclasse <code>play.db.jpa.Model</code>, ela vai ajud&aacute;-lo a tornar seu c&oacute;digo mais bonito. Olhe:</p> 
 <pre><code>public void messages(int page) {
     User connectedUser = User.find(&quot;byEmail&quot;, connected()).first();
     List&lt;Message&gt; messages = Message.find(
@@ -170,21 +170,21 @@ render(article, user);
     ).from(page * 10).fetch(10);
     render(connectedUser, messages);
 }
-</code></pre>
-<h2 id="aArquivosimplesparagerenciamentodeuploada"><a>Arquivo simples para gerenciamento de upload</a></h2>
-<p>Gerenciamento de upload de arquivo &eacute; muito simples com Play.</p>
-<p>O form HTML:</p>
+</code></pre> 
+<h2 id="aArquivosimplesparagerenciamentodeuploada"><a>Arquivo simples para gerenciamento de upload</a></h2> 
+<p>Gerenciamento de upload de arquivo &eacute; muito simples com Play.</p> 
+<p>O form HTML:</p> 
 <pre><code>#{form @uploadPhoto(), enctype:'multipart/form-data'}
     &lt;input type=&quot;text&quot; name=&quot;title&quot; /&gt;
     &lt;input type=&quot;file&quot; id=&quot;photo&quot; name=&quot;photo&quot; /&gt;
     &lt;input type=&quot;submit&quot; value=&quot;Send it...&quot; /&gt;
 #{/}
-</code></pre>
-<p>E o c&oacute;digo Java:</p>
+</code></pre> 
+<p>E o c&oacute;digo Java:</p> 
 <pre><code>public static void uploadPhoto(String title, File photo) {
    ...
 }
-</code></pre>
+</code></pre> 
 <p>Como isso poderia ser mais f&aacute;cil?</p>
     </article>
     <aside>
