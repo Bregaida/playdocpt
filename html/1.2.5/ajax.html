@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: ajax — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>10.1% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="AjaxnoPlayframework">Ajax no Play framework</h1> 
+<p>O Play framework permite que voc&ecirc; facilmente use requisi&ccedil;&otilde;es Ajax, e &eacute; disponibilizado com o <a href="http://jquery.com">jQuery</a> por padr&atilde;o.<br />Essa se&ccedil;&atilde;o cescreved como utilizar de maneira eficaz o <a href="http://jquery.com">jQuery</a> junto com o framework.</p> 
+<p>O Play framework tamb&eacute;m acompanha a tag <a href="tags#jsaction">jsAction</a> para ter a defini&ccedil;&atilde;o do m&eacute;todo do controller de maneira transparente.</p> 
+<h2 id="anamejsactionUsandoojQuerycomatagjsActiona"><a name="jsaction">Usando o jQuery com a tag jsAction</a></h2> 
+<p>A tag <code>#{jsAction /}</code> retorna a fun&ccedil;&atilde;o JavaScript que monta uma URL baseada na action do servidor e suas vari&aacute;veis.</p> 
+<p>Ele n&atilde;o faz a requisi&ccedil;&atilde;o AJAX; isso deve ser feito manualmente usando a URL retornada.</p> 
+<p>Vamos ver um exemplo:</p> 
+<pre><code>GET     /hotels/list        Hotels.list
+</code></pre> 
+<p>Agora voc&ecirc; pode importar essa rotina no lado do cliente:</p> 
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+   var listAction = #{jsAction @list(':search', ':size', ':page') /}
+   $('#result').load(
+       listAction({search: 'x', size: '10', page: '1'}),
+       function() {
+           $('#content').css('visibility', 'visible')
+       }
+   )
+&lt;/script&gt;
+</code></pre> 
+<p>Nesse exemplo estamos requisitando o m&eacute;todo list para o controller padr&atilde;o Application.<br />N&oacute;s tamb&eacute;m estamos passando tr&ecirc;s par&acirc;metros: search, size e page.<br />A requisi&ccedil;&atilde;o &eacute; salva na vari&aacute;vel listAction.</p> 
+<p>Agora usando jQuery e a fun&ccedil;&atilde;o <code>load</code> podemos fazer o request (na verdade um HTTP GET request).</p> 
+<p>De fato a seguinte requisi&ccedil;&atilde;o &eacute; enviada:</p> 
+<pre><code>GET /hotels/list?search=x&amp;size=10&amp;page=1
+</code></pre> 
+<p>E assim retorna os dados em HTML.</p> 
+<p>Entretanto, &eacute; poss&iacute;vel tamb&eacute;m retornar em formato JSON ou XML e o jQuery interpretar os dados.</p> 
+<p>No seu controller, use a m&eacute;todo apropriado para renderizar (renderJSON, renderXML ou template XML ).</p> 
+<p>Consulte a documenta&ccedil;&atilde;o do <a href="http://docs.jquery.com/Main_Page">jQuery</a> para mais informa&ccedil;&otilde;es .</p> 
+<p>Al&eacute;m disso perceba que poderia ser feito o POST; o m&eacute;todo do jQuery deve ser mudado para:</p> 
+<pre><code>$.post(listAction(), function(data) {
+  $('#result').html(data);
+});
+</code></pre> 
+<h2 id="anamejsactionUsandojQuerycomatagjsRoutea"><a name="jsaction">Usando jQuery com a tag jsRoute</a></h2> 
+<p>Para ter mais controle na rota gerada temos a tag <a href="tags#jsroute">jsRoute</a> , que &eacute; semelhante &agrave; <b>#{jsAction /}</b><br />mas retorna um objeto contendo a fun&ccedil;&atilde;o que constroi a URL baseada na action do servidor, e o correspondente<br />m&eacute;todo HTTP (GET, POST, etc.).</p> 
+<p>Examplo:</p> 
+<pre><code>PUT     /users/{id}        Users.update
+</code></pre> 
+<p>E no template:</p> 
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    var updateUserRoute = #{jsRoute @Users.update(':id') /}
+    $.ajax({
+      url: updateUserRoute.url({id: userId}),
+      type: updateUserRoute.method,
+      data: 'user.name=Guillaume'
+    });
+&lt;/script&gt;
+</code></pre> 
+<p>Com esse esquema, voc&ecirc; n&atilde;o precisa atualizar os seus templates se decidir mudar o m&eacute;todo HTTP no arquivo de rotas.</p> 
+<p class="note"><b>Continuando a discuss&atilde;o</b></p> 
+<p>Handle <span class="next"><a href="i18n">Internacionaliza&ccedil;&atilde;o</a></span>.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/ajax" target="_blank">Documentation: ajax — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>
