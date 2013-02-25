@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: i18n — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>10.1% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Internacionalizao">Internacionaliza&ccedil;&atilde;o</h1> 
+<p>Internacionaliza&ccedil;&atilde;o (I18N) significa adaptar a sua aplica&ccedil;&atilde;o para diferentes idiomas para diferentes regi&otilde;es. Siga esses passos<br />para ativar a internacionaliza&ccedil;&atilde;o na sua aplica&ccedil;&atilde;o.</p> 
+<h2 id="anameutf8UseapenasUTF8a"><a name="utf8">Use apenas UTF-8!</a></h2> 
+<p>Play supporta apenas um encoding: UTF-8.<br />Como os problemas de encoding s&atilde;o estranhos e complicados de resolver, n&oacute;s escolhemos suportar apenas um encoding.<br />O UTF-8 permite exibir todos os caracteres em todos os idiomas.</p> 
+<p>Certifique-se que est&aacute; usando UTF-8 usage corretamente em sua aplica&ccedil;&atilde;o:</p> 
+<ul> 
+ <li>Edite todos os seus arquivos fonte em UTF-8</li> 
+ <li>Defina os cabe&ccedil;alhos adeuados no HTTP</li> 
+ <li>Defina as suas meta tags do HTML com UTF-8</li> 
+ <li>Se voc&ecirc; utiliza um banco de dados, configure para usar UTF-8, e sempre conecte usando UTF-8</li> 
+</ul> 
+<p class="note"><b>Nota</b></p> 
+<p>O detalhe do encoding em UTF-8 &eacute; a raz&atilde;o do porqu&ecirc; das arquivos de configura&ccedil;&atilde;o do Play, mesmo os que est&atilde;o em arquivos properties do Java,n&atilde;o s&atilde;o chamados de <code>*.properties</code>.<br />O Java obriga que os arquivos properties utilizem o encoding <b>ISO-8859-1</b>.<br />Os arquivos de configura&ccedil;&atilde;o devem utilizar UTF-8. Precisa falar mais alguma coisa?</p> 
+<h2 id="anamemessagesExtraiasuasmensagensa"><a name="messages">Extraia suas mensagens</a></h2> 
+<p>Para utilizar o I18N voc&ecirc; deve extrair todas as mensagens de sua aplica&ccedil;&atilde;o.</p> 
+<p>Crie um arquivo chamado <code>messages</code> no diret&oacute;rio <code>conf/</code> de sua aplica&ccedil;&atilde;o.<br />Na verdade esse arquivo &eacute; apenas um arquivo properties do Java.</p> 
+<pre><code>hello=Hello!
+back=Back
+</code></pre> 
+<p>Voc&ecirc; pode definir um arquivo <code>message</code> para cada idioma de sua aplica&ccedil;&atilde;o.<br />Apenas adicione o c&oacute;digo ISO do idioma como extens&atilde;o do arquivo.</p> 
+<p>Por exemplo, o arquivo de mensagem correspondente &agrave;s tradu&ccedil;&otilde;es em portugu&ecirc;s &eacute; <code>conf/messages.pt</code>:</p> 
+<pre><code>hello=Oi!
+back=Voltar
+</code></pre> 
+<h2 id="anamelanguagesDefinaosidiomassuportadospelaaplicaoa"><a name="languages">Defina os idiomas suportados pela aplica&ccedil;&atilde;o</a></h2> 
+<p>Defina a lista dos idiomas suportados em <a href="configuration#application.langs">application.langs configuration</a>.</p> 
+<p>Na primeira chamada de um novo usu&aacute;rio, o Play tentar&aacute; adivinhar o idioma que ele usa. Ele consegue isso fazendo um parse no cabe&ccedil;alho HTTP do <code>Accept-language</code>.<br />Ele vai gravar o idioma escolhido em um cookie <code>PLAY_LANG</code> . Na pr&oacute;xima requisi&ccedil;&atilde;o ele vai usar o mesmo idioma.</p> 
+<p>Voc&ecirc; pode usar o par idioma/pa&iacute;s se desejar diferenciar entre vari&aacute;veis como en_US e en_GB, ou zh_CN e zh_TW. Entretanto,<br />lembre-se que alguns usu&aacute;rios pode expor somente o idiioma e n&atilde;o o pa&iacute;s em seu Accept-language. Poe esse motivo, voc&ecirc; deve sempre disponibilizar o idioma simplificado (exemplo: pt ou en) .</p> 
+<p>Por exemplo, a maioria dos usu&aacute;rios s&atilde;o dos Estados Unidos, mas talvez voc&ecirc; queira ter a op&ccedil;&atilde;o de ingl&ecirc;s brit&acirc;nico, portanto &eacute; recomend&aacute;vel que use apenas “en” para o ingl&ecirc;s americano e “en_GB” para o brit&acirc;nico.</p> 
+<p>Do c&oacute;digo de sua aplica&ccedil;&atilde;o &eacute; poss&iacute;vel obter o idioma corrente com o objeto <code>play.i18n.Lang</code> :</p> 
+<pre><code>String lang = Lang.get();
+</code></pre> 
+<p>Se desejar mudar o idioma permanentemente, use o m&eacute;todo change():</p> 
+<pre><code>Lang.change(&quot;ja&quot;);
+</code></pre> 
+<p>O novo valor ser&aacute; gravado no cookie do idioma do usu&aacute;rio.</p> 
+<h2 id="anamedatesDefinaoformatodedatadeacordocomoseulocalea"><a name="dates">Defina o formato de data de acordo com o seu locale</a></h2> 
+<p>Configure o <a href="configuration#date.format">date.format</a> para especificar o formato padr&atilde;o de data para usar.</p> 
+<h2 id="retrieve"><a>Buscar mensagens traduzidas</a></h2> 
+<h3 id="argument">Messagens nos argumentos</h3> 
+<p>Do c&oacute;digo fonte da aplica&ccedil;&atilde;o, voc&ecirc; pode buscar mensagens definidas no arquivo de mensagens. Do Java, use o objeto <code>play.i18n.Messages</code> .</p> 
+<pre><code>public static void hello() {
+    renderText(Messages.get(&quot;hello&quot;));
+}
+</code></pre> 
+<p>N&oacute;s suportamos o formato atrav&eacute;s do padr&atilde;o <code>java.util.Formatter</code> ‘Format string’. Voc&ecirc; tamb&eacute;m pode definir o conte&uacute;do das mensagens dinamicamente:</p> 
+<pre><code>hello=Hello %s!
+</code></pre> 
+<p>onde <code>%s</code> representa o argumento da mensagem que sair&aacute; como uma <code>String</code>. O argumento da mensagem &eacute; disponivel via argumento varargs para o <code>Messages.get</code>:</p> 
+<pre><code>public static void hello(String user) {
+    renderText(Messages.get(&quot;hello&quot;, user));
+}
+</code></pre> 
+<h3 id="template">Sa&iacute;da com Template</h3> 
+<p>De um template voc&ecirc; pode usar a sintaxe <code>&amp;{…}</code> para exibir as mensagens traduzidas:</p> 
+<pre><code>&lt;h1&gt;&amp;{'hello'}&lt;/h1&gt;
+</code></pre> 
+<p>ou usando um conte&uacute;do din&acirc;mico como argumento:</p> 
+<pre><code>&lt;h1&gt;&amp;{'hello', params.user}&lt;/h1&gt;
+</code></pre> 
+<h3 id="arguments">Argumentos m&uacute;ltiplos</h3> 
+<p>Voc&ecirc; pode definir v&aacute;rios argumentos na mensagem,como essa mensagem que se refere a dois argumentos num&eacute;ricos:</p> 
+<pre><code>guess=Escolha um n&uacute;mero entre %d e %d
+</code></pre> 
+<p>onde voc&ecirc; mostra os valores usando os argumento na ordem correta:</p> 
+<pre><code>&lt;p&gt;&amp;{'guess', numeroMenor, numeroMaior}&lt;/p&gt;
+</code></pre> 
+<h3 id="indices">Argumentos com &iacute;ndice</h3> 
+<p>Voc&ecirc; tamb&eacute;m pode especificar um argumento de mensagem explicitamente para usar uma ordem diferente.<br />Por exemplo, suponha uma mensagem em ingl&ecirc;s com dois par&acirc;metros:</p> 
+<pre><code>guess.characteristic=Guess %s’s %s.
+</code></pre> 
+<p>com a sa&iacute;da da mensagem assim:</p> 
+<pre><code>&lt;p&gt;&amp;{'guess.characteristic', person.name, 'age'}&lt;/p&gt;
+</code></pre> 
+<p>A tradu&ccedil;&atilde;o em franc&ecirc;s teria a mensagem na ordem contr&aacute;ria, portanto especificamos com argumentos com &iacute;ndices:</p> 
+<pre><code>guess.characteristic=Devinez %2$s de %1$s.
+</code></pre> 
+<p>onde <code>%2$s</code> exibe o <b>segundo</b> argumento com um n&uacute;mero inteiro.</p> 
+<p>Finalmente, se quiser traduzir o nome ‘age’, precisamos mudar a sa&iacute;da da mensagem <code>person.age</code>, mudando as defini&ccedil;&otilde;es para:</p> 
+<pre><code>guess.characteristic=Guess %s’s &amp;{%s}.
+person.age = age
+</code></pre> 
+<p>e</p> 
+<pre><code>guess.characteristic=Devinez &amp;{%2$s} de %1$s.
+person.age = l’age
+</code></pre> 
+<p>onde <code>&amp;{%s}</code> &eacute; a busca de mensagens pr&oacute;pria, com o valor do argumento como chave da mensagem.</p> 
+<p class="note"><b>Continuando com a discuss&atilde;o</b></p> 
+<p>Next: <span class="next"><a href="cache">Cache</a></span>.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/i18n" target="_blank">Documentation: i18n — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>
