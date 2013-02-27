@@ -1,56 +1,67 @@
-h1. Ajax in the Play framework
+h1. Ajax no Play framework
 
-The Play framework allows you to easily perform Ajax requests, and is shipped with "jQuery":http://jquery.com by default. This section describes how to effectively use "jQuery":http://jquery.com within the framework.
+O Play framework permite que você facilmente use requisições Ajax, e é disponibilizado com o "jQuery":http://jquery.com por padrão.
+Essa seção cescreved como utilizar de maneira eficaz o "jQuery":http://jquery.com junto com o framework.
 
-The Play framework also comes with the handy "jsAction":tags#jsaction tag to transparently get a method definition from the controller.
+O Play framework também acompanha a tag "jsAction":tags#jsaction para ter a definição do método do controller de maneira transparente.
 
-h2. <a name="jsaction">Using jQuery with the jsAction tag</a>
+h2. <a name="jsaction">Usando o jQuery com a tag jsAction</a>
 
-The @#{jsAction /}@ tag returns a JavaScript function which constructs a URL based on a server action and free variables. It does not perform an AJAX request; these have to be done by hand using the returned URL.
+A tag @#{jsAction /}@ retorna a função JavaScript que monta uma URL baseada na action do servidor e suas variáveis.
 
-Let's see an example:
+Ele não faz a requisição AJAX; isso deve ser feito manualmente usando a URL retornada.
+
+Vamos ver um exemplo:
 
 bc. GET     /hotels/list        Hotels.list
 
-Now you can import this route client side:
+Agora você pode importar essa rotina no lado do cliente:
 
 bc. <script type="text/javascript">
    var listAction = #{jsAction @list(':search', ':size', ':page') /}
    $('#result').load(
-       listAction({search: 'x', size: '10', page: '1'}), 
+       listAction({search: 'x', size: '10', page: '1'}),
        function() {
            $('#content').css('visibility', 'visible')
        }
    )
 </script>
 
-In this example we are requesting the list method from the default Application controller. We are also passing three parameters: search, size and page. The request we perform is then saved into the listAction variable. Now using jQuery and the @load@ function we are performing a request (an HTTP GET request in fact).
+Nesse exemplo estamos requisitando o método list para o controller padrão Application.
+Nós também estamos passando três parâmetros:  search, size e page.
+A requisição é salva na variável listAction.
 
-In fact, the following request is sent:
+Agora usando jQuery e a função @load@ podemos fazer o request (na verdade um HTTP GET request).
+
+De fato a seguinte requisição é enviada:
 
 bc. GET /hotels/list?search=x&size=10&page=1
 
-In that case the request returns HTML data.
+E assim retorna os dados em HTML.
 
-However, it is also possible to return JSON or XML and to have jQuery interpret the data. In your controller, use the appropriate render method (renderJSON, renderXML or an XML template).
+Entretanto, é possível também retornar em formato JSON ou XML e o jQuery interpretar os dados.
 
-Please refer to the "jQuery":http://docs.jquery.com/Main_Page documentation for more info.
+No seu controller, use a método apropriado para renderizar (renderJSON, renderXML ou template XML ).
 
-Also please note that we could perform a POST; the jQuery method should then be changed to:
+Consulte a documentação do "jQuery":http://docs.jquery.com/Main_Page  para mais informações .
+
+Além disso perceba que poderia ser feito o POST; o método do jQuery deve ser mudado para:
 
 bc. $.post(listAction(), function(data) {
   $('#result').html(data);
 });
 
-h2. <a name="jsaction">Using jQuery with the jsRoute tag</a>
+h2. <a name="jsaction">Usando jQuery com a tag jsRoute</a>
 
-To have more control on the generated route, you also have the "jsRoute":tags#jsroute tag, which is similar to the **#{jsAction /}** tag but it returns an object containing both the function which consctructs the URL based on the server action, and the corresponding HTTP method (GET, POST, etc.).
+Para ter mais controle na rota gerada temos a tag "jsRoute":tags#jsroute , que é semelhante à  **#{jsAction /}**
+mas retorna um objeto contendo a função que constroi a URL baseada na action do servidor, e o correspondente
+método HTTP (GET, POST, etc.).
 
-Example:
+Examplo:
 
 bc. PUT     /users/{id}        Users.update
 
-Then, in a template:
+E no template:
 
 bc. <script type="text/javascript">
     var updateUserRoute = #{jsRoute @Users.update(':id') /}
@@ -61,8 +72,8 @@ bc. <script type="text/javascript">
     });
 </script>
 
-With this approach, you won't have to update your templates in case you decide to change the HTTP method in the routes file.
+Com esse esquema, você não precisa atualizar os seus templates se decidir mudar o método HTTP no arquivo de rotas.
 
-p(note). **Continuing the discussion**
- 
-Handle %(next)"Internationalization":i18n%.
+p(note). **Continuando a discussão**
+
+Handle %(next)"Internacionalização":i18n%.

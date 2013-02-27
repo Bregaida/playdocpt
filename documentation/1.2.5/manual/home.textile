@@ -1,42 +1,42 @@
-h1. Documentation
+h1. Documentação
 
-Welcome to the *Play framework 1.2.5* documentation. See the "version 1.2.5 release notes":releasenotes-1.2.5.
+Bem-vindo à documentação do *Play framework 1.2.5*. Consulte as "notas da versão 1.2.5":releasenotes-1.2.5.
 
-h2. <a name="started">Getting started</a>
+h2. <a name="started">Começando</a>
 
-Your first steps with Play and your first 5 minutes of fun.
+Seus primeiros passos com Play e seus primeiros 5 minutos de diversão.
 
-# "Play framework overview":overview
-# "Watch the screencast":http://vimeo.com/7087610
-# "Five cool things you can do with Play":5things
-# "Usability - details matter as much as features":usability
-# "Frequently Asked Questions":faq
-# %(next)"Installation guide":install%
-# "Setting-up your preferred IDE":ide
-# "Your first application — the ‘Hello World’ tutorial":firstapp
-# "Sample applications":samples
+# "Visão geral do Play framework":overview
+# "Veja o screencast":http://vimeo.com/7087610
+# "Cinco coisas legais que você pode fazer com Play":5things
+# "Usabilidade - detalhes importantam tanto quanto propriedades":usability
+# "Perguntas Mais Frequentes":faq
+# %(next)"Guia de instalação":install%
+# "Configurando sua IDE preferida":ide
+# "Sua primeira aplicação — o tutorial  ‘Hello World’":firstapp
+# "Aplicações de exemplo":samples
 
 
-h2. <a name="guide">Tutorial -- Play guide, a real world app step-by-step</a>
+h2. <a name="guide">Tutorial -- Guia do Play, uma aplicação do mundo real passo a passo</a>
 
-Aprenda Play by coding **‘Yet Another Blog Engine’**, from start to finish. Each chapter will be a chance to learn one more cool Play feature.
+Aprenda Play codificando **‘Mais Uma Engine de Blog’**, do começo ao fim. Cada capítulo será uma chance de aprender mais uma característica legal do Play.
 
-# "Starting up the project":guide1
-# "A first iteration of the data model":guide2
-# "Building the first screen":guide3
-# "The comments page":guide4
-# "Setting up a Captcha":guide5
-# "Add tagging support":guide6
-# "A basic admin area using CRUD":guide7
-# "Adding authentication":guide8
-# "Creating a custom editor area":guide9
-# "Completing the application tests":guide10
-# "Preparing for production":guide11
-# "Internationalisation and localisation":guide12
+# "Iniciando o projeto":guide1
+# "Uma primeira interação no modelo de dados":guide2
+# "Criando a primeira tela":guide3
+# "A página de comentários":guide4
+# "Configurando um Captcha":guide5
+# "Adicionando suporte a tags":guide6
+# "Uma área de administração básica usando CRUD":guide7
+# "Adicionando autenticação":guide8
+# "Criando uma área de edição customizada":guide9
+# "Completando os testes da aplicação":guide10
+# "Preparando para produção":guide11
+# "Internationalização e localização":guide12
 
-h2. <a name="manual">The essential documentation</a>
+h2. <a name="manual">A documentação essencial</a>
 
-Everything you need to know about Play.
+Tudo que você precisa saber sobre o Play.
 
 # "Main concepts":main
 ## "The MVC application model":main#mvc
@@ -158,12 +158,12 @@ Everything you need to know about Play.
 ## "Stax cloud hosting platform":deployment#stax
 
 
-h2. <a name="references">References</a>
+h2. <a name="references">Referências</a>
 
-Extended references for day-to-day hacking.
+ReferÊncias extendidas para o hacking do dia a dia.
 
-# <a class="navigation" href="index">Quick index</a>
-# <a class="navigation" href="/@api/index.html">API documentation (Javadoc)</a>
+# <a class="navigation" href="index">Índice rápidox</a>
+# <a class="navigation" href="/@api/index.html">documentação da API (Javadoc)</a>
 # "Cheat sheets":cheatsheet/commandLine
 ## "Command Line":cheatsheet/commandLine
 ## "Controllers":cheatsheet/controllers
@@ -177,16 +177,16 @@ Extended references for day-to-day hacking.
 ## "Validations":validation-builtin
 # <a class="navigation" href="configuration">Configuration reference</a>
 
-h2. <a name="modules">Distribution Modules</a>
+h2. <a name="modules">Módulos distribuídos</a>
 
-These optional modules are included with the standard distribution. "More modules":http://www.playframework.org/modules.
+Esses módulos opcionais estão incluídos na distribuição padrão. "Mais módulos":http://www.playframework.org/modules.
 
 # "CRUD":crud
 # "Secure":secure
 
-h2. <a name="versionnotes">Versão notes</a>
+h2. <a name="versionnotes">Notas de versão</a>
 
-New versions of Play include certain changes. Check older release notes for:
+Novas versões do Play incluem certas mudanças. Verifique as notas de versão antigas para:
 
 # "Play 1.2.5":releasenotes-1.2.5
 # "Play 1.2.4":releasenotes-1.2.4

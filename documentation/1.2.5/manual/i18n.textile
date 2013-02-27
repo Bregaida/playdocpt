@@ -1,136 +1,147 @@
-h1. Internationalization
+h1. Internacionalização
 
-Internationalisation (I18N) is a means of adapting your application to different languages to allow for regional differences. Follow these steps to enable internationalisation in your application.
+Internacionalização (I18N) significa adaptar a sua aplicação para diferentes idiomas para diferentes regiões. Siga esses passos
+para ativar a internacionalização na sua aplicação.
 
-h2. <a name="utf8">Only use UTF-8!</a>
+h2. <a name="utf8">Use apenas UTF-8!</a>
 
-Play supports only one encoding: UTF-8. Since encoding problems can be weird and difficult to deal with, we made the choice to support only one encoding. UTF-8 allows you to display all characters for all languages.
+Play supporta apenas um encoding: UTF-8.
+Como os problemas de encoding são estranhos e complicados de resolver, nós escolhemos suportar apenas um encoding.
+O UTF-8 permite exibir todos os caracteres em todos os idiomas.
 
-Be sure to be consistent with UTF-8 usage throughout your application:
 
-* Edit all your source files as UTF-8
-* Define proper encoding headers in HTTP
-* Set your HTML meta tags to UTF-8
-* If you use a database, configure it to use UTF-8, and always connect to it using UTF-8
+Certifique-se que está usando UTF-8 usage corretamente em sua aplicação:
 
-p(note). **Note**
- 
-The UTF-8 encoding issue is the reason why most of the Play configuration files, even though they are Java properties files, are not named @*.properties@. Java imposes the requirement that properties files must be encoded with the **ISO-8859-1** encoding. Play configuration files must be UTF-8 encoded. Need we say more?
+* Edite todos os seus arquivos fonte em UTF-8
+* Defina os cabeçalhos adeuados no HTTP
+* Defina as suas meta tags do HTML com UTF-8
+* Se você utiliza um banco de dados, configure para usar UTF-8, e sempre conecte usando UTF-8
 
-h2. <a name="messages">Externalize your messages</a>
+p(note). **Nota**
 
-To support I18N you have to externalize all messages in your application. 
+O detalhe do encoding em UTF-8 é a razão do porquê das arquivos de configuração do Play, mesmo os que estão em arquivos properties do Java,não são chamados de @*.properties@.
+O Java obriga que os arquivos properties utilizem o encoding **ISO-8859-1**.
+Os arquivos de configuração devem utilizar UTF-8. Precisa falar mais alguma coisa?
 
-Create a file named @messages@ in the application’s @conf/@ directory. This file is really just a Java properties file.
+h2. <a name="messages">Extraia suas mensagens</a>
+
+Para utilizar o I18N você deve extrair todas as mensagens de sua aplicação.
+
+Crie um arquivo chamado @messages@ no diretório @conf/@ de sua aplicação.
+Na verdade esse arquivo é apenas um arquivo properties do Java.
 
 bc. hello=Hello!
 back=Back
 
-Then you can define a specific @message@ file for each language used in your application. Just add the ISO language code as a file extension. 
+Você pode definir um arquivo @message@ para cada idioma de sua aplicação.
+Apenas adicione o código ISO do idioma como extensão do arquivo.
 
-For example, the message file containing the corresponding French translations is @conf/messages.fr@:
+Por exemplo, o arquivo de mensagem correspondente às traduções em português é @conf/messages.pt@:
 
-bc. hello=Bonjour!
-back=Retour
+bc. hello=Oi!
+back=Voltar
 
-h2. <a name="languages">Define languages supported by the application</a>
+h2. <a name="languages">Defina os idiomas suportados pela aplicação</a>
 
-Define a list of supported languages in the "application.langs configuration":configuration#application.langs.
+Defina a lista dos idiomas suportados em "application.langs configuration":configuration#application.langs.
 
-On the first request from a new user, Play will guess the default language to use. It does so by parsing the HTTP @Accept-language@ header. It will then save the chosen language in a @PLAY_LANG@ cookie. So the next request will use the same language.
+Na primeira chamada de um novo usuário, o Play tentará adivinhar o idioma que ele usa. Ele consegue isso fazendo um parse no cabeçalho HTTP do @Accept-language@.
+Ele vai gravar o idioma escolhido em um cookie  @PLAY_LANG@ . Na próxima requisição ele vai usar o mesmo idioma.
 
-You can use language/country pair if you want to distinguish between variant, such as en_US and en_GB, or zh_CN and zh_TW. However, be aware that some users may only expose a language and not a country in their Accept-language. For that reason, you should always provide the "naked" language (e.g. en).
+Você pode usar o par idioma/país se desejar diferenciar entre variáveis como en_US e en_GB, ou zh_CN e zh_TW. Entretanto,
+lembre-se que alguns usuários pode expor somente o idiioma e não o país em seu Accept-language. Poe esse motivo, você deve sempre disponibilizar o idioma simplificado (exemplo: pt ou en) .
 
-For example, if most of your users are from US but you also want to support British English, it is recommended to use simply "en" of US English and "en_GB" for British English.
+Por exemplo, a maioria dos usuários são dos Estados Unidos, mas talvez você queira ter a opção de inglês britânico, portanto é recomendável que use apenas "en" para o inglês americano e "en_GB" para o britânico.
 
-From your application code your can retrieve the current language for the user by accessing the @play.i18n.Lang@ object:
+Do código de sua aplicação é possível obter o idioma corrente com o objeto @play.i18n.Lang@ :
 
 bc. String lang = Lang.get();
 
-If you want to permanently change the user language, use the change() method:
+Se desejar mudar o idioma permanentemente, use o método change():
 
 bc. Lang.change("ja");
 
-The new value will be saved back to the user’s language cookie.
+O novo valor será gravado no cookie do idioma do usuário.
 
 
-h2. <a name="dates">Define date format according to your locale</a>
+h2. <a name="dates">Defina o formato de data de acordo com o seu locale</a>
 
-Configure "date.format":configuration#date.format to specify the default date format to use.
-
-
-h2(#retrieve). <a>Retrieve localized messages</a>
+Configure o "date.format":configuration#date.format para especificar o formato padrão de data para usar.
 
 
-h3(#argument). Message arguments
+h2(#retrieve). <a>Buscar mensagens traduzidas</a>
 
-From the application code, you can retrieve messages defined in message files. From Java, use the @play.i18n.Messages@ object.
+
+h3(#argument). Messagens nos argumentos
+
+Do código fonte da aplicação, você pode buscar mensagens definidas no arquivo de mensagens. Do Java, use o objeto @play.i18n.Messages@ .
 
 bc. public static void hello() {
     renderText(Messages.get("hello"));
 }
 
-We support message formatting through the standard @java.util.Formatter@ ‘Format string syntax’. You can also define dynamic content in your messages:
+Nós suportamos o formato através do padrão @java.util.Formatter@ ‘Format string’. Você também pode definir o conteúdo das mensagens dinamicamente:
 
 bc. hello=Hello %s!
 
-where @%s@ represents a message argument that will be output as a @String@. Message arguments are provided by additional (varargs) arguments to @Messages.get@:
+onde @%s@ representa o argumento da mensagem que sairá como uma @String@. O argumento da mensagem é disponivel via argumento varargs para o @Messages.get@:
 
 bc. public static void hello(String user) {
     renderText(Messages.get("hello", user));
 }
 
 
-h3(#template). Template output
+h3(#template). Saída com Template
 
-From a template you can use the special @&{…}@ syntax to display localized messages:
+De um template você pode usar a sintaxe @&{…}@ para exibir as mensagens traduzidas:
 
 bc. <h1>&{'hello'}</h1>
 
-or using dynamic content in message arguments:
+ou usando um conteúdo dinâmico como argumento:
 
 bc. <h1>&{'hello', params.user}</h1>
 
 
-h3(#arguments). Multiple arguments
+h3(#arguments). Argumentos múltiplos
 
-You can define multiple message arguments, such as this message which refers to two ‘decimal integer’ arguments:
+Você pode definir vários argumentos na mensagem,como essa mensagem que se refere a dois argumentos numéricos:
 
-bc. guess=Please pick a number between %d and %d
+bc. guess=Escolha um número entre %d e %d
 
-which you display by specifying the message arguments in the right order:
+onde você mostra os valores usando os argumento na ordem correta:
 
-bc. <p>&{'guess', low, high}</p>
+bc. <p>&{'guess', numeroMenor, numeroMaior}</p>
 
 
-h3(#indices). Argument indices
+h3(#indices). Argumentos com índice
 
-You can also specify the message argument explicitly, to use a different order. For example, suppose a message in English has two parameters:
+Você também pode especificar um argumento de mensagem explicitamente para usar uma ordem diferente.
+Por exemplo, suponha uma mensagem em inglês com dois parâmetros:
 
 bc. guess.characteristic=Guess %s’s %s.
 
-with message output like:
+com a saída da mensagem assim:
 
 bc. <p>&{'guess.characteristic', person.name, 'age'}</p>
 
-The French localisation has the two message in the opposite order, so in the French localisation we specify the argument indices:
+A tradução em francês teria a mensagem na ordem contrária, portanto especificamos com argumentos com índices:
 
 bc. guess.characteristic=Devinez %2$s de %1$s.
 
-where @%2$s@ outputs the **second** argument as a decimal integer.
+onde  @%2$s@ exibe o **segundo** argumento com um número inteiro.
 
-Finally, we want to localise the characteristic name ‘age’ as well, so we would change the output to use the message key @person.age@, and change the message definitions to:
+Finalmente, se quiser traduzir o nome ‘age’, precisamos mudar a saída da mensagem @person.age@, mudando as definições para:
 
 bc. guess.characteristic=Guess %s’s &{%s}.
 person.age = age
 
-and
+e
 
 bc. guess.characteristic=Devinez &{%2$s} de %1$s.
 person.age = l’age
 
-where @&{%s}@ is itself a message look-up, with the argument value as the message key.
+onde @&{%s}@ é a busca de mensagens própria, com o valor do argumento como chave da mensagem.
 
-p(note). **Continuing the discussion**
- 
+p(note). **Continuando com a discussão**
+
 Next: %(next)"Cache":cache%.
