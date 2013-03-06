@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: releasenotes-1.0.2 — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>10.1% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Play1.0.2NotasdeLanamento">Play 1.0.2 — Notas de Lan&ccedil;amento</h1> 
+<p><b>Play 1.0.2</b> &eacute; uma vers&atilde;o de manuten&ccedil;&atilde;o do branch Play 1.0. Dentre os novos recursos, os principais s&atilde;o o suporte ao reposit&oacute;rio de m&oacute;dulos e a prote&ccedil;&atilde;o embutida contra ataques CSRF. Esta vers&atilde;o tamb&eacute;m corrige um monte de pequenos erros.</p> 
+<p class="note"><b>Play 1.0.2</b> &eacute; uma vers&atilde;o de manuten&ccedil;&atilde;o e &eacute; totalmente compat&iacute;vel com a s&eacute;rie 1.0. Se voc&ecirc; encontrar algum problema, por favor pergunte-nos no <a href="http://groups.google.com/group/play-framework">Google Group</a>.</p> 
+<p>Voc&ecirc; pode ler sobre os erros corrigidos na <a href="http://www.playframework.org/roadmap/1.0.2">1.0.2 p&aacute;gina de road map</a>. As mudan&ccedil;as mais importantes est&atilde;o real&ccedil;adas nesta p&aacute;gina.</p> 
+<h2 id="aRepositriodeMdulosa"><a>Reposit&oacute;rio de M&oacute;dulos</a></h2> 
+<p>O objetivo do reposit&oacute;rio de m&oacute;dulos &eacute; centralizar todos os m&oacute;dulos de contribui&ccedil;&otilde;es para o Play framework, e permitir uma f&aacute;cil instala&ccedil;&atilde;o dos mesmos. Os novos comandos relacionados aos m&oacute;dulos s&atilde;o:</p> 
+<ul> 
+ <li><code>play list-modules</code>, para listar o conte&uacute;do do reposit&oacute;rio</li> 
+ <li><code>play install</code>, para instalar localmente uma vers&atilde;o de um m&oacute;dulo</li> 
+ <li><code>play new-module</code>, para criar o esqueleto de um novo m&oacute;dulo</li> 
+ <li><code>play build-module</code>, para empacotar um m&oacute;dulo e public&aacute;-lo no reposit&oacute;rio.</li> 
+</ul> 
+<p>Al&eacute;m disso, voc&ecirc; ver&aacute; que quase todos os m&oacute;dulos foram deletados. Somente um punhado de m&oacute;dulos ‘core’ est&atilde;o diretamente dispon&iacute;veis: testunner, docviewer, crud and secure.</p> 
+<p>Os outros m&oacute;dulos agore s&atilde;o opicionais. Ent&atilde;o se voc&ecirc;, por exemplo, quiser instalar o suporte a GWT, simplesmente digite <code>play install gwt</code>, e voc&ecirc; obter&aacute; a &uacute;ltima vers&atilde;o do m&oacute;dulo.</p> 
+<p>Por que n&oacute;s movemos os m&oacute;dulos? Porque n&oacute;s precisamos focar no core do framework para ter um projeto simples para gerenciar. Al&eacute;m disso, como muitas pessoas querem contribuir com m&oacute;dulos, &eacute; mais f&aacute;cil fazendo desta maneira: cada m&oacute;dulo &eacute; um projeto aut&ocirc;nomo com um mantenedor dedicado. Ent&atilde;o, por favor, se voc&ecirc; deseja reportar um erro em um m&oacute;dulo espec&iacute;fico, use somente a homepage e o bug tracker deste m&oacute;dulo em quest&atilde;o.</p> 
+<p>Como benef&iacute;cio imediato, o ciclo de vida dos m&oacute;dulos n&atilde;o &eacute; mais amarrado ao ciclo de vida do framework. Um m&oacute;dulo pode ser lan&ccedil;ado mais frequentemente que o framework em si. E finalmente, como o framework n&atilde;o cont&eacute;m mais m&oacute;dulos opcionais, o tamanho da distribui&ccedil;&atilde;o do Play foi reduzido pela metade.</p> 
+<p>Leia mais sobre o reposit&oacute;rio de m&oacute;dulos nesta <a href="modules">p&aacute;gina dedicada</a>.</p> 
+<h2 id="aProteocontraataquesCSRFembutidaa"><a>Prote&ccedil;&atilde;o contra ataques CSRF embutida</a></h2> 
+<p>Ataques CSRF podem ser relamente problem&aacute;ticos em uma aplica&ccedil;&atilde;o web.</p> 
+<blockquote> 
+ <p>Este m&eacute;todo de ataque funciona incluindo um c&oacute;digo malicioso ou um link em uma p&aacute;gina que acessa uma aplica&ccedil;&atilde;o web na qual o usu&aacute;rio acredita ter se autenticado. Se a sess&atilde;o desta aplica&ccedil;&atilde;o web n&atilde;o tiver expirado, um atacante pode executar comandos n&atilde;o autorizados.</p> 
+</blockquote> 
+<p>Para prevenir este ataque, a primeira coisa &agrave; se fazer &eacute; utilizar os m&eacute;todos GET e POST apropriadamente. Isso significa que somente m&eacute;todos POST dever&atilde;o ser utilizados para rodar uma intera&ccedil;&atilde;o que pode mudar o estado da aplica&ccedil;&atilde;o.</p> 
+<p>Para as requisi&ccedil;&otilde;es POST, o &uacute;nico modo de prover seguran&ccedil;a para a&ccedil;&otilde;es cr&iacute;ticas corretamente &eacute; emitir um token de autenticidade. O Play 1.0.2 agora tem um helper embutido para manipular isto:</p> 
+<ul> 
+ <li>um novo m&eacute;todo <code>checkAuthenticity()</code> est&aacute; dispon&iacute;vel nos controllers, ele checa um token de autentica&ccedil;&atilde;o v&aacute;lido nos par&acirc;metros da requisi&ccedil;&atilde;o e envia uma resposta forbidden se alguma coisa est&aacute; ruim</li> 
+ <li><code>session.getAuthenticityToken()</code> gera um token de autenticidade que s&oacute; &eacute; v&aacute;lido para a sess&atilde;o atual</li> 
+ <li><code>#{authenticityToken /}</code> cria um hidden input field que voc&ecirc; pode adicionar em qualquer form.</li> 
+</ul> 
+<p>Ent&atilde;o, por exemplo:</p> 
+<pre><code>public static destroyMyAccount() {
+    checkAuthenticity();
+    …
+}
+</code></pre> 
+<p>Somente ir&aacute; funcionar quando chamado de um form que tenha incluso um token de autenticidade apropriado:</p> 
+<pre><code>#{form @ destroyMyAccount()}
+    #{authenticityToken /}
+    &lt;input type=&quot;submit&quot; value=&quot;destroy my account&quot;&gt;
+#{/form}
+</code></pre> 
+<p>&Eacute; claro que voc&ecirc; pode adicionar isto antes de um filter se voc&ecirc; quiser proteger todas as actions de uma hierarquia de controllers. Leia mais em <a href="security">Guia de Seguran&ccedil;a</a>.</p> 
+<h2 id="aMtodoHEADsuportadoporpadroa"><a>M&eacute;todo HEAD suportado por padr&atilde;o</a></h2> 
+<p>Agora o Play responde automaticamente para requisi&ccedil;&otilde;es HEAD se houver uma rota existente para o m&eacute;todo GET. Isso porque a requisi&ccedil;&atilde;o &eacute; feita atrav&eacute;s do HTTP RFC que responde para qualquer recurso assim como a requisi&ccedil;&atilde;o HEAD.</p> 
+<p><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html</a></p> 
+<blockquote> 
+ <p>O m&eacute;todo HEAD &eacute; identico ao GET, exceto que aquele servidor N&Atilde;O DEVE retornar um message-body na resposta. A meta-informa&ccedil;&atilde;o contida nos cabe&ccedil;alhos HTTP na reposta para uma requisi&ccedil;&atilde;o HEAD DEVE ser id&ecirc;ntica par aa informa&ccedil;&atilde;o enviada na resposta para uma requisi&ccedil;&atilde;o GET. Este m&eacute;todo pode ser utilizado para obter meta-informa&ccedil;&atilde;o sobre a entidade impl&iacute;cita pela requisi&ccedil;&atilde;o sem transferir o body da entidade em si. Este m&eacute;todo &eacute; muitas vezes utilizado para testar links para valida&ccedil;&otilde;es, acessibilidade e modifica&ccedil;&otilde;es recentes.</p> 
+</blockquote> 
+<p>En&atilde;o qualquer requisi&ccedil;&atilde;o HEAD invocar&aacute; sua action, mas o conte&uacute;do da resposta n&atilde;o ser&aacute; enviado para o cliente. Claro que voc&ecirc; pode especializar isto adicionando uma custom route para responder requisi&ccedil;&otilde;es HEAD com seus arquivos de routes. Por exmeplo:</p> 
+<pre><code>GET     /orders/{id}         Orders.show
+HEAD    /orders/{id}         Orders.showHead
+</code></pre> 
+<h2 id="aNovaaplicaodeexemplozencontacta"><a>Nova aplica&ccedil;&atilde;o de exemplo, 'zencontact'</a></h2> 
+<p>Uma novo exemplo, que &eacute; um port da <a href="http://blog.zenika.com/index.php?post/2009/03/10/Concours-D&eacute;velopper-une-application-web-en-Wicket3">Wicket-based contact management application</a>. Tamb&eacute;m existe a vers&atilde;o em Scala desta aplica&ccedil;&atilde;o dispon&iacute;vel no pacote do m&oacute;dulo Scala, para os interessados.</p> 
+<p><img border="0" src="images/zencontact" /></p> 
+<h2 id="aMelhorsuporteparadeployemservidoresdeaplicaoa"><a>Melhor suporte para deploy em servidores de aplica&ccedil;&atilde;o</a></h2> 
+<p>N&oacute;s testamos o deploy de um WAR gerado pelo Play em diversos servidores de aplica&ccedil;&atilde;o. Voc&ecirc; pode verificar a vers&atilde;o atual da <a href="deployment">matriz de compatibilidade</a>.</p> 
+<table> 
+ <tbody> 
+  <tr> 
+   <th>JBoss 4.2.x </th> 
+   <th>JBoss 5.x </th> 
+   <th>JBoss 6M2 </th> 
+   <th>Glasshfish v3 </th> 
+   <th>IBM Websphere 6.1 </th> 
+   <th>IBM Websphere 7 </th> 
+   <th>Geronimo 2.x </th> 
+   <th>Tomcat 6.x </th> 
+   <th>Jetty 7.x </th> 
+   <th>Resin 4.0.5 </th> 
+  </tr> 
+  <tr> 
+   <td>✓ </td> 
+   <td>✓ </td> 
+   <td>✓ </td> 
+   <td>✓ </td> 
+   <td>✓ </td> 
+   <td>✓ </td> 
+   <td>✓ </td> 
+   <td>✓ </td> 
+   <td> ✓ </td> 
+   <td>✓ </td> 
+  </tr> 
+ </tbody> 
+</table> 
+<h2 id="aNovasfeaturespraactionreversasnostemplatesa"><a>Novas features pra action reversas nos templates</a></h2> 
+<p>A sintaxe <code>@@</code>, que permite que voc&ecirc; inverta uma a&ccedil;&atilde;o para uma URL <b>absoluta</b>, agora est&aacute; dispon&iacute;vel nos par&acirc;metros de tag, por exemplo:</p> 
+<pre><code>#{form @@save()}
+…
+#{/}
+</code></pre> 
+<p>Isso &eacute; muito &uacute;til se voc&ecirc; utilizar o template engine para gerar material como e-mail, em que voc&ecirc; precisa expressar uma URL de forma absoluta.</p> 
+<p>Objetos complexos de binding agora tamb&eacute;m s&atilde;o suportados. Ent&atilde;o por exemplo, com esta action:</p> 
+<pre><code>public static void search(SearchParams params) {
+    …
+}
+</code></pre> 
+<p>SearchParams, sendo:</p> 
+<pre><code>public class SearchParams {
+    public String keywords;
+    public String mode;
+}
+</code></pre> 
+<p>Voc&ecirc; pode utilizar em um template, alguma coisa como:</p> 
+<pre><code>@{search(params)}
+</code></pre> 
+<p>Isso vai gerar uma URL contendo v&aacute;rios valores no queryString, como:</p> 
+<pre><code>/search?params.keywords=xxxx&amp;params.mode=AND
+</code></pre> 
+<h2 id="aUmcomandonovoparageraraJavadocdaaplicaoa"><a>Um comando novo para gerar a Javadoc da aplica&ccedil;&atilde;o</a></h2> 
+<p>Agora voc&ecirc; pode gerar a <b>Javadoc</b> do seu projeto facilmente, usando:</p> 
+<pre><code>play javadoc
+</code></pre> 
+<p>Isso gerar&aacute; a documenta&ccedil;&atilde;o API Javadoc para o seu projeto e seus m&oacute;dulos.</p> 
+<h2 id="aUmpluginaindamelhorparaoEclipsenestaversoa"><a>Um plugin ainda melhor para o Eclipse nesta vers&atilde;o</a></h2> 
+<p>O plugin do Eclipse agora tem v&aacute;rias features novas:</p> 
+<ul> 
+ <li>Editor de arquivos route avan&ccedil;ado, com assistente de conte&uacute;do, detec&ccedil;&atilde;o de a&ccedil;&otilde;es inexistentes, e links</li> 
+ <li>Editor de arquivos de template avan&ccedil;ado, com algum assistente de conte&uacute;do, e links</li> 
+ <li>Wizard para criar novos Controllers, Models e Templates</li> 
+ <li>Test runner integrado (utilizando um web browser embutido)</li> 
+</ul> 
+<p><img border="0" src="images/route-completion" /></p> 
+<p><img border="0" src="images/eclipse-tests" /></p> 
+<p>Para instalar este plugin, copie o arquivo JAR de <code>$PLAY_HOME/support/eclipse</code> para <code>$ECLIPSE_HOME/droppins</code>.</p> 
+<p class="note">Pr&oacute;xima vers&atilde;o: <span class="next"><a href="releasenotes-1.0.3">Play 1.0.3 release notes</a></span></p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/releasenotes-1.0.2" target="_blank">Documentation: releasenotes-1.0.2 — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,6 +1,6 @@
 h1. Play 1.0.2 -- Notas de Lançamento
 
-i**Play 1.0.2** é uma versão de manutenção do branch Play 1.0. Dentre os novos recursos, os principais são o suporte ao repositório de módulos e a proteção embutida contra ataques CSRF. Esta versão também corrige um monte de pequenos erros.
+**Play 1.0.2** é uma versão de manutenção do branch Play 1.0. Dentre os novos recursos, os principais são o suporte ao repositório de módulos e a proteção embutida contra ataques CSRF. Esta versão também corrige um monte de pequenos erros.
 
 p(note). **Play 1.0.2** é uma versão de manutenção e é totalmente compatível com a série 1.0. Se você encontrar algum problema, por favor pergunte-nos no "Google Group":http://groups.google.com/group/play-framework.
 
@@ -57,83 +57,84 @@ bc. #{form @ destroyMyAccount()}
 
 h2. <a>Método HEAD suportado por padrão</a>
 
-Play now responds automatically to HEAD requests if there is an existing route for the GET method. This is because it is requested by the HTTP RFC that any resource respond to HEAD request as well.
+Agora o Play responde automaticamente para requisições HEAD se houver uma rota existente para o método GET. Isso porque a requisição é feita através do HTTP RFC que responde para qualquer recurso assim como a requisição HEAD.
 
 "http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html":http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html
 
-bq. The HEAD method is identical to GET except that the server MUST NOT return a message-body in the response. The metainformation contained in the HTTP headers in response to a HEAD request SHOULD be identical to the information sent in response to a GET request. This method can be used for obtaining metainformation about the entity implied by the request without transferring the entity-body itself. This method is often used for testing hypertext links for validity, accessibility, and recent modification.
+bq. O método HEAD é identico ao GET, exceto que aquele servidor NÃO DEVE retornar um message-body na resposta. A meta-informação contida nos cabeçalhos HTTP na reposta para uma requisição HEAD DEVE ser idêntica par aa informação enviada na resposta para uma requisição GET. Este método pode ser utilizado para obter meta-informação sobre a entidade implícita pela requisição sem transferir o body da entidade em si. Este método é muitas vezes utilizado para testar links para validações, acessibilidade e modificações recentes.
 
-So any HEAD request will invoke your action method, but the response content will not be sent to the client. You can of course specialize it by adding a custom route to respond to HEAD requests with your routes file. For example:
+Enão qualquer requisição HEAD invocará sua action, mas o conteúdo da resposta não será enviado para o cliente. Claro que você pode especializar isto adicionando uma custom route para responder requisições HEAD com seus arquivos de routes. Por exmeplo:
 
 bc. GET     /orders/{id}         Orders.show
 HEAD    /orders/{id}         Orders.showHead
 
-h2. <a>New sample application, ‘zencontact’</a>
+h2. <a>Nova aplicação de exemplo, 'zencontact'</a>
 
-A new sample, that is a port of a "Wicket-based contact management application":http://blog.zenika.com/index.php?post/2009/03/10/Concours-Développer-une-application-web-en-Wicket3. There is also a Scala version of this application available in the Scala module package, for those interested.
+Uma novo exemplo, que é um port da "Wicket-based contact management application":http://blog.zenika.com/index.php?post/2009/03/10/Concours-Développer-une-application-web-en-Wicket3. Também existe a versão em Scala desta aplicação disponível no pacote do módulo Scala, para os interessados.
 
 !images/zencontact!
 
-h2. <a>Better support for application server deployment</a>
+h2. <a>Melhor suporte para deploy em servidores de aplicação</a>
 
-We have tested the deployment of a Play generated WAR archive on several application servers. You can check the current "compatibility matrix":deployment.
+Nós testamos o deploy de um WAR gerado pelo Play em diversos servidores de aplicação. Você pode verificar a versão atual da "matriz de compatibilidade":deployment.
 
 || JBoss 4.2.x || JBoss 5.x || JBoss 6M2 || Glasshfish v3 || IBM Websphere 6.1 ||IBM Websphere 7 || Geronimo 2.x || Tomcat 6.x || Jetty 7.x || Resin 4.0.5 ||
 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |  ✓ | ✓  |
 
 
-h2. <a>New features for reversed action in templates</a>
+h2. <a>Novas features pra action reversas nos templates</a>
 
-The <code>@@</code> syntax, that allow to reverse an action to an **absolute** URL, is now available in tag parameters. For example:
+A sintaxe <code>@@</code>, que permite que você inverta uma ação para uma URL **absoluta**, agora está disponível nos parâmetros de tag, por exemplo:
 
 bc. #{form @@save()}
 …
 #{/}
 
-It is very useful if you use the template engine to generate stuff like e-mail, in which you need to express URL in an absolute fashion.
+Isso é muito útil se você utilizar o template engine para gerar material como e-mail, em que você precisa expressar uma URL de forma absoluta.
 
-Also, binding complex objects in now supported. So for example, with this action:
+Objetos complexos de binding agora também são suportados. Então por exemplo, com esta action:
 
 bc. public static void search(SearchParams params) {
     …
 }
 
-SearchParams, being:
+SearchParams, sendo:
 
 bc. public class SearchParams {
     public String keywords;
     public String mode;
 }
 
-You can use in a template, something like:
+Você pode utilizar em um template, alguma coisa como:
 
 bc. @{search(params)}
 
-That would generate a URL containing several values in the queryString, like:
+Isso vai gerar uma URL contendo vários valores no queryString, como:
 
 bc. /search?params.keywords=xxxx&params.mode=AND
 
-h2. <a>A new command to generate the application Javadoc</a>
+h2. <a>Um comando novo para gerar a Javadoc da aplicação</a>
 
-Now you can generate the **Javadoc** for your project easily, using:
+Agora você pode gerar a **Javadoc** do seu projeto facilmente, usando:
 
 bc. play javadoc
 
-It generates the Javadoc API documentation for your project and its modules.
+Isso gerará a documentação API Javadoc para o seu projeto e seus módulos.
 
-h2. <a>An even better Eclipse plugin in this release</a>
+h2. <a>Um plugin ainda melhor para o Eclipse nesta versão</a>
 
-The Eclipse plugin now has several new features:
+O plugin do Eclipse agora tem várias features novas:
 
-* Advanced route file editor, with content assist, missing action detection, and hyperlinks
-* Advanced template files editor, with some content assist, and hyperlinks
-* Wizard to create new Controllers, Models and Templates
-* Integrated test runner (using an embedded web browser)
+* Editor de arquivos route avançado, com assistente de conteúdo, detecção de ações inexistentes, e links
+* Editor de arquivos de template avançado, com algum assistente de conteúdo, e links
+* Wizard para criar novos Controllers, Models e Templates
+* Test runner integrado (utilizando um web browser embutido)
 
 !images/route-completion!
 
 !images/eclipse-tests!
 
-To install this plugin, copy the JAR file from @$PLAY_HOME/support/eclipse@ to @$ECLIPSE_HOME/dropins@.
+Para instalar este plugin, copie o arquivo JAR de @$PLAY_HOME/support/eclipse@ para @$ECLIPSE_HOME/droppins@.
 
-p(note). Next release: %(next)"Play 1.0.3 release notes":releasenotes-1.0.3%
+p(note). Próxima versão: %(next)"Play 1.0.3 release notes":releasenotes-1.0.3%
+
