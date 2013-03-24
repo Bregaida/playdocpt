@@ -1,6 +1,6 @@
 h1. Validating HTTP data with Play
 
-Validations ensure that the data has certain values or meets specific requirements. You can use validation to verify that your models are correct before saving them to the database, or use them directly on HTTP parameters to validate a simple form.
+Validações ensure that the data has certain values or meets specific requirements. You can use validation to verify that your models are correct before saving them to the database, or use them directly on HTTP parameters to validate a simple form.
 
 h2. <a name="how">How validation works in Play</a>
 
@@ -71,7 +71,7 @@ The simplest way to override these messages is to use the same message key for a
 
 bc. validation.required = Please enter a value 
 
-You can also provide localisations in other languages, as described in "Internationalization":i18n. 
+You can also provide localisations in other languages, as described in "Internationalização":i18n. 
 
 h3. Validation message parameters 
 
@@ -335,7 +335,7 @@ h2. <a name="builtin">Built-in validations</a>
 
 The @play.data.validation@ package contains several "built-in validations":validation-builtin that you can use on the @Validation@ object or with annotations.
 
-h2. <a name="custom">Custom validation using @CheckWith</a>
+h2. <a name="custom">Validação customizada using @CheckWith</a>
 
 Can’t find the validator you need in the @play.data.validation@ package? Write your own. You can use the generic <code>@CheckWith</code> annotation to bind your own @Check@ implementation.
 
@@ -373,7 +373,7 @@ user.password = Password
 
 where @&{%1$s}@ uses the message argument with index 1 (the field name) as the message key for another message look-up, and @%2$s@ is the second message argument (the formatted date).
 
-p(note). The message syntax - @%s@, @%s2$s@ and @&{…}@ - is explained in the section on how to "Retrieve localized messages":i18n#retrieve.
+p(note). The message syntax - @%s@, @%s2$s@ and @&{…}@ - is explained in the section on how to "Buscando mensagens traduzidas":i18n#retrieve.
 
 
 h2. <a name="customannotations">Custom annotations</a>

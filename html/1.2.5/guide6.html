@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: guide6 — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Addingtaggingsupport">Adding tagging support</h1> 
+<p>As our blog will contain more posts, it will become more and more difficult to retrieve them. To help classify posts by subject we will add tagging support.</p> 
+<h2 id="anamemodelTheTagmodelobjecta"><a name="model">The Tag model object</a></h2> 
+<p>We will add one more object to the blog model definition. The <code>Tag</code> class itself is indeed very simple:</p> 
+<pre><code>package models;
+ 
+import java.util.*;
+import javax.persistence.*;
+ 
+import play.db.jpa.*;
+ 
+@Entity
+public class Tag extends Model implements Comparable&lt;Tag&gt; {
+ 
+    public String name;
+ 
+    private Tag(String name) {
+        this.name = name;
+    }
+ 
+    public String toString() {
+        return name;
+    }
+ 
+    public int compareTo(Tag otherTag) {
+        return name.compareTo(otherTag.name);
+    }
+}
+</code></pre> 
+<p>Because we want something like lazy tag creation we will always get them using the <code>findOrCreateByName(String name)</code> factory method. Let’s add it to the <code>Tag</code> class:</p> 
+<pre><code>public static Tag findOrCreateByName(String name) {
+    Tag tag = Tag.find(&quot;byName&quot;, name).first();
+    if(tag == null) {
+        tag = new Tag(name);
+    }
+    return tag;
+}
+</code></pre> 
+<h2 id="anametaggingTaggingpostsa"><a name="tagging">Tagging posts</a></h2> 
+<p>Now it is time to link the new <code>Tag</code> model with the <code>Post</code> model. Let’s add the correct relationship to the <code>Post</code> class:</p> 
+<pre><code>…
+@ManyToMany(cascade=CascadeType.PERSIST)
+public Set&lt;Tag&gt; tags;
+ 
+public Post(User author, String title, String content) {
+    this.comments = new ArrayList&lt;Comment&gt;();
+    this.tags = new TreeSet&lt;Tag&gt;();
+    this.author = author;
+    this.title = title;
+    this.content = content;
+    this.postedAt = new Date();
+}
+…
+</code></pre> 
+<p class="note">Note that we use a <code>TreeSet</code> here in order to keep the tag list in a predictable order (alphabetical order in fact, because of our previous <code>compareTo</code> implementation).</p> 
+<p>We will keep this relationship unidirectional.</p> 
+<p>We will also add a bunch of helper methods to make tag management simpler. The first one tags a <code>Post</code>:</p> 
+<pre><code>…
+public Post tagItWith(String name) {
+    tags.add(Tag.findOrCreateByName(name));
+    return this;
+}
+…
+</code></pre> 
+<p>The next one retrieves all posts with a specific tag:</p> 
+<pre><code>…
+public static List&lt;Post&gt; findTaggedWith(String tag) {
+    return Post.find(
+        &quot;select distinct p from Post p join p.tags as t where t.name = ?&quot;, tag
+    ).fetch();
+}
+…
+</code></pre> 
+<p>It is time to write a new test case to test this stuff. Restart the server in <code>test</code> mode by typing:</p> 
+<pre><code>$ play test
+</code></pre> 
+<p>Now add a new <code>@Test</code> to the <code>BasicTest</code> class:</p> 
+<pre><code>@Test
+public void testTags() {
+    // Create a new user and save it
+    User bob = new User(&quot;bob@gmail.com&quot;, &quot;secret&quot;, &quot;Bob&quot;).save();
+ 
+    // Create a new post
+    Post bobPost = new Post(bob, &quot;My first post&quot;, &quot;Hello world&quot;).save();
+    Post anotherBobPost = new Post(bob, &quot;Hop&quot;, &quot;Hello world&quot;).save();
+ 
+    // Well
+    assertEquals(0, Post.findTaggedWith(&quot;Red&quot;).size());
+ 
+    // Tag it now
+    bobPost.tagItWith(&quot;Red&quot;).tagItWith(&quot;Blue&quot;).save();
+    anotherBobPost.tagItWith(&quot;Red&quot;).tagItWith(&quot;Green&quot;).save();
+ 
+    // Check
+    assertEquals(2, Post.findTaggedWith(&quot;Red&quot;).size());
+    assertEquals(1, Post.findTaggedWith(&quot;Blue&quot;).size());
+    assertEquals(1, Post.findTaggedWith(&quot;Green&quot;).size());
+}
+</code></pre> 
+<p>Make sure that it works.</p> 
+<h2 id="anamemultipleAlittlemoredifficultnowa"><a name="multiple">A little more difficult now</a></h2> 
+<p>Well, we won’t use it in our blog right now, but what if we wanted to retrieve posts tagged with several tags? It’s more difficult than it seems.</p> 
+<p>I give you the needed JPQL query because you will likely use it in several web projects:</p> 
+<pre><code>…
+public static List&lt;Post&gt; findTaggedWith(String... tags) {
+    return Post.find(
+            &quot;select distinct p from Post p join p.tags as t where t.name in (:tags) group by p.id, p.author, p.title, p.content,p.postedAt having count(t.id) = :size&quot;
+    ).bind(&quot;tags&quot;, tags).bind(&quot;size&quot;, tags.length).fetch();
+}
+…
+</code></pre> 
+<p>The tricky part is that we have to use a <code>having count</code> statement to filter only posts that have exactly <b>all tags</b> from the joined view.</p> 
+<p class="note"><b>Note</b> that we cannot use the <code>Post.find(&quot;…&quot;, tags, tags.count)</code> signature here, because <code>tags</code> is already a <b>vararg</b>.</p> 
+<p>You can test it by adding more checks to the previous test:</p> 
+<pre><code>…
+assertEquals(1, Post.findTaggedWith(&quot;Red&quot;, &quot;Blue&quot;).size());
+assertEquals(1, Post.findTaggedWith(&quot;Red&quot;, &quot;Green&quot;).size());
+assertEquals(0, Post.findTaggedWith(&quot;Red&quot;, &quot;Green&quot;, &quot;Blue&quot;).size());
+assertEquals(0, Post.findTaggedWith(&quot;Green&quot;, &quot;Blue&quot;).size());
+…
+</code></pre> 
+<h2 id="anamecloudThetagclouda"><a name="cloud">The tag cloud</a></h2> 
+<p>Where we have tags, we need a tag cloud. Let’s add a method to the <code>Tag</code> class to generate the tag cloud:</p> 
+<pre><code>public static List&lt;Map&gt; getCloud() {
+    List&lt;Map&gt; result = Tag.find(
+        &quot;select new map(t.name as tag, count(p.id) as pound) from Post p join p.tags as t group by t.name order by t.name&quot;
+    ).fetch();
+    return result;
+}
+</code></pre> 
+<p>Here we use a handy Hibernate feature that allows us to return a custom object from a JPA query. This results in a <code>List</code> containing a <code>Map</code> for each tag with two keys: <code>tag</code> for the tag name and <code>pound</code> for the tag count.</p> 
+<p>Let’s test it by adding one more check to our tags test:</p> 
+<pre><code>…
+List&lt;Map&gt; cloud = Tag.getCloud();
+assertEquals(
+    &quot;[{tag=Blue, pound=1}, {tag=Green, pound=1}, {tag=Red, pound=2}]&quot;,
+    cloud.toString()
+);
+</code></pre> 
+<h2 id="anamedataAddingtagstotheBlogUIa"><a name="data">Adding tags to the Blog UI</a></h2> 
+<p>We can now use the new tagging stuff to add one more way to browse the blog. As always, to work efficiently we need to add a bunch of test tags to our initial data set.</p> 
+<p>Modify the <code>/yabe/conf/initial-data.yml</code> file to add some tags to the tests posts. For example:</p> 
+<pre><code>…
+Tag(play):
+    name:           Play
+ 
+Tag(architecture):
+    name:           Architecture
+ 
+Tag(test):
+    name:           Test
+ 
+Tag(mvc):
+    name:           MVC
+…
+</code></pre> 
+<p>And then add them to the post’s declaration:</p> 
+<pre><code>…
+Post(jeffPost):
+    title:          The MVC application
+    postedAt:       2009-06-06
+    author:         jeff
+    tags:
+                    - play
+                    - architecture
+                    - mvc
+    content:        &gt;
+                    A Play
+…
+</code></pre> 
+<p class="note">Add the <code>Tags</code> declaration at the top of the YAML file, because they need to be created before any <code>Post</code> references them.</p> 
+<p>You need to restart your application to force loading of the new initial data set. Note how Play even tells you about problems in YAML files:</p> 
+<p><img border="0" src="images/guide6-1" /></p> 
+<p>Then modify the <code>#{display /}</code> tag to show the tag set on the <b>full</b> post view. Edit the <code>/yabe/app/views/tags/display.html</code> file:</p> 
+<pre><code>…
+#{if _as != 'full'}
+    &lt;span class=&quot;post-comments&quot;&gt;
+        &amp;nbsp;|&amp;nbsp; ${_post.comments.size() ?: 'no'}
+        comment${_post.comments.size().pluralize()}
+        #{if _post.comments}
+            , latest by ${_post.comments[0].author}
+        #{/if}
+    &lt;/span&gt;
+#{/if}
+#{elseif _post.tags}
+    &lt;span class=&quot;post-tags&quot;&gt;
+        - Tagged
+        #{list items:_post.tags, as:'tag'}
+            &lt;a href=&quot;#&quot;&gt;${tag}&lt;/a&gt;${tag_isLast ? '' : ', '}
+        #{/list}
+    &lt;/span&gt;
+#{/elseif}
+…
+</code></pre> 
+<p><img border="0" src="images/guide6-2" /></p> 
+<h2 id="anamepageThenewtaggedwithpagea"><a name="page">The new ‘tagged with’ page</a></h2> 
+<p>Now we can add a new way to list blog posts by tags. In the <code>#{display /}</code> tag, above, we left the link blank; we will now replace it by a link to the new <code>listTagged</code> action:</p> 
+<pre><code>…
+- Tagged
+#{list items:_post.tags, as:'tag'}
+    &lt;a href=&quot;@{Application.listTagged(tag.name)}&quot;&gt;${tag}&lt;/a&gt;${tag_isLast ? '' : ', '}
+#{/list}
+…
+</code></pre> 
+<p>Create the action method on the <code>Application</code> controller:</p> 
+<pre><code>…
+public static void listTagged(String tag) {
+    List&lt;Post&gt; posts = Post.findTaggedWith(tag);
+    render(tag, posts);
+}
+…
+</code></pre> 
+<p>As always we create a specific route to keep the URI clean:</p> 
+<pre><code>GET     /posts/{tag}                    Application.listTagged
+</code></pre> 
+<p>We have a problem because we have an existing route that conflicts with this new one. These two routes will match the same URI:</p> 
+<pre><code>GET     /posts/{id}                     Application.show
+GET     /posts/{tag}                    Application.listTagged
+</code></pre> 
+<p>However, because we’ll assume that an <code>id</code> is numeric and a <code>tag</code> is not, we can easily solve the situation using a regular expression to restrict the first route:</p> 
+<pre><code>GET     /posts/{&lt;[0-9]+&gt;id}             Application.show
+GET     /posts/{tag}                    Application.listTagged
+</code></pre> 
+<p>Finally, we just have to create the <code>/yabe/app/views/Application/listTagged.html</code> template that will be used by the new <code>listTagged</code> action:</p> 
+<pre><code>#{extends 'main.html' /}
+#{set title:'Posts tagged with ' + tag /}
+ 
+*{********* Title ********* }*
+ 
+#{if posts.size() &gt; 1}
+   &lt;h3&gt;There are ${posts.size()} posts tagged '${tag}'&lt;/h3&gt;
+#{/if}
+#{elseif posts}
+    &lt;h3&gt;There is 1 post tagged '${tag}'&lt;/h3&gt;
+#{/elseif}
+#{else}
+    &lt;h3&gt;No post tagged '${tag}'&lt;/h3&gt;
+#{/else}
+ 
+*{********* Posts list *********}*
+ 
+&lt;div class=&quot;older-posts&quot;&gt;
+    #{list items:posts, as:'post'}
+        #{display post:post, as:'teaser' /}
+    #{/list}
+&lt;/div&gt;
+</code></pre> 
+<p><img border="0" src="images/guide6-3" /></p> 
+<p>-p(note). Next: <span class="next"><a href="guide7">A basic admin area using CRUD</a></span>.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/guide6" target="_blank">Documentation: guide6 — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

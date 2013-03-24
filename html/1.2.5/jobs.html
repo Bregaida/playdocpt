@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: jobs — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Jobsassncronos">Jobs ass&iacute;ncronos</h1> 
+<p>Because Play is a web application framework, most of the application logic is done by controllers responding to HTTP requests. </p> 
+<p>But sometimes you will need to execute some application logic outside of any HTTP request. It can be useful for initialization tasks, maintenance tasks or to run long tasks without blocking the HTTP request execution pool.</p> 
+<p>Jobs are fully managed by the framework. That means that Play will manage all the database connection stuff, JPA entity manager synchronization and transactions management for you. To create a job you just need to extend the <code>play.jobs.Job</code> super class.</p> 
+<pre><code>package jobs;
+ 
+import play.jobs.*;
+ 
+public class MyJob extends Job {
+    
+    public void doJob() {
+        // execute some application logic here ...
+    }
+    
+}
+</code></pre> 
+<p>Sometimes you need to create jobs that return a result. You then override the <code>doJobWithResult()</code> method.</p> 
+<pre><code>package jobs;
+ 
+import play.jobs.*;
+  
+public class MyJob extends Job&lt;String&gt; {
+    
+    public String doJobWithResult() {
+        // execute some application logic here ...
+        return result;
+    }
+    
+}
+</code></pre> 
+<p>Here the use of <code>String</code> is just for the example, of course a job can return any object type.</p> 
+<h2 id="anameconceptsJobsdeinicializaoa"><a name="concepts">Jobs de inicializa&ccedil;&atilde;o</a></h2> 
+<p>Jobs de inicializa&ccedil;&atilde;o are executed by Play at application start time. To mark your job as a bootstrap job you just need to add the <code>@OnApplicationStart</code> annotation.</p> 
+<pre><code>import play.jobs.*;
+ 
+@OnApplicationStart
+public class Bootstrap extends Job {
+    
+    public void doJob() {
+        if(Page.count() == 0) {
+            new Page(&quot;root&quot;).save();
+            Logger.info(&quot;A root page has been created.&quot;);
+        }
+    }
+    
+}
+</code></pre> 
+<p>You don’t need to return a result. Even if you do it, the result will be lost.</p> 
+<p>The default is that all jobs annotated with <code>@OnApplicationStart</code> will be executed in sequence. When all jobs are finished, your application is ready to start processing incoming requests.</p> 
+<p>If you want your jobs to start when your application starts, but you want to start processing incoming requests immediately, you can annotate your job like this: <code>@OnApplicationStart(async=true)</code>. Then your job will be started in the background when the application starts. All async jobs will be started at the same time.</p> 
+<p class="note"><b>Warning</b><br /> <br />When you run the application in DEV mode, the application waits for the first HTTP request to start. Moreover when you are in DEV mode, the application will sometimes automatically restart when needed. <br /> <br />When you run in PROD mode, the application will start synchronously with the server start.</p> 
+<h2 id="anameschedulingJobsagendadosa"><a name="scheduling">Jobs agendados</a></h2> 
+<p>Jobs agendados are run periodically by the framework. You can ask Play to run a job at a specific interval using the <code>@Every</code> annotation.</p> 
+<pre><code>import play.jobs.*;
+ 
+@Every(&quot;1h&quot;)
+public class Bootstrap extends Job {
+    
+    public void doJob() {
+        List&lt;User&gt; newUsers = User.find(&quot;newAccount = true&quot;).fetch();
+        for(User user : newUsers) {
+            Notifier.sayWelcome(user);
+        }
+    }
+    
+}
+</code></pre> 
+<p>The above annotation is for hours, if you want to specify the time duration in minutes or seconds, you can do it in the following way:-<br />i) For Minutes - @Every(“3mn”),@Every(“30mn”)<br />ii) For Seconds - @Every(“35s”),@Every(“56s”)</p> 
+<p>If the <code>@Every</code> annotation is not enough you can use the <code>@On</code> annotation to run your jobs using a CRON expression.</p> 
+<pre><code>import play.jobs.*;
+ 
+/** Fire at 12pm (noon) every day **/ 
+@On(&quot;0 0 12 * * ?&quot;)
+public class Bootstrap extends Job {
+    
+    public void doJob() {
+        Logger.info(&quot;Maintenance job ...&quot;);
+        ...
+    }
+    
+}
+</code></pre> 
+<p class="note"><b>Tip</b><br /> <br />We use the CRON expression parser from the <a href="http://www.quartz-scheduler.org/docs/tutorials/crontrigger.html">Quartz library</a>.</p> 
+<p>You don’t need to return a result. Even if you do it, the result will be lost.</p> 
+<h2 id="anametasksDisparandotarefasdejobsa"><a name="tasks">Disparando tarefas de jobs</a></h2> 
+<p>You can also trigger a Job at any time to perform a specific task by simply calling <code>now()</code> on a Job instance. Then this job will be run immediately in a non blocking way. </p> 
+<pre><code>public static void encodeVideo(Long videoId) {
+    new VideoEncoder(videoId).now();
+    renderText(&quot;Encoding started&quot;);
+}
+</code></pre> 
+<p>Calling <code>now()</code> on a Job returns a <code>Promise</code> value that you can use to retrieve the task result once finished.</p> 
+<h2 id="anameconceptsStoppingtheapplicationa"><a name="concepts">Stopping the application</a></h2> 
+<p>Because you sometimes need to perform some action before the application shutdown, Play also provides a <code>@OnApplicationStop</code> annotation.</p> 
+<pre><code>import play.jobs.*;
+ 
+@OnApplicationStop
+public class Bootstrap extends Job {
+ 
+    public void doJob() {
+        Fixture.deleteAll();
+    }
+}
+</code></pre> 
+<p class="note"><b>Continuing the discussion</b></p> 
+<p>Let’s see how to combine Jobs with more powerful <span class="next"><a href="asynchronous">Programa&ccedil;&atilde;o ass&iacute;ncrona com HTTP</a></span>.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/jobs" target="_blank">Documentation: jobs — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

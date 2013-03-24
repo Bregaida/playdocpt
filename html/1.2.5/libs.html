@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: libs — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="BibliotecasdoPlay">Bibliotecas do Play</h1> 
+<p>The <code>play.libs</code> package contains several useful libraries that will help you to achieve common programming tasks. </p> 
+<p>Most of these libraries are simple helpers that are really straightforward to use: </p> 
+<ul> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/Codec.html" target="_blank">Codec</a>: Utilities to encode and decode data.</li> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/Crypto.html" target="_blank">Crypto</a>: Cryptographics utilities.</li> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/Expression.html" target="_blank">Expression</a>: Evaluate dynamic expressions.</li> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/F.html" target="_blank">F</a>: Programa&ccedil;&atilde;o funcional com java.</li> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/Files.html" target="_blank">Files</a>: File system manipulation helpers.</li> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/I18N.html" target="_blank">I18N</a>: Internationaliza&ccedil;&atilde;o helpers.</li> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/IO.html" target="_blank">IO</a>: Stream manipulation helpers.</li> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/Images.html" target="_blank">Images</a>: Image manipulation utilities.</li> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/Mail.html" target="_blank">Mail</a>: E-mail functions.</li> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/MimeTypes.html" target="_blank">MimeTypes</a>: Dealing with MIME types.</li> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/OAuth.html" target="_blank">OAuth</a>: OAuth client protocol.</li> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/OAuth2.html" target="_blank">OAuth2</a>: OAuth2 client protocol.</li> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/OpenID.html" target="_blank">OpenID</a>: OpenID client protocol.</li> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/Time.html" target="_blank">Time</a>: Time and duration utilities.</li> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/WS.html" target="_blank">WS</a>: Powerful Cliente Web Service.</li> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/XML.html" target="_blank">XML</a>: Loading XML structures.</li> 
+ <li><a href="http://www.playframework.org/documentation/api/1.2.5/play/libs/XPath.html" target="_blank">XPath</a>: Parsing XML using XPath.</li> 
+</ul> 
+<p>The following sections provide more information about the most important libraries.</p> 
+<h2 id="ParsingXMLusingXPath">Parsing XML using XPath</h2> 
+<p><a href="http://en.wikipedia.org/wiki/XPath">XPath</a> is probably the easiest way to parse an XML document without having to use code generation tools. The <code>play.libs.XPath</code> library offers all the needed primitives to efficiently achieve this task.</p> 
+<p>The <code>XPath</code> operations operate on all <code>org.w3.dom.Node</code> types:</p> 
+<pre><code>org.w3.dom.Document xmlDoc = … // retrieve a Document somewhere
+  
+for(Node event: XPath.selectNodes(&quot;events//event&quot;, xmlDoc)) {
+    
+    String name = XPath.selectText(&quot;name&quot;, event);
+    String data = XPath.selectText(&quot;@date&quot;, event);
+    
+    for(Node place: XPath.selectNodes(&quot;//place&quot;, event)) {
+        String place = XPath.selectText(&quot;@city&quot;, place);
+        …
+    }
+    
+    …
+}
+</code></pre> 
+<h2 id="ClienteWebService">Cliente Web Service</h2> 
+<p>The <code>play.libs.WS</code> provides a powerful HTTP client. Under the hood it uses <a href="https://github.com/AsyncHttpClient/async-http-client">Async HTTP client</a>. </p> 
+<p>Making a request is easy:</p> 
+<pre><code>HttpResponse res = WS.url(&quot;http://www.google.com&quot;).get();
+</code></pre> 
+<p>Once you have an <code>HttpResponse</code> object you can access all the response properties.</p> 
+<pre><code>int status = res.getStatus();
+String type = res.getContentType();
+</code></pre> 
+<p>You can also retrieve the body content in several content types:</p> 
+<pre><code>String content = res.getString();
+Document xml = res.getXml();
+JsonElement json = res.getJson();
+InputStream is = res.getStream();
+</code></pre> 
+<p>You can also use the <strong>async</strong> API to make HTTP requests in a non-blocking way. Then you will receive a <code>Promise&lt;HttpResponse&gt;</code>. Once redeemed, you can use the <code>HttpResponse</code> as usual:</p> 
+<pre><code>Promise&lt;HttpResponse&gt; futureResponse = WS.url(
+    &quot;http://www.google.com&quot;
+).getAsync();
+</code></pre> 
+<h2 id="Programaofuncionalcomjava">Programa&ccedil;&atilde;o funcional com java</h2> 
+<p>The <code>play.libs.F</code> library provide several useful constructs coming from functional programming. These constructs are used to handle complex abstraction cases. For those that are accustomed to functional programming we provide:</p> 
+<ul> 
+ <li><code>Option&lt;T&gt;</code> (a T value that can be or not set)</li> 
+ <li><code>Either&lt;A,B&gt;</code> (contains either a A value or a B value)</li> 
+ <li><code>Tuple&lt;A,B&gt;</code> (contains both A and B values)</li> 
+</ul> 
+<h3 id="OptionTSomeTandNoneT"><code>Option&lt;T&gt;</code>, <code>Some&lt;T&gt;</code> and <code>None&lt;T&gt;</code></h3> 
+<p>When you write a function that may not return a result in some cases (e.g. a <code>find</code> method), a common (bad) Java pattern is to return <code>null</code> when there is no result. This practice is dangerous because the function return type does not clearly shows that it may not return an object and it has been recognized by the nullable references inventor to be a <a href="http://en.wikipedia.org/wiki/Pointer_(computing)#Null_pointer">“billion-dollar mistake”</a>.<br /><code>Option&lt;T&gt;</code> is an elegant solution to this problem: instead of returning an object of type <code>T</code>, the function returns an <code>Option&lt;T&gt;</code>. If the function succeeds, it returns an object of type <code>Some&lt;T&gt;</code> (wrapping the real result), otherwise an object of type <code>None&lt;T&gt;</code>, which both are subtypes of <code>Option&lt;T&gt;</code>.<br />Here is an example:</p> 
+<pre><code>/* Safe division (will never throw a runtime ArithmeticException) */
+public Option&lt;Double&gt; div(double a, double b) {
+    if (b == 0)
+        return None();
+    else
+        return Some(a / b);
+}
+</code></pre> 
+<p>Here is a way to use this function:</p> 
+<pre><code>Option&lt;Double&gt; q = div(42, 5);
+if (q.isDefined()) {
+    Logger.info(&quot;q = %s&quot;, q.get()); // &quot;q = 8.4&quot;
+}
+</code></pre> 
+<p>But there is a more convenient syntax to use it, leveraging the fact that <code>Option&lt;T&gt;</code> implements <code>Iterable&lt;T&gt;</code>:</p> 
+<pre><code>for (double q : div(42, 5)) {
+    Logger.info(&quot;q = %s&quot;, q); // &quot;q = 8.4&quot;
+}
+</code></pre> 
+<p>The body of the for loop is be executed once, only if the <code>div</code> function succeeded.</p> 
+<h3 id="TupleAB"><code>Tuple&lt;A, B&gt;</code></h3> 
+<p>The handy <code>Tuple&lt;A, B&gt;</code> class wraps two objects of type <code>A</code> and <code>B</code>. You can retrieve the objects using the <code>_1</code> and <code>_2</code> fields, respectively. For example:</p> 
+<pre><code>public Option&lt;Tuple&lt;String, String&gt;&gt; parseEmail(String email) {
+    final Matcher matcher = Pattern.compile(&quot;(\\w+)@(\\w+)&quot;).matcher(email);
+    if (matcher.matches()) {
+        return Some(Tuple(matcher.group(1), matcher.group(2)));
+    }
+    return None();
+}
+</code></pre> 
+<p>Then:</p> 
+<pre><code>for (Tuple&lt;String, String&gt; email : parseEmail(&quot;foo@bar.com&quot;)) {
+    Logger.info(&quot;name = %s&quot;, email._1); // &quot;name = foo&quot;
+    Logger.info(&quot;server = %s&quot;, email._2); // &quot;server = bar.com&quot;
+}
+</code></pre> 
+<p class="note">The <code>T2&lt;A, B&gt;</code> class is an alias for <code>Tuple&lt;A, B&gt;</code>. To handle tuples of 3 elements use the <code>T3&lt;A, B, C&gt;</code> class, and so on up to <code>T5&lt;A, B, C, D, E&gt;</code>.</p> 
+<h3 id="PatternMatching">Pattern Matching</h3> 
+<p>Several times we’ve felt that we needed pattern matching in Java. Unfortunately Java does not have built-in pattern matching, and because of the lack of functional constructs, it is difficult to add it as a library. Anyway we’ve worked on a solution that is not so bad.</p> 
+<p>Our idea was to use the latest ‘for loop’ syntax to achieve basic pattern matching for Java. Pattern matching must both check if your object matches the required conditions and extract the interesting value. The Pattern matching library for Play is part of the <code>play.libs.F</code> library.</p> 
+<p>Let’s see a simple example; you have a reference of type Object and you want to check that it is a string that starts by ‘command:’. </p> 
+<p>The standard way would be:</p> 
+<pre><code>Object o = anything();
+ 
+if(o instanceof String &amp;&amp; ((String)o).startsWith(&quot;command:&quot;)) {
+    String s = (String)o;
+    System.out.println(s.toUpperCase());
+}
+</code></pre> 
+<p>Using the Play pattern matching library, you can write it as:</p> 
+<pre><code>for(String s: String.and(StartsWith(&quot;command:&quot;)).match(o)) {
+    System.out.println(s.toUpperCase());
+}
+</code></pre> 
+<p>The for loop is executed once, only if the condition is met, and it automatically extracts the String value without the need for casting. Because there is no explicit cast, everything is type-safe, and checked by the compiler.</p> 
+<h3 id="Promises">Promises</h3> 
+<p>A <code>Promise</code> is Play’s custom <code>Future</code> type. In fact a <code>Promise&lt;T&gt;</code> is also a <code>Future&lt;T&gt;</code> so you can use it as a standard <code>Future</code>. But it has also a very interesting property: the ability to register callback using <code>onRedeem(…)</code> that will be called as soon as the promised value is available. </p> 
+<p><code>Promise</code> instances are used everywhere in Play in place of <code>Future</code> instances (for Jobs, <code>WS.async</code>, etc…).</p> 
+<p>Promises can be combined in several ways. For example:</p> 
+<pre><code>Promise p = Promise.waitAll(p1, p2, p3)
+Promise p = Promise.waitAny(p1, p2, p3)
+Promise p = Promise.waitEither(p1, p2, p3)
+</code></pre> 
+<h2 id="OAuth">OAuth</h2> 
+<p><a href="http://oauth.net/">OAuth</a> is an open protocol for secure API authorization, using a simple and standard approach, from desktop and web applications.</p> 
+<p>Two different specifications exist: OAuth 1.0 and OAuth 2.0. Play provides libraries to connect as a consumer to services proposing either of these specifications.</p> 
+<p>The general process is the following:</p> 
+<ul> 
+ <li>Redirect the user to the provider’s authorization page</li> 
+ <li>After the user grants authorization, he is redirected back to your server along with an unauthorized token</li> 
+ <li>Your server exchanges the unauthorized token with an access token specific to the current user, that needs to be saved in order to perform requests to the service. This step is done as server-to-server communication.</li> 
+</ul> 
+<p>The Play framework takes care of most of the process.</p> 
+<h3 id="aOAuth1.0a"><a>OAuth 1.0</a></h3> 
+<p>The OAuth 1.0 functionality is provided by the <code>play.libs.OAuth</code> class and is based on <a href="http://code.google.com/p/oauth-signpost/">oauth-signpost</a>. It is used by services such as <a href="http://apiwiki.twitter.com/">Twitter</a> or <a href="http://code.google.com/apis/accounts/docs/OAuth.html">Google</a></p> 
+<p>To connect to a service, you need the create a OAuth.ServiceInfo instance using the following information, obtained from the service provider:</p> 
+<ul> 
+ <li>Request token URL</li> 
+ <li>Access token URL</li> 
+ <li>Authorize URL</li> 
+ <li>Consumer key</li> 
+ <li>Consumer secret</li> 
+</ul> 
+<p>The access token can be retrieved this way:</p> 
+<pre><code>public static void authenticate() {
+    // TWITTER is a OAuth.ServiceInfo object
+    // getUser() is a method returning the current user 
+    if (OAuth.isVerifierResponse()) {
+        // We got the verifier; 
+        // now get the access tokens using the request tokens
+        OAuth.Response resp = OAuth.service(TWITTER).retrieveAccessToken(
+            getUser().token, getUser().secret
+        );
+        // let's store them and go back to index
+        getUser().token = resp.token; getUser().secret = resp.secret;
+        getUser().save()
+        index();
+    }
+    OAuth twitt = OAuth.service(TWITTER);
+    Response resp = twitt.retrieveRequestToken();
+    // We received the unauthorized tokens 
+    // we need to store them before continuing
+    getUser().token = resp.token; getUser().secret = resp.secret;
+    getUser().save()
+    // Redirect the user to the authorization page
+    redirect(twitt.redirectUrl(resp.token));
+}
+</code></pre> 
+<p>Calls can now be done by signing the requests using the token pair:</p> 
+<pre><code>mentions = WS.url(url).oauth(TWITTER, getUser().token, getUser().secret).get().getString();
+</code></pre> 
+<p>While the example doesn’t check for errors, in production you should. The OAuth.Response object holds an error field that is non-null when an error occurred. Most likely it could be that the user didn’t grant you access, that the provider is down or buggy.</p> 
+<p>The full example usage is available in <code>samples-and-tests/twitter-oauth</code>.</p> 
+<h3 id="aOAuth2.0a"><a>OAuth 2.0</a></h3> 
+<p>OAuth 2.0 is much simpler than OAuth 1.0 because it doesn’t involve signing requests. It is used by <a href="http://developers.facebook.com/docs/authentication/">Facebook</a> and <a href="http://37signals.com">37signals</a>.</p> 
+<p>Functionality is provided by <code>play.libs.OAuth2</code>.</p> 
+<p>To connect to a service, you need the create a OAuth2 instance using the following information, obtained from the service provider:</p> 
+<ul> 
+ <li>Access token URL</li> 
+ <li>Authorize URL</li> 
+ <li>Client ID</li> 
+ <li>Secret</li> 
+</ul> 
+<pre><code>public static void auth() {
+    // FACEBOOK is a OAuth2 object
+    if (OAuth2.isCodeResponse()) {
+        // authUrl must be the same as the retrieveVerificationCode call
+        OAuth2.Response response = FACEBOOK.retrieveAccessToken(authUrl);
+        // null if an error occurred
+        String accessToken = response.accessToken;
+        // null if the call was a success
+        OAuth2.Error = response.error;
+        // Save accessToken, you will need it to request the service
+        index();
+    }
+    // authUrl is a String containing an absolute URL where the service 
+    // should redirect the user back
+    // This will trigger a redirect
+    FACEBOOK.requestVerificationCode(authUrl);
+}
+</code></pre> 
+<p>Once you have the access token associated with the current user, you can use it to query the service on behalf of the user:</p> 
+<pre><code>WS.url(
+    &quot;https://graph.facebook.com/me?access_token=%s&quot;, access_token
+).get().getJson();
+</code></pre> 
+<p>The full example usage is available in <code>samples-and-tests/facebook-oauth2</code>.</p> 
+<h2 id="OpenID">OpenID</h2> 
+<p><a href="http://openid.net/">OpenID</a> is an open and decentralized identity system. You can easily accept new users in your application without having to keep specific user information. You just have to keep track of authorized users through their <b>OpenID</b>.</p> 
+<p>This example provides a high-level view of how OpenID authentication can be used within a Play application:</p> 
+<ul> 
+ <li>For each request, check if the user is connected</li> 
+ <li>If not, display a page where the user can submit his OpenID</li> 
+ <li>Redirect the user to the OpenID provider</li> 
+ <li>When the user comes back, get the verified OpenID and save it in the HTTP session.</li> 
+</ul> 
+<p>The OpenID functionality is provided by the <code>play.libs.OpenID</code> class.</p> 
+<pre><code>@Before(unless={&quot;login&quot;, &quot;authenticate&quot;})
+static void checkAuthenticated() {
+    if(!session.contains(&quot;user&quot;)) {
+        login();
+    }
+}
+ 
+public static void index() {
+    render(&quot;Hello %s!&quot;, session.get(&quot;user&quot;));
+}
+     
+public static void login() {
+    render();
+}
+    
+public static void authenticate(String user) {
+    if(OpenID.isAuthenticationResponse()) {
+        UserInfo verifiedUser = OpenID.getVerifiedID();
+        if(verifiedUser == null) {
+            flash.error(&quot;Oops. Authentication has failed&quot;);
+            login();
+        } 
+        session.put(&quot;user&quot;, verifiedUser.id);
+        index();
+    } else {
+        if(!OpenID.id(user).verify()) { // will redirect the user
+            flash.error(&quot;Cannot verify your OpenID&quot;);
+            login();
+        } 
+    }
+}
+</code></pre> 
+<p>And the <code>login.html</code> template:</p> 
+<pre><code>#{if flash.error}
+&lt;h1&gt;${flash.error}&lt;/h1&gt;
+#{/if}
+ 
+&lt;form action=&quot;@{Application.authenticate()}&quot; method=&quot;POST&quot;&gt;
+    &lt;label for=&quot;user&quot;&gt;What’s your OpenID?&lt;/label&gt;
+    &lt;input type=&quot;text&quot; name=&quot;user&quot; id=&quot;user&quot; /&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;login…&quot; /&gt;
+&lt;/form&gt;
+&lt;/code&gt;
+</code></pre> 
+<p>And finally the <code>routes</code> definitions:</p> 
+<pre><code>GET   /                     Application.index
+GET   /login                Application.login
+*     /authenticate         Application.authenticate
+</code></pre> 
+<p class="note"><b>Continuing the discussion</b><br /> <br />Now we’ll check how to perform operations outside any HTTP request using <span class="next"><a href="jobs">Ansynchronous Jobs</a></span>.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/libs" target="_blank">Documentation: libs — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

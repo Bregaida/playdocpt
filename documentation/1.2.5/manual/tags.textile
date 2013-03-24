@@ -2,7 +2,7 @@ h1. Built-in template tags
 
 These are the built-in tags that are available in addition to the core "template engine syntax":templates#syntax.
 
-p(note). There is a separate %(next)"Java extensions":javaextensions% manual page.
+p(note). There is a separate %(next)"Extensões de Java":javaextensions% manual page.
 
 
 h2. <a name="a">a</a>
@@ -20,7 +20,7 @@ If the action you try to call does not have any route able to invoke it using a 
 
 h2. <a name="authenticityToken">authenticityToken</a>
 
-Renders a hidden input field containing a generated token that you can use in any form, to prevent "Cross-Site Request Forgery":security#csrf.
+Renders a hidden input field containing a generated token that you can use in any form, to prevent "Site avaliado como falso":security#csrf.
 
 bc. #{authenticityToken /}
 

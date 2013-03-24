@@ -148,7 +148,7 @@ bc. #{extends 'main.html' /}
 
 The template content seems pretty light. In fact, all you see are Play tags. Play tags are similar to JSP tags. This is the @#{welcome /}@ tag that generates the welcome message you saw in the browser. 
 
-The @#{extends /}@ tag tells Play that this template inherits another template called **main.html**. Template inheritance is a powerful concept that allows you to create complex web pages by reusing common parts.
+The @#{extends /}@ tag tells Play that this template inherits another template called **main.html**. Herança de templates is a powerful concept that allows you to create complex web pages by reusing common parts.
 
 Open the **/yabe/app/views/main.html** template:
 

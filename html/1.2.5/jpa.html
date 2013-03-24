@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: jpa — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="PersistnciaemJPA">Persist&ecirc;ncia em JPA</h1> 
+<p>Play provides a set of very useful helpers to simplify the management of your JPA entities.</p> 
+<p class="note"><b>Note</b> that you can still go back to the plain JPA API whenever you want.</p> 
+<h2 id="anamestartingIniciandooJPAentitymanagera"><a name="starting">Iniciando o JPA entity manager</a></h2> 
+<p>Play will automatically start the Hibernate entity manager when it finds one or more classes annotated with the <code>@javax.persistence.Entity</code> annotation. However, make sure that you have correctly configured a JDBC datasource or it will fail.</p> 
+<h2 id="anameobtainingObtendooJPAentitymanagera"><a name="obtaining">Obtendo o JPA entity manager</a></h2> 
+<p>When the JPA entity manager is started you can get it from the application code, using the JPA helper. For example:</p> 
+<pre><code>public static index() {
+    Query query = JPA.em().createQuery(&quot;select * from Article&quot;);
+    List&lt;Article&gt; articles = query.getResultList();
+    render(articles);
+}
+</code></pre> 
+<h2 id="anametransactionsGerenciamentodetransaesa"><a name="transactions">Gerenciamento de transa&ccedil;&otilde;es</a></h2> 
+<p>Play will automatically manage transactions for you. It will start a transaction automatically the first time you perform an JPA operation in the HTTP request and commit it when the HTTP response is sent. If your code throws an exception, the transaction will automatically rollback.</p> 
+<p>If you need to force transaction rollback from the application code, you can use the <code>JPA.setRollbackOnly()</code> method, which tells JPA not to commit the current transaction.</p> 
+<p>You can also use annotations to specify how transactions should be handled.</p> 
+<p>If you annotated the method in the controller with <code>@play.db.jpa.Transactional(readOnly=true)</code>, then the transaction will be read-only.</p> 
+<p>You don’t have to prevent Play from starting a transaction if you don’t want any. If you do not perform any JPA actions while processing the request,<br />no transaction will be created. If you would like to enforce this – you can annotate your Controller method or class with <code>@play.db.jpa.NoTransaction</code>.<br />If you try to perform a JPA action in a controller annotated with <code>@play.db.jpa.NoTransaction</code>, an exception will be thrown.</p> 
+<h2 id="anamesupportTheplay.db.jpa.Modelsupportclassa"><a name="support">The <b>play.db.jpa.Model</b> support class</a></h2> 
+<p>This is the main helper class for JPA. If you make one of your JPA entities extend the <code>play.db.jpa.Model</code> class, it will give you a lot of helper methods to simplify the JPA access.</p> 
+<p>For example, look at this Post model object:</p> 
+<pre><code>@Entity
+public class Post extends Model {
+ 
+    public String title;
+    public String content;
+    public Date postDate;
+ 
+    @ManyToOne
+    public Author author;
+ 
+    @OneToMany
+    public List&lt;Comment&gt; comments;
+}
+
+</code></pre> 
+<p>The <code>play.db.jpa.Model</code> class automatically provides an autogenerated <code>Long id</code> field. We think that it’s generally a good idea to keep an auto-generated <code>Long id</code> as primary key for JPA models (the technical primary key) and manage your functional primary key using another field.</p> 
+<p>Note that we have used the fact that Play automatically considers the Post class’ <b>public</b> members as <b>properties</b>. So we don’t need to write all setter/getter methods for this object.</p> 
+<h2 id="anamegenericmodelCustomidmappingwithGenericModela"><a name="genericmodel">Custom id mapping with GenericModel</a></h2> 
+<p>Nothing forces you to base your entities on <code>play.db.jpa.Model</code>. Your JPA entities can also extend the <code>play.db.jpa.GenericModel</code> class. This is required if you do not want to use a <code>Long id</code> as the primary key for your entity.</p> 
+<p>For example, here is a mapping for a very simple <code>User</code> entity. The <code>id</code> is a UUID, the <code>name</code> and <code>mail</code> properties are required, and we use Play Validation to enforce simple business rules.</p> 
+<pre><code>@Entity
+public class User extends GenericModel {
+    @Id
+    @GeneratedValue(generator = &quot;system-uuid&quot;)
+    @GenericGenerator(name = &quot;system-uuid&quot;, strategy = &quot;uuid&quot;)
+    public String id;
+ 
+    @Required
+    public String name;
+ 
+    @Required
+    @MaxSize(value=255, message = &quot;email.maxsize&quot;)
+    @play.data.validation.Email
+    public String mail;
+}
+
+</code></pre> 
+<h2 id="anamefindingBuscandoobjetosa"><a name="finding">Buscando objetos</a></h2> 
+<p>The <code>play.db.jpa.Model</code> gives you several ways to find data. For example:</p> 
+<h3 id="FindbyID">Find by ID</h3> 
+<p>The simplest way to find an object.</p> 
+<pre><code>Post aPost = Post.findById(5L);
+</code></pre> 
+<h3 id="Findall">Find all</h3> 
+<pre><code>List&lt;Post&gt; posts = Post.findAll();
+</code></pre> 
+<p>This is the simplest way to retrieve <b>all</b> posts, but you can do the same using:</p> 
+<pre><code>List&lt;Post&gt; posts = Post.all().fetch();
+</code></pre> 
+<p>This allows you to paginate results:</p> 
+<pre><code>// 100 max posts
+List&lt;Post&gt; posts = Post.all().fetch(100);
+</code></pre> 
+<p>or even,</p> 
+<pre><code>
+// 100 max posts start at 50
+List&lt;Post&gt; posts = Post.all().from(50).fetch(100);
+</code></pre> 
+<h3 id="Findusingasimplifiedquery">Find using a simplified query</h3> 
+<p>That allows you to create very expressive finders, but will only work for simple queries.</p> 
+<pre><code>Post.find(&quot;byTitle&quot;, &quot;My first post&quot;).fetch();
+Post.find(&quot;byTitleLike&quot;, &quot;%hello%&quot;).fetch();
+Post.find(&quot;byAuthorIsNull&quot;).fetch();
+Post.find(&quot;byTitleLikeAndAuthor&quot;, &quot;%hello%&quot;, connectedUser).fetch();
+Post.find(&quot;byTitleOrderByTitle&quot;, &quot;A nice post&quot;).fetch();
+Post.find(&quot;byTitleOrderByNbCommentsDesc&quot;, &quot;A nice post&quot;).fetch();
+</code></pre> 
+<p>Simple queries follow the following syntax <code>[Property][Comparator]And?[Orderdirective]?</code> where Comparator can be the following:</p> 
+<ul> 
+ <li><code>LessThan</code> - less than the given value</li> 
+ <li><code>LessThanEquals</code> - less than or equal a give value</li> 
+ <li><code>GreaterThan</code> - greater than a given value</li> 
+ <li><code>GreaterThanEquals</code> - greater than or equal a given value</li> 
+ <li><code>Like</code> - Equivalent to a SQL like expression, except that the property will always convert to lower case.</li> 
+ <li><code>Ilike</code> - Similar to a Like, except case insensitive, meaning that your argument will convert to lower case too.</li> 
+ <li><code>Elike</code> - Equivalent to a SQL like expression, no conversion.</li> 
+ <li><code>NotEqual</code> - Negates equality</li> 
+ <li><code>Between</code> - Between two values (requires two arguments)</li> 
+ <li><code>IsNotNull</code> - Not a null value (doesn’t require an argument)</li> 
+ <li><code>IsNull</code> - Is a null value (doesn’t require an argument)</li> 
+</ul> 
+<p>and Orderdirective can be (e.g for a property named <code>name</code>) :</p> 
+<ul> 
+ <li><code>OrderByName</code> - default ascending order</li> 
+ <li><code>OrderByNameDesc</code> - descending order</li> 
+</ul> 
+<p>you can also use several attributes in Orderdirective : </p> 
+<ul> 
+ <li><code>OrderByNameAndAge</code></li> 
+ <li><code>OrderByNameAndAgeDesc</code></li> 
+</ul> 
+<h3 id="FindusingaJPQLquery">Find using a JPQL query</h3> 
+<p>You can use a JPQL query:</p> 
+<pre><code>Post.find(
+    &quot;select p from Post p, Comment c &quot; +
+    &quot;where c.post = p and c.subject like ?&quot;, &quot;%hop%&quot;
+);
+</code></pre> 
+<p>or even a part of:</p> 
+<pre><code>Post.find(&quot;title&quot;, &quot;My first post&quot;).fetch();
+Post.find(&quot;title like ?&quot;, &quot;%hello%&quot;).fetch();
+Post.find(&quot;author is null&quot;).fetch();
+Post.find(&quot;title like ? and author is null&quot;, &quot;%hello%&quot;).fetch();
+Post.find(&quot;title like ? and author is null order by postDate&quot;, &quot;%hello%&quot;).fetch();
+</code></pre> 
+<p>You can even specify only the <code>order by</code> statement:</p> 
+<pre><code>Post.find(&quot;order by postDate desc&quot;).fetch();
+</code></pre> 
+<h2 id="anamecountingContandoobjetosa"><a name="counting">Contando objetos</a></h2> 
+<p>You can easily count objects.</p> 
+<pre><code>long postCount = Post.count();
+</code></pre> 
+<p>Or even count using a query:</p> 
+<pre><code>long userPostCount = Post.count(&quot;author = ?&quot;, connectedUser);
+</code></pre> 
+<h2 id="anamefilesStoringuploadedfileswithplay.db.jpa.Bloba"><a name="files">Storing uploaded files with play.db.jpa.Blob</a></h2> 
+<p>You can use the <code>play.db.jpa.Blob</code> type to store uploaded files in the file system (not in the database). On the server, Play stores the uploaded image in a file in the <code>attachments/</code> folder, inside the application folder. The file name (a <a href="http://en.wikipedia.org/wiki/Uuid">UUID</a>) and MIME type are stored in a database attribute whose SQL type is <code>VARCHAR</code>.</p> 
+<p>The basic use case of uploading, storing and serving a file is extremely easy in Play. This is because the binding framework automatically binds a file uploaded from an HTML form to your JPA model, and because Play provides convenience methods that make serving binary data as easy as serving plain text. To store file uploads in your model, add a property of type <code>play.db.jpa.Blob</code></p> 
+<pre><code>import play.db.jpa.Blob;
+ 
+@Entity
+public class User extends Model {
+ 
+   public String name;
+   public Blob photo;
+}
+</code></pre> 
+<p>To upload files, add a form to your view template, and use a file upload form control for the model’s <code>Blob</code> property:</p> 
+<pre><code>#{form @addUser(), enctype:'multipart/form-data'}
+   &lt;input type=&quot;file&quot; name=&quot;user.photo&quot;&gt;
+   &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;Upload&quot;&gt;
+#{/form}
+</code></pre> 
+<p>Then, in the controller, add an action that saves the upload in a new model object:</p> 
+<pre><code>public static void addUser(User user) {
+   user.save();
+   index();
+}
+</code></pre> 
+<p>This code does not appear to do anything other than save the JPA entity, because the file upload is handled automatically by Play. First, before the start of the action method, the uploaded file is saved in a sub-folder of <code>tmp/uploads/</code>. Next, when the entity is saved, the file is copied to the <code>attachments/</code> folder, with a UUID as the file name. Finally, when the action is complete, the temporary file is deleted.</p> 
+<p>If you upload another file for the same user, this will be saved as a new file on the server, whose name is a new UUID. This means that the original file will now be orphaned. If you do not have unlimited disk space then you will have to implement your own scheme for cleaning up, perhaps with an <a href="jobs">asynchronous job</a>.</p> 
+<p>If the HTTP request did not specify the file’s correct MIME type, you can use file name extension mapping, as described in the <a href="controllers#file">controller file upload</a> section.</p> 
+<p>To save attachments in a different folder, configure <a href="configuration#attachments.path">attachments.path</a>.</p> 
+<p>To serve a stored file, pass <code>Blob.get()</code> to the controller’s <code>renderBinary</code> method, as described in the <a href="controllers#binary">controller binary response</a> section.</p> 
+<h2 id="anamesaveSaveexplcitoa"><a name="save">Save expl&iacute;cito</a></h2> 
+<p>Hibernate maintains a cache of Objects that have been queried from the database. These Objects are referred to as persistent Objects as long as the EntityManager that was used to fetch them is still active. That means that any changes to these Objects within the bounds of a transaction are automatically persisted when the transaction is committed. In standard JPA, these updates are implicit within the transaction’s boundary; you don’t have to explicitly call any method to persist the values.</p> 
+<p>The main downside is that we must manage all of our Objects manually. Instead of telling the EntityManager to update an Object (which would be far more intuitive), we must tell the EntityManager which Objects NOT to update. We do this by calling <code>refresh()</code>, which essentially rolls back a single entity. We do this just prior to calling commit on the transaction or when we realise the Object shouldn’t be updated.</p> 
+<p>Here is a common use case, when editing a persistent object after a form submit:</p> 
+<pre><code>public static void save(Long id) {
+    User user = User.findById(id);
+    user.edit(&quot;user&quot;, params.all());
+    validation.valid(user);
+    if(validation.hasErrors()) {
+        // Here we have to explicitly discard the user modifications...
+        user.refresh();
+        edit(id);
+    }
+    show(id);
+}
+</code></pre> 
+<p>From what I’ve seen, most developers are not aware of this, and forget to discard the object state in case of errors, assuming that the object will not be saved without an explicit call to <code>save()</code>.</p> 
+<p>So that’s exactly what we’ve changed in Play. All the persistent objects extending the JPASupport/JPAModel will not be saved without an explicit call to the <code>save()</code> method. So you can actually rewrite the previous code as:</p> 
+<pre><code>public static void save(Long id) {
+    User user = User.findById(id);
+    user.edit(&quot;user&quot;, params.all());
+    validation.valid(user);
+    if(validation.hasErrors()) {
+        edit(id);
+    } else{
+       user.save(); // explicit save here
+       show(id);
+    }
+}
+</code></pre> 
+<p>This is far more intuitive. Moreover since it could be tedious to explicitly call <code>save()</code> on a large object graph, the <code>save()</code> call is automatically cascaded to the relationships annotated with the <code>cascade=CascadeType.ALL</code> attribute.</p> 
+<h2 id="anametypingMaissobreproblemasgeraisdetipoa"><a name="typing">Mais sobre problemas gerais de tipo</a></h2> 
+<p>The <code>play.db.jpa.Model</code> defines a set of generic methods. These generic methods use a type parameter to specify the method’s return type. When using those methods, the concrete type to be used as return value is derived from the invocation context using type inference.</p> 
+<p>For example, the <code>findAll</code> method is defined as:</p> 
+<pre><code>&lt;T&gt; List&lt;T&gt; findAll();
+</code></pre> 
+<p>And you use it as:</p> 
+<pre><code>List&lt;Post&gt; posts = Post.findAll();
+</code></pre> 
+<p>Here the Java compiler resolves the actual type of <code>T</code> using the fact that you assign the method result to a List&lt;Post&gt;. So T is resolved as a Post type.</p> 
+<p>Unfortunately, this doesn’t work if the generic method’s return value is directly used as a parameter for another method invocation or used in a loop. So the following code fails with a compiler error saying “Type mismatch: cannot convert from element type Object to Post”:</p> 
+<pre><code>for(Post p : Post.findAll()) {
+    p.delete();
+}
+</code></pre> 
+<p>Of course you can resolve this issue using a temporary local variable, as:</p> 
+<pre><code>List&lt;Post&gt; posts = Post.findAll(); // type inference works here!
+for(Post p : posts) {
+    p.delete();
+}
+</code></pre> 
+<p>But wait, there is a better way. You can use a practical but somewhat unknown Java language feature, which makes the code shorter while more readable at the same time:</p> 
+<pre><code>for(Post p : Post.&lt;Post&gt;findAll()) {
+    p.delete();
+}
+</code></pre> 
+<h2 id="anamemultipleUsingJPAwithmultipledatabasesa"><a name="multiple">Using JPA with multiple databases</a></h2> 
+<p>You can configure Play to use multiple databases, as described in the <a href="model#multiple">model</a> section.</p> 
+<p>When creating Entity and Model classes for databases other than the default, you have to annotate the Class with <code>@PersistenceUnit(name=“other”)</code>. In this case ‘other’ corresponds to the DB config name ‘other’ (See Model-documentation for more info).</p> 
+<p>You can use <code>package-info.java</code> and annotate the package with <code>@PersistenceUnit</code> to enforce a specific JPA configuration to all entity-classes in the Java package.</p> 
+<p>If you need to specify special Hibernate configuration parameters for non-default JPA configurations, you must prefix the <code>hibernate.</code> settings in application.conf with ‘db_configName.’, eg. <code>db_other.hibernate.some.special.setting=true</code>.</p> 
+<p>When executing methods on the Entity classes and objects, Play automatically uses the correct database configuration, but if you like you can access it with code:</p> 
+<pre><code>EntityManager em = JPA.getJPAConfig(&quot;other&quot;).em();
+</code></pre> 
+<p><code>JPA.getJPAConfig(configName)</code> returns an object with all the same methods you find in JPA.</p> 
+<p class="note">It is important to notice that Play does not support XA (two-phase commits). If you use several different JPA configurations in the same request, <b>Play will try to commit as many transactions as possible</b>. If the commit to the first database succeeds and the second commit to the other database fails, the first commit will not get rolled back. Bear this in mind when using multiple JPA configurations in the same request.</p> 
+<p class="note"><b>Continuing the discussion</b><br /> <br />Now we’ll check some <span class="next"><a href="libs">Play libraries</a></span>.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/jpa" target="_blank">Documentation: jpa — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

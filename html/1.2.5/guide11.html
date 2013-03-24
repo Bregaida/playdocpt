@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: guide11 — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Preparingforproduction">Preparing for production</h1> 
+<p>This time we’ve finished the blog engine. Let’s see the few common steps we need to put a Play application in production.</p> 
+<h2 id="aDefiningaframeworkIDa"><a>Defining a framework ID</a></h2> 
+<p>You will typically deploy your application on a different computer (a server) than the one you used for development. So you will have a different Play installation.</p> 
+<p>Play allows to assign each framework installation a different ID, then to manage different configurations in the same <code>application.conf</code> file. Let’s say that the <code>server01</code> will host your production application.</p> 
+<p>Once the Play framework is installed on this server, let’s define the framework ID using the <code>play id</code> command. Type:</p> 
+<pre><code>$ play id
+</code></pre> 
+<p>And assign <code>server01</code> as id. Now we can define special keys in the yabe configuration file that will be used only when the application is running on the server.</p> 
+<h2 id="aSettingtheapplicationinPRODmodea"><a>Setting the application in PROD mode</a></h2> 
+<p>The first configuration key we want specialize for the server deployment is the <code>application.mode</code> property. So far we have used the <b>DEV</b> mode that allows Play to hot reload and recompile Java files and display detailed messages when an error occurs. In <b>PROD</b> mode however, Play will compile all Java sources and templates at startup time and will never check again for changes.</p> 
+<p>In the <code>yabe/conf/application.conf</code> file, define:</p> 
+<pre><code>%server01.application.mode=PROD
+</code></pre> 
+<p>Now when you run the yabe application on the server, it will automatically start in <b>PROD</b> mode.</p> 
+<h2 id="aConfiguringaMySQLservera"><a>Configuring a MySQL server</a></h2> 
+<p>For production use, we will use a MySQL server as database server instead of the in-memory H2 Database we have used so far. Play comes with the JDBC driver for MySQL so we don’t need to install anything more.</p> 
+<p>Edit the database configuration in the <code>yabe/conf/application.conf</code> file:</p> 
+<pre><code>%server01.db=mysql:root:secret@yabe
+</code></pre> 
+<p>We will now tweak the way Hibernate manages the database schema for us. It’s very useful when Hibernate automatically updates the database schema as the Java model objects change. </p> 
+<p>Change the <code>jpa.ddl</code> configuration key:</p> 
+<pre><code>%server01.jpa.ddl=update
+</code></pre> 
+<p>However it’s kind of unpredictable, and running magical things on a production database is never a good thing. So you should always have a backup before a new deployement. If you don’t want Hibernate to update your database, change the <code>jpa.ddl</code> configuration key to <code>validate</code>:</p> 
+<pre><code>%server01.jpa.ddl=validate
+</code></pre> 
+<h2 id="aSettingupafrontalHTTPservera"><a>Setting up a frontal HTTP server</a></h2> 
+<p>Now we could just change the embedded HTTP server’s default port to 80 in order to have a real production server. However it will limit us to installing only one Play application on a given server. As we typically want to install several applications in the same server (but using different IP host names), we need to use a frontal HTTP server as reverse proxy.</p> 
+<p>You can choose any HTTP server and configure it as reverse proxy, however it is generally a good choice to take something light and fast like <a href="http://www.lighttpd.net/">LIGHTTPD</a>. </p> 
+<p>The exact configuration of LIGHTTPD is beyond the scope of this tutorial, but should be something like:</p> 
+<pre><code>server.modules = (
+      &quot;mod_access&quot;,
+      &quot;mod_proxy&quot;,
+      &quot;mod_accesslog&quot; 
+)
+…
+$HTTP[&quot;host&quot;] =~ &quot;www.yabe.com&quot; {
+    proxy.balance = &quot;round-robin&quot; proxy.server = ( &quot;/&quot; =&gt;
+        ( ( &quot;host&quot; =&gt; &quot;127.0.0.1&quot;, &quot;port&quot; =&gt; 9000 ) ) )
+}
+</code></pre> 
+<p>And then allow a local reverse proxy to connect to your Play application by adding this key to the <code>application.conf</code> file:</p> 
+<pre><code>%server01.XForwardedSupport=127.0.0.1
+</code></pre> 
+<h2 id="aThisisjustthebeginninga"><a>This is just the beginning</a></h2> 
+<p class="note">If you have read and followed this tutorial, you’re now a seasoned Play developer. You know most of the concepts that drive Play application development.<br /> <br />At this stage, you may want to continue the tutorial with <span class="next"><a href="guide12">internationalisation and localisation</a></span>.</p> 
+<p>There are still more features we haven’t explored yet, especially related to Web services, like JSON or XML. Also Play comes with more modules that provide more features. And Play itself still evolves every day.</p> 
+<p>If you are convinced that Play will help you save time for your next Java web application, you’re now ready to start. And don’t hesitate to ask us any question on the <a href="http://groups.google.com/group/play-framework">Play Google Group</a>.<br /> <br /><b>Thank you!</b></p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/guide11" target="_blank">Documentation: guide11 — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

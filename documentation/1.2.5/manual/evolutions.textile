@@ -8,7 +8,7 @@ When you use a relational database, you need a way to track and organize your da
 
 p(note). If you work with JPA, Hibernate can handle database evolutions for you automatically. Evolutions are useful if you don't use JPA or if you prefer to manually take care of your database schema for finer tuning. 
 
-h2. <a name="script">Evolutions scripts</a>
+h2. <a name="script">Gerenciando scripts</a>
 
 Play tracks your database evolutions using several **evolutions script**. These scripts are written in plain old SQL and should be located in the @db/evolutions@ directory of your application.
 
@@ -50,7 +50,7 @@ If you agree with the SQL script, you can apply it directly by clicking on the '
 
 p(note). If you use an in-memory database (*db=mem*), Play will automatically run all evolutions scripts if your database is empty.
 
-h2. Synchronizing concurrent changes
+h2. Sincronizando mudanças simultâneas
 
 Now let's imagine that we have two developers working on this project. Developer A will work on a feature that require a new database table. So he will create the following @2.sql@ evolution script:
 
@@ -144,7 +144,7 @@ So Play will detect it and ask developer A to synchronize his database by first 
 
 !images/evolutions-conflict!
 
-h2. Inconsistent states
+h2. Estados inconsistentes
 
 Sometimes you will make a mistake in your evolution scripts, and they will fail. In this case, Play will mark your database schema as being in an inconsistent state and will ask you to manually resolve the problem before continuing.
 
@@ -186,7 +186,7 @@ Now everything is fixed, and you can continue to work.
 
 p(note). In developement mode however it is often simpler to simply trash your developement database and reapply all evolutions from the beginning.
 
-h2. Evolutions commands
+h2. Comandos do evolutions
 
 The evolutions run interactively in DEV mode. However in PROD mode you will have to use the @evolutions@ command to fix your database schema before running your application.
 

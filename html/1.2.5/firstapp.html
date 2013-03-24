@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: firstapp — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="HelloWorldtutorialYourfirstPlayapplication">‘Hello World’ tutorial — Your first Play application</h1> 
+<p>A very simple tutorial, that will just help you to discover the Play framework with the famous ‘Hello World’ example.</p> 
+<h2 id="aPrerequisitesa"><a>Prerequisites</a></h2> 
+<p>First of all, make sure that you have a working Java installation. Play requires <b>Java 5 or later</b>.</p> 
+<p>As we will use the command line a lot, it’s better to use a Unix-like OS. If you run a Windows system, it will also work fine; you’ll just have to type a few commands in the command prompt.</p> 
+<p>You will of course need a text editor. If you are accustomed to use a full featured Java IDE like Eclipse or Netbeans you can of course use it. However with Play you can have fun working with a simple text editor like Textmate, Emacs or VI. This is because the framework manages the compilation and the deployment process itself. We will soon see that…</p> 
+<h2 id="aInstallingthePlayframeworka"><a>Installing the Play framework</a></h2> 
+<p>Installation is very simple. Just download the latest binary package from the download page and unzip it to any path.</p> 
+<p class="note">If you’re using Windows, it is generally a good idea to avoid space characters in the path, so for example <code>c:\Play</code> would be a better choice than <code>c:\Documents And Settings\user\play</code>.</p> 
+<p>To work efficiently, you need to add the Play directory to your working path. It allows to type just <code>play</code> at the command prompt to use the Play utility. To check that the installation worked, just open a new command line and type <code>play</code>; it should show you the Play basic usage help.</p> 
+<h2 id="aProjectcreationa"><a>Project creation</a></h2> 
+<p>Now that Play is correctly installed, it’s time to create the hello world application. Creating a Play application is pretty easy and fully managed by the Play command line utility. That allows for standard project layouts between all Play applications. </p> 
+<p>Open a new command line and type:</p> 
+<pre><code>~$ play new helloworld
+</code></pre> 
+<p>It will prompt you for the application full name. Type <code>Hello world</code>.</p> 
+<p><img border="0" src="images/firstapp-1" /></p> 
+<p>The <code>play new</code> command creates a new directory <code>helloworld/</code> and populates it with a series of files and directories, the most important being:</p> 
+<p><code>app/</code> contains the application’s core, split between models, controllers and views directories. It can contain other Java package as well. This is the directory where <code>.java</code> source files live.</p> 
+<p><code>conf/</code> contains all the application’s configuration files, especially the main <code>application.conf</code> file, the <code>routes</code> definition files and the <code>messages</code> files used for internationalization.</p> 
+<p><code>lib/</code> contains all optional Java libraries packaged as standard .jar files.</p> 
+<p><code>public/</code> contains all the publicly available resources, which includes JavaScript, stylesheets and images directories.</p> 
+<p><code>test/</code> contains all the application tests. Tests are written either as Java JUnit tests or as Selenium tests.</p> 
+<p class="note">Because <b>Play uses UTF-8</b> as single encoding, it’s very important that all text files hosted in these directories are encoded using this charset. Make sure to configure your text editor accordingly.</p> 
+<p>Now if you’re a seasoned Java developer, you may wonder where all the .class files go. The answer is nowhere: Play doesn’t use any class files but reads the Java source files directly. Under the hood we use the Eclipse compiler to compile Java sources on the fly. </p> 
+<p>That allows two very important things in the development process. The first one is that Play will detect changes you make to any Java source file and automatically reload them at runtime. The second is that when a Java exception occurs, Play will create better error reports showing you the exact source code.</p> 
+<h2 id="aRunningtheapplicationa"><a>Running the application</a></h2> 
+<p>We can now test the newly-created application. Just return to the command line, go to the newly-created <code>helloworld/</code> directory and type <code>play run</code>. Play will now load the application and start a Web server on port 9000.</p> 
+<p>You can see the new application by opening a browser to <a href="http://localhost:9000">http://localhost:9000</a>. A new application has a standard welcome page that just tells you that it was successfully created.</p> 
+<p><img border="0" src="images/guide1-2" /></p> 
+<p>Let’s see how the new application can display this page. </p> 
+<p>The main entry point of your application is the <code>conf/routes</code> file. This file defines all of the application’s accessible URLs. If you open the generated routes file you will see this first ‘route’:</p> 
+<pre><code>GET		/			Application.index
+</code></pre> 
+<p>That simply tells Play that when the web server receives a <b>GET</b> request for the <code>/</code> path, it must call the <code>Application.index</code> Java method. In this case, <code>Application.index</code> is a shortcut for <code>controllers.Application.index</code>, because the controllers package is implicit. </p> 
+<p>When you create standalone Java applications you generally use a single entry point defined by a method such as:</p> 
+<pre><code>public static void main(String[] args) {
+  ... 
+}
+</code></pre> 
+<p>A Play application has several entry points, one for each URL. We call these methods <b>action</b> methods. Action methods are defined in special classes that we call <b>controllers</b>.</p> 
+<p>Let’s see how the <code>controllers.Application</code> controller looks like. Open the <code>helloworld/app/controllers/Application.java</code> source file:</p> 
+<pre><code>package controllers;
+ 
+import play.mvc.*;
+ 
+public class Application extends Controller {
+ 
+	public static void index() {
+		render();
+	}
+ 
+}
+</code></pre> 
+<p>You see that controller classes extend the <code>play.mvc.Controller</code> class. This class provides all useful methods for controllers, like the <code>render()</code> method we use in the index action.</p> 
+<p>The index action is defined as a <code>public static void</code> method. This is how action methods are defined. You can see that action methods are static, because the controller classes are never instantiated. They are marked public to authorize the framework to call them in response of a URL. They always return void. </p> 
+<p>The default index action is simple: it calls the <code>render()</code> method which tells Play to render a template. Using a template is the most common way (but not the only one) to generate the HTTP response.</p> 
+<p>Templates are simple text files that live in the <code>/app/views</code> directory. Because we didn’t specify a template, the default one for this action will be used: <code>Application/index.html</code></p> 
+<p>To see what the template looks like, open the <code>helloworld/app/views/Application/index.html</code> file:</p> 
+<pre><code>#{extends 'main.html' /}
+#{set title:'Home' /}
+ 
+#{welcome /}
+</code></pre> 
+<p>The template content seems pretty light. In fact, all you see are Play tags. Play tags are very close to JSP taglib. This is the <code>#{welcome /}</code> tag that generates the welcome message you’ve seen in the browser. </p> 
+<p>The <code>#{extends /}</code> tags tells Play that this template inherits another template called <code>main.html</code>. Heran&ccedil;a de templates is a powerful concept that allows to create complex web pages by reusing common parts.</p> 
+<p>Open the <code>helloworld/app/views/main.html</code> template:</p> 
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;#{get 'title' /}&lt;/title&gt;		
+        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;/&gt;
+        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; media=&quot;screen&quot; 
+            href=&quot;@{'/public/stylesheets/main.css'}&quot; /&gt;
+        &lt;link rel=&quot;shortcut icon&quot; type=&quot;image/png&quot; 
+            href=&quot;@{'/public/images/favicon.png'}&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        #{doLayout /} 
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre> 
+<p>Can you see the <code>#{doLayout /}</code> tag? This is where the content of <code>Application/index.html</code> will be inserted.</p> 
+<h2 id="aCreatingtheforma"><a>Creating the form</a></h2> 
+<p>We will start the ‘Hello World’ application with a form where you can enter your name.</p> 
+<p>Edit the <code>helloworld/app/views/Application/index.html</code> template:</p> 
+<pre><code>#{extends 'main.html' /}
+#{set title:'Home' /}
+ 
+&lt;form action=&quot;@{Application.sayHello()}&quot; method=&quot;GET&quot;&gt;
+    &lt;input type=&quot;text&quot; name=&quot;myName&quot; /&gt; 
+    &lt;input type=&quot;submit&quot; value=&quot;Say hello!&quot; /&gt;
+&lt;/form&gt; 
+</code></pre> 
+<p class="note">Note that we use GET as form submission method, because the form submission does not have any side effect and is idempotent.</p> 
+<p>We use the <code>@{…}</code> notation to ask Play to automatically generate the URL able to invoke the <code>Application.sayHello</code> action. Now, refresh the home page in the browser.</p> 
+<p><img border="0" src="images/firstapp-2" /></p> 
+<p>Oops, you get an error. This is because you reference the non-existent action <code>Application.sayHello</code>. Let’s create it in the <code>helloworld/app/controllers/Application.java</code> file:</p> 
+<pre><code>package controllers;
+ 
+import play.mvc.*;
+ 
+public class Application extends Controller {
+ 
+    public static void index() {
+        render();
+    }
+    
+    public static void sayHello(String myName) {
+        render(myName);
+    }
+ 
+}
+</code></pre> 
+<p>We have declared the <code>myName</code> parameter in the action method signature, so it will automatically be filled with the value of the HTTP <code>myName</code> parameter, coming from the form submission. And we call render to just display a template; as we pass the <code>myName</code> variable to the <code>render()</code> call, this one will be available from the template.</p> 
+<p><img border="0" src="images/firstapp-3" /></p> 
+<p>Now, if you try to enter your name and submit the form, you will get another error:</p> 
+<p><img border="0" src="images/firstapp3" /></p> 
+<p>The error is pretty clear. Play tries to render the default template for this action method, but it doesn’t exist. Let’s create it in the file <code>helloworld/app/views/Application/sayHello.html</code>:</p> 
+<pre><code>#{extends 'main.html' /}
+#{set title:'Home' /}
+ 
+&lt;h1&gt;Hello ${myName ?: 'guest'}!&lt;/h1&gt;
+ 
+&lt;a href=&quot;@{Application.index()}&quot;&gt;Back to form&lt;/a&gt;
+</code></pre> 
+<p>You can refresh the page.</p> 
+<p><img border="0" src="images/firstapp-4" /></p> 
+<p>Look how we have used Groovy’s <code>?:</code> operator. It switches to a default value if the <code>myName</code> variable is not filled. So if you try to submit the form without entering any name, it will display ‘Hello guest’.</p> 
+<h2 id="aProvidingabetterURLa"><a>Providing a better URL</a></h2> 
+<p>Well, if you look at the submission URL, you will see something like:</p> 
+<pre><code>http://localhost:9000/application/sayhello?myName=guillaume
+</code></pre> 
+<p>It is not very pretty. This is because Play used the default ‘catch all’ route.</p> 
+<pre><code>*       /{controller}/{action}                  {controller}.{action}
+</code></pre> 
+<p>We can have a better URL by specifying a custom path for the <code>Application.sayHello</code> action. Edit the <code>helloworld/conf/routes</code> file and add this route after the first one:</p> 
+<pre><code>GET     /hello                                  Application.sayHello
+</code></pre> 
+<p>Now go back to the form and submit it again to check that it uses the new URL pattern.</p> 
+<h2 id="aCustomizingthelayouta"><a>Customizing the layout</a></h2> 
+<p>As both templates that the application use so far inherit from the same <code>main.html</code> template, you can easily add a custom layout. Edit the <code>helloworld/app/views/main.html</code> file:</p> 
+<pre><code>...
+&lt;body&gt;
+    The Hello world app.
+    &lt;hr/&gt;
+    
+    #{doLayout /}
+&lt;/body&gt;
+...
+</code></pre> 
+<p>Now we have a common header for both pages.</p> 
+<p><img border="0" src="images/firstapp-5" /></p> 
+<h2 id="aAddingvalidationa"><a>Adding validation</a></h2> 
+<p>We will add a little validation to the form, to make the name field required. We can use the Play validation framework to do that.</p> 
+<p>Edit the <code>helloworld/app/controllers/Application.java</code> controller, and the <code>sayHello</code> action:</p> 
+<pre><code>...
+public static void sayHello(@Required String myName) {
+    if(validation.hasErrors()) {
+        flash.error(&quot;Oops, please enter your name!&quot;);
+        index();
+    }
+    render(myName);
+}
+...
+</code></pre> 
+<p>And don’t forget to import the <code>play.data.validation.*</code> package to get the <code>@Required</code> annotation. Play will automatically check that the myName field is filled or will add an error object to the <b>errors</b> scope. Then if there is any error, we add a message to the <b>flash</b> scope and redirect to the <code>index</code> action.</p> 
+<p>The flash scope allows to keep messages during action redirection.</p> 
+<p>Now you just have to display the <b>error</b> message if any. Edit the <code>helloworld/app/views/Application/index.html</code>:</p> 
+<pre><code>#{extends 'main.html' /}
+#{set title:'Home' /}
+ 
+#{if flash.error}
+    &lt;p style=&quot;color:#c00&quot;&gt;
+        ${flash.error}
+    &lt;/p&gt;
+#{/if}
+ 
+&lt;form action=&quot;@{Application.sayHello()}&quot; method=&quot;GET&quot;&gt;
+    &lt;input type=&quot;text&quot; name=&quot;myName&quot; /&gt; 
+    &lt;input type=&quot;submit&quot; value=&quot;Say hello!&quot; /&gt;
+&lt;/form&gt;
+</code></pre> 
+<p>And check that it works:</p> 
+<p><img border="0" src="images/firstapp-6" /></p> 
+<h2 id="aWritinganautomatedtestsuitea"><a>Writing an automated test suite</a></h2> 
+<p>We will finish by writing a test for the application. As there is no Java logic to test, we need to test the Web application itself. So we will write a Selenium test.</p> 
+<p>First, you need to run your application in <b>test mode</b>. Stop the application and restart it with the <code>test</code> command:</p> 
+<pre><code>$ play test
+</code></pre> 
+<p>The <code>play test</code> command is almost the same as <code>play run</code>, except that it loads a test runner module that allows to run test suite directly from a browser. </p> 
+<p>Open a browser to the <a href="http://localhost:9000/@tests">http://localhost:9000/@tests</a> URL to see the test runner. Try to select all the default tests and run them; all should be green… But these default tests don’t really test anything.</p> 
+<p><img border="0" src="images/guide2-1" /></p> 
+<p>A selenium test suite is typically written as an HTML file. The HTML syntax required by selenium is a little tedious (formatted using an HTML table element) to write. The good news is that Play will help you to generate it using the Play template engine and a set of tags that support a simplified syntax for selenium scenarios. </p> 
+<p>The default test suite of a newly created Play application already contains a selenium test. Open the <code>helloworld/test/Application.test.html</code> file:</p> 
+<pre><code>*{ You can use plain selenium command using the selenium tag }*
+ 
+#{selenium}
+    // Open the home page, and check that no error occurred
+    open('/')
+    assertNotTitle('Application error')
+#{/selenium}
+</code></pre> 
+<p>This test should run without any problem with the application for now. It just opens the home page and checks that the page content does not contain the ‘Application error’ text.</p> 
+<p>Let’s write a test for our application. Edit the test content:</p> 
+<pre><code>#{selenium}
+    // Open the home page, and check that no error occurred
+    open('/')
+    assertNotTitle('Application error')
+    
+    // Check that it is the Hello World application
+    assertTextPresent('The Hello world app.')
+    
+    // Submit the form
+    clickAndWait('css=input[type=submit]')
+    
+    // Check the error
+    assertTextPresent('Oops, please enter your name!')
+    
+    // Type the name and submit
+    type('css=input[type=text]', 'bob')
+    clickAndWait('css=input[type=submit]')
+    
+    // Check the result
+    assertTextPresent('Hello bob!')
+    assertTextPresent('The Hello world app.')
+    
+    // Check the back link
+    clickAndWait('link=Back to form')
+    
+    // Home page?
+    assertTextNotPresent('Hello bob!')
+#{/selenium}
+</code></pre> 
+<p>We have fully tested the application. Just select this test in the test runner and click ‘Start’. Everything should be green!</p> 
+<p><img border="0" src="images/firstapp-7" /></p> 
+<h2 id="aAprendamorea"><a>Aprenda more</a></h2> 
+<p>This was a very simple tutorial about a very dumb application. If you want to learn more about Play, you can now check out the <span class="next"><a href="guide1">Play tutorial</a></span>.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/firstapp" target="_blank">Documentation: firstapp — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

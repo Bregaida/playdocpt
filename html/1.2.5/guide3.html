@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: guide3 — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Buildingthefirstscreen">Building the first screen</h1> 
+<p>Now that we have built a first data model, it’s time to start to create the first page of the application. This page will just show the most recent posts, as well as a list of older posts.</p> 
+<p>Here is a mock-up of what we want to achieve:</p> 
+<p><img border="0" src="images/guide-mock1" /></p> 
+<h2 id="aBootstrappingwithdefaultdataa"><a>Bootstrapping with default data</a></h2> 
+<p>In fact, before coding the first screen we need one more thing. Working on a web application without test data is not fun. You can’t even test what you’re doing. But because we haven’t developed the contribution screens yet, we can’t populate the blog with posts ourselves. </p> 
+<p>One way to inject default data into the blog is to load a fixture file at application load time. To do that we will create a Bootstrap Job. A Play job is something that executes itself outside of any HTTP request, for example at the application start or at specific interval using a CRON job.</p> 
+<p>Let’s create the <code>/yabe/app/Bootstrap.java</code> job that will load a set of default data using <code>Fixtures</code>:</p> 
+<pre><code>import play.*;
+import play.jobs.*;
+import play.test.*;
+ 
+import models.*;
+ 
+@OnApplicationStart
+public class Bootstrap extends Job {
+ 
+    public void doJob() {
+        // Check if the database is empty
+        if(User.count() == 0) {
+            Fixtures.loadModels(&quot;initial-data.yml&quot;);
+        }
+    }
+ 
+}
+</code></pre> 
+<p>We have annotated this Job with the <code>@OnApplicationStart</code> annotation to tell Play that we want to run this job synchronously at application start-up.</p> 
+<p class="note">In fact this job will be run differently in DEV or PROD modes. In DEV mode, Play waits for a first request to start. So this job will be executed synchronously at the first request. That way, if the job fails, you will get the error message in your browser. In PROD mode however, the job will be executed at application start-up (synchrously with the <code>play run</code> command) and will prevent the application from starting in case of an error.</p> 
+<p>You have to create an <code>initial-data.yml</code> in the <code>yabe/conf/</code> directory. You can of course reuse the <code>data.yml</code> content that we just used for tests previously.</p> 
+<p>Now run the application using <code>play run</code> and display the page <a href="http://localhost:9000/">http://localhost:9000/</a> in the browser.</p> 
+<h2 id="aThebloghomepagea"><a>The blog home page</a></h2> 
+<p>This time, we can really start to code the home page.</p> 
+<p>Do you remember how the first page is displayed? First the routes file specifies that the <code>/</code> URL will invoke the <code>controllers.Application.index()</code> action method. Then this method calls <code>render()</code> and executes the <code>/yabe/app/views/Application/index.html</code> template.</p> 
+<p>We will keep these components but add code to them to load the posts list and display them.</p> 
+<p>Open the <code>/yabe/app/controllers/Application.java</code> controller and modify the <code>index()</code> action to load the posts list, as is:</p> 
+<pre><code>package controllers;
+ 
+import java.util.*;
+ 
+import play.*;
+import play.mvc.*;
+ 
+import models.*;
+ 
+public class Application extends Controller {
+ 
+    public static void index() {
+        Post frontPost = Post.find(&quot;order by postedAt desc&quot;).first();
+        List&lt;Post&gt; olderPosts = Post.find(
+            &quot;order by postedAt desc&quot;
+        ).from(1).fetch(10);
+        render(frontPost, olderPosts);
+    }
+ 
+}
+</code></pre> 
+<p>Can you see how we pass objects to the <code>render</code> method? It will allow us to access them from the template using the same name. In this case, the variables <code>frontPost</code> and <code>olderPosts</code> will be available in the template.</p> 
+<p>Open the <code>/yabe/app/views/Application/index.html</code> and modify it to display these objects:</p> 
+<pre><code>#{extends 'main.html' /}
+#{set title:'Home' /}
+ 
+#{if frontPost}
+    &lt;div class=&quot;post&quot;&gt;
+        &lt;h2 class=&quot;post-title&quot;&gt;
+            &lt;a href=&quot;#&quot;&gt;${frontPost.title}&lt;/a&gt;
+        &lt;/h2&gt;
+        &lt;div class=&quot;post-metadata&quot;&gt;
+            &lt;span class=&quot;post-author&quot;&gt;by ${frontPost.author.fullname}&lt;/span&gt;
+            &lt;span class=&quot;post-date&quot;&gt;${frontPost.postedAt.format('MMM dd')}&lt;/span&gt;
+            &lt;span class=&quot;post-comments&quot;&gt;
+                &amp;nbsp;|&amp;nbsp; 
+                ${frontPost.comments.size() ?: 'no'} 
+                comment${frontPost.comments.size().pluralize()}
+                #{if frontPost.comments}
+                    , latest by ${frontPost.comments[-1].author}
+                #{/if}
+            &lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;post-content&quot;&gt;
+            ${frontPost.content.nl2br()}
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    #{if olderPosts}
+        &lt;div class=&quot;older-posts&quot;&gt;    
+            &lt;h3&gt;Older posts &lt;span class=&quot;from&quot;&gt;from this blog&lt;/span&gt;&lt;/h3&gt;
+        
+            #{list items:olderPosts, as:'oldPost'}
+                &lt;div class=&quot;post&quot;&gt;
+                    &lt;h2 class=&quot;post-title&quot;&gt;
+                        &lt;a href=&quot;#&quot;&gt;${oldPost.title}&lt;/a&gt;
+                    &lt;/h2&gt;
+                    &lt;div class=&quot;post-metadata&quot;&gt;
+                        &lt;span class=&quot;post-author&quot;&gt;
+                            by ${oldPost.author.fullname}
+                        &lt;/span&gt;
+                        &lt;span class=&quot;post-date&quot;&gt;
+                            ${oldPost.postedAt.format('dd MMM yy')}
+                        &lt;/span&gt;
+                        &lt;div class=&quot;post-comments&quot;&gt;
+                            ${oldPost.comments.size() ?: 'no'} 
+                            comment${oldPost.comments.size().pluralize()}
+                            #{if oldPost.comments}
+                                - latest by ${oldPost.comments[-1].author}
+                            #{/if}
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            #{/list}
+        &lt;/div&gt;
+        
+    #{/if}
+    
+#{/if}
+ 
+#{else}
+    &lt;div class=&quot;empty&quot;&gt;
+        There is currently nothing to read here.
+    &lt;/div&gt;
+#{/else}
+</code></pre> 
+<p>You can read about how this template works in the <a href="templates">Templates chapter</a>. Basically, it allows you to access your Java objects dynamically. Under the hood we use Groovy. Most of the pretty constructs you see (like the <code>?:</code> operator) come from Groovy. But you don’t really need to learn Groovy to write Play templates. If you’re already familiar with another template language like JSP with JSTL you won’t be lost.</p> 
+<p>OK, now refresh the blog home page.</p> 
+<p><img border="0" src="images/guide3-0" /></p> 
+<p>Not pretty but it works!</p> 
+<p>However you can see we have already started to duplicate code. Because we will display posts in several ways (full, full with comment, teaser) we should create something like a function that we could call from several templates. This is exactly what a Play tag does!</p> 
+<p>To create a tag, just create the new <code>/yabe/app/views/tags/display.html</code> file. A tag is just another template. It has parameters (like a function). The <code>#{display /}</code> tag will have two parameters: the Post object to display and the display mode which will be one of <code>home</code>, <code>teaser</code> or <code>full</code>.</p> 
+<pre><code>*{ Display a post in one of these modes: 'full', 'home' or 'teaser' }*
+ 
+&lt;div class=&quot;post ${_as == 'teaser' ? 'teaser' : ''}&quot;&gt;
+    &lt;h2 class=&quot;post-title&quot;&gt;
+        &lt;a href=&quot;#&quot;&gt;${_post.title}&lt;/a&gt;
+    &lt;/h2&gt;
+    &lt;div class=&quot;post-metadata&quot;&gt;
+        &lt;span class=&quot;post-author&quot;&gt;by ${_post.author.fullname}&lt;/span&gt;,
+        &lt;span class=&quot;post-date&quot;&gt;${_post.postedAt.format('dd MMM yy')}&lt;/span&gt;
+        #{if _as != 'full'}
+            &lt;span class=&quot;post-comments&quot;&gt;
+                &amp;nbsp;|&amp;nbsp; ${_post.comments.size() ?: 'no'} 
+                comment${_post.comments.size().pluralize()}
+                #{if _post.comments}
+                    , latest by ${_post.comments[-1].author}
+                #{/if}
+            &lt;/span&gt;
+        #{/if}
+    &lt;/div&gt;
+    #{if _as != 'teaser'}
+        &lt;div class=&quot;post-content&quot;&gt;
+            &lt;div class=&quot;about&quot;&gt;Detail: &lt;/div&gt;
+            ${_post.content.nl2br()}
+        &lt;/div&gt;
+    #{/if}
+&lt;/div&gt;
+ 
+#{if _as == 'full'}
+    &lt;div class=&quot;comments&quot;&gt;
+        &lt;h3&gt;
+            ${_post.comments.size() ?: 'no'} 
+            comment${_post.comments.size().pluralize()}
+        &lt;/h3&gt;
+        
+        #{list items:_post.comments, as:'comment'}
+            &lt;div class=&quot;comment&quot;&gt;
+                &lt;div class=&quot;comment-metadata&quot;&gt;
+                    &lt;span class=&quot;comment-author&quot;&gt;by ${comment.author},&lt;/span&gt;
+                    &lt;span class=&quot;comment-date&quot;&gt;
+                        ${comment.postedAt.format('dd MMM yy')}
+                    &lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;comment-content&quot;&gt;
+                    &lt;div class=&quot;about&quot;&gt;Detail: &lt;/div&gt;
+                    ${comment.content.escape().nl2br()}
+                &lt;/div&gt;
+            &lt;/div&gt;
+        #{/list}
+        
+    &lt;/div&gt;
+#{/if}
+</code></pre> 
+<p>Now using this tag we can rewrite the home page without code duplication:</p> 
+<pre><code>#{extends 'main.html' /}
+#{set title:'Home' /}
+ 
+#{if frontPost}
+    
+    #{display post:frontPost, as:'home' /}
+    
+    #{if olderPosts.size()}
+    
+        &lt;div class=&quot;older-posts&quot;&gt;
+            &lt;h3&gt;Older posts &lt;span class=&quot;from&quot;&gt;from this blog&lt;/span&gt;&lt;/h3&gt;
+        
+            #{list items:olderPosts, as:'oldPost'}
+                #{display post:oldPost, as:'teaser' /}
+            #{/list}
+        &lt;/div&gt;
+        
+    #{/if}
+    
+#{/if}
+ 
+#{else}
+    &lt;div class=&quot;empty&quot;&gt;
+        There is currently nothing to read here.
+    &lt;/div&gt;
+#{/else}
+</code></pre> 
+<p>Reload the page and check that all is fine.</p> 
+<h2 id="aImprovingthelayouta"><a>Improving the layout</a></h2> 
+<p>As you can see, the <code>index.html</code> template extends <code>main.html</code>. Because we want to provide a common layout for all blog pages, with the blog title and authentication links, we need to modify this file.</p> 
+<p>Edit the <code>/yabe/app/views/main.html</code> file:</p> 
+<pre><code>&lt;!DOCTYPE html &gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;#{get 'title' /}&lt;/title&gt;		
+        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;/&gt;
+        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; media=&quot;screen&quot; 
+            href=&quot;@{'/public/stylesheets/main.css'}&quot; /&gt;
+        &lt;link rel=&quot;shortcut icon&quot; type=&quot;image/png&quot; 
+            href=&quot;@{'/public/images/favicon.png'}&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        
+        &lt;div id=&quot;header&quot;&gt;
+            &lt;div id=&quot;logo&quot;&gt;
+                yabe.
+            &lt;/div&gt;
+            &lt;ul id=&quot;tools&quot;&gt;
+                &lt;li&gt;
+                    &lt;a href=&quot;#&quot;&gt;Log in to write something&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;div id=&quot;title&quot;&gt;
+                &lt;span class=&quot;about&quot;&gt;About this blog&lt;/span&gt;
+                &lt;h1&gt;&lt;a href=&quot;#&quot;&gt;${blogTitle}&lt;/a&gt;&lt;/h1&gt;
+                &lt;h2&gt;${blogBaseline}&lt;/h2&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div id=&quot;main&quot;&gt;
+            #{doLayout /} 
+        &lt;/div&gt;
+        
+        &lt;p id=&quot;footer&quot;&gt;
+            Yabe is a (not that) powerful blog engine built with the 
+            &lt;a href=&quot;http://www.playframework.org&quot;&gt;Play framework&lt;/a&gt;
+            as a tutorial application.
+        &lt;/p&gt;
+        
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre> 
+<p>Refresh and check the result. It seems to work, except that the <code>blogTitle</code> and the <code>blogBaseLine</code> variables are not displayed. This is because we didn’t pass them to the <code>render(…)</code> call. Of course we could add them to the <code>render()</code> call in the <code>index</code> action. But because the <code>main.html</code> file will be used as main template for all application actions, we don’t want to add them every time.</p> 
+<p>One way to execute the same code for each action of a controller (or a hierarchy of controllers) is to define a <code>@Before</code> interceptor. </p> 
+<p>Let’s add the <code>addDefaults()</code> method to the Application controller:</p> 
+<pre><code>@Before
+static void addDefaults() {
+    renderArgs.put(&quot;blogTitle&quot;, Play.configuration.getProperty(&quot;blog.title&quot;));
+    renderArgs.put(&quot;blogBaseline&quot;, Play.configuration.getProperty(&quot;blog.baseline&quot;));
+}
+</code></pre> 
+<p class="note">You will need to import <code>play.Play</code> in the <code>Application.java</code> file.</p> 
+<p>All variables added to the <code>renderArgs</code> scope will be available from the templates. And you can see that the method reads the variable’s values from the <code>Play.configuration</code> object. This object contains all configuration keys from the <code>/yabe/conf/application.conf</code> file.</p> 
+<p>Add these two keys to the configuration file:</p> 
+<pre><code># Blog engine configuration
+# ~~~~~
+blog.title=Yet another blog
+blog.baseline=We will write about nothing
+</code></pre> 
+<p>Reload the home page and check that it works!</p> 
+<p><img border="0" src="images/guide3-1" /></p> 
+<h2 id="aAddingsomestylea"><a>Adding some style</a></h2> 
+<p>Now the blog home page is almost done, but it’s not very pretty. We’ll add some style to make it shinier. As you have seen, the main template file main.html includes the <code>/public/stylesheets/main.css</code> stylesheet. We’ll keep it but add more style rules to it.</p> 
+<p>You can <a href="files/main.css">download it here</a>, and copy it to the <code>/public/stylesheets/main.css</code> file.</p> 
+<p>Refresh the home page and you should now see a styled page.</p> 
+<p><img border="0" src="images/guide3-2" /></p> 
+<h2 id="aCommityourworka"><a>Commit your work</a></h2> 
+<p>The blog home page is now finished. As usual we can commit this blog version to bazaar:</p> 
+<pre><code>$ bzr st
+$ bzr add
+$ bzr commit -m &quot;Home page&quot;
+</code></pre> 
+<p class="note">Next: <span class="next"><a href="guide4">The comments page</a></span>. </p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/guide3" target="_blank">Documentation: guide3 — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

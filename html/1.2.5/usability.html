@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: usability — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Usabilitydetailsmatterasmuchasfeatures">Usability – details matter as much as features</h1> 
+<p>Perhaps the most striking thing about the Play framework is that its biggest advantage over other Java web application development frameworks does not fit into a neat feature list, and is only apparent after you have used it to build something. That advantage is usability.</p> 
+<p>Note that usability is separate from functionality. In what follows, I am not suggesting that you cannot do this in some other framework: I merely claim that it is easier and more pleasant in Play. I need to emphasise this because geeks often have a total blind spot for usability because they enjoy figuring out difficult things, and under-appreciate the value of things that Just Work.</p> 
+<h2 id="aWrittenbywebdevelopersforwebdevelopersa"><a>Written by web developers for web developers</a></h2> 
+<p>The first hint that something different is going on here is when you first hear that the Play framework is ‘written by web developers for web developers, an unconventional positioning that puts the web’s principles and conventions first and Java’s second. Specifically, this means that the Play framework is more in line with the W3C’s <a href="http://www.w3.org/TR/webarch/">Architecture of the World Wide Web</a> than it is with Java Enterprise Edition (Java EE) conventions.</p> 
+<h2 id="aURLsforperfectionistsa"><a>URLs for perfectionists</a></h2> 
+<p>For example, the Play framework, like other modern web frameworks, provides first-class support for arbitrary ’clean’ URLs, which has always been lacking from the Servlet API. It is no coincidence that at the time of writing (March 2010), <a href="http://www.lunatech-research.com/archives/2005/07/29/struts-urls">Struts URLs for perfectionists</a>, a set of work-arounds for the Servlet API-based Struts 1.x web framework, remains the third-most popular out of 160 articles on <a href="http://www.lunatech-research.com">www.lunatech-research.com</a> despite being a 2005 article about a previous-generation Java web technology.</p> 
+<p>In Servlet-based frameworks, the Servlet API does not provide useful URL-routing support; Servlet-based frameworks configure <code>web.xml</code> to forward all requests to a single controller Servlet, and then implement URL routing in the framework, with additional configuration. At this point, it does not matter whether the Servlet API was ever intended to solve the URL-routing problem and failed by not being powerful enough, or whether it was intended to be a lower-level API that you do not build web applications in directly. Either way, the result is the same: web frameworks add an additional layer on top of the Servlet API, itself a layer on top of HTTP.</p> 
+<p>Play combines the web framework, HTTP API and the HTTP server, which allows it to implement the same thing more directly with fewer layers and a single URL routing configuration. This configuration, like Grails’ and Cake PHP’s, reflects the structure of an HTTP request – HTTP method, URL path, and then the mapping:</p> 
+<pre><code># Play 'routes' configuration file…
+ 
+# Method   URL path         Controller
+ 
+GET        /                Application.index
+GET        /about           Application.about
+POST       /item            Item.addItem
+GET        /item/{id}       Item.getItem
+GET        /item/{id}.pdf   Item.getItemPdf
+</code></pre> 
+<p>In this example, there is more than one controller. We also see the use of an <code>id</code> URL parameter in the last two URLs.</p> 
+<h2 id="aBetterusabilityisnotjustfornormalpeoplea"><a>Better usability is not just for normal people</a></h2> 
+<p>Another way of looking at the idea that Play is by and for web developers is to consider how a web developer might approach software design differently to a Java EE developer. When you write software, what is the primary interface? If you are a web developer, the primary interface is a web-based user-interface constructed with HTML, CSS and (increasingly) JavaScript. A Java EE developer, on the other hand, may consider their primary interface to be a Java API, or perhaps a web services API, for use by other layers in the system.</p> 
+<p>This difference is a big deal, because a Java interface is intended for use by other programmers, while a web user-interface is intended for use by non-programmers. In both cases, good design includes usability, but usability for normal people is not the same as usability for programmers. In a way, usability for everyone is a higher standard than usability for programmers, when it comes to software, because programmers can cope better with poor usability. This is a bit like the <a href="http://www.designcouncil.org.uk/Case-Studies/All-Case-Studies/OXO-Good-Grips/">Good Grips</a> kitchen utensils: although they were originally designed to have better usability for elderly people with arthritis, it turns out that making tools easier to hold is better for all users.</p> 
+<p>The Play framework is different because the usability that you want to achieve in your web application is present in the framework itself. For example, the web interface to things like the framework documentation and error messages shown in the browser is just more usable. Along similar lines, the server’s console output avoids the pages full of irrelevant logging and pages of stack traces when there is an error, leaving more focused and more usable information for the web developer.</p> 
+<p><img border="0" src="images/usability-trace" /></p> 
+<p>Try to imagine a JSF web application producing a stack trace this short. In fact, Play goes further: instead of showing the stack trace, the web application shows the last line of code within the application that appears in the stack trace. After all, what you really want to know is where things first went wrong in your own code.</p> 
+<p><img border="0" src="images/usability-exception" /></p> 
+<p>This kind of usability does not happen by itself; the Play framework goes to considerable effort to filter out duplicate and irrelevant information, and focus on what is essential.</p> 
+<h2 id="aQualityisinthedetailsa"><a>Quality is in the details</a></h2> 
+<p>In the Play framework, much of the quality turns out to be in the details: they may be small things individually, rather than big important features, but they add up to result in a more comfortable and more productive development experience. The warm feeling you get when building something with Play is the absence of the frustration that usually results from fighting the framework.</p> 
+<p class="note">By <a href="http://hilton.org.uk/about_ph.phtml">Peter Hilton</a>, originally published on the <a href="http://www.lunatech-research.com/archives/2010/03/15/play-framework-usability">Lunatech Research</a> blog.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/usability" target="_blank">Documentation: usability — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

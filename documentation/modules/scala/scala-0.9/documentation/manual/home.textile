@@ -39,7 +39,7 @@ The Scala version of Play framework share the same philosophy and concepts than 
 ### "Using Anorm":database#UsingAnorm
 ### "Using JPA":database#UsingJPA
 ### "Integrating other existing Database access librairies":database#IntegratingotherexistingDatabaseaccesslibrairies
-## "Testing your application":test
+## "Testando your application":test
 ### "JUnit Style":test#JUnitStyle
 ### "JUnit Style with Should matchers":test#JUnitStylewithShouldmatchers
 ### "Functional suite Style":test#FunctionalsuiteStyle

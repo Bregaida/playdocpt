@@ -31,7 +31,7 @@ Keep list is intended for those keys that the tool cannot find from the sources,
 
 A key in the keep list can be found in the new keys or existing keys tab, depending on whether it has been localized for the selected language or not.
 
-h2. Configuration reference
+h2. Referência de configuração
 
 **messages.srcDir**, default **app**:  __A comma separated list of paths the tool uses when it looks for localization keys in the sources.__
 **messages.targetDir**, default **conf**: __Path to the directory where the tool will read and write the messages files.__

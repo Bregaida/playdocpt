@@ -4,7 +4,7 @@ When you work in a team, different developers will use different configuration k
 
 Furthermore, different deployment environments - e.g. dev, test, staging and production - need different configurations.
 
-h2. <a name="id">The framework ID</a>
+h2. <a name="id">O ID do framework</a>
 
 To resolve this problem, Play allows you to give an **ID** to each framework installation. Use the play tool’s @id@ command to define this ID:
 
@@ -30,7 +30,7 @@ application.log=INFO
 %production.application.log=INFO
 %production.application.mode=prod
 
-h2. <a name="command">Setting the framework ID from the command line</a>
+h2. <a name="command">Configurando o ID do framework da linha de comando</a>
 
 You can specify the framework ID to use for a particular command directly from the command line. For example to run an application in production mode you can use:
 
@@ -49,4 +49,4 @@ bc. play run --%test
 
 p(note). **Continuing the discussion**
  
-Now we shall move on to %(next)"Production deployment":production%.
+Now we shall move on to %(next)"Deploy em produção":production%.

@@ -1,14 +1,14 @@
-h1. JPA persistence
+h1. Persistência em JPA
 
 Play provides a set of very useful helpers to simplify the management of your JPA entities.
 
 p(note). **Note** that you can still go back to the plain JPA API whenever you want.
 
-h2. <a name="starting">Starting the JPA entity manager</a>
+h2. <a name="starting">Iniciando o JPA entity manager</a>
 
 Play will automatically start the Hibernate entity manager when it finds one or more classes annotated with the <code>@javax.persistence.Entity</code> annotation. However, make sure that you have correctly configured a JDBC datasource or it will fail.
 
-h2. <a name="obtaining">Obtaining the JPA entity manager</a>
+h2. <a name="obtaining">Obtendo o JPA entity manager</a>
 
 When the JPA entity manager is started you can get it from the application code, using the JPA helper. For example:
 
@@ -18,7 +18,7 @@ bc. public static index() {
     render(articles);
 }
 
-h2. <a name="transactions">Transaction management</a>
+h2. <a name="transactions">Gerenciamento de transações</a>
 
 Play will automatically manage transactions for you. It will start a transaction automatically the first time you perform an JPA operation in the HTTP request and commit it when the HTTP response is sent. If your code throws an exception, the transaction will automatically rollback.
 
@@ -78,7 +78,7 @@ public class User extends GenericModel {
     public String mail;
 }
 
-h2. <a name="finding">Finding objects</a>
+h2. <a name="finding">Buscando objetos</a>
 
 The @play.db.jpa.Model@ gives you several ways to find data. For example:
 
@@ -162,7 +162,7 @@ You can even specify only the @order by@ statement:
 
 bc. Post.find("order by postDate desc").fetch();
 
-h2. <a name="counting">Counting objects</a>
+h2. <a name="counting">Contando objetos</a>
 
 You can easily count objects.
 
@@ -214,7 +214,7 @@ To serve a stored file, pass @Blob.get()@ to the controller’s @renderBinary@ m
 
 
 
-h2. <a name="save">Explicit save</a>
+h2. <a name="save">Save explícito</a>
 
 Hibernate maintains a cache of Objects that have been queried from the database. These Objects are referred to as persistent Objects as long as the EntityManager that was used to fetch them is still active. That means that any changes to these Objects within the bounds of a transaction are automatically persisted when the transaction is committed. In standard JPA, these updates are implicit within the transaction’s boundary; you don’t have to explicitly call any method to persist the values.
 
@@ -252,7 +252,7 @@ bc. public static void save(Long id) {
 
 This is far more intuitive. Moreover since it could be tedious to explicitly call @save()@ on a large object graph, the @save()@ call is automatically cascaded to the relationships annotated with the @cascade=CascadeType.ALL@ attribute.
 
-h2. <a name="typing">More about generic typing problems</a>
+h2. <a name="typing">Mais sobre problemas gerais de tipo</a>
 
 The @play.db.jpa.Model@ defines a set of generic methods. These generic methods use a type parameter to specify the method’s return type. When using those methods, the concrete type to be used as return value is derived from the invocation context using type inference.
 

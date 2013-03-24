@@ -1,6 +1,6 @@
 h1. The main concepts
 
-h2. <a name="mvc">The MVC application model</a>
+h2. <a name="mvc">O modelo de aplicação MVC</a>
 
 A Play application follows the MVC architectural pattern applied to the web architecture.
 
@@ -154,5 +154,5 @@ To add your own enhancer, call a subclass of @play.classloading.enhancers.Enhanc
 
 p(note). **Continuing the discussion**
  
-Now that you’ve seen what a Play application is, let’s see how %(next)"HTTP routing":routes% works. The Router is in charge of translating incoming HTTP Requests into actions.
+Now that you’ve seen what a Play application is, let’s see how %(next)"roteamento HTTP":routes% works. The Router is in charge of translating incoming HTTP Requests into actions.
 

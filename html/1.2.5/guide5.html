@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: guide5 — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Settingupacaptcha">Setting up a captcha</h1> 
+<p>Because anyone can post a comment to our blog engine, we should protect it a little to avoid automated spam. A simple way to protect a form from this is to add a <a href="http://en.wikipedia.org/wiki/Captcha">captcha</a> image.</p> 
+<h2 id="aGeneratingthecaptchaimagea"><a>Generating the captcha image</a></h2> 
+<p>We’ll start to see how we can easily generate a captcha image using Play. Basically we will just use another action, except that it will return a binary stream instead of the HTML responses like we’ve returned so far.</p> 
+<p>Since Play is a <b>full-stack</b> web framework, we try to include built-in constructs for web applications’ most typical needs; generating a captcha is one of them. We can use the <code>play.libs.Images</code> utility to simply generate a captcha image, and then write it to the HTTP response. </p> 
+<p>As usual, we will start with a simple implementation. Add the <code>captcha</code> action to the <code>Application</code> controller:</p> 
+<pre><code>public static void captcha() {
+    Images.Captcha captcha = Images.captcha();
+    renderBinary(captcha);
+}
+</code></pre> 
+<p>Note that we can pass the captcha object directly to the renderBinary() method because the Images.Captcha class implements java.io.InputStream. </p> 
+<p class="note"><b>Don’t forget</b> to import <code>play.libs.*</code>.</p> 
+<p>Now add a new route to the <code>/yabe/conf/routes</code> file:</p> 
+<pre><code>GET     /captcha                                Application.captcha
+</code></pre> 
+<p>And try the <code>captcha</code> action by opening <a href="http://localhost:9000/captcha">http://localhost:9000/captcha</a>.</p> 
+<p><img border="0" src="images/guide5-1" /></p> 
+<p>It should generate a random text for each refresh.</p> 
+<h2 id="aHowdowemanagethestatea"><a>How do we manage the state?</a></h2> 
+<p>Until now it was easy, but the most complicated part is coming. To validate the captcha we need to save the random text written to the captcha image somewhere and then check it at the form submission time. </p> 
+<p>Of course we could just put the text to the user session at the image generation time and then retrieve it later. But this solution has two drawbacks:</p> 
+<p><b>First</b>, the Play session is stored as a cookie. It solves a lot of problems in terms of architecture but has a lot of implications. Data written to the session cookie are signed (so the user can’t modify them) but not encrypted. If we write the captcha code to the session anybody could easily resolve it by reading the session cookie.</p> 
+<p><b>Second</b>, remember that Play is a <b>stateless</b> framework. We want to manage things in a purely stateless way. Typically, what happens if a user simultaneously opens two different blog pages with two different captcha images? We have to track the captcha code for each form.</p> 
+<p>So to resolve the problem we need two things. We will store the captcha secret key on the server side. Because it is transient data we can easily use the Play <b>Cache</b>. Moreover because cached data have a limited life time it will add one more security mechanism (let’s say that a captcha code will be available for only 10mn). Then to resolve the code later we need to generate a <b>unique ID</b>. This unique ID will be added to each form as an hidden field and implicitly references a generated captcha code.</p> 
+<p>This way we elegantly solve our state problem.</p> 
+<p>Modify the <code>captcha</code> action as is:</p> 
+<pre><code>public static void captcha(String id) {
+    Images.Captcha captcha = Images.captcha();
+    String code = captcha.getText(&quot;#E4EAFD&quot;);
+    Cache.set(id, code, &quot;10mn&quot;);
+    renderBinary(captcha);
+}
+</code></pre> 
+<p>Note that the <code>getText()</code> method takes any color as parameter. It will use this color to draw the text.</p> 
+<p class="note"><b>Don’t forget</b> to import <code>play.cache.*</code>.</p> 
+<h2 id="aAddingthecaptchaimagetothecommentforma"><a>Adding the captcha image to the comment form</a></h2> 
+<p>Now, before displaying a comment form we will generate a unique ID. Then we will modify the HTML form to integrate a captcha image using this ID, and add the ID to another hidden field.</p> 
+<p>Let’s rewrite the <code>Application.show</code> action:</p> 
+<pre><code>public static void show(Long id) {
+    Post post = Post.findById(id);
+    String randomID = Codec.UUID();
+    render(post, randomID);
+}
+</code></pre> 
+<p>And now the form in the <code>/yable/app/views/Application/show.html</code> template:</p> 
+<pre><code>…
+&lt;p&gt;
+    &lt;label for=&quot;content&quot;&gt;Your message: &lt;/label&gt;
+    &lt;textarea name=&quot;content&quot; id=&quot;content&quot;&gt;${params.content}&lt;/textarea&gt;
+&lt;/p&gt;
+&lt;p&gt;
+    &lt;label for=&quot;code&quot;&gt;Please type the code below: &lt;/label&gt;
+    &lt;img src=&quot;@{Application.captcha(randomID)}&quot; /&gt;
+    &lt;br /&gt;
+    &lt;input type=&quot;text&quot; name=&quot;code&quot; id=&quot;code&quot; size=&quot;18&quot; value=&quot;&quot; /&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;randomID&quot; value=&quot;${randomID}&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;Submit your comment&quot; /&gt;
+&lt;/p&gt;
+…
+</code></pre> 
+<p>Good start. The comment form now has a captcha image.</p> 
+<p><img border="0" src="images/guide5-2" /></p> 
+<h2 id="aValidatingthecaptchaa"><a>Validating the captcha</a></h2> 
+<p>Now we just have to validate the captcha. We have added the <code>randomID</code> as an hidden field right? So we can retrieve it in the <code>postComment</code> action, then retrieve the actual code from Cache and finally compare it to the submitted code.</p> 
+<p>Not that difficult. Let’s modify the <code>postComment</code> action.</p> 
+<pre><code>public static void postComment(
+        Long postId, 
+        @Required(message=&quot;Author is required&quot;) String author, 
+        @Required(message=&quot;A message is required&quot;) String content, 
+        @Required(message=&quot;Please type the code&quot;) String code, 
+        String randomID) 
+{
+    Post post = Post.findById(postId);
+    validation.equals(
+        code, Cache.get(randomID)
+    ).message(&quot;Invalid code. Please type it again&quot;);
+    if(validation.hasErrors()) {
+        render(&quot;Application/show.html&quot;, post, randomID);
+    }
+    post.addComment(author, content);
+    flash.success(&quot;Thanks for posting %s&quot;, author);
+    Cache.delete(randomID);
+    show(postId);
+}
+</code></pre> 
+<p>Because we now have more error messages, modify the way we display errors in the <code>show.html</code> template (yes we will just display the first error, it’s good enough):</p> 
+<pre><code>.. 
+#{ifErrors}
+    &lt;p class=&quot;error&quot;&gt;
+        ${errors[0]}
+    &lt;/p&gt;
+#{/ifErrors}
+…
+</code></pre> 
+<p class="note">Typically for more complex forms, error messages are not managed this way but externalized in the <code>messages</code> file and each error is printed inside the corresponding field.</p> 
+<p>Check that the captcha is now fully functional.</p> 
+<p><img border="0" src="images/guide5-3" /></p> 
+<p>Great!</p> 
+<p class="note">Next: <span class="next"><a href="guide6">Add tagging support</a></span>. </p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/guide5" target="_blank">Documentation: guide5 — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

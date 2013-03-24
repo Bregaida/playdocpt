@@ -1,8 +1,8 @@
-h1. Deployment options
+h1. Opções de deploy
 
 Play applications can be deployed virtually anywhere: inside Servlet containers, as standalone servers, on Heroku, Google Application Engine, Stack, a Cloud, etc...
 
-h2. <a name="standalone">Standalone Play applications</a>
+h2. <a name="standalone">Aplicação Play standalones</a>
 
 The simplest and the most robust way is to simply run your Play application without any container. You can use a frontal HTTP server like Lighttpd or Apache if you need more advanced HTTP features like virtual hosting.
 
@@ -129,7 +129,7 @@ h3. <a name="cloudfondry">Cloud Foundry</a>
 
 h3. <a name="gae">Google App Engine (GAE)</a>
 
-The "Google App Engine":http://code.google.com/appengine/ is one of the first cloud hosting platforms, which has different pros and cons compared to generic hosting solutions. In particular, GAE does not support JPA persistence. For more information, see the "GAE module":http://www.playframework.org/modules/gae.
+The "Google App Engine":http://code.google.com/appengine/ is one of the first cloud hosting platforms, which has different pros and cons compared to generic hosting solutions. In particular, GAE does not support Persistência em JPA. For more information, see the "GAE module":http://www.playframework.org/modules/gae.
 
 
 h3. <a name="heroku">Heroku</a>

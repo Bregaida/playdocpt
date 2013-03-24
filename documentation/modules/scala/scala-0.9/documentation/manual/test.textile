@@ -1,4 +1,4 @@
-h1. Testing your application
+h1. Testando your application
 
 Play Scala comes with "ScalaTest":http://www.scalatest.org/, that natively provide different styles of testing. 
 

@@ -98,7 +98,7 @@ Edit file *app/controller/Application.java* and add the following:
 
 
 
-h4. Testing the captcha
+h4. Testando the captcha
 
 Start play and launch a browser to "http://localhost:9000/Application/register":http://localhost:9000/Application/register<br/>
 Done!

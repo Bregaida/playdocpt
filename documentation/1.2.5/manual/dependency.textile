@@ -1,4 +1,4 @@
-h1. Dependency management
+h1. Gerenciamento de dependências
 
 Play’s dependency management system allows you to express your application’s external dependencies in a single @dependencies.yml@ file. 
 
@@ -10,7 +10,7 @@ A Play application can have three kinds of dependencies:
 
 Once you have expressed these dependencies in your application’s @conf/dependencies.yml@ file, Play will resolve, download and install all required dependencies.
 
-h2. <a name="format">Dependency format</a>
+h2. <a name="format">Formato de dependências</a>
 
 A dependency is described by an organisation a name and a revision number. In the @dependencies.yml@ file you will write it like this:
 
@@ -176,7 +176,7 @@ bc. play dependencies --forProd
 This removes the @documentation/@, @src/@, @tmp/@, @*sample*/@ and @*test*/@ directories from each module.
 
 
-h2. <a name="conflicts">Conflict resolution</a>
+h2. <a name="conflicts">Resolução de conflitos</a>
 
 Whenever two components need different revisions of the same dependency, the conflicts manager will choose one. The default is to keep the latest revision and to evict the others. 
 
@@ -232,7 +232,7 @@ require:
     - commons-lang 3.0:
         force: true
 
-h2. <a name="repositories">Adding new repositories</a>
+h2. <a name="repositories">Adicionando novos repositórios</a>
 
 By default, Play will search for **JAR** dependencies in the "central Maven repository":http://repo1.maven.org/maven2/, and will search for **Play modules** in the "central Play modules repository":http://www.playframework.org/modules. 
 

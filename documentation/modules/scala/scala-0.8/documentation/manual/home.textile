@@ -222,7 +222,7 @@ using the scala version of the "cache api":http://www.playframework.org/document
 bc. Cache.get[People]("person-key-25") match {case Some(p) => println (p.name); case None => println("boo")}
 
 
-h2. <a>Testing</a>
+h2. <a>Testando</a>
 
 ScalaTest support is integrated into Play, so one can easily write unit and functional tests using ScalaTest, for example: 
 

@@ -1,10 +1,10 @@
-h1. The template engine
+h1. A engine de template
 
-Play has an efficient templating system which allows to dynamically generate HTML, XML, JSON or any text-based formatted document. The template engine uses "Groovy":http://groovy.codehaus.org/ as an expression language. A tag system allows you to create reusable functions.
+Play has an efficient templating system which allows to dynamically generate HTML, XML, JSON or any text-based formatted document. A engine de template uses "Groovy":http://groovy.codehaus.org/ as an expression language. A tag system allows you to create reusable functions.
 
 Templates are stored in the @app/views@ directory. 
 
-h2. <a name="syntax">Template syntax</a>
+h2. <a name="syntax">Sintaxe do template</a>
 
 A template file is a text file, some parts of which have placeholders for dynamically generated content. The  template’s dynamic elements are written using the "Groovy":http://groovy.codehaus.org/ language. Groovy’s syntax is very close to Java’s. 
 
@@ -158,7 +158,7 @@ bc. <h1>Client ${client.name}</h1>
 
 Bear in mind that a template is not a place to do complex things. So, use a tag when you can, or move the computations into the controller or the model object.
 
-h2. <a name="inheritance">Template inheritance</a>
+h2. <a name="inheritance">Herança de templates</a>
 
 A template can inherit another template, i.e. it can be included as a part of an other template.
 
@@ -316,7 +316,7 @@ bc. <ul>
 
 The same applies to @java.util.Date@.
 
-The "Java extensions":javaextensions manual page lists the available methods, by type.
+The "Extensões de Java":javaextensions manual page lists the available methods, by type.
 
 
 h3. Create custom extensions
@@ -348,7 +348,7 @@ bc. <em>Price: ${123456.324234.ccyAmount("€")}</em>
 
 Template extension classes are automatically detected by Play at start-up. You just have to restart your application to make them available.
 
-h2. <a name="implicits">Implicit objects available in a template</a>
+h2. <a name="implicits">Objetos implícitos available in a template</a>
 
 All objects added to the @renderArgs@ scope are directly injected as template variables. 
 

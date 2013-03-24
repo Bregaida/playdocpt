@@ -1,4 +1,4 @@
-h1. HTTP routing
+h1. roteamento HTTP
 
 The router is the component in charge of translating incoming HTTP Requests into action calls (a static, public method of a Controller).
 
@@ -30,7 +30,7 @@ If an application follows the main REST design principles, the application is RE
 * The protocol is stateless. This means you can’t save any state on the server between two successive requests.
 * Play considers HTTP as a key feature, thus the framework gives you full access to HTTP information.
 
-h2. <a name="syntax">The routes file syntax</a>
+h2. <a name="syntax">A sintaxe do arquivo de rotas</a>
 
 The @conf/routes@ file is the configuration file used by the Router. This file lists all the routes needed by the application. Each route consists of an HTTP method + URI pattern associated with a Java call.
 
@@ -166,7 +166,7 @@ GET    ${context}/        Secure.login
 Another example is the CRUD module’s @routes@ file, which uses the @crud.types@ tag to loop over model types to generate controller route definitions for each type.
 
 
-h2. <a name="priority">Routes priority</a>
+h2. <a name="priority">Prioridade nas rotas</a>
 
 Many routes can match the same request. If there is any conflict, the first route (following the declaration order) is used.
 
@@ -182,7 +182,7 @@ bc. /clients/all
 will be intercepted by the first route and will call Clients.listAll (even if the second route matched the request too).
 
 
-h2. <a name="static">Serving static resources</a>
+h2. <a name="static">Servindo recursos estáticos</a>
 
 h3. staticDir: mapping
 
@@ -212,7 +212,7 @@ For example:
 # map /stéphane
 bc. GET /st%C3%A9phane Application.stephane
 
-h2. <a name="reverse">Reverse routing: generate some URL</a>
+h2. <a name="reverse">Rota reversa: gerando alguns URLs</a>
 
 The Router can be used to generate a URL from within a Java call. So you’re able to centralize in one only configuration file all your URI patterns, and then be more confident when refactoring your application.
 
@@ -237,7 +237,7 @@ String url = Router.reverse("Clients.show", map).url;
 The priority order is again used to find the most specific Route able to generate the URL.
 
 
-h2. <a name="content-types">Setting content types</a>
+h2. <a name="content-types">Configurando content types</a>
 
 Play selects a "media type":http://en.wikipedia.org/wiki/Internet_media_type for the HTTP response according to the value of @request.format@. This value determines which view template file to use, by file extension, and also sets the response @Content-type@ to the media type that Play's @mime-types.properties@ file maps the format to. 
 
@@ -266,7 +266,7 @@ Play can also set the format automatically using HTTP content negotiation.
 
 h2. <a name="content-negotiation">HTTP content negotiation</a>
 
-One thing that Play has in common with other RESTful architectures is the direct use of HTTP functionality, instead of trying to hide HTTP or put an abstraction layer on top of it. "Content negotiation":http://en.wikipedia.org/wiki/Content_negotiation is an HTTP feature that allows an HTTP server to serve different "media types":http://en.wikipedia.org/wiki/Internet_media_type for the same URL, according to which media types are requested by the HTTP client. The client specifies acceptable content types using media types in the @Accept@ header, such as requiring an XML response with: 
+One thing that Play has in common with other RESTful architectures is the direct use of HTTP functionality, instead of trying to hide HTTP or put an abstraction layer on top of it. "Negociando conteúdo":http://en.wikipedia.org/wiki/Content_negotiation is an HTTP feature that allows an HTTP server to serve different "media types":http://en.wikipedia.org/wiki/Internet_media_type for the same URL, according to which media types are requested by the HTTP client. The client specifies acceptable content types using media types in the @Accept@ header, such as requiring an XML response with: 
 
 bc. Accept: application/xml
 
@@ -274,7 +274,7 @@ A client may specify more than one media type, and also specify that any media t
 
 bc. Accept: application/xml, image/png, */*
 
-Conventional web browsers always include the wild-card value in the @Accept@ header: they will accept any media type, and Play will serve HTML - the default 'format'. Content negotiation is more likely to be used by custom clients, such as an Ajax request that requires a JSON response, or an e-book reader that requires a PDF or EPUB version of a document. 
+Conventional web browsers always include the wild-card value in the @Accept@ header: they will accept any media type, and Play will serve HTML - the default 'format'. Negociando conteúdo is more likely to be used by custom clients, such as an Ajax request that requires a JSON response, or an e-book reader that requires a PDF or EPUB version of a document. 
 
 h3. Setting the content type from HTTP headers 
 

@@ -1,4 +1,4 @@
-h1. Play libs
+h1. Bibliotecas do Play
 
 The @play.libs@ package contains several useful libraries that will help you to achieve common programming tasks. 
 
@@ -7,9 +7,9 @@ Most of these libraries are simple helpers that are really straightforward to us
 * "Codec":/@api/play/libs/Codec.html: Utilities to encode and decode data.
 * "Crypto":/@api/play/libs/Crypto.html: Cryptographics utilities.
 * "Expression":/@api/play/libs/Expression.html: Evaluate dynamic expressions.
-* "F":/@api/play/libs/F.html: Functional programming with Java.
+* "F":/@api/play/libs/F.html: Programação funcional com java.
 * "Files":/@api/play/libs/Files.html: File system manipulation helpers.
-* "I18N":/@api/play/libs/I18N.html: Internationalization helpers.
+* "I18N":/@api/play/libs/I18N.html: Internationalização helpers.
 * "IO":/@api/play/libs/IO.html: Stream manipulation helpers.
 * "Images":/@api/play/libs/Images.html: Image manipulation utilities.
 * "Mail":/@api/play/libs/Mail.html: E-mail functions.
@@ -18,7 +18,7 @@ Most of these libraries are simple helpers that are really straightforward to us
 * "OAuth2":/@api/play/libs/OAuth2.html: OAuth2 client protocol.
 * "OpenID":/@api/play/libs/OpenID.html: OpenID client protocol.
 * "Time":/@api/play/libs/Time.html: Time and duration utilities.
-* "WS":/@api/play/libs/WS.html: Powerful Web Service client.
+* "WS":/@api/play/libs/WS.html: Powerful Cliente Web Service.
 * "XML":/@api/play/libs/XML.html: Loading XML structures.
 * "XPath":/@api/play/libs/XPath.html: Parsing XML using XPath.
 
@@ -45,7 +45,7 @@ for(Node event: XPath.selectNodes("events//event", xmlDoc)) {
     …
 }
 
-h2. Web Service client
+h2. Cliente Web Service
 
 The @play.libs.WS@ provides a powerful HTTP client. Under the hood it uses "Async HTTP client":https://github.com/AsyncHttpClient/async-http-client. 
 
@@ -71,7 +71,7 @@ bc. Promise<HttpResponse> futureResponse = WS.url(
     "http://www.google.com"
 ).getAsync();
 
-h2. Functional programming with Java
+h2. Programação funcional com java
 
 The @play.libs.F@ library provide several useful constructs coming from functional programming. These constructs are used to handle complex abstraction cases. For those that are accustomed to functional programming we provide:
 

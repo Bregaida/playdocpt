@@ -1,4 +1,4 @@
-h1. Sending e-mail
+h1. Enviando e-mails
 
 E-mail functionality uses the "Apache Commons Email":http://commons.apache.org/email/userguide.html library under the hood. You can use the @play.libs.Mail@ utility class to send e-mail very easily.
 
@@ -27,7 +27,7 @@ email.setTextMsg("Your email client does not support HTML, too bad :(");
 
 For more information see the "Commons Email documentation":http://commons.apache.org/email/userguide.html.
 
-h2. <a name="mvc">Mail and MVC integration</a>
+h2. <a name="mvc">Integração de e-mail e MVC</a>
 
 You can also send complex, dynamic e-mail using the standard templates mechanism and syntax.
 
@@ -119,7 +119,7 @@ For example, to send an e-mail from a Job running on the playframework.org web s
 
 bc. application.baseUrl=http://www.playframework.org/
 
-h2. <a name="smtp">SMTP configuration</a>
+h2. <a name="smtp">Configuração SMTP</a>
 
 E-mail functionality is configured by several "mail configuration":configuration#mail properties:
 
@@ -140,7 +140,7 @@ bc. # Default is to use a mock Mailer
 mail.smtp=mock
 
 
-h3. <a name="gmail">Using Gmail</a>
+h3. <a name="gmail">Usando Gmail</a>
 
 To use Gmail’s servers, for example when you deploy with "playapps":http://www.playframework.org/modules/playapps, use this configuration: 
 
@@ -151,4 +151,4 @@ mail.smtp.channel=ssl
 
 p(note). **Continuing the discussion**
  
-Now we shall move on to %(next)"Testing the application":test%.
+Now we shall move on to %(next)"Testando a aplicação":test%.

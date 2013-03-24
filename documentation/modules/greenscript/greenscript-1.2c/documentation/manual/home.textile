@@ -330,7 +330,7 @@ GreenScript plugin now support zero configuration. It means besides enabling it 
 * Dynamic configuration. You can also use the dynamic configuration controller.
 
 So what do you lost without any configuration?
-* Dependency management. Without dependencies infomation defined in <samp>greenscript.conf</samp> file, you are on your own to take care of js/css file dependencies. When you are declare a javascript or css file in a template, you should also make sure all its dependencies are explicitly declared before that scripts "IN PLACE"! If you failed to do that, you might get a lot of script/css errors in your final rendered html page.
+* Gerenciamento de dependências. Without dependencies infomation defined in <samp>greenscript.conf</samp> file, you are on your own to take care of js/css file dependencies. When you are declare a javascript or css file in a template, you should also make sure all its dependencies are explicitly declared before that scripts "IN PLACE"! If you failed to do that, you might get a lot of script/css errors in your final rendered html page.
 * Dir/URL path bound to play's default. With zero configration, you need to make sure your dir structure (the public) and route mapping of public dir strictly follow Play's convention. Otherwise GreenScript won't be able to locate the javascript/css files. 
 
 As an example to demonstrate zero configuration, I put the ${play.path}/samples-and-tests/booking sample in the samples-and-tests dir of greenscript, makes the minimum changes to the templates and application.conf files.

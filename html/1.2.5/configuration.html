@@ -40,7 +40,7 @@
                 </figure>
             </div>
             <nav>
-                    <b>10.1% traduzido</b>
+                    <b>12% traduzido</b>
                     <a href="/documentation" class="selected learn">Aprenda</a>
                     <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
                     <a href="/code" class="code">Código fonte</a>
@@ -101,7 +101,7 @@ $(function(){
         <h1 id="Configurationparameters">Configuration parameters</h1> 
 <p>Configure your Play application by setting values for configuration keys in <code>conf/application.conf</code> file. See also:</p> 
 <ul> 
- <li><a href="main#conf">Main concepts - the conf directory</a></li> 
+ <li><a href="main#conf">Conceitos principais - the conf directory</a></li> 
  <li><a href="ids">Managing application.conf in several environments</a></li> 
  <li><a href="production">Put your application in production</a></li> 
 </ul> 
@@ -133,7 +133,7 @@ $(function(){
 <pre><code>application.log=DEBUG
 </code></pre> 
 <p>Default: <code>INFO</code></p> 
-<p>See also: <a href="logs">Logging configuration</a>.</p> 
+<p>See also: <a href="logs">Configura&ccedil;&atilde;o de log</a>.</p> 
 <h3 id="application.log.path">application.log.path</h3> 
 <p>Path to a Log4J configuration file, to customise log output. If you do not specify a path, Play will load a <code>log4j.properties</code> file in the <code>conf</code> directory if present.</p> 
 <pre><code>application.log.path=/log4j.properties
@@ -193,7 +193,7 @@ $(function(){
 </code></pre> 
 <p>Default: <code>false</code></p> 
 <h3 id="application.web_encoding">application.web_encoding</h3> 
-<p>The text encoding that Play uses when communicating with the web browser and for the <a href="libs#WebServiceclient">Web Service client</a>. You do not normally need to set this, since Play defaults to using <code>UTF-8</code>. For example:</p> 
+<p>The text encoding that Play uses when communicating with the web browser and for the <a href="libs#WebServiceclient">Cliente Web Service</a>. You do not normally need to set this, since Play defaults to using <code>UTF-8</code>. For example:</p> 
 <pre><code>application.web_encoding=ISO-8859-1
 </code></pre> 
 <p>Default: <code>UTF-8</code></p> 
@@ -220,7 +220,7 @@ $(function(){
 <pre><code>certificate.password=secret
 </code></pre> 
 <p>Default: <code>secret</code></p> 
-<h2 id="cron">Scheduled jobs</h2> 
+<h2 id="cron">Jobs agendados</h2> 
 <p>You can configure cron expressions for scheduled jobs as configuration keys that start with <code>cron.</code> and use the key as the value of a <code>@play.jobs.On</code> or <code>@Every</code> annotation. For example, <code>@On(“cron.noon”)</code> refers to:</p> 
 <pre><code>cron.noon=0 0 12 * * ?
 </code></pre> 
@@ -485,7 +485,7 @@ memcached.2.host=127.0.0.1:11212
 <h3 id="mail.smtp">mail.smtp</h3> 
 <p>Simple mail configuration key.</p> 
 <p>Default: <code>mock</code> - use a mock Mailer</p> 
-<p>See also: <a href="emails#smtp">SMTP configuration</a>.</p> 
+<p>See also: <a href="emails#smtp">Configura&ccedil;&atilde;o SMTP</a>.</p> 
 <h3 id="mail.smtp.authenticator">mail.smtp.authenticator</h3> 
 <p>Class name for a custom SMTP authenticator (<code>javax.mail.Authenticator</code>) implementation.</p> 
 <p>Default: none.</p> 

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: releasenotes-1.2 — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Play1.2Releasenotes">Play 1.2 — Release notes</h1> 
+<p>You can read about the bugs fixed in Play 1.2 on the <a href="http://www.playframework.org/roadmap/1.2">road map page</a>. This page highlights the most important changes.</p> 
+<h2 id="MigratingfromPlay1.1.x">Migrating from Play 1.1.x</h2> 
+<p>Migrating from Play 1.1.x is pretty straightforward. There are no changes to the application layout, so your applications will run in Play 1.2. However, if you use any external modules in your application, you may have to use more recent versions that are compatible with Play 1.2. Check the corresponding module pages.</p> 
+<p>Some APIs have been removed in Play 1.2, after having been deprecated for a long time, but most of the public API is the same. If you have compilation errors that you don’t know how to solve, ask on the <a href="https://groups.google.com/forum/#!forum/play-framework">Google group</a>.</p> 
+<p>When you call a controller from a <code>FunctionalTest</code>, the action invocation now runs in its own transaction. Because the test itself also run in its own transaction, deadlocks can occur. So it’s better to configure your database with <strong>READ_UNCOMMITED</strong> transactions while running tests. If you test again the in-memory H2 database, use the following database configuration:</p> 
+<pre><code>%test.db.url=jdbc:h2:mem:play;MODE=MYSQL;LOCK_MODE=0@ 
+</code></pre> 
+<p>If you can’t use <strong>READ_UNCOMMITED</strong> for your database transactions, you need to run every JPA access it their own transaction, either by managing JPA transaction by hand (using <code>JPA.em().getTransaction()</code>) or by spawning invocations using <strong>Jobs</strong>. </p> 
+<h2 id="Gerenciamentodedependncias">Gerenciamento de depend&ecirc;ncias</h2> 
+<p><a href="dependency">Play’s dependency management system</a> allows you to express your application’s external dependencies in a single <code>dependencies.yml</code> file. </p> 
+<p>A Play application can have three kinds of dependencies:</p> 
+<ul> 
+ <li>The Play framework itself, since a Play application always depends on the Play framework.</li> 
+ <li>Any Java library, provided as <b>JAR</b> file installed in your application’s <code>lib/</code> directory.</li> 
+ <li>A Play module (in fact an application fragment) installed in your application’s <code>modules/</code> directory.</li> 
+</ul> 
+<p>Once you have expressed these dependencies in your application’s <code>conf/dependencies.yml</code> file, Play will resolve, download and install all required dependencies.</p> 
+<p>For example, using this file:</p> 
+<pre><code># Application dependencies
+ 
+require:
+    - play
+    - com.google.guava -&gt; guava r07
+    - play -&gt; pdf 0.2
+</code></pre> 
+<p>You can run <code>`play dependencies`</code>:</p> 
+<p><img border="0" src="images/dependencies" /></p> 
+<p>Under the hood it is powered by <a href="http://ant.apache.org/ivy/">Apache Ivy</a>, and it supports Maven compatible repositories.</p> 
+<h2 id="Betterasynchronousfeatures">Better asynchronous features</h2> 
+<p>It was already possible to achieve asynchronism with Play 1.1 using Java Future and <code>waitFor(…)</code> and <code>suspend(…)</code> controller methods. However these primitives were not really easy to use. That’s why we’ve worked on a complete set of new coherent features for Play 1.2.</p> 
+<h3 id="Promises">Promises</h3> 
+<p>In Play 1.2 we introduce Promise, which is Play’s custom Future type. In fact a <code>Promise&lt;T&gt;</code> is also a <code>Future&lt;T&gt;</code> so you can use it as a standard Future. However, it also has a very interesting addition: the ability to register callback using <code>onRedeem(…)</code> that will be called as soon as the promised value is available. It allows the framework to register itself on them and to reschedule the request invocation as soon as possible.</p> 
+<h3 id="play.libs.F">play.libs.F</h3> 
+<p>The Promise type is part of new library (play.libs.F) that introduces several useful functional programming constructs. We also felt that we needed pattern matching in Java. Unfortunately Java has not built-in pattern matching, and because of the lack of functional constructs, it is difficult to add it as a library. Anyway we’ve worked on a solution that is not so bad.</p> 
+<h3 id="await">await(…)</h3> 
+<p>When your application code returns values that are not yet available using a <code>Promise&lt;T&gt;</code>, you want to be able to ask Play to wait for this promised result to be available before resuming your request. It allows your code to say explicitly: </p> 
+<blockquote> 
+ <p>“I’m waiting for a result that will be available later” </p> 
+</blockquote> 
+<p>and so the framework to handle it as </p> 
+<blockquote> 
+ <p>“Ok I will stop your code, reuse the thread to serve other requests, and resume your code as soon as the promised value you wait for is available”.</p> 
+</blockquote> 
+<h3 id="Continuations">Continuations</h3> 
+<p>Because the framework needs to recover the thread you were using in order to use it to serve other requests, it has to suspend your code. In the previous Play version, the <code>await(…)</code> equivalent was <code>waitFor(…)</code>, which suspended your action, and then recalled it later from the beginning.</p> 
+<p>To make it easier to deal with asynchronous code in Play 1.2 we have introduced continuations. Continuations allow your code to be suspended and resumed transparently.</p> 
+<h3 id="Responsestreaming">Response streaming</h3> 
+<p>Because you are able to loop without blocking the request, you may want to send data to the browser as soon you have part of the result available. This is the point of the <code>Content-Type:Chunked</code> HTTP response type. It allows to send your HTTP response several times using multiples chunks. The browser will receive these chunks as soon as they are published.</p> 
+<h3 id="WebSockets">WebSockets</h3> 
+<p>WebSockets are a way to open a two-way communication channel between a browser and your application. It is now supported by your Play application.</p> 
+<h3 id="NewChatsampleapplication">New Chat sample application</h3> 
+<p><img border="0" src="images/chat-websocket" /></p> 
+<p>All these features are used in the new <strong>Chat</strong> sample application, which demonstrates how to achieve a standard chat application in three different ways:</p> 
+<ul> 
+ <li>Active refresh</li> 
+ <li>Ajax with long polling</li> 
+ <li>WebSockets</li> 
+</ul> 
+<h2 id="Routesfileimprovements">Routes file improvements</h2> 
+<p>The <code>routes</code> file now supports a set of new features. Also you can now safely use <strong>{</strong> and <strong>}</strong> characters in a route path regular expression.</p> 
+<h3 id="staticFilemapping">staticFile: mapping</h3> 
+<p>Like the old <code>staticDir</code> mapping, you can now directly map a URL path to a static file rendering.</p> 
+<pre><code># Serve index.html static file for home requests
+GET     /home                   staticFile:/public/html/index.html
+</code></pre> 
+<h3 id="a404asaction">404 as action</h3> 
+<p>You can now directly use <code>404</code> as a route action to mark a URL path that must be ignored by your application. For example:</p> 
+<pre><code># Ignore favicon requests
+GET     /favicon.ico            404
+</code></pre> 
+<h3 id="WSmethod">WS method</h3> 
+<p>The new <code>WS</code> method allows you to declare a route that is mapped to a WebSocket.</p> 
+<pre><code># A WebSocket
+WS    /chat/messages            Chat.messages
+</code></pre> 
+<p>You can use the <code>@@{Chat.messages()}</code> notation to generate the reverse URL, as:</p> 
+<pre><code>ws://localhost:9000/chat/messages
+</code></pre> 
+<h2 id="Databaseevolutions">Database evolutions</h2> 
+<p>When you use a relational database, you need a way to track and organize your database schema changes. Play evolutions automatically track these changes and update your schema. </p> 
+<p><img border="0" src="images/evolutions" /></p> 
+<p>It will also resolve conflicts that occur when several developers work on the same application.</p> 
+<h2 id="Invocationcontextannotations">Invocation context annotations</h2> 
+<p>Play maps each invocation (an HTTP request, a WebSocket message, or an asynchonous job execution for example) as an <b>Invocation</b>. You can now annotate any invocation with some annotations that can be used by plugins to change the way they handle this particular invocation.</p> 
+<p>For example, the <b>JPA Plugin</b> automatically opens a database transaction for each invocation if a database is configured. Now, if you don’t need a database connection for a particular invocation, you can annotate it with <code>@NoTransaction</code>:</p> 
+<pre><code>@NoTransaction
+public static void index() {
+    render();
+}
+</code></pre> 
+<p>Another annotation allows you to specify a read-only transaction for a particular invocation;</p> 
+<pre><code>@Transactional(readOnly=true)
+public static show(Long id) {
+    Post post = Post.findById(id);
+    render(post);
+}
+</code></pre> 
+<p>The concept of invocation context can be extended to any plugin.</p> 
+<h2 id="H2asdefaultinmemorydatabase">H2 as default in-memory database</h2> 
+<p>We are now using <a href="http://www.h2database.com/">H2 Database</a> as the in-memory database for Play. It is more compatible with production database like MySQL, so you will have fewer problems during deployment.</p> 
+<p>As a nice side effect, H2 provides a Web console, that you can launch using the <strong>/@db</strong> url of any Play application using <strong>db=mem</strong> as configuration.</p> 
+<p><img border="0" src="images/h2console" /></p> 
+<h2 id="Testrunnerupdates">Test-runner updates</h2> 
+<p>There are several updates concerning the test-runner.</p> 
+<h3 id="RunyourJUnitbasedtestfromanyJUnittestrunner">Run your JUnit-based test from any JUnit test runner</h3> 
+<p>You can now run you Java test cases directly from any existing JUnit test runner, like the one provided in Eclipse.</p> 
+<p><img border="0" src="images/eclipse-test-runner" /></p> 
+<h3 id="Surefirereports">Surefire reports</h3> 
+<p>Now Surefire reports are generated for any Java test class you run, making it easier to integrate it with other continuous integration softwares.</p> 
+<h3 id="YAMLfixtures">YAML fixtures</h3> 
+<p>You can now load your fixtures from several YAML files at once, and even use the template engine markup language in your YAML definitions to add some kind of dynamic data.</p> 
+<h3 id="SeveraltestIDs">Several test IDs</h3> 
+<p>You can also create more than one test configuration, by specifying a framework ID that matches <code>test-*</code>.</p> 
+<h2 id="Cheatsheetsprovidedwithdocumentation">Cheat-sheets provided with documentation</h2> 
+<p>The Play documentation now includes several Resumos that provide a quick reference for the common Play functions. They can be easily printed.</p> 
+<p><img border="0" src="images/cheatsheet" /></p> 
+<h2 id="Othersmallfeatures">Other small features</h2> 
+<p>There are also some small new features as well as <a href="http://play.lighthouseapp.com/projects/57987-play-framework/milestones/current">130 fixed bugs</a>, including:</p> 
+<ul> 
+ <li>New <code>create()</code> and <code>validateAndCreate()</code> methods for JPA model.</li> 
+ <li>Added <code>--pid_file=</code>, <code>--http.port=</code>, <code>--https.port=</code> command line options to the <code>play</code> command.</li> 
+ <li>Support for lang-country pair (e.g. en-GB) </li> 
+ <li>Binding of <code>Map&lt;String, String&gt;</code>, with multivalues, composites, etc.</li> 
+ <li>Ability to create your own CRUD <code>ObjectType</code>.</li> 
+ <li>play.lib.WS client now supports Timeout.</li> 
+ <li>Session cookies are no longer sent if the session is empty.</li> 
+</ul>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/releasenotes-1.2" target="_blank">Documentation: releasenotes-1.2 — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

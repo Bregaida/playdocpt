@@ -1,4 +1,4 @@
-h1. The domain object model
+h1. O modelo de objeto de domínio
 
 The model has a central position in a Play application. It’s the domain-specific representation of the information on which the application operates. 
 
@@ -14,7 +14,7 @@ bq. The basic symptom of an Anemic Domain Model is that at first blush it looks 
  
 The fundamental horror of this anti-pattern is that it’s so contrary to the basic idea of object-oriented design, which is to combine data and process together. The anemic domain model is really just a procedural style design, exactly the kind of thing that object bigots like me (and Eric) have been fighting since our early days in Smalltalk. What’s worse, many people think that anemic objects are real objects, and thus completely miss the point of what object-oriented design is all about.
 
-h2. <a name="properties">Properties simulation</a>
+h2. <a name="properties">Simulação de propriedades</a>
 
 If you take a look at Play sample applications, you will often see that classes declare public variables. Now if you’re a Java developer with any experience at all, warning sirens are probably clanging like mad at the sight of a public variable. In Java (as in other object-oriented languages), best practice says to make all fields private and provide accessors and mutators. This is to promote encapsulation, a concept critical to object oriented design.
 
@@ -164,7 +164,7 @@ From your code, you can then obtain a @java.sql.Connection@ from the @play.db.DB
 bc. Connection conn = DB.getConnection();
 conn.createStatement().execute("select * from products");
 
-h2. <a name="hibernate">Persist your object model with Hibernate</a>
+h2. <a name="hibernate">Persistindo o seu objeto de modelo com Hibernate</a>
 
 You can use Hibernate (through JPA) to persist your Java objects in the Database automatically.
 
@@ -247,4 +247,4 @@ The Cache is not a reliable storage but if you put an object in the cache you sh
 
 p(note). **Continuing the discussion**
  
-Now we’ll check how to persist the model using %(next)"JPA persistence":jpa%.
+Now we’ll check how to persist the model using %(next)"Persistência em JPA":jpa%.

@@ -893,7 +893,7 @@ Although it has been said that all data passed to the templates must be declared
 </pre>
 
 
-First of all, please use the "Implicit objects available in a Play! template":http://www.playframework.org/documentation/1.1.1/templates#implicits as the background reference. 
+First of all, please use the "Objetos implícitos available in a Play! template":http://www.playframework.org/documentation/1.1.1/templates#implicits as the background reference. 
 
 Japid implicit objects are comparable to those available in the standard Play! templates, but  is not strictly one-to-one matching. 
 
@@ -1000,7 +1000,7 @@ It's plain Java stuff.
 New: @flash.get("msg")@ has been made simpler: @flash("msg")@ 
 
 
-h3. Validations and errors
+h3. Validações and errors
 
 The Play! "validation":http://www.playframework.org/documentation/1.1.1/validation  is a good read. Get yourself familiar with that. 
 

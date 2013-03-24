@@ -1,7 +1,7 @@
-h2. Controller - Interceptions
+h2. Controller - Interceptadores
 
 *==@Before ➟ action ➟ @After ➟ template ➟ @Finally==*
-Interceptions evaluation order
+Interceptadores evaluation order
 
 *==@Before static void checkAuthentification()==*
 *==@After static void log()==*

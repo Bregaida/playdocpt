@@ -1,4 +1,4 @@
-h1. Asynchronous Jobs
+h1. Jobs assíncronos
 
 Because Play is a web application framework, most of the application logic is done by controllers responding to HTTP requests. 
 
@@ -35,9 +35,9 @@ public class MyJob extends Job<String> {
 
 Here the use of @String@ is just for the example, of course a job can return any object type.
 
-h2. <a name="concepts">Bootstrap jobs</a>
+h2. <a name="concepts">Jobs de inicialização</a>
 
-Bootstrap jobs are executed by Play at application start time. To mark your job as a bootstrap job you just need to add the <code>@OnApplicationStart</code> annotation.
+Jobs de inicialização are executed by Play at application start time. To mark your job as a bootstrap job you just need to add the <code>@OnApplicationStart</code> annotation.
 
 bc. import play.jobs.*;
  
@@ -65,9 +65,9 @@ When you run the application in DEV mode, the application waits for the first HT
  
 When you run in PROD mode, the application will start synchronously with the server start.
 
-h2. <a name="scheduling">Scheduled jobs</a>
+h2. <a name="scheduling">Jobs agendados</a>
 
-Scheduled jobs are run periodically by the framework. You can ask Play to run a job at a specific interval using the <code>@Every</code> annotation.
+Jobs agendados are run periodically by the framework. You can ask Play to run a job at a specific interval using the <code>@Every</code> annotation.
 
 bc. import play.jobs.*;
  
@@ -108,7 +108,7 @@ We use the CRON expression parser from the "Quartz library":http://www.quartz-sc
 
 You don’t need to return a result. Even if you do it, the result will be lost.
 
-h2. <a name="tasks">Triggering task jobs</a>
+h2. <a name="tasks">Disparando tarefas de jobs</a>
 
 You can also trigger a Job at any time to perform a specific task by simply calling @now()@ on a Job instance. Then this job will be run immediately in a non blocking way. 
 
@@ -135,6 +135,6 @@ public class Bootstrap extends Job {
 
 p(note). **Continuing the discussion**
 
-Let's see how to combine Jobs with more powerful %(next)"Asynchronous programming with HTTP":asynchronous%.
+Let's see how to combine Jobs with more powerful %(next)"Programação assíncrona com HTTP":asynchronous%.
 
 

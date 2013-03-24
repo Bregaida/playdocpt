@@ -2,7 +2,7 @@ h1. Play modules
 
 A Play application can be assembled from several application modules. This allows you to reuse application components across several applications or split a large application into several smaller applications.
 
-h2. <a name="what">What is a module?</a>
+h2. <a name="what">O que é um módulo?</a>
 
 A module is just another Play application; however some differences exist in the way resources are loaded for an application module:
 
@@ -15,11 +15,11 @@ A module is just another Play application; however some differences exist in the
 
 You can create a module with the @play new-module@ command.
 
-h2. <a name="loading">How to load a module from an application</a>
+h2. <a name="loading">Como carregar um módulo de uma aplicação</a>
 
 Modules are automatically loaded from the @/modules@ directory of the application. You can use the "dependency management system":dependency to automatically manage your application modules.
 
-h2. <a name="routes">Load default routes from modules</a>
+h2. <a name="routes">Carregando rotas padrão de módulos</a>
 
 A module can provide a default @routes@ file. You can load it in the main application @routes@ file, using a special route declaration:
 
@@ -36,7 +36,7 @@ You can add a documentation page to a module simply by adding a file @documentat
 
 If you are running a Play application that uses one or more modules with documentation, then the local Play documentation at "http://localhost:9000/@documentation":http://localhost:9000/@documentation will include links to their documentation pages under *Installed Modules* in the side bar.
 
-h2. <a name="repository">Using the module repository</a>
+h2. <a name="repository">Usando o repositório de módulos</a>
 
 The "module repository":http://www.playframework.org/modules identifies all modules contributed by the community. A module can have several versions. You have to check the module’s documentation for which version you need to use for your framework version.
 
@@ -80,7 +80,7 @@ You can change the installation path using the @--path@ option:
 
 bc. play install gwt --path=my-project
 
-h2. <a name="contributing">Contributing a new module to the module repository</a>
+h2. <a name="contributing">Contribuindo com um novo módulo para o repositório</a>
 
 h3. <a name="prerequisites">Prerequisites</a>
 
@@ -138,4 +138,4 @@ You can of course use the offical Google Group to provide help and share informa
 
 p(note). **Continuing the discussion**
  
-Aprenda how to efficiently manage your modules using %(next)"Dependency management":dependency%.
+Aprenda how to efficiently manage your modules using %(next)"Gerenciamento de dependências":dependency%.

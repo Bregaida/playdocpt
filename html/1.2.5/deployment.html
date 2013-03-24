@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: deployment — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Opesdedeploy">Op&ccedil;&otilde;es de deploy</h1> 
+<p>Play applications can be deployed virtually anywhere: inside Servlet containers, as standalone servers, on Heroku, Google Application Engine, Stack, a Cloud, etc...</p> 
+<h2 id="anamestandaloneAplicaoPlaystandalonesa"><a name="standalone">Aplica&ccedil;&atilde;o Play standalones</a></h2> 
+<p>The simplest and the most robust way is to simply run your Play application without any container. You can use a frontal HTTP server like Lighttpd or Apache if you need more advanced HTTP features like virtual hosting.</p> 
+<p>The built-in HTTP server can serve thousands of HTTP requests per second so it will never be the performance bottleneck. Moreover it uses a more efficient threading model (where a Servlet container uses 1 thread per request). Different <a href="http://playframework.org/modules">modules</a> allow you to use different servers (Grizzly, Netty, etc...) as well.</p> 
+<p>Those servers support long polling and allow to manage very long requests (waiting for a long task to complete), and direct streaming of File objects (and any InputStream if you specify the Content-Length), without blocking the execution thread.</p> 
+<p>You will have fewer problems running your application this way, as you will use the same environment that you used during the development process. A lot of bugs can be discovered only when you deploy to a JEE application server (different home dir, classloader issues, library conflicts, etc...).</p> 
+<p>Please refer to the <a href="production">'Put your application in production' page</a> for more information.</p> 
+<h2 id="anameappserversJavaEEapplicationserversa"><a name="appservers">Java EE application servers</a></h2> 
+<p>Your Play application can also run inside your favorite application server. Most application servers are supported out of the box.</p> 
+<h3 id="Supportedapplicationservers">Supported application servers</h3> 
+<p>The following application servers are known to work with Play. Please feel free to report any other working deployment.</p> 
+<ul> 
+ <li>JBoss 4.2.x</li> 
+ <li>JBoss 5.x</li> 
+ <li>JBoss 6M2</li> 
+ <li>Glassfish v3</li> 
+ <li>IBM Websphere 6.1</li> 
+ <li>IBM Websphere 7</li> 
+ <li>Geronimo 2.x</li> 
+ <li>Tomcat 6.x</li> 
+ <li>Jetty 7.x</li> 
+ <li>Resin 4.0.5</li> 
+</ul> 
+<h3 id="Deploying">Deploying</h3> 
+<p>You need to package your application as a WAR file. This is easily done with the following command:</p> 
+<pre><code>play war myapp -o myapp.war
+</code></pre> 
+<p class="note">Please note that your application server must support deployment of exploded WAR files.</p> 
+<p>You are now ready to deploy your application.</p> 
+<p>You are advised to ‘isolate’ your Play application from the other applications to avoid version mismatches between the application libraries. This step is not standardized by the JEE/Servlet specification, and is therefore vendor-specific.</p> 
+<p>We recommend you refer to your application server manual in order to ‘isolate’ your WAR. As an example below is how you isolate a war file in JBoss Application server. Note that this is an optional step:</p> 
+<p>Insert the following content (or create the file) in your application war directory at <code>myapp.war/WEB-INF/jboss-web.xml</code>:</p> 
+<pre><code>
+&lt;jboss-web&gt;
+ &lt;class-loading java2classloadingcompliance=&quot;false&quot;&gt;
+ &lt;loader-repository&gt;
+ com.example:archive=unique-archive-name
+ &lt;loader-repository-config&gt;java2ParentDelegation=false&lt;/loader-repository-config&gt;
+ &lt;/loader-repository&gt;
+&lt;/class-loading&gt;
+&lt;/jboss-web&gt;
+</code></pre> 
+<p>Replace com.example:archive=unique-archive-name with whatever you wish as long as it is unique. </p> 
+<h3 id="Datasource">Datasource</h3> 
+<p>Play also supports Datasource and resource look-up. To use a JNDI Datasource, set the <a href="configuration#dbconf">database configuration</a> as shown below:</p> 
+<pre><code>db=java:comp/env/jdbc/mydb
+jpa.dialect=org.hibernate.dialect.Oracle10gDialect
+jpa.ddl=verify
+</code></pre> 
+<p>The database plugin detects the pattern <code>db=java:</code> and will de-activate the default JDBC system.</p> 
+<h3 id="Customweb.xml">Custom web.xml</h3> 
+<p>Some application servers, such as IBM Websphere, require you to declare a datasource in a <code>resource-ref</code> element in the Servlet API’s <code>web.xml</code> configuration file. By default, <code>web.xml</code> is a file that is generated by Play when you execute the <code>play war</code> command. To customise the generated <code>web.xml</code>, generate the exploded WAR version, then copy the generated <code>web.xml</code> file to the <code>war/WEB-INF</code> folder in your application. The next time you will execute the <code>play war</code> command, it will copy your custom <code>web.xml</code> from to the generated folder.</p> 
+<p>For instance, to declare a datasource for IBM Websphere 7, we can declare a <code>resource-ref</code> in our <code>war/WEB-INF/web.xml</code> file:</p> 
+<pre><code>&lt;?xml version=&quot;1.0&quot; ?&gt;
+&lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;
+        xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+        xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;
+        version=&quot;2.4&quot;&gt;
+  &lt;display-name&gt;Play! (%APPLICATION_NAME%)&lt;/display-name&gt;
+  &lt;context-param&gt;
+    &lt;param-name&gt;play.id&lt;/param-name&gt;
+    &lt;param-value&gt;%PLAY_ID%&lt;/param-value&gt;
+  &lt;/context-param&gt;
+  &lt;listener&gt;
+      &lt;listener-class&gt;play.server.ServletWrapper&lt;/listener-class&gt;
+  &lt;/listener&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;play&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;play.server.ServletWrapper&lt;/servlet-class&gt;	
+  &lt;/servlet&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;play&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+  &lt;resource-ref&gt;
+        &lt;description&gt;Play Datasource for testDatasource&lt;/description&gt;
+        &lt;res-ref-name&gt;jdbc/mydb&lt;/res-ref-name&gt;
+        &lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;
+        &lt;res-auth&gt;Container&lt;/res-auth&gt;
+  &lt;/resource-ref&gt;
+&lt;/web-app&gt;
+</code></pre> 
+<h2 id="anamecloudCloudbasedhostinga"><a name="cloud">Cloud-based hosting</a></h2> 
+<h3 id="anameelasticbeanstalkAWSElasticBeanstalka"><a name="elasticbeanstalk">AWS Elastic Beanstalk</a></h3> 
+<p><a href="http://aws.amazon.com/en/elasticbeanstalk/">AWS Elastic Beanstalk</a> is Amazon’s Java hosting platform, based on their Amazon Web Services infrastructure. For more information about deploying a Play application, see <a href="http://www.ibm.com/developerworks/java/library/j-javadev2-19/">Java development 2.0: Play-ing with Amazon RDS</a>.</p> 
+<h3 id="anamecloudbeesCloudBeesa"><a name="cloudbees">CloudBees</a></h3> 
+<p><a href="http://www.cloudbees.com/">CloudBees</a> is a Java application hosting platform. For more information, see the <a href="http://www.playframework.org/modules/cloudbees">CloudBees module</a>.</p> 
+<h3 id="anamecloudfondryCloudFoundrya"><a name="cloudfondry">Cloud Foundry</a></h3> 
+<p><a href="http://www.cloudfoundry.com/">Cloud Foundry</a> is VMware’s cloud provider. For more information, see <a href="http://iambivas.blogspot.com/2011/08/running-play-framework-application-on.html">Running Play Framework Application on CloudFoundry</a> and the <a href="http://www.playframework.org/modules/cloudfoundry">CloudFoundry module</a>.</p> 
+<h3 id="anamegaeGoogleAppEngineGAEa"><a name="gae">Google App Engine (GAE)</a></h3> 
+<p>The <a href="http://code.google.com/appengine/">Google App Engine</a> is one of the first cloud hosting platforms, which has different pros and cons compared to generic hosting solutions. In particular, GAE does not support Persist&ecirc;ncia em JPA. For more information, see the <a href="http://www.playframework.org/modules/gae">GAE module</a>.</p> 
+<h3 id="anameherokuHerokua"><a name="heroku">Heroku</a></h3> 
+<p>The <a href="http://www.heroku.com/">Heroku cloud application platform</a> has Play-specific application hosting support. To deploy and run your Play application, use the following steps.</p> 
+<p>1. Install the Heroku command line client on <a href="http://toolbelt.herokuapp.com/linux/readme">Linux</a>, <a href="http://toolbelt.herokuapp.com/osx/download">Mac</a>, or <a href="http://toolbelt.herokuapp.com/windows/download">Windows</a>.<br />2. Install <a href="http://git-scm.com/">git</a> and setup your SSH key.<br />3. Create an account on <a href="http://heroku.com/signup">Heroku.com</a>.<br />4. Log in to Heroku from the command line:</p> 
+<pre><code>heroku auth:login
+</code></pre> 
+<p>5. Create a git repository:</p> 
+<pre><code>git init
+</code></pre> 
+<p>6. Create a <code>.gitignore</code> file containing the following content, to ignore files generated by Play:</p> 
+<pre><code>/tmp
+/modules
+/lib
+/test-result
+/logs
+</code></pre> 
+<p>7. Add the files to the git repository and commit them:</p> 
+<pre><code>git add .
+git commit -m init
+</code></pre> 
+<p>8. Create a new application on Heroku:</p> 
+<pre><code>heroku create -s cedar
+</code></pre> 
+<p>9. Push the application to Heroku:</p> 
+<pre><code>git push heroku master
+</code></pre> 
+<p>10. Open the application in your browser:</p> 
+<pre><code>heroku open
+</code></pre> 
+<p>To view the logs run:</p> 
+<pre><code>heroku logs
+</code></pre> 
+<p>To scale the application to multiple ‘dynos’ run:</p> 
+<pre><code>heroku scale web=2
+</code></pre> 
+<p>To use the <a href="http://devcenter.heroku.com/articles/database">Heroku Shared Database</a> in production add the following to your <code>conf/application.conf</code> file:</p> 
+<pre><code>%prod.db=${DATABASE_URL}
+%prod.jpa.dialect=org.hibernate.dialect.PostgreSQLDialect
+%prod.jpa.ddl=update
+</code></pre> 
+<p>For more information, see the <a href="http://devcenter.heroku.com">Heroku Dev Center</a>.</p> 
+<h3 id="anameplayappsplayapps.neta"><a name="playapps">playapps.net</a></h3> 
+<p><a href="http://www.playapps.net/">playapps.net</a> is the Play-specific hosting platform from Zenexity, the creators of Play. For more information, see the <a href="http://www.playframework.org/modules/playapps">playapps.net module</a>.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/deployment" target="_blank">Documentation: deployment — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

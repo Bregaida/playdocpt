@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: evolutions — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Managingdatabaseevolutions">Managing database evolutions</h1> 
+<p>When you use a relational database, you need a way to track and organize your database schema evolutions. Typically there are several situations where you need a more sophisticated way to track your database schema changes:</p> 
+<ul> 
+ <li>When you work within a team of developers, each person needs to know about any schema change.</li> 
+ <li>When you deploy on a production server, you need to have a robust way to upgrade your database schema.</li> 
+ <li>If you work on several machines, you need to keep all database schemas synchronized.</li> 
+</ul> 
+<p class="note">If you work with JPA, Hibernate can handle database evolutions for you automatically. Evolutions are useful if you don’t use JPA or if you prefer to manually take care of your database schema for finer tuning. </p> 
+<h2 id="anamescriptGerenciandoscriptsa"><a name="script">Gerenciando scripts</a></h2> 
+<p>Play tracks your database evolutions using several <b>evolutions script</b>. These scripts are written in plain old SQL and should be located in the <code>db/evolutions</code> directory of your application.</p> 
+<p>The first script is named <code>1.sql</code>, the second script <code>2.sql</code>, and so on…</p> 
+<p>Each script contains two parts:</p> 
+<ul> 
+ <li>The <strong>Ups</strong> part the describes the required transformations.</li> 
+ <li>The <strong>Downs</strong> part that describes how to revert them.</li> 
+</ul> 
+<p>For example, take a look at this first evolution script that bootstraps a basic application:</p> 
+<pre><code># Users schema
+ 
+# --- !Ups
+ 
+CREATE TABLE User (
+    id bigint(20) NOT NULL AUTO_INCREMENT,
+    email varchar(255) NOT NULL,
+    password varchar(255) NOT NULL,
+    fullname varchar(255) NOT NULL,
+    isAdmin boolean NOT NULL,
+    PRIMARY KEY (id)
+);
+ 
+# --- !Downs
+ 
+DROP TABLE User; 
+</code></pre> 
+<p>As you see you have to delimitate the both <strong>Ups</strong> and <strong>Downs</strong> section by using comments in your SQL script.</p> 
+<p>Evolutions are automatically activated if a database is configured in <code>application.conf</code> and evolution scripts are present. You can disable them by setting <a href="configuration#evolutions.enabled">evolutions.enabled</a> to <code>false</code>. For example when tests set up their own database you can disable evolutions for the test environment.</p> 
+<p>When <b>evolutions</b> are activated, Play will check your database schema state before each request in DEV mode, or before starting the application in PROD mode. In DEV mode, if your database schema is not up to date, an error page will suggest that you synchronise your database schema by running the appropriate SQL script.</p> 
+<p><img border="0" src="images/evolutions" /></p> 
+<p>If you agree with the SQL script, you can apply it directly by clicking on the ‘Apply evolutions’ button.</p> 
+<p class="note">If you use an in-memory database (<strong>db=mem</strong>), Play will automatically run all evolutions scripts if your database is empty.</p> 
+<h2 id="Sincronizandomudanassimultneas">Sincronizando mudan&ccedil;as simult&acirc;neas</h2> 
+<p>Now let’s imagine that we have two developers working on this project. Developer A will work on a feature that require a new database table. So he will create the following <code>2.sql</code> evolution script:</p> 
+<pre><code># Add Post
+ 
+# --- !Ups
+CREATE TABLE Post (
+    id bigint(20) NOT NULL AUTO_INCREMENT,
+    title varchar(255) NOT NULL,
+    content text NOT NULL,
+    postedAt date NOT NULL,
+    author_id bigint(20) NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES User(id),
+    PRIMARY KEY (id)
+);
+ 
+# --- !Downs
+DROP TABLE Post;
+</code></pre> 
+<p>Play will apply this evolution script to Developer A’s database.</p> 
+<p>On the other hand, developer B will work on a feature that requires to alter the User table. So it will also create the following <code>2.sql</code> evolution script:</p> 
+<pre><code># Update User
+ 
+# --- !Ups
+ALTER TABLE User ADD age INT;
+ 
+# --- !Downs
+ALTER TABLE User DROP age;
+</code></pre> 
+<p>Developer B finishes his feature and commits (let’s say they are using Git). Now developer A has to merge the his colleague’s work before continuing, so he runs <code>git pull</code>, and the merge has a conflict, like:</p> 
+<pre><code>Auto-merging db/evolutions/2.sql
+CONFLICT (add/add): Merge conflict in db/evolutions/2.sql
+Automatic merge failed; fix conflicts and then commit the result.
+</code></pre> 
+<p>Each developer has created a <code>2.sql</code> evolution script. So developer A needs to merge the contents of this file:</p> 
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+# Add Post
+ 
+# --- !Ups
+CREATE TABLE Post (
+    id bigint(20) NOT NULL AUTO_INCREMENT,
+    title varchar(255) NOT NULL,
+    content text NOT NULL,
+    postedAt date NOT NULL,
+    author_id bigint(20) NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES User(id),
+    PRIMARY KEY (id)
+);
+ 
+# --- !Downs
+DROP TABLE Post;
+=======
+# Update User
+ 
+# --- !Ups
+ALTER TABLE User ADD age INT;
+ 
+# --- !Downs
+ALTER TABLE User DROP age;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; devB
+</code></pre> 
+<p>The merge is really easy to do:</p> 
+<pre><code># Add Post and update User
+ 
+# --- !Ups
+ALTER TABLE User ADD age INT;
+ 
+CREATE TABLE Post (
+    id bigint(20) NOT NULL AUTO_INCREMENT,
+    title varchar(255) NOT NULL,
+    content text NOT NULL,
+    postedAt date NOT NULL,
+    author_id bigint(20) NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES User(id),
+    PRIMARY KEY (id)
+);
+ 
+# --- !Downs
+ALTER TABLE User DROP age;
+ 
+DROP TABLE Post;
+</code></pre> 
+<p>This evolution script represents the new <b>revision 2</b> of the database, that is different of the previous revision 2 that developer A has already applied. </p> 
+<p>So Play will detect it and ask developer A to synchronize his database by first reverting the old revision 2 already applied, and by applying the new revision 2 script:</p> 
+<p><img border="0" src="images/evolutions-conflict" /></p> 
+<h2 id="Estadosinconsistentes">Estados inconsistentes</h2> 
+<p>Sometimes you will make a mistake in your evolution scripts, and they will fail. In this case, Play will mark your database schema as being in an inconsistent state and will ask you to manually resolve the problem before continuing.</p> 
+<p>For example, the <b>Ups</b> script of this evolution has an error:</p> 
+<pre><code># Add another column to User
+  
+# --- !Ups
+ALTER TABLE Userxxx ADD company varchar(255);
+ 
+# --- !Downs
+ALTER TABLE User DROP company;
+</code></pre> 
+<p>So trying to apply this evolution will fail, and Play will mark your database schema as inconsistent:</p> 
+<p><img border="0" src="images/evolutions-inconsistent" /></p> 
+<p>Now before continuing you have to fix this inconsistency. So you run the fixed SQL command:</p> 
+<pre><code>ALTER TABLE User ADD company varchar(255);
+</code></pre> 
+<p>…&nbsp;and then mark this problem as manually resolved by clicking on the button.</p> 
+<p>But because your evolution script has errors, you probably want to fix it. So you modify the <code>3.sql</code> script:</p> 
+<pre><code># Add another column to User
+  
+# --- !Ups
+ALTER TABLE User ADD company varchar(255);
+ 
+# --- !Downs
+ALTER TABLE User DROP company;
+</code></pre> 
+<p>Play detects this new evolution that replaces the previous <strong>3</strong> one, and will run the following script:</p> 
+<p><img border="0" src="images/evolutions-resolve" /></p> 
+<p>Now everything is fixed, and you can continue to work.</p> 
+<p class="note">In developement mode however it is often simpler to simply trash your developement database and reapply all evolutions from the beginning.</p> 
+<h2 id="Comandosdoevolutions">Comandos do evolutions</h2> 
+<p>The evolutions run interactively in DEV mode. However in PROD mode you will have to use the <code>evolutions</code> command to fix your database schema before running your application.</p> 
+<p>If you try to run a application in production mode on a database that is not up to date, the application will not start.</p> 
+<pre><code>~        _            _ 
+~  _ __ | | __ _ _  _| |
+~ | '_ \| |/ _' | || |_|
+~ |  __/|_|\____|\__ (_)
+~ |_|            |__/   
+~
+~ play! master-localbuild, http://www.playframework.org
+~ framework ID is prod
+~
+~ Ctrl+C to stop
+~ 
+13:33:22 INFO  ~ Starting ~/test
+13:33:22 INFO  ~ Precompiling ...
+13:33:24 INFO  ~ Connected to jdbc:mysql://localhost
+13:33:24 WARN  ~ 
+13:33:24 WARN  ~ Your database is not up to date.
+13:33:24 WARN  ~ Use `play evolutions` command to manage database evolutions.
+13:33:24 ERROR ~ 
+ 
+@662c6n234
+Can't start in PROD mode with errors
+ 
+Your database needs evolution!
+An SQL script will be run on your database.
+ 
+play.db.Evolutions$InvalidDatabaseRevision
+	at play.db.Evolutions.checkEvolutionsState(Evolutions.java:323)
+	at play.db.Evolutions.onApplicationStart(Evolutions.java:197)
+	at play.Play.start(Play.java:452)
+	at play.Play.init(Play.java:298)
+	at play.server.Server.main(Server.java:141)
+Exception in thread &quot;main&quot; play.db.Evolutions$InvalidDatabaseRevision
+	at play.db.Evolutions.checkEvolutionsState(Evolutions.java:323)
+	at play.db.Evolutions.onApplicationStart(Evolutions.java:197)
+	at play.Play.start(Play.java:452)
+	at play.Play.init(Play.java:298)
+	at play.server.Server.main(Server.java:141)
+</code></pre> 
+<p>The error message asks you to run the <code>play evolutions</code> command:</p> 
+<pre><code>$ play evolutions
+~        _            _ 
+~  _ __ | | __ _ _  _| |
+~ | '_ \| |/ _' | || |_|
+~ |  __/|_|\____|\__ (_)
+~ |_|            |__/   
+~
+~ play! master-localbuild, http://www.playframework.org
+~ framework ID is gbo
+~
+~ Connected to jdbc:mysql://localhost
+~ Application revision is 3 [15ed3f5] and Database revision is 0 [da39a3e]
+~
+~ Your database needs evolutions!
+ 
+# ----------------------------------------------------------------------------
+ 
+# --- Rev:1,Ups - 6b21167
+ 
+CREATE TABLE User (
+    id bigint(20) NOT NULL AUTO_INCREMENT,
+    email varchar(255) NOT NULL,
+    password varchar(255) NOT NULL,
+    fullname varchar(255) NOT NULL,
+    isAdmin boolean NOT NULL,
+    PRIMARY KEY (id)
+);
+ 
+# --- Rev:2,Ups - 9cf7e12
+  
+ALTER TABLE User ADD age INT;
+CREATE TABLE Post (
+    id bigint(20) NOT NULL AUTO_INCREMENT,
+    title varchar(255) NOT NULL,
+    content text NOT NULL,
+    postedAt date NOT NULL,
+    author_id bigint(20) NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES User(id),
+    PRIMARY KEY (id)
+);
+ 
+# --- Rev:3,Ups - 15ed3f5
+ 
+ALTER TABLE User ADD company varchar(255);
+ 
+# ----------------------------------------------------------------------------
+ 
+~ Run `play evolutions:apply` to automatically apply this script to the db
+~ or apply it yourself and mark it done using `play evolutions:markApplied`
+~
+</code></pre> 
+<p>If you want Play to automatically run this evolution for you, then run:</p> 
+<pre><code>$ play evolutions:apply
+</code></pre> 
+<p>If you prefer running this script manually on your production database, you need to tell Play that your database is up-to-date by running:</p> 
+<pre><code>$ play evolutions:markApplied
+</code></pre> 
+<p>If there are any errors while automatically running the evolutions scripts, as in DEV mode, you need to manually resolve them, and mark your database schema as fixed by running:</p> 
+<pre><code>$ play evolutions:resolve
+</code></pre> 
+<p class="note"><b>Continuing the discussion</b></p> 
+<p>Aprenda how to configure <span class="next"><a href="logs">Logging</a></span>.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/evolutions" target="_blank">Documentation: evolutions — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

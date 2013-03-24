@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: asynchronous — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="ProgramaoassncronacomHTTP">Programa&ccedil;&atilde;o ass&iacute;ncrona com HTTP</h1> 
+<p>This section explains how to deal with asynchonism in a Play application to achieve typical long-polling, streaming and other <a href="http://en.wikipedia.org/wiki/Comet_(programming%29">Comet-style</a> applications that can scale to thousands of concurrent connections.</p> 
+<h2 id="SuspendendorequisiesHTTP">Suspendendo requisi&ccedil;&otilde;es HTTP</h2> 
+<p>Play is intended to work with very short requests. It uses a fixed thread pool to process requests queued by the HTTP connector. To get optimum results, the thread pool should be as small as possible. We typically use the optimum value of <code>number of processors + 1</code> to set the default pool size.</p> 
+<p>That means that if a request’s processing time is very long (for example waiting for a long computation) it will block the thread pool and penalise your application’s responsiveness. Of course you could add more threads to the pool, but that would result in wasted resources, and anyway the pool size will never be infinite.</p> 
+<p>Consider a chat application where browsers send a blocking HTTP request that waits for a new message to display. These requests can be very very long (typically several seconds) and will block the thread pool. If you plan to allow 100 users to connect simultaneously to your chat application you will need to provision at least 100 threads. OK it’s feasible. But what about 1,000 users? Or 10,000?</p> 
+<p>To resolve these use cases, Play allows you to temporarily suspend a request. The HTTP request will stay connected, but the request execution will be popped out of the thread pool and tried again later. You can either tell Play to try the request later after a fixed delay, or wait for a <code>Promise</code> value to be available.</p> 
+<p class="note"><b>Tip</b>. You can see a real example in <code>samples-and-tests/chat</code>.</p> 
+<p>For example, this action will launch a very long job and wait for its completion before returning the result to the HTTP response:</p> 
+<pre><code>public static void generatePDF(Long reportId) {
+    Promise&lt;InputStream&gt; pdf = new ReportAsPDFJob(report).now();
+    InputStream pdfStream = await(pdf);
+    renderBinary(pdfStream);
+}
+</code></pre> 
+<p>Here we use <code>await(…)</code> to ask Play to suspend the request until the <code>Promise&lt;InputStream&gt;</code> value is redeemed. </p> 
+<h3 id="Continuations">Continuations</h3> 
+<p>Because the framework needs to recover the thread you were using in order to use it to serve other requests, it has to suspend your code. In the previous Play version the <code>await(…)</code> equivalent was <code>waitFor(…)</code>, which suspended your action, and then called it again later from the beginning.</p> 
+<p>To make it easier to deal with asynchronous code we have introduced continuations. Continuations allow your code to be suspended and resumed transparently. So you write your code in a very imperative way, as:</p> 
+<pre><code>public static void computeSomething() {
+    Promise&lt;String&gt; delayedResult = veryLongComputation(…);
+    String result = await(delayedResult);
+    render(result);
+}
+</code></pre> 
+<p>In fact here, your code will be executed in two steps, in two different threads. But as you see, it is transparent to your application code.</p> 
+<p>Using <code>await(…)</code> and continuations, you could write a loop:</p> 
+<pre><code>public static void loopWithoutBlocking() {
+    for(int i=0; i&lt;=10; i++) { 
+         Logger.info(i);
+         await(&quot;1s&quot;);
+    }
+    renderText(&quot;Loop finished&quot;);
+}
+</code></pre> 
+<p>While using only one thread to process requests, the default in development mode, Play is able to run concurrently these loops for several requests at the same time.</p> 
+<p>A more realistic example is asynchronously fetching content from remote URLs. The following example, performs three remote HTTP requests in parallel: each call to the <code>play.libs.WS.WSRequest.getAsync()</code> method executes a GET request asynchronously and returns a <code>play.libs.F.Promise</code>. The action method suspends the incoming HTTP request by calling <code>await(…)</code> on the combination of the three <code>Promise</code> instances. When all three remote calls have a response, a thread will resume processing and render a response.</p> 
+<pre><code>public class AsyncTest extends Controller {
+ 
+  public static void remoteData() {
+    F.Promise&lt;WS.HttpResponse&gt; r1 = WS.url(&quot;http://example.org/1&quot;).getAsync();
+    F.Promise&lt;WS.HttpResponse&gt; r2 = WS.url(&quot;http://example.org/2&quot;).getAsync();
+    F.Promise&lt;WS.HttpResponse&gt; r3 = WS.url(&quot;http://example.org/3&quot;).getAsync();
+  
+    F.Promise&lt;List&lt;WS.HttpResponse&gt;&gt; promises = F.Promise.waitAll(r1, r2, r3);
+ 
+    // Suspend processing here, until all three remote calls are complete.
+    List&lt;WS.HttpResponse&gt; httpResponses = await(promises);
+ 
+    render(httpResponses);
+  }
+}
+</code></pre> 
+<h3 id="Callbacks">Callbacks</h3> 
+<p>A different way to implement the previous example of three asynchronous remote requests is to use a callback. This time, the call to <code>await(…)</code> includes a <code>play.libs.F.Action</code> implementation, which is a callback that is executed when the <code>promises</code> are done.</p> 
+<pre><code>public class AsyncTest extends Controller {
+ 
+  public static void remoteData() {
+    F.Promise&lt;WS.HttpResponse&gt; r1 = WS.url(&quot;http://example.org/1&quot;).getAsync();
+    F.Promise&lt;WS.HttpResponse&gt; r2 = WS.url(&quot;http://example.org/2&quot;).getAsync();
+    F.Promise&lt;WS.HttpResponse&gt; r3 = WS.url(&quot;http://example.org/3&quot;).getAsync();
+ 
+    F.Promise&lt;List&lt;WS.HttpResponse&gt;&gt; promises = F.Promise.waitAll(r1, r2, r3);
+ 
+    // Suspend processing here, until all three remote calls are complete.
+    await(promises, new F.Action&lt;List&lt;WS.HttpResponse&gt;&gt;() {
+      public void invoke(List&lt;WS.HttpResponse&gt; httpResponses) {
+        render(httpResponses);
+      }
+    });
+  }
+}
+</code></pre> 
+<h2 id="TransmissoderespostaHTTP">Transmiss&atilde;o de resposta HTTP</h2> 
+<p>Now that you can loop without blocking the request, you may want to send data to the browser as soon you have part of the result available. That is the point of the <code>Content-Type:Chunked</code> HTTP response type. It allows to send your HTTP response several times using multiples chunks. The browser will receive these chunks as soon as they are published.</p> 
+<p>Using <code>await(…)</code> and continuations, you can now achieve that using:</p> 
+<pre><code>public static void generateLargeCSV() {
+    CSVGenerator generator = new CSVGenerator();
+    response.contentType = &quot;text/csv&quot;;
+    while(generator.hasMoreData()) {
+          String someCsvData = await(generator.nextDataChunk());
+          response.writeChunk(someCsvData);
+    }
+}
+</code></pre> 
+<p>Even if the CSV generation takes one hour, Play is able to simultaneously process several requests using a single thread, sending back the generated data to the client as soon as they are available.</p> 
+<h2 id="UsandoWebSockets">Usando WebSockets</h2> 
+<p>WebSockets are a way to open a two-way communication channel between a browser and your application. On the browser side, you open a socket using a “ws://” url:</p> 
+<pre><code>new Socket(&quot;ws://localhost:9000/helloSocket?name=Guillaume&quot;)
+</code></pre> 
+<p>On the Play side you declare a WS route:</p> 
+<pre><code>WS   /helloSocket            MyWebSocket.hello
+</code></pre> 
+<p><code>MyWebSocket</code> is a <code>WebSocketController</code>. A WebSocket controller is like a standard HTTP controller but handles different concepts.</p> 
+<ul> 
+ <li>It has a request object, but no response object.</li> 
+ <li>It has access to the session, but read-only.</li> 
+ <li>It doesn’t have <code>renderArgs</code>, <code>routeArgs</code> or flash scope.</li> 
+ <li>It can read params only from the route pattern or from the QueryString.</li> 
+ <li>It has two communication channels: inbound and outbound.</li> 
+</ul> 
+<p>When the client connects to the <code>ws://localhost:9000/helloSocket</code> socket, Play will invoke the <code>MyWebSocket.hello</code> action method. Once the <code>MyWebSocket.hello</code> action method exits, the socket is closed.</p> 
+<p>So a very basic socket example would be:</p> 
+<pre><code>public class MyWebSocket extends WebSocketController {
+ 
+    public static void hello(String name) {
+        outbound.send(&quot;Hello %s!&quot;, name);
+    }
+}
+</code></pre> 
+<p>In this example, when the client connects to the socket, it receives the ‘Hello Guillaume’ message, and then Play closes the socket.</p> 
+<p>Of course usually you don’t want to close the socket immediately. But it is easy to achieve using <code>await(…)</code> and continuations.</p> 
+<p>For example a basic Echo server:</p> 
+<pre><code>public class MyWebSocket extends WebSocketController {
+ 
+    public static void echo() {
+        while(inbound.isOpen()) {
+             WebSocketEvent e = await(inbound.nextEvent());
+             if(e instanceof WebSocketFrame) {
+                  WebSocketFrame frame = (WebSocketFrame)e;
+                  if(!e.isBinary) {
+                      if(frame.textData.equals(&quot;quit&quot;)) {
+                          outbound.send(&quot;Bye!&quot;);
+                          disconnect();
+                      } else {
+                          outbound.send(&quot;Echo: %s&quot;, frame.textData);
+                      }
+                  }
+             }
+             if(e instanceof WebSocketClose) {
+                 Logger.info(&quot;Socket closed!&quot;);
+             }
+        }
+    }
+ 
+}
+</code></pre> 
+<p>In this example, the nested ‘if’ and ‘cast’ soup was tedious to write and error prone. And here Java sucks. Even for this simple case it is not easy to handle. And for more complicated cases where you combine several streams and have even more event types, it becomes a nightmare.</p> 
+<p>That’s why we have introduced a basic pattern matching in Java in the <a href="libs#FunctionalprogrammingwithJava">play.libs.F</a> library.</p> 
+<p>So with some static imports, we can rewrite our previous echo sample as:</p> 
+<pre><code>public static void echo() {
+    while(inbound.isOpen()) {
+         WebSocketEvent e = await(inbound.nextEvent());
+         
+         for(String quit: TextFrame.and(Equals(&quot;quit&quot;)).match(e)) {
+             outbound.send(&quot;Bye!&quot;);
+             disconnect();
+         }
+ 
+         for(String message: TextFrame.match(e)) {
+             outbound.send(&quot;Echo: %s&quot;, message);
+         }
+         
+         for(WebSocketClose closed: SocketClosed.match(e)) {
+             Logger.info(&quot;Socket closed!&quot;);
+         }
+    }
+}
+</code></pre> 
+<p class="note"><b>Continuing the discussion</b><br /> <br />Next, doing <span class="next"><a href="ajax">Requisi&ccedil;&otilde;es Ajax</a></span>.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/asynchronous" target="_blank">Documentation: asynchronous — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

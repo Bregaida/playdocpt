@@ -42,7 +42,7 @@ auto-test:
      [java] 14:55:22,432 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
      [java] 14:55:23,995 INFO  ~ Connected to jdbc:hsqldb:mem:playembed
      [java] 14:55:24,000 INFO  ~ Application 'test-application' is now started !
-     [echo] Testing server at: http://localhost:9000
+     [echo] Testando server at: http://localhost:9000
      [java] ~ 3 tests to run:
      [java] ~
      [java] ~ BasicTest...           PASSED     0s

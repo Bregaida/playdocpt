@@ -1,8 +1,8 @@
-h1. Asynchronous programming with HTTP
+h1. Programação assíncrona com HTTP
 
 This section explains how to deal with asynchonism in a Play application to achieve typical long-polling, streaming and other "Comet-style":http://en.wikipedia.org/wiki/Comet_(programming%29 applications that can scale to thousands of concurrent connections.
 
-h2. Suspending HTTP requests
+h2. Suspendendo requisições HTTP
 
 Play is intended to work with very short requests. It uses a fixed thread pool to process requests queued by the HTTP connector. To get optimum results, the thread pool should be as small as possible. We typically use the optimum value of @number of processors + 1@ to set the default pool size.
 
@@ -92,7 +92,7 @@ bc. public class AsyncTest extends Controller {
 }
 
 
-h2. HTTP response streaming
+h2. Transmissão de resposta HTTP
 
 Now that you can loop without blocking the request, you may want to send data to the browser as soon you have part of the result available. That is the point of the @Content-Type:Chunked@ HTTP response type. It allows to send your HTTP response several times using multiples chunks. The browser will receive these chunks as soon as they are published.
 
@@ -110,7 +110,7 @@ bc. public static void generateLargeCSV() {
 Even if the CSV generation takes one hour, Play is able to simultaneously process several requests using a single thread, sending back the generated data to the client as soon as they are available.
 
 
-h2. Using WebSockets
+h2. Usando WebSockets
 
 WebSockets are a way to open a two-way communication channel between a browser and your application. On the browser side, you open a socket using a "ws://" url:
 
@@ -196,4 +196,4 @@ bc. public static void echo() {
 
 p(note). **Continuing the discussion**
  
-Next, doing %(next)"Ajax requests":ajax%.
+Next, doing %(next)"Requisições Ajax":ajax%.

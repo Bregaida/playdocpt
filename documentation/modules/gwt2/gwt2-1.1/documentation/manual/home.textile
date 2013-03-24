@@ -67,7 +67,7 @@ p. GreetingService Interface must use annotation @RemoteServiceRelativePath("gre
 p. GreetingServiceImpl.java must implements GWTService and us @GWTServicePath("/firstmodule/greet") annotation
 
 
-h2. <a>Testing you GWT Module with dev mode</a>
+h2. <a>Testando you GWT Module with dev mode</a>
 
 First start you Play application.
 

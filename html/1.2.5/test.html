@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: test — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Testyourapplication">Test your application</h1> 
+<p>Creating automatic test suites for your application is a good way to make it robust. It allows you to work in a very agile way.</p> 
+<p>Play tests are built using <a href="http://www.junit.org/">JUnit 4</a> or <a href="http://seleniumhq.org/">Selenium</a> depending what you want to test. </p> 
+<h2 id="anamewritingEscrevendotestesa"><a name="writing">Escrevendo testes</a></h2> 
+<p>The tests must be created in the <code>test/</code> directory. This folder will only be added to the sources path when the application is run in <code>test</code> mode. You can write 3 different kinds of tests.</p> 
+<h3 id="Unittest">Unit test</h3> 
+<p>A unit test is written using JUnit. In this kind of test you can test the model of your application (including some utilities). </p> 
+<p>Here is an example of a Unit test:</p> 
+<pre><code>import play.test.*;
+import org.junit.*;
+ 
+public class MyTest extends UnitTest {
+     
+    @Test
+    public void aTest() {
+        assertEquals(2, 1 + 1); // A really important thing to test
+    }
+ 
+    @Test
+    public void testUsers() {
+        assertEquals(3, Users.count()); 
+    }
+}
+</code></pre> 
+<h3 id="Functionaltest">Functional test</h3> 
+<p>A functional test is written using JUnit. In this kind of test you can test your application by accessing directly the controller objects.</p> 
+<p>Here is an example of a Functional test:</p> 
+<pre><code>import play.test.*;
+import play.mvc.*;
+import play.mvc.Http.*;
+import org.junit.*;
+ 
+public class ApplicationTest extends FunctionalTest {
+     
+    @Test
+    public void testTheHomePage() {
+        Response response = GET(&quot;/&quot;);
+        assertStatus(200, response);
+    }
+     
+}
+</code></pre> 
+<p>Using the <code>renderArgs()</code> method, you can also get direct access to the arguments passed to the view, instead of having to make assertions about the response itself. For example:</p> 
+<pre><code>@Test
+public void testUserIsFoundAndPassedToView() {
+    Response response = POST(&quot;/user/find?name=mark&amp;dob=18011977&quot;)
+    assertThat(renderArgs(&quot;user&quot;), is(notNullValue());
+    User user = (User) renderArgs(&quot;user&quot;);
+    assertThat(user.name, is(&quot;mark&quot;));
+}
+</code></pre> 
+<h3 id="Seleniumtest">Selenium test</h3> 
+<p>Acceptance tests are written using Selenium. Here you can test your application by running it in an automated browser. </p> 
+<p>Selenium tests are written using HTML tables. You can either use this native syntax or use the <code>#{selenium /}</code> tag.</p> 
+<p>Here is an example of a Selenium test:</p> 
+<pre><code>#{selenium 'Test security'}
+ 
+    // Try to log in the administration area
+    clearSession()
+    open('/admin')
+    assertTextPresent('Login')
+    type('login', 'admin')
+    type('password', 'secret')
+    clickAndWait('signin')
+ 
+    // Verify that the user in correctly logged in
+    assertText('success', 'Welcom admin!')
+ 
+#{/selenium}
+</code></pre> 
+<p>Because Selenium tests are run within your browser access to emails sent by the mock email and to String values placed in the Play Cache must be made using extensions to Selenium.</p> 
+<p>Here is an example of accessing the most recent email sent to a specific email account:</p> 
+<pre><code>#{selenium 'Test email sending'}
+ 
+    // Open email form and send an email to boron@localhost
+    open('/sendEmail')
+    assertTextPresent('Email form')
+    type('To', 'boron@localhost')
+    type('Subject', 'Berillium Subject')
+    clickAndWait('send')
+ 	
+	// Extract the last email sent to boron@localhost into a JavaScript
+	// variable called email
+	storeLastReceivedEmailBy('boron@localhost', 'email')
+	// Extract the subject line from the email variable into a variable 
+	// called subject
+	store('javascript{/Subject:\s+(.*)/.exec(storedVars[&quot;email&quot;])[1]}', 'subject')
+	// Test the contents of the subject variable
+	assertEquals('Berillium Subject', '$[subject]')
+ 
+#{/selenium}
+</code></pre> 
+<p>Here is an example of accessing a String stored in the Play Cache (for example the correct answer to a CAPTCHA):</p> 
+<pre><code>#{selenium 'Get string from cache'}
+ 
+	open('/register')
+	assertTextPresent('Registration form')
+	type('Email', 'my@email.com')
+	type('Password', 'secretpass')
+	type('Password2', 'secretpass')
+	// .. Fill in the registration form ..
+ 
+	// Get the value of the magicKey variable from the cache
+	// (set to the CAPTCHA answer in the application)
+	storeCacheEntry('magicKey', 'captchaAnswer')
+	// Type it into the form
+	type('Answer', '$[captchaAnswer]')
+ 
+    clickAndWait('register')
+ 
+#{/selenium}
+</code></pre> 
+<h2 id="anamefixturesFixturesa"><a name="fixtures">Fixtures</a></h2> 
+<p>When you run tests, you need to have stable data for your application. The simplest way is to reset your database before each test.</p> 
+<p>The <code>play.test.Fixtures</code> class helps you to manipulate your database and to inject test data. You typically use it in a <code>@Before</code> method of a JUnit test.</p> 
+<pre><code>@Before
+public void setUp() {
+    Fixtures.deleteDatabase();
+}
+</code></pre> 
+<p>To import data, it is simpler to define them in a YAML file that the Fixtures helper can automatically import.</p> 
+<pre><code># Test data
+ 
+Company(google):
+   name:    Google
+ 
+Company(zen):
+   name:    Zenexity
+ 
+User(guillaume):
+   name:    guillaume
+   company: zen
+</code></pre> 
+<p>And then: </p> 
+<pre><code>@Before
+public void setUp() {
+    Fixtures.deleteDatabase();
+    Fixtures.loadModels(&quot;data.yml&quot;);
+}
+</code></pre> 
+<p class="note">You can read more about Play and YAML in the <a href="yaml">YAML manual page</a>.</p> 
+<p>For Selenium tests, you can use the <code>#{fixture /}</code> tag:</p> 
+<pre><code>#{fixture delete:'all', loadModels:'data.yml' /}
+ 
+#{selenium}
+    
+    // Write your test here
+ 
+#{/selenium}
+</code></pre> 
+<p>Sometimes it is convenient to split data into several YAML files. You can load fixtures from multiple files at once:</p> 
+<pre><code>Fixtures.loadModels(&quot;users.yml&quot;, &quot;roles.yml&quot;, &quot;permissions.yml&quot;);
+</code></pre> 
+<p>and for Selenium tests:</p> 
+<pre><code>#{fixture delete:'all', loadModels:['users.yml', 'roles.yml', 'permissions.yml'] /}
+</code></pre> 
+<h2 id="anamerunningRodandoostestesa"><a name="running">Rodando os testes</a></h2> 
+<p>To run the tests, you must run your application in <code>test</code> mode using the <code>play test</code> command.</p> 
+<pre><code># play test myApp
+</code></pre> 
+<p>In this mode, Play will automatically load the <code>test-runner</code> module. This module provides a Web based test runner, available at the <a href="http://localhost:9000/@tests">http://localhost:9000/@tests</a> URL.</p> 
+<p><img border="0" src="images/test-runner" /></p> 
+<p>When you run a test, the result is saved into the <code>/test-result</code> directory of your application.</p> 
+<p>On the test runner page, each test is a link. You can ‘right click’ and ‘Open in a new tab’, to run the test directly outside of the test-runner. </p> 
+<p>When you run tests this way, Play will start with a special <code>test</code> framework ID. So you can define special configurations in the <code>application.conf</code> file.</p> 
+<p>If you want several different test configurations, you can use framework IDs matching the pattern <code>test-?.*</code> (e.g: <code>test-special</code>).</p> 
+<p>If you use a framework ID other then the default <code>test</code>, you must make sure ALL test configuration in <code>application.conf</code> is available with that framework ID. When launching test with special test framework ID you do it like this: <code>play test --%test-your-special-id</code></p> 
+<p>For example:</p> 
+<pre><code>%test.db=mem
+%test.jpa.ddl=create-drop
+</code></pre> 
+<h2 id="anamecontinuousIntegraocontnuaandrunningthetestsautomaticallya"><a name="continuous">Integra&ccedil;&atilde;o cont&iacute;nua, and running the tests automatically</a></h2> 
+<p>The <code>auto-test</code> command does the same as the <code>test</code> command, but it automatically launches a browser, runs all the tests, and stops.</p> 
+<p>This is a useful command if you want to set up a continuous integration system; </p> 
+<p>After the run, all results are saved to the <code>/test-result</code> directory. Moreover, this directory contains a marker file (either <code>result.failed</code> or <code>result.passed</code>) for the test suite’s final result. Finally, this directory contains all the logs, in an <code>application.log</code> file.</p> 
+<p>So setting up a continuous integration system to test your application, could be:</p> 
+<ul> 
+ <li>Checkout the latest version of your application</li> 
+ <li>Run <code>play auto-test</code></li> 
+ <li>Wait for the end of the process</li> 
+ <li>Check for the marker file <code>result.passed</code> or <code>result.failed</code> in the <code>/test-result</code> directory</li> 
+</ul> 
+<p>Run these steps in a CRON tab, and you’re done!</p> 
+<p>You can change the web browser compatibility mode used by the headless browser by configuring <a href="configuration#headlessBrowser">headlessBrowser</a>.</p> 
+<p class="note"><b>Continuing the discussion</b><br /> <br />Next: <span class="next"><a href="security">Security guide</a></span>.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/test" target="_blank">Documentation: test — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

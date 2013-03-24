@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: secure — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Securemodule">Secure module</h1> 
+<p>The simple <b>Secure</b> module helps you to set-up basic authentication and authorization management in your application. It provides a simple <code>controllers.Secure</code> controller that defines a set of interceptors that you can easily add to your own controllers using the <code>@With</code> annotation.</p> 
+<h2 id="anamesetupModulesetupa"><a name="setup">Module set-up</a></h2> 
+<h3 id="anameenableEnabletheSecuremodulefortheapplicationa"><a name="enable">Enable the Secure module for the application</a></h3> 
+<p>In the <code>/conf/dependencies.yml</code> file, enable the Secure module by adding a line after <code>require:</code></p> 
+<pre><code>require:
+    - play -&gt; secure
+</code></pre> 
+<p>Then run the <code>play dependencies</code> command to add the module to your application.</p> 
+<h3 id="anameroutesImportdefaultSecureroutesa"><a name="routes">Import default Secure routes</a></h3> 
+<p>In the <code>conf/routes</code> file, import the default module routes by adding this line:</p> 
+<pre><code># Import Secure routes
+*      /                module:secure
+</code></pre> 
+<p class="note"><b>Note</b> that it’s not required to use the default routes file. You can also define your own routes, or mix the two.</p> 
+<h2 id="anamecontrollerProtectingacontrollera"><a name="controller">Protecting a controller</a></h2> 
+<p>To protect a controller you just have to annotate it using <code>@With</code>. For example:</p> 
+<pre><code>@With(Secure.class)
+public class Application extends Controller {
+    
+    public static void index() {
+        render();
+    }
+}
+</code></pre> 
+<p>This controller will be automatically protected with the default authentication page.</p> 
+<h2 id="anamecustomCustomizingtheauthenticationmechanisma"><a name="custom">Customizing the authentication mechanism</a></h2> 
+<p>By default, the login page will accept any login/password. To customize it your application has to provide a <b>Security</b> provider. Just create a class in the <code>controllers</code> package that extends the <code>controllers.Secure.Security</code> class. Then you can override the <code>authenticate(String username, String password)</code> method.</p> 
+<pre><code>package controllers;
+ 
+public class Security extends Secure.Security {
+    
+    static boolean authenticate(String username, String password) {
+        User user = User.find(&quot;byEmail&quot;, username).first();
+        return user != null &amp;&amp; user.password.equals(password);
+    }
+}
+</code></pre> 
+<p class="note"><b>Note</b> that you can also override other methods to customize how the application should react to authentication events (onAuthenticated, onDisconnected).</p> 
+<h2 id="anameuserRetrievingtheconnectedusera"><a name="user">Retrieving the connected user</a></h2> 
+<p>From your application code, you can reuse the Security helper that you’ve just created to retrieve the connected user.</p> 
+<pre><code>@With(Secure.class)
+public class Application extends Controller {
+    
+    public static void index() {
+        String user = Security.connected();
+        render(user);
+    }
+}
+</code></pre> 
+<h2 id="anameauthAddingauthorizationchecksa"><a name="auth">Adding authorization checks</a></h2> 
+<h3 id="anameauthcontrollerControllerannotationa"><a name="authcontroller">Controller annotation</a></h3> 
+<p>You can use the <code>@Check</code> annotation either on controller classes or action methods to tell the Secure module to check that the connected user has the required authorization to call this action.</p> 
+<p>For example, to restrict an action method to authorized users:</p> 
+<pre><code>@With(Secure.class)
+public class Application extends Controller { 
+   …
+   
+   @Check(&quot;administrator&quot;)
+   public static void delete(Long id) {
+       …
+   }
+}
+</code></pre> 
+<p>To restrict all of the action methods in one controller, use the <code>@Check</code> annotation either on the controller class:</p> 
+<pre><code>@With(Secure.class)
+@Check(&quot;administrator&quot;)
+public class Application extends Controller { 
+   …
+   
+   public static void delete(Long id) {
+       …
+   }
+   
+   public static void edit(Long id) {
+       …
+   }
+}
+</code></pre> 
+<p>By default the secure module will always authorize all checks. You have to customize by overriding one more method in your <code>Security</code> class.</p> 
+<pre><code>package controllers;
+ 
+public class Security extends Secure.Security {
+    …
+    
+    static boolean check(String profile) {
+        User user = User.find(&quot;byEmail&quot;, connected()).first();
+        if (&quot;administrator&quot;.equals(profile)) {
+            return user.admin;
+        }
+        else {
+            return false;
+        }
+    }    
+}
+</code></pre> 
+<h3 id="anameauthtagTemplatetaga"><a name="authtag">Template tag</a></h3> 
+<p>You can also use the <code>secure.check</code> tag for authorization checks in templates. This is useful to conditionally display user-interface controls for operations that are protected by controller annotations. For example:</p> 
+<pre><code>#{secure.check &quot;administrator&quot;}
+    &lt;a href=&quot;@{delete(item.id)}&quot;&gt;Delete&lt;/a&gt;
+#{/secure.check}
+</code></pre> 
+<p>The tag only renders its body for authorised users, so the ‘Delete’ link is only displayed when the user is authorised to execute the <code>delete</code> controller action.</p> 
+<h2 id="anamecommandsCommandsa"><a name="commands">Commands</a></h2> 
+<p>The Secure module provides a <code>play secure:override</code> that you can use to override the log in page, so you can customize it for your application. This works by copying the corresponding file from the module to a file in your application that will be used instead.</p> 
+<p>You can abbreviate <code>play secure:override</code> to <code>play secure:ov</code>.</p> 
+<h3 id="anamecssCSSoverridea"><a name="css">CSS override</a></h3> 
+<p>Use the <code>play secure:override --css</code> command to copy a CSS file to your application that you can edit to customise the log in page look and feel.</p> 
+<h3 id="anameloginLogintemplateoverridea"><a name="login">Log in template override</a></h3> 
+<p>Use the <code>play secure:override --login</code> command to copy a log in page view template to your application that overrides the default log in page template.</p> 
+<h3 id="anamelayoutMainlayoutoverridea"><a name="layout">Main layout override</a></h3> 
+<p>Use the <code>play secure:override --layout</code> command to copy a main layout template to your application that overrides the layout used by the log in page.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/secure" target="_blank">Documentation: secure — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

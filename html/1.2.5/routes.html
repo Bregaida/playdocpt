@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: routes — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="roteamentoHTTP">roteamento HTTP</h1> 
+<p>The router is the component in charge of translating incoming HTTP Requests into action calls (a static, public method of a Controller).</p> 
+<p>An HTTP request is seen as an event by the MVC framework. The event contains two major pieces of information:</p> 
+<ul> 
+ <li>The Request path (such as <code>/clients/1542</code>, <code>/photos/list</code>), including the query string.</li> 
+ <li>The HTTP method (GET, POST, PUT, DELETE)</li> 
+</ul> 
+<h2 id="anamerestAboutRESTa"><a name="rest">About REST</a></h2> 
+<p>Representational state transfer (REST) is a style of software architecture for distributed hypermedia systems such as the World Wide Web.</p> 
+<p>REST states a few key design principles:</p> 
+<ul> 
+ <li>Application functionality is divided into resources</li> 
+ <li>Every resource is uniquely addressable using a URI</li> 
+ <li>All resources share a uniform interface for the transfer of state between client and resource. </li> 
+</ul> 
+<p>If you’re using HTTP, these interfaces are defined by the set of available HTTP methods. The protocol used to access the resource state is:</p> 
+<ul> 
+ <li>Client-server</li> 
+ <li>Stateless</li> 
+ <li>Cacheable</li> 
+ <li>Layered</li> 
+</ul> 
+<p>If an application follows the main REST design principles, the application is RESTful. The Play framework makes it easy to build RESTful applications:</p> 
+<ul> 
+ <li>The Play router interprets both URI and HTTP methods to route a request to a Java call. Regular expressions-based URI patterns give you even more flexibility. </li> 
+ <li>The protocol is stateless. This means you can’t save any state on the server between two successive requests.</li> 
+ <li>Play considers HTTP as a key feature, thus the framework gives you full access to HTTP information.</li> 
+</ul> 
+<h2 id="anamesyntaxAsintaxedoarquivoderotasa"><a name="syntax">A sintaxe do arquivo de rotas</a></h2> 
+<p>The <code>conf/routes</code> file is the configuration file used by the Router. This file lists all the routes needed by the application. Each route consists of an HTTP method + URI pattern associated with a Java call.</p> 
+<p>Let’s see what a route definition looks like:</p> 
+<pre><code>GET    /clients/{id}             Clients.show           
+</code></pre> 
+<p>Each route starts with the HTTP method, followed by the URI pattern. The last element of a route is the Java call definition.</p> 
+<p>You can add a comment to the route file, with the <code>#</code> character.</p> 
+<pre><code># Display a client
+GET    /clients/{id}             Clients.show           
+</code></pre> 
+<h3 id="TheHTTPmethod">The HTTP method</h3> 
+<p>The HTTP method can be any of the valid methods supported by HTTP:</p> 
+<ul> 
+ <li><b>GET</b></li> 
+ <li><b>POST</b></li> 
+ <li><b>PUT</b></li> 
+ <li><b>DELETE</b></li> 
+ <li><b>HEAD</b></li> 
+</ul> 
+<p>It also supports <code>WS</code> as action method to indicate a <a href="asynchronous#UsingWebSockets">WebSocket</a> request.</p> 
+<p>If you specify <code>*</code> as the method, this route will match the HTTP Request for any method.</p> 
+<pre><code>*   /clients/{id}             Clients.show           
+</code></pre> 
+<p>This route will accept both of:</p> 
+<pre><code>GET /clients/1541
+PUT /clients/1212
+</code></pre> 
+<h3 id="TheURIPattern">The URI Pattern</h3> 
+<p>The URI pattern defines the route’s request path. Some parts of the request path can be dynamic. Any dynamic part must be specified within braces {…}.</p> 
+<pre><code>/clients/all
+</code></pre> 
+<p>exactly matches:</p> 
+<pre><code>/clients/all
+</code></pre> 
+<p>but…</p> 
+<pre><code>/clients/{id}
+</code></pre> 
+<p>matches both:</p> 
+<pre><code>/clients/12121
+/clients/toto
+</code></pre> 
+<p>A URI pattern may have more than one dynamic part:</p> 
+<pre><code>/clients/{id}/accounts/{accountId}
+</code></pre> 
+<p>The default matching strategy for a dynamic part is defined by the regular expression <code>/[^/]+/</code>. You can define your own regular expression for a dynamic part.</p> 
+<p>This regex will only accept numerical values as id:</p> 
+<pre><code>/clients/{&lt;[0-9]+&gt;id}
+</code></pre> 
+<p>This one will ensure id is a word containing between 4 and 10 lower case characters only:</p> 
+<pre><code>/clients/{&lt;[a-z]{4,10}&gt;id}
+</code></pre> 
+<p>Any valid regular expression can be used here.</p> 
+<p class="note"><b>Note</b><br /> <br />Dynamic parts are named. The Controller can later retrieve the dynamic parts from the HTTP params map.</p> 
+<p>By default Play considers the trailing URL slash as important. For example, this route:</p> 
+<pre><code>GET     /clients         Clients.index
+</code></pre> 
+<p>will match the <strong>/clients</strong> URL but not <strong>/clients/</strong>. You can tell Play that you want to match both URLs by adding a question mark after the trailing slash. For example:</p> 
+<pre><code>GET     /clients/?       Clients.index
+</code></pre> 
+<p class="note">The URI pattern cannot have any optional part except for that trailing slash.</p> 
+<h3 id="Javacalldefinition">Java call definition</h3> 
+<p>The last part of a route definition is the Java call. This part is defined by the fully-qualified name of an action method. The action method must be a <code>public static void</code> method of a Controller class. A Controller class must be defined in the <code>controllers</code> package and must be a subclass of <code>play.mvc.Controller</code>.</p> 
+<p>You can add a Java package before the Controller class name if it isn’t defined directly under the controllers package. The <code>controllers</code> package itself is implicit, so you don’t need to specify it. </p> 
+<pre><code>GET    /admin             admin.Dashboard.index           
+</code></pre> 
+<h3 id="a404asaction">404 as action</h3> 
+<p>You can also directly use <code>404</code> as a route action to mark a URL path that must be ignored by your application. For example:</p> 
+<pre><code># Ignore favicon requests
+GET     /favicon.ico            404
+</code></pre> 
+<h3 id="Assignstaticargs">Assign static args</h3> 
+<p>In some cases, you want to reuse an existing action but define a more specific route based on the values of some of the arguments.</p> 
+<p>Let’s see how in this example:</p> 
+<pre><code>public static void page(String id) {
+    Page page = Page.findById(id);
+    render(page);
+}
+</code></pre> 
+<p>With the corresponding route:</p> 
+<pre><code>GET    /pages/{id}        Application.page
+</code></pre> 
+<p>Now, I want to define a URL alias for the page with ID ‘home’. I can define another route with a static argument:</p> 
+<pre><code>GET    /home              Application.page(id:'home')
+GET    /pages/{id}        Application.page
+</code></pre> 
+<p>The first route is equivalent to the second one when the page ID is ‘home’. However, since it has higher priority, this route will be used as the default for the call to Application.page with ID ‘home’.</p> 
+<h3 id="Variablesandscripts">Variables and scripts</h3> 
+<p>You can also use the <code>${…}</code> syntax for variables, and the <code>%{…}</code> syntax for scripts in the <code>routes</code> file, as you can in templates. For example:</p> 
+<pre><code>%{ context = play.configuration.getProperty('context', '') }%
+ 
+# Home page
+GET    ${context}         Secure.login
+GET    ${context}/        Secure.login
+</code></pre> 
+<p>Another example is the CRUD module’s <code>routes</code> file, which uses the <code>crud.types</code> tag to loop over model types to generate controller route definitions for each type.</p> 
+<h2 id="anamepriorityPrioridadenasrotasa"><a name="priority">Prioridade nas rotas</a></h2> 
+<p>Many routes can match the same request. If there is any conflict, the first route (following the declaration order) is used.</p> 
+<p>For example:</p> 
+<pre><code>GET    /clients/all       Clients.listAll
+GET    /clients/{id}      Clients.show
+</code></pre> 
+<p>With these definitions, the URI:</p> 
+<pre><code>/clients/all
+</code></pre> 
+<p>will be intercepted by the first route and will call Clients.listAll (even if the second route matched the request too).</p> 
+<h2 id="anamestaticServindorecursosestticosa"><a name="static">Servindo recursos est&aacute;ticos</a></h2> 
+<h3 id="staticDirmapping">staticDir: mapping</h3> 
+<p>Use the special action <code>staticDir</code>, to point to each folder you wish to publish as a static resources container.</p> 
+<p>For example:</p> 
+<pre><code>GET    /public/           staticDir:public
+</code></pre> 
+<p>When supplied with a request for a <code>/public/*</code> path, Play will serve your files from the application /public folder.</p> 
+<p>Priorities are applied as for standard routes.</p> 
+<h3 id="staticFilemapping">staticFile: mapping</h3> 
+<p>You can also directly map a URL path to a static file rendering.</p> 
+<pre><code># Serve index.html static file for home requests
+GET     /home                   staticFile:/public/html/index.html
+</code></pre> 
+<h2 id="URLEncoding">URL Encoding</h2> 
+<p>Because it is imposible to decode and re-encode URL (you don’t know if a slash is a slash or an %2F for example), URL should be expressed encoded. UTF-8 is the default encoding but you can use one of ISO-8859-1, UTF-16BE, UTF-16LE, UTF-16 using the defaultWebEncoding config parameter. See http://download.oracle.com/javase/1.4.2/docs/api/java/nio/charset/Charset.html for more info. </p> 
+<p>For example:</p> 
+<ol> 
+ <li>map /st&eacute;phane</li> 
+</ol> 
+<pre><code>GET /st%C3%A9phane Application.stephane
+</code></pre> 
+<h2 id="anamereverseRotareversagerandoalgunsURLsa"><a name="reverse">Rota reversa: gerando alguns URLs</a></h2> 
+<p>The Router can be used to generate a URL from within a Java call. So you’re able to centralize in one only configuration file all your URI patterns, and then be more confident when refactoring your application.</p> 
+<p>For example, with this route definition:</p> 
+<pre><code>GET    /clients/{id}      Clients.show
+</code></pre> 
+<p>From your code, you can generate the URL able to invoke Clients.show:</p> 
+<pre><code>map.put(&quot;id&quot;, 1541);
+String url = Router.reverse(&quot;Clients.show&quot;, map).url;// GET /clients/1541
+</code></pre> 
+<p class="note">The URL generation is integrated into many of the framework’s components. You never should use the Router.reverse operation directly.</p> 
+<p>If you add parameters that are not included in the URI pattern, these parameters will be added to the query string:</p> 
+<pre><code>map.put(&quot;id&quot;, 1541);
+map.put(&quot;display&quot;, &quot;full&quot;);
+// GET /clients/1541?display=full
+String url = Router.reverse(&quot;Clients.show&quot;, map).url;
+</code></pre> 
+<p>The priority order is again used to find the most specific Route able to generate the URL.</p> 
+<h2 id="anamecontenttypesConfigurandocontenttypesa"><a name="content-types">Configurando content types</a></h2> 
+<p>Play selects a <a href="http://en.wikipedia.org/wiki/Internet_media_type">media type</a> for the HTTP response according to the value of <code>request.format</code>. This value determines which view template file to use, by file extension, and also sets the response <code>Content-type</code> to the media type that Play’s <code>mime-types.properties</code> file maps the format to. </p> 
+<p>The default format for a Play request is <code>html</code>. The default template for the <code>index()</code> controller method (and <code>html</code> format) is therefore the file <code>index.html</code>. If you specify a different format, in one of several ways, you can select an alternate template. </p> 
+<p>You can set the format programmatically before calling the <code>render</code> method. For example, to serve a Cascading Style Sheet with media type <code>text/css</code>, you can do:</p> 
+<pre><code>request.format = &quot;css&quot;;  
+</code></pre> 
+<p>However, a cleaner approach is to use the URL to specify the format in the <code>routes</code> file. You can add formats as specific routes, by specifying the format for the controller method. For example, the following route will handle a request for <code>/index.xml</code>, setting the format to <code>xml</code> and rendering the <code>index.xml</code> template. </p> 
+<pre><code>GET    /index.xml         Application.index(format:'xml')  
+</code></pre> 
+<p>Similarly:</p> 
+<pre><code>GET    /stylesheets/dynamic_css   css.SiteCSS(format:'css')
+</code></pre> 
+<p>Play can also extract the format directly from the URL, with a route such as the following. </p> 
+<pre><code>GET    /index.{format}    Application.index 
+</code></pre> 
+<p>With this route, a request for <code>/index.xml</code> will set the format to <code>xml</code> and render the XML template, while <code>/index.txt</code> will render the plain text template. </p> 
+<p>Play can also set the format automatically using HTTP content negotiation.</p> 
+<h2 id="anamecontentnegotiationHTTPcontentnegotiationa"><a name="content-negotiation">HTTP content negotiation</a></h2> 
+<p>One thing that Play has in common with other RESTful architectures is the direct use of HTTP functionality, instead of trying to hide HTTP or put an abstraction layer on top of it. <a href="http://en.wikipedia.org/wiki/Content_negotiation">Negociando conte&uacute;do</a> is an HTTP feature that allows an HTTP server to serve different <a href="http://en.wikipedia.org/wiki/Internet_media_type">media types</a> for the same URL, according to which media types are requested by the HTTP client. The client specifies acceptable content types using media types in the <code>Accept</code> header, such as requiring an XML response with: </p> 
+<pre><code>Accept: application/xml
+</code></pre> 
+<p>A client may specify more than one media type, and also specify that any media type is acceptable with a catch-all wild-card media type (<code>*/*</code>): </p> 
+<pre><code>Accept: application/xml, image/png, */*
+</code></pre> 
+<p>Conventional web browsers always include the wild-card value in the <code>Accept</code> header: they will accept any media type, and Play will serve HTML – the default ‘format’. Negociando conte&uacute;do is more likely to be used by custom clients, such as an Ajax request that requires a JSON response, or an e-book reader that requires a PDF or EPUB version of a document. </p> 
+<h3 id="SettingthecontenttypefromHTTPheaders">Setting the content type from HTTP headers </h3> 
+<p>Play selects its default request format, <code>html</code>, if the <code>Accept</code> header contains <code>text/html</code> or <code>application/xhtml</code>, or as a result of the wildcard <code>*/*</code> value. The default format is not selected if the wildcard value is not present.</p> 
+<p>Play has built-in support for a few formats: <code>html</code>, <code>txt</code>, <code>json</code> and <code>xml</code>. For example, define a controller method that renders some data: </p> 
+<pre><code>public static void index() { 
+   final String name = &quot;Peter Hilton&quot;; 
+   final String organisation = &quot;Lunatech Research&quot;; 
+   final String url = &quot;http://www.lunatech-research.com/&quot;; 
+   render(name, organisation, url); 
+} 
+</code></pre> 
+<p>If you request a URL that is mapped to this method (<code>http://localhost:9000/</code> in a new Play application) in a web browser, then play will render the <code>index.html</code> template, because web browsers send an <code>Accept</code> header that includes the value <code>text/html</code>. </p> 
+<p>Play responds to a request with the header <code>Accept: text/xml</code> by setting the request format to <code>xml</code> and rendering an <code>index.xml</code> template, such as: </p> 
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt; 
+&lt;contact&gt; 
+&lt;name&gt;${name}&lt;/name&gt; 
+&lt;organisation&gt;${organisation}&lt;/organisation&gt; 
+&lt;url&gt;${url}&lt;/url&gt; 
+&lt;/contact&gt; 
+</code></pre> 
+<p>The built in <code>Accept</code> header format mappings work as follows, for an <code>index()</code> controller method: the accept header contains a media type that Play maps to a format, which is in turn mapped to a template file. </p> 
+<table> 
+ <tbody> 
+  <tr> 
+   <th>Accept header </th> 
+   <th>Format </th> 
+   <th>Template file name </th> 
+   <th>Mapping </th> 
+  </tr> 
+  <tr> 
+   <td>null </td> 
+   <td>null </td> 
+   <td>index.html </td> 
+   <td>Default template extension for null format </td> 
+  </tr> 
+  <tr> 
+   <td>image/png </td> 
+   <td>null </td> 
+   <td>index.html </td> 
+   <td>Media type not mapped to a format </td> 
+  </tr> 
+  <tr> 
+   <td>*/*, image/png </td> 
+   <td>html </td> 
+   <td>index.html </td> 
+   <td>Default media type mapped to html format </td> 
+  </tr> 
+  <tr> 
+   <td>text/html </td> 
+   <td>html </td> 
+   <td>index.html </td> 
+   <td>Built-in format </td> 
+  </tr> 
+  <tr> 
+   <td>application/xhtml </td> 
+   <td>html </td> 
+   <td>index.html </td> 
+   <td>Built-in format </td> 
+  </tr> 
+  <tr> 
+   <td>text/xml </td> 
+   <td>xml </td> 
+   <td>index.xml </td> 
+   <td>Built-in format </td> 
+  </tr> 
+  <tr> 
+   <td>application/xml </td> 
+   <td>xml </td> 
+   <td>index.xml </td> 
+   <td>Built-in format </td> 
+  </tr> 
+  <tr> 
+   <td>text/plain </td> 
+   <td>txt </td> 
+   <td>index.txt </td> 
+   <td>Built-in format </td> 
+  </tr> 
+  <tr> 
+   <td>text/javascript </td> 
+   <td>json </td> 
+   <td>index.json </td> 
+   <td>Built-in format </td> 
+  </tr> 
+  <tr> 
+   <td>application/json, */* </td> 
+   <td>json </td> 
+   <td>index.json </td> 
+   <td>Built-in format, default media type ignored </td> 
+  </tr> 
+ </tbody> 
+</table> 
+<h3 id="Customformats">Custom formats </h3> 
+<p>You can add content negotiation for your own custom types by inspecting the request headers and setting the format accordingly, so that you only set that format when the HTTP request selects the corresponding media type. For example, to serve a <a href="http://en.wikipedia.org/wiki/Vcard">vCard</a> with media type <code>text/x-vcard</code>, in your controller, check for your custom format before all requests: </p> 
+<pre><code>@Before 
+static void setFormat() { 
+	if (request.headers.get(&quot;accept&quot;).value().equals(&quot;text/x-vcard&quot;)) { 
+		request.format = &quot;vcf&quot;; 
+	} 
+} 
+</code></pre> 
+<p>Now, a request with an <code>Accept: text/x-vcard</code> header will render an <code>index.vcf</code> template, such as: </p> 
+<pre><code>BEGIN:VCARD 
+VERSION:3.0 
+N:${name} 
+FN:${name} 
+ORG:${organisation} 
+URL:${url} 
+END:VCARD  
+</code></pre> 
+<p class="note"><b>Continuing the discussion</b><br /> <br />When the Router has determined which Java call to invoke for the received HTTP Request, the Play framework then invokes that Java call. Let’s see how <span class="next"><a href="controllers">Controllers</a></span> work.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/routes" target="_blank">Documentation: routes — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: guide2 — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Afirstiterationofthedatamodel">A first iteration of the data model</h1> 
+<p>Here we will start to write the model for our blog engine.</p> 
+<h2 id="aclassjpaIntroductiontoJPAa"><a class="jpa">Introduction to JPA</a></h2> 
+<p>The model layer has a central position in a Play application (and in fact in all well-designed applications). It is the domain-specific representation of the information on which the application operates. As we want to create a blog engine, the model layer will certainly contain classes like User, Post and Comment.</p> 
+<p>Because most model objects need to survive between application restarts, we have to save them in a persistent datastore. A common choice is to use a relational database. But because Java is an object oriented language, we will use an <a href="http://en.wikipedia.org/wiki/Object-relational_mapping">object-relational mapper</a> to help reduce the impedance mismatch.</p> 
+<p>The <a href="http://en.wikipedia.org/wiki/Java_Persistence_API">Java Persistence API</a> (JPA) is a Java specification that defines a standard API for object-relational mapping. As an implementation of JPA, Play uses the well-known <a href="http://www.hibernate.org">Hibernate</a> framework. One advantage of using JPA over the standard Hibernate API is that all the ‘mapping’ is declared directly in the Java objects.</p> 
+<p>If you have used Hibernate or JPA before you will be surprised by the simplicity added by Play. No need to configure anything; JPA just works out of the box with Play.</p> 
+<p>If you don’t know JPA, you can read <a href="http://java.sun.com/javaee/5/docs/tutorial/doc/bnbpz.html">some of these simple presentations</a> before continuing.</p> 
+<h2 id="aclassuserTheUserclassa"><a class="user">The User class</a></h2> 
+<p>We will start to code the blog engine by creating the User class. Create a new file <code>/yabe/app/models/User.java</code>, and declare a first implementation of the User class:</p> 
+<pre><code>package models;
+ 
+import java.util.*;
+import javax.persistence.*;
+ 
+import play.db.jpa.*;
+ 
+@Entity
+public class User extends Model {
+ 
+    public String email;
+    public String password;
+    public String fullname;
+    public boolean isAdmin;
+    
+    public User(String email, String password, String fullname) {
+        this.email = email;
+        this.password = password;
+        this.fullname = fullname;
+    }
+ 
+}
+</code></pre> 
+<p>The <code>@Entity</code> annotation marks this class as a managed JPA entity, and the <code>Model</code> superclass automatically provides a set of useful JPA helpers that we will discover later. All fields of this class will be automatically persisted to the database. </p> 
+<p class="note">By default, the table name is ‘User’. If you change the configuration to use a database where ‘user’ is a reserved keyword, then you will need to specify a different table name for the JPA mapping. To do this, annotate the <code>User</code> class with <code>@Table(name=“blog_user”)</code>.</p> 
+<p class="note">It’s not required that your model objects extend the <code>play.db.jpa.Model</code> class. You can use plain JPA as well. But extending this class is a good choice in most cases as it will make a lot of the JPA stuff easier.</p> 
+<p>If you have used JPA before, you know that every JPA entity must provide an <code>@Id</code> property. Here the Model superclass provides an automatically generated numeric ID, and in most cases this is good enough.</p> 
+<p class="note">Don’t think about this provided <code>id</code> field as a <b>functional identifier</b> but as a <b>technical identifier</b>. It is generally a good idea to keep both concepts separated and to keep an automatically generated numeric ID as a technical identifier.</p> 
+<p>Now if you’re a Java developer with any experience at all, warning bells are probably clanging like mad at the sight of a public variable. In Java (as in other object-oriented languages), best practice says to make all fields private and provide accessors and mutators. This is to promote encapsulation, a concept critical to object oriented design. In fact, Play takes care of that for you and automatically generates getters and setters while preserving encapsulation; we will see how it works later in this tutorial.</p> 
+<p>You can now refresh the application home page, to see the result. In fact, unless you made a mistake, you should not see any change: Play has automatically compiled and loaded the User class, but this does not add any new features to the application.</p> 
+<h2 id="aclasstestWritingthefirsttesta"><a class="test">Writing the first test</a></h2> 
+<p>A good way to test the newly created User class is to write a JUnit test case. It will allow you to incrementally complete the application model and ensure that all is fine.</p> 
+<p>To run a test case, you need to start the application in a special ‘test’ mode. Stop the currently running application, open a command line and type:</p> 
+<pre><code>~$ play test
+</code></pre> 
+<p><img border="0" src="images/guide2-0" /></p> 
+<p>The <code>play test</code> command is almost the same as <code>play run</code>, except that it loads a test runner module that allows you to run test suite directly from a browser. </p> 
+<p class="note">When you run a Play application in <code>test mode</code>, Play will automatically switch to the <code>test</code> framework ID and load the <code>application.conf</code> file accordingly. Check the <a href="ids">framework ID documentation</a> for more information.</p> 
+<p>Open a browser to the <a href="http://localhost:9000/@tests">http://localhost:9000/@tests</a> URL to see the test runner. Try to select all the default tests and run them; all should be green… But these default tests don’t really test anything.</p> 
+<p><img border="0" src="images/guide2-1" /></p> 
+<p>To test the model part of the application we will use a JUnit test. As you can see, a default <code>BasicTests.java</code> already exists, so let’s open it (<code>/yabe/test/BasicTest.java</code>):</p> 
+<pre><code>import org.junit.*;
+import play.test.*;
+import models.*;
+ 
+public class BasicTest extends UnitTest {
+ 
+    @Test
+    public void aVeryImportantThingToTest() {
+        assertEquals(2, 1 + 1);
+    }
+ 
+}
+</code></pre> 
+<p>Remove the useless default test (<code>aVeryImportantThingToTest</code>) and create a test that tries to create a new user and retrieve it:</p> 
+<pre><code>@Test
+public void createAndRetrieveUser() {
+    // Create a new user and save it
+    new User(&quot;bob@gmail.com&quot;, &quot;secret&quot;, &quot;Bob&quot;).save();
+    
+    // Retrieve the user with e-mail address bob@gmail.com
+    User bob = User.find(&quot;byEmail&quot;, &quot;bob@gmail.com&quot;).first();
+    
+    // Test 
+    assertNotNull(bob);
+    assertEquals(&quot;Bob&quot;, bob.fullname);
+}
+</code></pre> 
+<p>As you can see, the Model superclass gives us two very useful methods: <code>save()</code> and <code>find()</code>.</p> 
+<p class="note">You can read more about the Model class’ methods in the Play manual’s <a href="jpa">JPA support</a> chapter.</p> 
+<p>Select the <code>BasicTests.java</code> in the test runner, click start and check that all is green. </p> 
+<p>We will need a method on the User class that checks if a user with a specified username and password exists. Let’s write it and test it.</p> 
+<p>In the <code>User.java</code> source, add the <code>connect()</code> method:</p> 
+<pre><code>public static User connect(String email, String password) {
+    return find(&quot;byEmailAndPassword&quot;, email, password).first();
+}
+</code></pre> 
+<p>And now the test case:</p> 
+<pre><code>@Test
+public void tryConnectAsUser() {
+    // Create a new user and save it
+    new User(&quot;bob@gmail.com&quot;, &quot;secret&quot;, &quot;Bob&quot;).save();
+    
+    // Test 
+    assertNotNull(User.connect(&quot;bob@gmail.com&quot;, &quot;secret&quot;));
+    assertNull(User.connect(&quot;bob@gmail.com&quot;, &quot;badpassword&quot;));
+    assertNull(User.connect(&quot;tom@gmail.com&quot;, &quot;secret&quot;));
+}
+</code></pre> 
+<p>Each time you make a modification you can run all the tests from the Play test runner to make sure you didn’t break anything. </p> 
+<h2 id="aclasspostThePostclassa"><a class="post">The Post class</a></h2> 
+<p>The <code>Post</code> class will represent blog posts. Let’s write a first implementation:</p> 
+<pre><code>package models;
+ 
+import java.util.*;
+import javax.persistence.*;
+ 
+import play.db.jpa.*;
+ 
+@Entity
+public class Post extends Model {
+ 
+    public String title;
+    public Date postedAt;
+    
+    @Lob
+    public String content;
+    
+    @ManyToOne
+    public User author;
+    
+    public Post(User author, String title, String content) {
+        this.author = author;
+        this.title = title;
+        this.content = content;
+        this.postedAt = new Date();
+    }
+ 
+}
+</code></pre> 
+<p>Here we use the <code>@Lob</code> annotation to tell JPA to use a large text database type to store the post content. We have declared the relation to the <code>User</code> class using <code>@ManyToOne</code>. That means that each <code>Post</code> is authored by a single <code>User</code>, and that each <code>User</code> can author several <code>Post</code> instances.</p> 
+<p class="note">Recent versions of PostgreSQL do not store <code>String</code> fields annotated with <code>@Lob</code> as text unless you also annotate the field with <code>@Type(type = “org.hibernate.type.TextType”)</code>.</p> 
+<p>We will write a new test case to check that the <code>Post</code> class works as expected. But before writing more tests, we need to do something in the JUnit test class. In the current test, the database content is never deleted, so each new run creates more and more objects. This will soon become problematic, when more advanced tests count objects to check that all is fine.</p> 
+<p>So let’s write a JUnit <code>setup()</code> method to delete the database before each test:</p> 
+<pre><code>public class BasicTest extends UnitTest {
+ 
+    @Before
+    public void setup() {
+        Fixtures.deleteDatabase();
+    }
+ 
+    …
+}
+</code></pre> 
+<p class="note">The <code>@Before</code> concept is a core concept of the JUnit testing tool.</p> 
+<p>As you can see, the <code>Fixtures</code> class is a helper to deal with your database during tests. Run the test again to check that you haven’t broken anything, and start to write the next test:</p> 
+<pre><code>@Test
+public void createPost() {
+    // Create a new user and save it
+    User bob = new User(&quot;bob@gmail.com&quot;, &quot;secret&quot;, &quot;Bob&quot;).save();
+    
+    // Create a new post
+    new Post(bob, &quot;My first post&quot;, &quot;Hello world&quot;).save();
+    
+    // Test that the post has been created
+    assertEquals(1, Post.count());
+    
+    // Retrieve all posts created by Bob
+    List&lt;Post&gt; bobPosts = Post.find(&quot;byAuthor&quot;, bob).fetch();
+    
+    // Tests
+    assertEquals(1, bobPosts.size());
+    Post firstPost = bobPosts.get(0);
+    assertNotNull(firstPost);
+    assertEquals(bob, firstPost.author);
+    assertEquals(&quot;My first post&quot;, firstPost.title);
+    assertEquals(&quot;Hello world&quot;, firstPost.content);
+    assertNotNull(firstPost.postedAt);
+}
+</code></pre> 
+<p class="note"><b>Don’t forget</b> to import the <code>java.util.List</code> or you will get a compilation error.</p> 
+<h2 id="aclasscommentsAddingCommentsa"><a class="comments">Adding Comments</a></h2> 
+<p>The last thing that we need to add to this first model draft is the ability to attach comments to posts.</p> 
+<p>Creating the <code>Comment</code> class is pretty straightforward.</p> 
+<pre><code>package models;
+ 
+import java.util.*;
+import javax.persistence.*;
+ 
+import play.db.jpa.*;
+ 
+@Entity
+public class Comment extends Model {
+ 
+    public String author;
+    public Date postedAt;
+     
+    @Lob
+    public String content;
+    
+    @ManyToOne
+    public Post post;
+    
+    public Comment(Post post, String author, String content) {
+        this.post = post;
+        this.author = author;
+        this.content = content;
+        this.postedAt = new Date();
+    }
+ 
+}
+</code></pre> 
+<p>Let’s write a first test case:</p> 
+<pre><code>@Test
+public void postComments() {
+    // Create a new user and save it
+    User bob = new User(&quot;bob@gmail.com&quot;, &quot;secret&quot;, &quot;Bob&quot;).save();
+ 
+    // Create a new post
+    Post bobPost = new Post(bob, &quot;My first post&quot;, &quot;Hello world&quot;).save();
+ 
+    // Post a first comment
+    new Comment(bobPost, &quot;Jeff&quot;, &quot;Nice post&quot;).save();
+    new Comment(bobPost, &quot;Tom&quot;, &quot;I knew that !&quot;).save();
+ 
+    // Retrieve all comments
+    List&lt;Comment&gt; bobPostComments = Comment.find(&quot;byPost&quot;, bobPost).fetch();
+ 
+    // Tests
+    assertEquals(2, bobPostComments.size());
+ 
+    Comment firstComment = bobPostComments.get(0);
+    assertNotNull(firstComment);
+    assertEquals(&quot;Jeff&quot;, firstComment.author);
+    assertEquals(&quot;Nice post&quot;, firstComment.content);
+    assertNotNull(firstComment.postedAt);
+ 
+    Comment secondComment = bobPostComments.get(1);
+    assertNotNull(secondComment);
+    assertEquals(&quot;Tom&quot;, secondComment.author);
+    assertEquals(&quot;I knew that !&quot;, secondComment.content);
+    assertNotNull(secondComment.postedAt);
+}
+</code></pre> 
+<p>You can see that navigation between <b>Post</b> and <b>Comments</b> is not very easy: we need to use a query to retrieve all comments attached to a <code>Post</code>. We can do better by setting up the other side of the relationship with the <code>Post</code> class. </p> 
+<p>Add the <code>comments</code> field to the <code>Post</code> class:</p> 
+<pre><code>...
+@OneToMany(mappedBy=&quot;post&quot;, cascade=CascadeType.ALL)
+public List&lt;Comment&gt; comments;
+ 
+public Post(User author, String title, String content) { 
+    this.comments = new ArrayList&lt;Comment&gt;();
+    this.author = author;
+    this.title = title;
+    this.content = content;
+    this.postedAt = new Date();
+}
+...
+</code></pre> 
+<p>Note how we have used the <code>mappedBy</code> attribute to tell JPA that the <code>Comment</code> class’ post field is the owning side that maintains the relationship. When you define a bi-directional relation with JPA it is important to specify which side will maintain the relationship. In this case, since <code>Comment</code> instances belong to a <code>Post</code>, we define the relationship on the <code>Comment.post</code> inverse relation.</p> 
+<p>We have set the <code>cascade</code> property to tell JPA that we want <code>Post</code> deletion be cascaded to <code>comments</code>. This way, if you delete a post, all related comments will be deleted as well.</p> 
+<p>With this new relationship, we will add a helper method to the <code>Post</code> class to simplify adding comments:</p> 
+<pre><code>public Post addComment(String author, String content) {
+    Comment newComment = new Comment(this, author, content).save();
+    this.comments.add(newComment);
+    this.save();
+    return this;
+}
+</code></pre> 
+<p>Let’s write another test case to check that it works:</p> 
+<pre><code>@Test
+public void useTheCommentsRelation() {
+    // Create a new user and save it
+    User bob = new User(&quot;bob@gmail.com&quot;, &quot;secret&quot;, &quot;Bob&quot;).save();
+ 
+    // Create a new post
+    Post bobPost = new Post(bob, &quot;My first post&quot;, &quot;Hello world&quot;).save();
+ 
+    // Post a first comment
+    bobPost.addComment(&quot;Jeff&quot;, &quot;Nice post&quot;);
+    bobPost.addComment(&quot;Tom&quot;, &quot;I knew that !&quot;);
+ 
+    // Count things
+    assertEquals(1, User.count());
+    assertEquals(1, Post.count());
+    assertEquals(2, Comment.count());
+ 
+    // Retrieve Bob's post
+    bobPost = Post.find(&quot;byAuthor&quot;, bob).first();
+    assertNotNull(bobPost);
+ 
+    // Navigate to comments
+    assertEquals(2, bobPost.comments.size());
+    assertEquals(&quot;Jeff&quot;, bobPost.comments.get(0).author);
+    
+    // Delete the post
+    bobPost.delete();
+    
+    // Check that all comments have been deleted
+    assertEquals(1, User.count());
+    assertEquals(0, Post.count());
+    assertEquals(0, Comment.count());
+}
+</code></pre> 
+<p>Is it green?</p> 
+<p><img border="0" src="images/guide2-2" /></p> 
+<h2 id="aclassfixturesUsingFixturestowritemorecomplicatedtestsa"><a class="fixtures">Using Fixtures to write more complicated tests</a></h2> 
+<p>When you start to write more complex tests, you often need a set of data to test on. Fixtures let you describe your model in a <a href="http://en.wikipedia.org/wiki/Yaml">YAML</a> file and load it at any time before a test.</p> 
+<p>Edit the <code>/yabe/test/data.yml</code> file and start to describe a User:</p> 
+<pre><code>
+User(bob):
+    email: bob@gmail.com
+    password: secret
+    fullname: Bob
+ 
+...
+ 
+</code></pre> 
+<p>Well, because the <code>data.yml</code> file is a litle big, you can <a href="files/data.yml">download it here</a>.</p> 
+<p>Now we create a test case that loads this data and runs some assertions over it:</p> 
+<pre><code>@Test
+public void fullTest() {
+    Fixtures.loadModels(&quot;data.yml&quot;);
+ 
+    // Count things
+    assertEquals(2, User.count());
+    assertEquals(3, Post.count());
+    assertEquals(3, Comment.count());
+ 
+    // Try to connect as users
+    assertNotNull(User.connect(&quot;bob@gmail.com&quot;, &quot;secret&quot;));
+    assertNotNull(User.connect(&quot;jeff@gmail.com&quot;, &quot;secret&quot;));
+    assertNull(User.connect(&quot;jeff@gmail.com&quot;, &quot;badpassword&quot;));
+    assertNull(User.connect(&quot;tom@gmail.com&quot;, &quot;secret&quot;));
+ 
+    // Find all of Bob's posts
+    List&lt;Post&gt; bobPosts = Post.find(&quot;author.email&quot;, &quot;bob@gmail.com&quot;).fetch();
+    assertEquals(2, bobPosts.size());
+ 
+    // Find all comments related to Bob's posts
+    List&lt;Comment&gt; bobComments = Comment.find(&quot;post.author.email&quot;, &quot;bob@gmail.com&quot;).fetch();
+    assertEquals(3, bobComments.size());
+ 
+    // Find the most recent post
+    Post frontPost = Post.find(&quot;order by postedAt desc&quot;).first();
+    assertNotNull(frontPost);
+    assertEquals(&quot;About the model layer&quot;, frontPost.title);
+ 
+    // Check that this post has two comments
+    assertEquals(2, frontPost.comments.size());
+ 
+    // Post a new comment
+    frontPost.addComment(&quot;Jim&quot;, &quot;Hello guys&quot;);
+    assertEquals(3, frontPost.comments.size());
+    assertEquals(4, Comment.count());
+}
+</code></pre> 
+<p class="note">You can read more about Play and YAML in the <a href="yaml">YAML manual page</a>.</p> 
+<h2 id="aclasssaveSaveyourworka"><a class="save">Save your work</a></h2> 
+<p>We have now finished a huge part of the blog engine. Now that we have created and tested all these things, we can start to develop the web application itself.</p> 
+<p>But before continuing, it’s time to save your work using Bazaar. Open a command line and type <code>bzr st</code> to see the modifications made since the last commit:</p> 
+<pre><code>$ bzr st
+</code></pre> 
+<p>As you can see, some new files are not under version control. The <code>test-result</code> folder doesn’t need to be versioned, so let’s ignore it.</p> 
+<pre><code>$ bzr ignore test-result
+</code></pre> 
+<p>Add all the other files to version control using <code>bzr add</code>.</p> 
+<pre><code>$ bzr add
+</code></pre> 
+<p>You can now commit your project.</p> 
+<pre><code>$ bzr commit -m &quot;The model layer is ready&quot;
+</code></pre> 
+<p class="note">Go to the <span class="next"><a href="guide3">Building the first screen</a></span>. </p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/guide2" target="_blank">Documentation: guide2 — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

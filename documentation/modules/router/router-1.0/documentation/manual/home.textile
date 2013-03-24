@@ -23,7 +23,7 @@ These annotations have the following attributes:
 
 **@Any** matches all the above HTTP methods.
 
-p(note). Note that the path uses the same format described in "HTTP routing":http://www.playframework.org/documentation/1.2/routes
+p(note). Note that the path uses the same format described in "roteamento HTTP":http://www.playframework.org/documentation/1.2/routes
 
 Examples:
 

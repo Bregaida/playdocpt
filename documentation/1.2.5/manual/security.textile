@@ -1,8 +1,8 @@
-h1. Security Guide
+h1. Guia de segurança
 
 The Play framework is designed with security in mind - but it is impossible to prevent developers using the framework to mess up and open holes. The guide describes the common security issues in web applications and how to avoid them in Play applications.
 
-h2. <a name="sessions">Sessions</a>
+h2. <a name="sessions">Sessões</a>
 
 Often you need to keep information associated with a user, in particular the logged-in status. Without a session, the user would need to pass credentials with each request.
 
@@ -53,7 +53,7 @@ This is NOT:
 
 bc. createQuery("SELECT * from Stuff WHERE type=" + theType);
 
-h2. <a name="csrf">Cross-Site Request Forgery</a>
+h2. <a name="csrf">Site avaliado como falso</a>
 
 The CSRF attack can be really problematic in web applications:
 

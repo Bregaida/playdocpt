@@ -15,7 +15,7 @@ bc. %test.db.url=jdbc:h2:mem:play;MODE=MYSQL;LOCK_MODE=0@
 If you can't use *READ_UNCOMMITED* for your database transactions, you need to run every JPA access it their own transaction, either by managing JPA transaction by hand (using @JPA.em().getTransaction()@) or by spawning invocations using *Jobs*. 
 
 
-h2. Dependency management
+h2. Gerenciamento de dependências
 
 "Play’s dependency management system":dependency allows you to express your application’s external dependencies in a single @dependencies.yml@ file. 
 
@@ -179,7 +179,7 @@ You can also create more than one test configuration, by specifying a framework 
 
 h2. Cheat-sheets provided with documentation
 
-The Play documentation now includes several Cheat sheets that provide a quick reference for the common Play functions. They can be easily printed.
+The Play documentation now includes several Resumos that provide a quick reference for the common Play functions. They can be easily printed.
 
 !images/cheatsheet!
 

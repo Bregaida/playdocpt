@@ -38,144 +38,144 @@ h2. <a name="manual">A documentação essencial</a>
 
 Tudo que você precisa saber sobre o Play.
 
-# "Main concepts":main
-## "The MVC application model":main#mvc
-## "A request life cycle":main#request
-## "Application layout & organization":main#application
-## "Development lifecycle":main#lifecycle
-# "HTTP routing":routes
-## "The routes file syntax":routes#syntax
-## "Routes priority":routes#priority
-## "Serving static resources":routes#static
-## "Reverse routing: generate some URL":routes#reverse
-## "Setting content types":routes#content-types
-## "Content negotiation":routes#content-negotiation
+# "Conceitos principais":main
+## "O modelo de aplicação MVC":main#mvc
+## "O ciclo de vida da requisição":main#request
+## "Organização e layout da aplicação ":main#application
+## "Ciclo de vida de desenvolvimento":main#lifecycle
+# "roteamento HTTP":routes
+## "A sintaxe do arquivo de rotas":routes#syntax
+## "Prioridade nas rotas":routes#priority
+## "Servindo recursos estáticos":routes#static
+## "Rota reversa: gerando alguns URLs":routes#reverse
+## "Configurando content types":routes#content-types
+## "Negociando conteúdo":routes#content-negotiation
 # "Controllers":controllers
-## "A Controller overview":controllers#overview
-## "Retrieve HTTP parameters":controllers#params
-## "Advanced HTTP to Java binding":controllers#binding
-## "Return a result":controllers#result
-## "Interceptions":controllers#interceptions
-## "Session and Flash scopes":controllers#session
-# "The template engine":templates
-## "Template syntax":templates#syntax
-## "Template inheritance":templates#inheritance
-## "Create tags":templates#tags
-## "Extending the templates language":templates#extensions
-## "Implicit objects":templates#implicits
-# "HTTP form data validation":validation
-## "How does it work?":validation#how
-## "Retrieving error messages":validation#messages
-## "Displaying errors in the template":validation#display
-## "Using annotations":validation#annotations
-## "Validating objects":validation#objects
-## "Custom validation":validation#custom
-# "The domain object model":model
-## "Properties simulation":model#properties
-## "Setup a database to persist your model objects":model#database
-## "Persist your object model with Hibernate":model#hibernate
-## "The stateless model":model#stateless
-# "JPA persistence":jpa
-## "Starting the JPA entity manager":jpa#starting
-## "Obtaining the JPA entity manager":jpa#obtaining
-## "Transaction management":jpa#transactions
-## "The play.db.jpa.Model support class":jpa#support
-## "Finding objects":jpa#finding
-## "Counting objects":jpa#counting
-## "Explicit save":jpa#save
-## "More about generic typing problems":jpa#typing
-# "Play libs":libs
-## "XML parsing using XPath":libs#ParsingXMLusingXPath
-## "Web Service client":libs#WebServiceclient
-## "Functional programming with Java":libs#FunctionalprogrammingwithJava
+## "Uma visão geral do Controller":controllers#overview
+## "Buscando parâmetros HTTP":controllers#params
+## "HTTP avançado para binding do Java":controllers#binding
+## "Voltando um resultado":controllers#result
+## "Interceptadores":controllers#interceptions
+## "Escopo de sessão e flash":controllers#session
+# "A engine de template":templates
+## "Sintaxe do template":templates#syntax
+## "Herança de templates":templates#inheritance
+## "Criando tags":templates#tags
+## "Expandindo a linguagem de templates":templates#extensions
+## "Objetos implícitos":templates#implicits
+# "Validação de dados em formulário HTTP":validation
+## "Como funciona?":validation#how
+## "Buscando mensagens de erro":validation#messages
+## "Exibindo erros no template":validation#display
+## "Usando anotações":validation#annotations
+## "Validando objetos":validation#objects
+## "Validação customizada":validation#custom
+# "O modelo de objeto de domínio":model
+## "Simulação de propriedades":model#properties
+## "Configurando um banco de dados para persistir os seus objetos de modelo":model#database
+## "Persistindo o seu objeto de modelo com Hibernate":model#hibernate
+## "O modelo stateless":model#stateless
+# "Persistência em JPA":jpa
+## "Iniciando o JPA entity manager":jpa#starting
+## "Obtendo o JPA entity manager":jpa#obtaining
+## "Gerenciamento de transações":jpa#transactions
+## "A classe auxiliar play.db.jpa.Model":jpa#support
+## "Buscando objetos":jpa#finding
+## "Contando objetos":jpa#counting
+## "Save explícito":jpa#save
+## "Mais sobre problemas gerais de tipo":jpa#typing
+# "Bibliotecas do Play":libs
+## "Fazendo o parse do XML usando XPath":libs#ParsingXMLusingXPath
+## "Cliente Web Service":libs#WebServiceclient
+## "Programação funcional com java":libs#FunctionalprogrammingwithJava
 ## "OAuth":libs#OAuth
 ## "OpenID":libs#OpenID
-# "Asynchronous Jobs":jobs
-## "Bootstrap jobs":jobs#concepts
-## "Scheduled jobs":jobs#scheduling
-## "Triggering task jobs":jobs#tasks
-# "Asynchronous programming with HTTP":asynchronous
-## "Suspending HTTP requests":asynchronous#SuspendingHTTPrequests
-## "HTTP response streaming":asynchronous#HTTPresponsestreaming
-## "Using WebSockets":asynchronous#UsingWebSockets
-# "Ajax requests":ajax
-## "Making Ajax requests with JQuery":ajax#jsaction
-# "Internationalization":i18n
-## "Only use UTF-8":i18n#utf8
-## "Externalize your messages":i18n#messages
-## "Define languages supported by the application":i18n#languages
-## "Define date format according to your locale":i18n#dates
-## "Retrieve localized messages":i18n#retrieve
+# "Jobs assíncronos":jobs
+## "Jobs de inicialização":jobs#concepts
+## "Jobs agendados":jobs#scheduling
+## "Disparando tarefas de jobs":jobs#tasks
+# "Programação assíncrona com HTTP":asynchronous
+## "Suspendendo requisições HTTP":asynchronous#SuspendingHTTPrequests
+## "Transmissão de resposta HTTP":asynchronous#HTTPresponsestreaming
+## "Usando WebSockets":asynchronous#UsingWebSockets
+# "Requisições Ajax":ajax
+## "Criando requisições Ajax com JQuery":ajax#jsaction
+# "Internationalização":i18n
+## "Usar apenas UTF-8":i18n#utf8
+## "Traduza suas mensagens":i18n#messages
+## "Definindo idiomas suportados em sua aplicação":i18n#languages
+## "Definindo o formato de data de acordo com o seu locale":i18n#dates
+## "Buscando mensagens traduzidas":i18n#retrieve
 # "Cache":cache
-## "The cache API":cache#api
-## "Don’t use the Session as a cache":cache#session
-## "Configure memcached":cache#memcached
-# "Sending e-mail":emails
-## "Mail and MVC integration":emails#mvc
-## "SMTP configuration":emails#smtp
-## "More about configuration":emails#configuration
-## "Using Gmail":emails#gmail
-# "Testing the application":test
-## "Writing tests":test#writing
+## "A API de Cache":cache#api
+## "Não use Session como cache":cache#session
+## "Configurando memcached":cache#memcached
+# "Enviando e-mails":emails
+## "Integração de e-mail e MVC":emails#mvc
+## "Configuração SMTP":emails#smtp
+## "Mais sobre configurações":emails#configuration
+## "Usando Gmail":emails#gmail
+# "Testando a aplicação":test
+## "Escrevendo testes":test#writing
 ## "Fixtures":test#fixtures
-## "Running the tests":test#running
-## "Continuous integration":test#continuous
-# "Security Guide":security
-## "Sessions":security#sessions
+## "Rodando os testes":test#running
+## "Integração contínua":test#continuous
+# "Guia de segurança":security
+## "Sessões":security#sessions
 ## "Cross-Site Scripting":security#xss
 ## "SQL Injection":security#sql
-## "Cross-Site Request Forgery":security#csrf
-# "Modules and the module repository":modules
-## "What is a module?":modules#what
-## "How to load a module from an application":modules#loading
-## "Load default routes from modules":modules#routes
-## "Using the module repository":modules#repository
-## "Contributing a new module to the module repository":modules#contributing
-# "Dependency management":dependency
-## "Dependency format":dependency#format
+## "Site avaliado como falso":security#csrf
+# "Módulos e repositório de módulos":modules
+## "O que é um módulo?":modules#what
+## "Como carregar um módulo de uma aplicação":modules#loading
+## "Carregando rotas padrão de módulos":modules#routes
+## "Usando o repositório de módulos":modules#repository
+## "Contribuindo com um novo módulo para o repositório":modules#contributing
+# "Gerenciamento de dependências":dependency
+## "Formato de dependências":dependency#format
 ## "dependencies.yml":dependency#yml
-## "Conflict resolution":dependency#conflicts
-## "Adding new repositories":dependency#repositories
-# "Managing your database evolutions":evolutions
-## "Evolutions scripts":evolutions#script
-## "Synchronizing concurrent changes":evolutions#Synchronizingconcurrentchanges
-## "Inconsistent states":evolutions#Inconsistentstates
-## "Evolutions commands":evolutions#Evolutionscommands
-# "Logging configuration":logs
-## "Logging from your application":logs#logging
-## "Configure log levels":logs#levels
-# "Configuration in several environments":ids
-## "The framework ID":ids#id
-## "Setting the framework ID from the command line":ids#command
-# "Production deployment":production
-## "Configure your application.conf":production#application
-## "Configure logging":production#logging
-## "Set-up a front-end HTTP server":production#server
-# "Deployment options":deployment
-## "Standalone Play application":deployment#standalone
-## "Running on JEE application servers":deployment#appservers
+## "Resolução de conflitos":dependency#conflicts
+## "Adicionando novos repositórios":dependency#repositories
+# "Gerenciando as evoluções do seu banco de dados":evolutions
+## "Gerenciando scripts":evolutions#script
+## "Sincronizando mudanças simultâneas":evolutions#Synchronizingconcurrentchanges
+## "Estados inconsistentes":evolutions#Inconsistentstates
+## "Comandos do evolutions":evolutions#Evolutionscommands
+# "Configuração de log":logs
+## "Logando de sua aplicação":logs#logging
+## "Configurando os níveis de log":logs#levels
+# "Configurando em diversos ambientes":ids
+## "O ID do framework":ids#id
+## "Configurando o ID do framework da linha de comando":ids#command
+# "Deploy em produção":production
+## "Configurando o seu application.conf":production#application
+## "Configurando o log":production#logging
+## "Configurando um servidor HTTP de front-end":production#server
+# "Opções de deploy":deployment
+## "Aplicação Play standalone":deployment#standalone
+## "Rodando em servidores de aplicação JEE":deployment#appservers
 ## "Google Application Engine":deployment#gae
-## "Stax cloud hosting platform":deployment#stax
+## "Plataforma de hospedagem em nuvem":deployment#stax
 
 
 h2. <a name="references">Referências</a>
 
 ReferÊncias extendidas para o hacking do dia a dia.
 
-# <a class="navigation" href="index">Índice rápidox</a>
+# <a class="navigation" href="index">Índice rápido</a>
 # <a class="navigation" href="/@api/index.html">documentação da API (Javadoc)</a>
-# "Cheat sheets":cheatsheet/commandLine
-## "Command Line":cheatsheet/commandLine
+# "Resumos":cheatsheet/commandLine
+## "Linha de comando":cheatsheet/commandLine
 ## "Controllers":cheatsheet/controllers
 ## "Templates":cheatsheet/templates
-## "Model":cheatsheet/model
-## "Testing":cheatsheet/tests
-## "Multi-environment":cheatsheet/multiEnvironment
-# "Built-in extensions":tags
-## "Template tags":tags
-## "Java extensions":javaextensions
-## "Validations":validation-builtin
-# <a class="navigation" href="configuration">Configuration reference</a>
+## "Modelo":cheatsheet/model
+## "Testando":cheatsheet/tests
+## "Multi-ambientes":cheatsheet/multiEnvironment
+# "Extensões built-in ":tags
+## "Tags de template":tags
+## "Extensões de Java":javaextensions
+## "Validações":validation-builtin
+# <a class="navigation" href="configuration">Referência de configuração</a>
 
 h2. <a name="modules">Módulos distribuídos</a>
 

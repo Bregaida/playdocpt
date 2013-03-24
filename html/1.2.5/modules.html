@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: modules — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Playmodules">Play modules</h1> 
+<p>A Play application can be assembled from several application modules. This allows you to reuse application components across several applications or split a large application into several smaller applications.</p> 
+<h2 id="anamewhatOqueummduloa"><a name="what">O que &eacute; um m&oacute;dulo?</a></h2> 
+<p>A module is just another Play application; however some differences exist in the way resources are loaded for an application module:</p> 
+<ul> 
+ <li>A module does not have a <code>conf/application.conf</code> file.</li> 
+ <li>A module can have a <code>conf/routes</code> file, but these routes will not be loaded automatically.</li> 
+ <li>All files are first searched for in the main application path, then in all loaded modules.</li> 
+ <li>A module can contain plain Java code packaged as a JAR file in the module/lib directory.</li> 
+ <li>A module can include a documentation page.</li> 
+ <li>Everything in a module is optional.</li> 
+</ul> 
+<p>You can create a module with the <code>play new-module</code> command.</p> 
+<h2 id="anameloadingComocarregarummdulodeumaaplicaoa"><a name="loading">Como carregar um m&oacute;dulo de uma aplica&ccedil;&atilde;o</a></h2> 
+<p>Modules are automatically loaded from the <code>/modules</code> directory of the application. You can use the <a href="dependency">dependency management system</a> to automatically manage your application modules.</p> 
+<h2 id="anameroutesCarregandorotaspadrodemdulosa"><a name="routes">Carregando rotas padr&atilde;o de m&oacute;dulos</a></h2> 
+<p>A module can provide a default <code>routes</code> file. You can load it in the main application <code>routes</code> file, using a special route declaration:</p> 
+<pre><code># Import the default CRUD routes
+GET     /admin	     module:crud
+</code></pre> 
+<p>You can even load routes from all available modules:</p> 
+<pre><code>GET     /	     module:*
+</code></pre> 
+<h2 id="anamedocumentationAdddocumentationtoamodulea"><a name="documentation">Add documentation to a module</a></h2> 
+<p>You can add a documentation page to a module simply by adding a file <code>documentation/manual/home.textile</code> to the module. Use the same Textile syntax as the Play documentation itself, in <code>${play.path}/documentation/manual/</code>.</p> 
+<p>If you are running a Play application that uses one or more modules with documentation, then the local Play documentation at <a href="http://localhost:9000/@documentation">http://localhost:9000/@documentation</a> will include links to their documentation pages under <strong>Installed Modules</strong> in the side bar.</p> 
+<h2 id="anamerepositoryUsandoorepositriodemdulosa"><a name="repository">Usando o reposit&oacute;rio de m&oacute;dulos</a></h2> 
+<p>The <a href="http://www.playframework.org/modules">module repository</a> identifies all modules contributed by the community. A module can have several versions. You have to check the module’s documentation for which version you need to use for your framework version.</p> 
+<p>You can also browse the module repository using the <code>play list-modules</code> command. </p> 
+<pre><code>gbo-mac:~ guillaume$ play list-modules
+~        _            _ 
+~  _ __ | | __ _ _  _| |
+~ | '_ \| |/ _' | || |_|
+~ |  __/|_|\____|\__ (_)
+~ |_|            |__/   
+~
+~ play! 1.2, http://www.playframework.org
+~
+~ You can also browse this list online at http://www.playframework.org/modules
+~
+~ [bespin]
+~   Bespin online editor
+~   http://www.playframework.org/modules/bespin
+~   Versions: 1.0, 1.0.1
+~
+~ [cobertura]
+~   Cobertura
+~   http://www.playframework.org/modules/cobertura
+~   Versions: 1.0
+...
+</code></pre> 
+<p>You can install a module locally using the <code>play install {module}-{version}</code> command. Installing a module locally allows you to use it from several application without having to install a different copy in each application. It is useful for large modules that are more like framework extensions than extensions to your application.</p> 
+<p>For example, to install Scala support in the framework, use:</p> 
+<pre><code>play install scala-head
+</code></pre> 
+<p>By convention the <code>head</code> version is the unstable version of the module. You can also install the default version of a module by omitting the version information. For example:</p> 
+<pre><code>play install scala
+</code></pre> 
+<p>Modules installed this way are downloaded to the <code>/modules</code> directory of your framework installation. </p> 
+<p>You can change the installation path using the <code>--path</code> option:</p> 
+<pre><code>play install gwt --path=my-project
+</code></pre> 
+<h2 id="anamecontributingContribuindocomumnovomduloparaorepositrioa"><a name="contributing">Contribuindo com um novo m&oacute;dulo para o reposit&oacute;rio</a></h2> 
+<h3 id="anameprerequisitesPrerequisitesa"><a name="prerequisites">Prerequisites</a></h3> 
+<p>To register a new module, the following are required.</p> 
+<ol> 
+ <li>A Google account, to post on the Google Group.</li> 
+ <li>An OpenID for your developer log-in (you can use your Google account for this).</li> 
+ <li>A module name that matches the regular expression <code>[a-zA-Z]+</code>.</li> 
+ <li><a href="#documentation" class="absent">Module documentation</a> that explains what the module is for and how to use it.</li> 
+ <li>A module home page with the source code available and a way to report bugs, e.g. a <a href="http://github.com/">GitHub</a>, <a href="http://code.google.com/">Google Code</a> or <a href="http://launchpad.net/">Launchpad</a> project.</li> 
+ <li>A license file, such as the open-source license in the Play distribution’s <code>COPYING</code> file.</li> 
+</ol> 
+<h3 id="anameregisterModuleregistrationa"><a name="register">Module registration</a></h3> 
+<p>To use your Google account as your OpenID, you need to discover its full URL, as follows.</p> 
+<ol> 
+ <li>On <a href="http://www.playframework.org/modules">http://www.playframework.org/modules</a>, under <em>Developer login</em> enter <code>https://www.google.com/accounts/o8/id</code> and click the <em>Login</em> button.</li> 
+ <li>Log in to your Google account.</li> 
+ <li>Make a note of the full Google OpenID URL under <em>Developer login</em>, e.g. <code>https://www.google.com/accounts/o8/id?id=BItOawk7q69CFhRarQIo</code></li> 
+</ol> 
+<p>Post a module registration request on the <a href="https://groups.google.com/forum/#!forum/play-framework">play-framework Google Group</a>. For example:</p> 
+<pre><code>Subject: Module registration request: {module name}
+ 
+Module name:
+jqueryui
+ 
+Display name:
+jQuery UI
+ 
+Description:
+Working examples of jQuery UI widgets, integrated with a Play application.
+ 
+Project home page:
+https://github.com/hilton/jqueryui-module
+ 
+OpenID:
+https://www.google.com/accounts/o8/id?id=BItOawk7q69CFhRarQIo
+</code></pre> 
+<p>When your module has been registered, you can publish a release.</p> 
+<h3 id="anamereleaseReleasingyourmodulea"><a name="release">Releasing your module</a></h3> 
+<p>To release your module:</p> 
+<ol> 
+ <li>set the module version number in the first line of <code>conf/dependency.yml</code>, e.g. <code>self: play -&gt; jqueryui 1.0</code></li> 
+ <li>build the module with the <code>play build-module</code> command</li> 
+ <li>log in to <a href="http://www.playframework.org/modules">http://www.playframework.org/modules</a> under <em>Developer login</em></li> 
+ <li>browse to your module’s page, via the link on <a href="http://www.playframework.org/modules/developers">http://www.playframework.org/modules/developers</a> under <em>Your modules</em></li> 
+ <li>upload the generated ZIP file from your your module’s <code>dist/</code> directory, using the form under <em>Manage module releases</em></li> 
+</ol> 
+<p>You can of course use the offical Google Group to provide help and share information about your work.</p> 
+<p class="note"><b>Continuing the discussion</b><br /> <br />Aprenda how to efficiently manage your modules using <span class="next"><a href="dependency">Gerenciamento de depend&ecirc;ncias</a></span>.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/modules" target="_blank">Documentation: modules — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

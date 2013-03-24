@@ -123,7 +123,7 @@ p(note). **Exceptions**
  
 If the HTTP parameter corresponding to the action method argument is not found, the corresponding method argument is set to its default value (typically null for objects and 0 for primitive numeric types). If a value is found but can’t be properly cast to the required Java type, an error is added to the validation error collection and the default value is used.
 
-h2. <a name="binding">Advanced HTTP to Java binding</a>
+h2. <a name="binding">HTTP avançado para binding do Java</a>
 
 h3. <a name="simpletypes">Simple types</a>
 
@@ -595,7 +595,7 @@ h4. Custom encoding for the entire application
 Configure "application.web_encoding":configuration#application.web_encoding to specify which encoding Play uses when communicating with the browser.
 
 
-h2. <a name="interceptions">Interceptions</a>
+h2. <a name="interceptions">Interceptadores</a>
 
 A controller can define interception methods. Interceptors are invoked for all actions of the controller class and its descendants. It’s a useful way to define treatments that are common to all actions: verifying that a user is authenticated, loading request-scope information…
 
@@ -783,7 +783,7 @@ public class Admin extends Controller {
     …
 }
 
-h2. <a name="session">Session and Flash scopes</a>
+h2. <a name="session">Escopo de sessão e flash</a>
 
 If you have to keep data across multiple HTTP Requests, you can save them in the Session or the Flash scope. Data stored in the Session are available during the whole user session, and data stored in the flash scope are available to the next request only.
 

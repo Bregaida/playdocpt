@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: tags — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="Builtintemplatetags">Built-in template tags </h1> 
+<p>These are the built-in tags that are available in addition to the core <a href="templates#syntax">template engine syntax</a>.</p> 
+<p class="note">There is a separate <span class="next"><a href="javaextensions">Extens&otilde;es de Java</a></span> manual page.</p> 
+<h2 id="anameaaa"><a name="a">a</a></h2> 
+<p>The <code>a</code> tag inserts an HTML link to a controller action.</p> 
+<pre><code>#{a @Application.logout()}Disconnect#{/a}
+</code></pre> 
+<p>Rendered as:</p> 
+<pre><code>&lt;a href=&quot;/application/logout&quot;&gt;Disconnect&lt;/a&gt;
+</code></pre> 
+<p>If the action you try to call does not have any route able to invoke it using a GET method, Play will automatically generate a hidden form that will be submitted on link click using JavaScript.</p> 
+<h2 id="anameauthenticityTokenauthenticityTokena"><a name="authenticityToken">authenticityToken</a></h2> 
+<p>Renders a hidden input field containing a generated token that you can use in any form, to prevent <a href="security#csrf">Site avaliado como falso</a>.</p> 
+<pre><code>#{authenticityToken /}
+</code></pre> 
+<p>Rendered as:</p> 
+<pre><code>&lt;input type=&quot;hidden&quot; name=&quot;authenticityToken&quot;
+       value=&quot;1c6d92fed96200347f06b7c5e1a3a28fa258ef7c&quot;&gt;
+</code></pre> 
+<h2 id="anamecachecachea"><a name="cache">cache</a></h2> 
+<p>Caches the tag body using the <code>play.cache.Cache</code> API, for the cache key specified by the tag parameter.</p> 
+<pre><code>#{cache 'startTime'}
+   ${new java.util.Date()}
+#{/cache}
+</code></pre> 
+<p>The body is cached indefinitely by default, but you can specify an expiration duration with the <code>for</code> parameter.</p> 
+<pre><code>#{cache 'currentTime', for:'3s'}
+   ${new java.util.Date()}
+#{/cache}
+</code></pre> 
+<h2 id="anamedolayoutdoLayouta"><a name="dolayout">doLayout</a></h2> 
+<p>Used with template inheritance, this tag inserts the evaluated sub-template’s contents.</p> 
+<pre><code>&lt;!-- common header here --&gt;
+&lt;div id=&quot;content&quot;&gt;
+    #{doLayout /}
+&lt;/div&gt;
+&lt;!-- common footer here --&gt;
+</code></pre> 
+<h2 id="anameelseelsea"><a name="else">else</a></h2> 
+<p>Of course used with the <code>if</code> tag.</p> 
+<pre><code>#{if user}
+    Connected user is ${user}
+#{/if}
+#{else}
+    Please log in
+#{/else}
+</code></pre> 
+<p>However, you can also use it with the <code>list</code> tag and it will be executed if the list is empty.</p> 
+<pre><code>#{list items:task, as:'task'}
+    &lt;li&gt;${task}&lt;/li&gt;
+#{/list}
+ 
+#{else}
+    Nothing to do...
+#{/else}
+</code></pre> 
+<h2 id="anameelseifelseifa"><a name="elseif">elseif</a></h2> 
+<pre><code>#{if tasks.size() &gt; 1}
+    Busy tasklist
+#{/if}
+ 
+#{elseif tasks}
+    One task on the list
+#{/elseif}
+ 
+#{else}
+    Nothing to do
+#{/else}
+</code></pre> 
+<p>As for <code>else</code>, you can use it with the <code>list</code> tag.</p> 
+<h2 id="anameerrorerrora"><a name="error">error</a></h2> 
+<p>Outputs the validation error message, if present, for the field specified by the tag parameter.</p> 
+<pre><code>#{error 'user.name'/}
+</code></pre> 
+<p>You can use the optional <code>field</code> parameter to use a different field’s error message. This is useful when you want several fields to share a common error message.</p> 
+<pre><code>#{error 'contact.street',  field:'contact.address'/}
+#{error 'contact.city',    field:'contact.address'/}
+#{error 'contact.country', field:'contact.address'/}
+</code></pre> 
+<h2 id="anameerrorClasserrorClassa"><a name="errorClass">errorClass</a></h2> 
+<p>Outputs the text <code>hasError</code> if there is a validation error for the field specified by the tag parameter. This is useful for setting a CSS class for input fields with errors:</p> 
+<pre><code>&lt;input name=&quot;name&quot; class=&quot;#{errorClass 'name'/}&quot;&gt;
+</code></pre> 
+<p>which is equivalent to:</p> 
+<pre><code>&lt;input name=&quot;name&quot; class=&quot;${errors.forKey('name') ? 'hasError' : ''}&quot;&gt;
+</code></pre> 
+<h2 id="anameerrorserrorsa"><a name="errors">errors</a></h2> 
+<p>Iterates over the current validation errors.</p> 
+<pre><code>&lt;ul&gt;
+#{errors}
+    &lt;li&gt;${error}&lt;/li&gt;
+#{/errors}
+&lt;/ul&gt;
+</code></pre> 
+<p>The tag defines implicit variables in its body.</p> 
+<ul> 
+ <li><code>error</code>, the error</li> 
+ <li><code>error_index</code>, the error’s index, starting at 1</li> 
+ <li><code>error_isLast</code>, true for the last element</li> 
+ <li><code>error_isFirst</code>, true for the first element</li> 
+ <li><code>error_parity</code>, alternates between <code>odd</code> and <code>even</code></li> 
+</ul> 
+<pre><code>&lt;table&gt;
+&lt;tr&gt;&lt;th&gt;#&lt;/th&gt;&lt;th&gt;Error&lt;/th&gt;&lt;/tr&gt;
+#{errors}
+    &lt;tr class=&quot;${error_parity}&quot;&gt;&lt;td&gt;${error_index}&lt;/td&gt;&lt;td&gt;${error}&lt;/td&gt;&lt;/tr&gt;
+#{/errors}
+&lt;/table&gt;
+</code></pre> 
+<p>You can also use the optional field parameter, or just the default parameter, to filter only the errors belonging to a certain field.</p> 
+<pre><code>&lt;ul&gt;
+#{errors 'myField'}
+    There where errors with the field myField&lt;br /&gt;
+    &lt;li&gt;${error}&lt;/li&gt;
+#{/errors}
+&lt;/ul&gt;
+</code></pre> 
+<h2 id="anameextendsextendsa"><a name="extends">extends</a></h2> 
+<p>Makes the template inherit another template.</p> 
+<pre><code>#{extends 'main.html' /}
+</code></pre> 
+<h2 id="anamefieldfielda"><a name="field">field</a></h2> 
+<p>The field tag is a helper, based on the spirit of the Don’t Repeat Yourself. It works this way:</p> 
+<p>Instead of writing this:</p> 
+<pre><code>&lt;p&gt;
+  &lt;label&gt;&amp;{'user.name'}&lt;/label&gt;
+  &lt;input type=&quot;text&quot; id=&quot;user_name&quot; name=&quot;user.name&quot; value=&quot;${user?.name}&quot; class=&quot;${errors.forKey('user.name') ? 'has_error' : ''}&quot;&gt;
+  &lt;span class=&quot;error&quot;&gt;${errors.forKey('user.name')}&lt;/span&gt;
+&lt;/p&gt;
+</code></pre> 
+<p>You can just write:</p> 
+<pre><code>#{field 'user.name'}
+&lt;p&gt;
+  &lt;label&gt;&amp;{field.name}&lt;/label&gt;
+  &lt;input type=&quot;text&quot; id=&quot;${field.id}&quot; name=&quot;${field.name}&quot; value=&quot;${field.value}&quot; class=&quot;${field.errorClass}&quot;&gt;
+  &lt;span class=&quot;error&quot;&gt;${field.error}&lt;/span&gt;
+&lt;/p&gt;
+#{/field}
+</code></pre> 
+<p>So you don’t repeat <code>user.name</code> again and again.</p> 
+<h2 id="anameformforma"><a name="form">form</a></h2> 
+<p>Inserts a <code>form</code> tag. Play will guess the HTTP method from the route, with POST as the default. If there are both GET and POST routes configured for the URL, the tag will default to using the first route defined in routes.</p> 
+<ul> 
+ <li>Optional <code>method</code> either POST or GET.</li> 
+ <li>Optional <code>id</code> attribute sets an ID to the form element.</li> 
+ <li>Optional <code>enctype</code> attribute sets the form’s data encoding. it defaults to ‘application/x-www-form-urlencoded’.</li> 
+</ul> 
+<p>Charset encoding is always <b>utf-8</b>.</p> 
+<pre><code>#{form @Client.details(), method:'GET', id:'detailsForm'}
+   ...
+#{/form}
+</code></pre> 
+<p>Rendered as:</p> 
+<pre><code>&lt;form action=&quot;/client/details&quot; id=&quot;detailsForm&quot; method=&quot;GET&quot;
+      accept-charset=&quot;utf-8&quot;&gt;
+ ...
+&lt;/form&gt;
+</code></pre> 
+<p>You can also specify a target entity as part of the action method:</p> 
+<pre><code>#{form @Client.details(client.id)}
+   ...
+#{/form}
+</code></pre> 
+<p>The HTTP parameter name name is detected from what you declared in your action method.</p> 
+<pre><code>public static void details(String clientId){
+       // ...
+}
+</code></pre> 
+<p>Play will create an action URL with clientId:</p> 
+<pre><code>&lt;form action=&quot;/client/details?clientId=3442&quot; method=&quot;GET&quot;
+      accept-charset=&quot;utf-8&quot;&gt;
+ ...
+&lt;/form&gt;
+</code></pre> 
+<p>The <code>form</code> tag also automatically includes an <a href="#authenticityToken" class="absent">authenticity token</a>, for methods other than GET.</p> 
+<pre><code>#{form @Client.create(), method:'POST', id:'creationForm',
+       enctype:'multipart/form-data' }
+   ...
+#{/form}
+</code></pre> 
+<p>Rendered as:</p> 
+<pre><code>&lt;form action=&quot;/client/create&quot; id=&quot;creationForm&quot; method=&quot;POST&quot;
+      accept-charset=&quot;utf-8&quot; enctype=&quot;multipart/form-data&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;authenticityToken&quot; 
+       value=&quot;1c6d92fed96200347f06b7c5e1a3a28fa258ef7c&quot;&gt;
+ ...
+&lt;/form&gt;
+</code></pre> 
+<p>If your form updates a resource on the server-side, you <em>should</em> use the <b>POST</b> method. If your form is used to filter data and does not update your domain, you can use a GET. Please read about <a href="http://en.wikipedia.org/wiki/Idempotence">idempotence</a>. POST is not idempotent, whereas GET, PUT and DELETE are.</p> 
+<h2 id="anamegetgeta"><a name="get">get</a></h2> 
+<p>Retrieves a value defined with a <a href="#set" class="absent">set</a> tag. You may use the get/set mechanism to exchange values between templates, layouts and sub-templates.</p> 
+<pre><code>&lt;head&gt;
+    &lt;title&gt;#{get 'title' /}&lt;/title&gt;
+&lt;/head&gt;
+</code></pre> 
+<p>You can also use the get tag in the following way, which will display “Homepage” if title has not been specified.</p> 
+<pre><code>&lt;head&gt;
+    &lt;title&gt;#{get 'title'}Homepage #{/get}&lt;/title&gt;
+&lt;/head&gt;
+</code></pre> 
+<p>You can test whether a variable is set using the <code>if</code> tag:</p> 
+<pre><code>#{if get('title')}
+    &lt;h1&gt;#{get 'title' /}&lt;/h1&gt;
+#{/if}
+</code></pre> 
+<h2 id="anamei18ni18na"><a name="i18n">i18n</a></h2> 
+<p>Exports localized messages in JavaScript. Localized messages are available from your JavaScript code using the <code>i18n()</code> function.</p> 
+<p>Define your translations in the <code>conf/messages</code> file.</p> 
+<pre><code>hello_world=Hello, World !
+hello_someone=Hello %s !
+</code></pre> 
+<p>Include the messages in your template (or layout) page:</p> 
+<pre><code>#{i18n /}
+</code></pre> 
+<p>And retrieve keys from JavaScript:</p> 
+<pre><code>alert(i18n('hello_world'));
+alert(i18n('hello_someone', 'John'));
+</code></pre> 
+<p>Optionally, you can restrict the tag to only some messages. The wildcard character is accepted at the end:</p> 
+<pre><code>#{i18n keys:['title', 'menu.*'] /}
+</code></pre> 
+<h2 id="anameififa"><a name="if">if</a></h2> 
+<p>Evaluates the given test, and if true, evaluates the tag body.</p> 
+<pre><code>#{if user.countryCode == 'en' }
+    Connected user is ${user}
+#{/if}
+</code></pre> 
+<p>Using composite conditions:</p> 
+<pre><code>#{if ( request.actionMethod == 'administer'  &amp;&amp; user.isAdmin() ) }
+    You are admin, allowed to administer.
+#{/if}
+</code></pre> 
+<h2 id="anameiferrorifErrora"><a name="iferror">ifError</a></h2> 
+<p>Renders the tag body if there is a validation error for the input field field named by the tag parameter.</p> 
+<pre><code>#{ifError 'user.name'}
+  &lt;p&gt;
+    User name is invalid: 
+    #{error 'user.name' /}
+  &lt;p&gt;
+#{/ifError}
+</code></pre> 
+<h2 id="anameiferrorsifErrorsa"><a name="iferrors">ifErrors</a></h2> 
+<p>Renders the tag body if any field has a validation error.</p> 
+<pre><code>#{ifErrors}
+  &lt;p&gt;Error(s) found!&lt;/p&gt;
+#{/ifErrors}
+</code></pre> 
+<h2 id="anameifnotifnota"><a name="ifnot">ifnot</a></h2> 
+<p>Cleaner alternative to #{if !condition}</p> 
+<pre><code>#{ifnot tasks}
+    No tasks today
+#{/ifnot}
+</code></pre> 
+<h2 id="anameincludeincludea"><a name="include">include</a></h2> 
+<p>Includes another template. All of the current template’s variables are directly available in the included template.</p> 
+<pre><code>&lt;div id=&quot;tree&quot;&gt;
+    #{include 'tree.html' /}
+&lt;/div&gt;
+</code></pre> 
+<h2 id="anamejsactionjsActiona"><a name="jsaction">jsAction</a></h2> 
+<p>The <code>#{jsAction /}</code> tag returns a JavaScript function which constructs a URL based on a server action and free variables. It does not perform an AJAX request; these have to be done by hand using the returned URL.</p> 
+<p>Let’s see an example:</p> 
+<pre><code>GET     /users/{id}        Users.show
+</code></pre> 
+<p>Now you can import this route client side:</p> 
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    var showUserAction = #{jsAction @Users.show(':id') /}
+    
+    var displayUserDetail = function(userId) {
+        $('userDetail').load( showUserAction({id: userId}) )
+    }
+&lt;/script&gt;
+</code></pre> 
+<h2 id="anamejsroutejsRoutea"><a name="jsroute">jsRoute</a></h2> 
+<p>The <code>#{jsRoute /}</code> tag is similar to the <code>#{jsAction /}</code> tag, it returns an object containing both the function which consctructs the URL based on the server action, and the corresponding HTTP method (GET, POST, etc.).</p> 
+<p>Example:</p> 
+<pre><code>PUT     /users/{id}        Users.update
+</code></pre> 
+<p>Then, in a template:</p> 
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    var updateUserRoute = #{jsRoute @Users.update(':id') /}
+    $.ajax({
+      url: updateUserRoute.url({id: userId}),
+      type: updateUserRoute.method,
+      data: 'user.name=Guillaume'
+    });
+&lt;/script&gt;
+</code></pre> 
+<h2 id="anamelistlista"><a name="list">list</a></h2> 
+<p>Iterates over an object collection.</p> 
+<pre><code>&lt;ul&gt;
+#{list items:products, as:'product'}
+    &lt;li&gt;${product}&lt;/li&gt;
+#{/list}
+&lt;/ul&gt;
+</code></pre> 
+<p>The tag defines implicit variables in its body. The variable names are prefixed with the loop variable name.</p> 
+<ul> 
+ <li><code>name_index</code>, the item’s index, starting at 1</li> 
+ <li><code>name_isLast</code>, true for the last element</li> 
+ <li><code>name_isFirst</code>, true for the first element</li> 
+ <li><code>name_parity</code>, alternates between <code>odd</code> and <code>even</code></li> 
+</ul> 
+<pre><code>&lt;ul&gt;
+#{list items:products, as:'product'}
+    &lt;span class=&quot;${product_parity}&quot;&gt;${product_index}. ${product}&lt;/span&gt;
+    ${product_isLast ? '' : '-'}
+#{/list}
+&lt;/ul&gt;
+</code></pre> 
+<p>The <code>items</code> parameter is optional and can be replaced by the default <code>arg</code> argument.</p> 
+<p>So you can rewrite:</p> 
+<pre><code>#{list items:users, as:'user'}
+    &lt;li&gt;${user}&lt;/li&gt;
+#{/list}
+</code></pre> 
+<p>as:</p> 
+<pre><code>#{list users, as:'user'}
+    &lt;li&gt;${user}&lt;/li&gt;
+#{/list}
+</code></pre> 
+<p><b>for</b> loops are easy to create using Groovy <b>range</b> object:</p> 
+<pre><code>#{list items:0..10, as:'i'}
+    ${i}
+#{/list}
+</code></pre> 
+<pre><code>#{list items:'a'..'z', as:'letter'}
+    ${letter} ${letter_isLast ? '' : '|' }
+#{/list}
+</code></pre> 
+<p>The <code>as</code> parameter is optional as well. It uses <code>_</code> as default variable name:</p> 
+<pre><code>#{list users}
+    &lt;li&gt;${_}&lt;/li&gt;
+#{/list}
+</code></pre> 
+<h2 id="anameoptionoptiona"><a name="option">option</a></h2> 
+<p>Insert an <code>option</code> tag in the template.</p> 
+<ul> 
+ <li><code>value</code> - option’s value</li> 
+</ul> 
+<pre><code>#{option user.id} ${user.name} #{/option}
+</code></pre> 
+<p>Will output:</p> 
+<pre><code>&lt;option value=&quot;42&quot;&gt;jto&lt;/option&gt;
+</code></pre> 
+<h2 id="anamescriptscripta"><a name="script">script</a></h2> 
+<p>Inserts a <code>script</code> tag in the template. By convention, the tag refers to a script in <code>/public/javascripts</code></p> 
+<ul> 
+ <li><code>src</code> (required) - script file name, without the leading path <code>/public/javascripts</code></li> 
+ <li><code>id</code> (optional) - an <code>id</code> attribute value for the generated <code>script</code> tag</li> 
+ <li><code>charset</code> (optional) - sets source encoding – defaults to UTF-8</li> 
+</ul> 
+<p>The <code>src</code> parameter can be replaced by the default <code>arg</code> argument.</p> 
+<pre><code>#{script 'jquery-1.4.2.min.js' /}
+#{script id:'datepicker' , src:'ui/ui.datepicker.js', charset:'utf-8' /}
+</code></pre> 
+<h2 id="anamerenderrendera"><a name="render">render</a></h2> 
+<p>Renders the template specified by the path in the tag parameter. The path is either absolute, or relative to <code>/app/views</code></p> 
+<pre><code>#{render 'Application/other.html'/}
+</code></pre> 
+<h2 id="anameselectselecta"><a name="select">select</a></h2> 
+<p>Insert a <code>select</code> tag in the template.</p> 
+<ul> 
+ <li><code>name</code> (required) - attribute sets a name to the select element.</li> 
+</ul> 
+<p>Any unknown attribute will be considered as an HTML attribute, and rendered &quot;as is&quot;</p> 
+<pre><code>#{select 'booking.beds', value:2, id:'select1'}
+	#{option 1}One king-size bed#{/option}
+	#{option 2}Two double beds#{/option}
+	#{option 3}Three beds#{/option}
+#{/select}
+</code></pre> 
+<p>Will output:</p> 
+<pre><code>&lt;select name=&quot;booking.beds&quot; size=&quot;1&quot; id=&quot;select1&quot; &gt;
+  &lt;option value=&quot;1&quot;&gt;One king-size bed&lt;/option&gt;
+  &lt;option value=&quot;2&quot; selected=&quot;selected&quot;&gt;Two double beds&lt;/option&gt;
+  &lt;option value=&quot;3&quot;&gt;Three beds&lt;/option&gt;
+&lt;/select&gt;
+</code></pre> 
+<p>This tag can generate options using <code>items</code> attribute.</p> 
+<ul> 
+ <li><code>items</code> (optional) - list of objects, used to create <code>options</code></li> 
+ <li><code>value</code> (optional) - selected element in <code>items</code> (note that multiple selections are not supported)</li> 
+ <li><code>labelProperty</code> (optional) - for each item, attribute used as option’s label </li> 
+ <li><code>valueProperty</code> (optional) - for each item, attribute used as option’s value. <code>id</code> is used by default</li> 
+</ul> 
+<p class="note">The <code>labelProperty</code> and <code>valueProperty</code> shouldn’t be primitive values. So, for example, use an <code>Integer</code> or <code>Long</code> variable instead of an <code>int</code> or <code>long</code>.</p> 
+<p>For example, giving a list of User, each having a name attribute:</p> 
+<pre><code>#{select 'users', items:users, valueProperty:'id', labelProperty:'name', value:5, class:'test', id:'select2' /}
+</code></pre> 
+<p>Will output:</p> 
+<pre><code>&lt;select name=&quot;users&quot; size=&quot;1&quot; class=&quot;test&quot; id=&quot;select2&quot; &gt;
+  &lt;option value=&quot;0&quot; &gt;User-0&lt;/option&gt;
+  &lt;option value=&quot;1&quot; &gt;User-1&lt;/option&gt;            
+  &lt;option value=&quot;2&quot; &gt;User-2&lt;/option&gt;            
+  &lt;option value=&quot;3&quot; &gt;User-3&lt;/option&gt;
+  &lt;option value=&quot;4&quot; &gt;User-4&lt;/option&gt;
+  &lt;option value=&quot;5&quot; selected=&quot;selected&quot;&gt;User-5&lt;/option&gt;
+&lt;/select&gt;
+</code></pre> 
+<h2 id="anamesetseta"><a name="set">set</a></h2> 
+<p>Define a value which can be retrieved in the same template or any layout with the <code>get</code> tag.</p> 
+<pre><code>#{set title:'Admin' /}
+#{set style:'2columns' /}
+</code></pre> 
+<p>You can also use variables:</p> 
+<pre><code>#{set title:'Profile of ' + user.login /}
+</code></pre> 
+<p>You can define the value of variables in the body:</p> 
+<pre><code>#{set 'title'}
+    Profile of ${user.login}
+#{/set}
+</code></pre> 
+<h2 id="anamestylesheetstylesheeta"><a name="stylesheet">stylesheet</a></h2> 
+<p>Inserts a <code>link</code> tag in the template. By convention, the tag refers to a CSS file in <code>/public/stylesheets</code></p> 
+<ul> 
+ <li><code>src</code> (required) - file name, without the leading path <code>/public/stylesheets</code></li> 
+ <li><code>id</code> (optional) - an <code>id</code> attribute value for the generated <code>link</code> tag</li> 
+ <li><code>media</code> (optional) - a <code>media</code> attribute value: screen, print, aural, projection…</li> 
+ <li><code>title</code> (optional) - <code>title</code> attribute value (or description)</li> 
+</ul> 
+<p>The <code>src</code> parameter can be replaced by the default <code>arg</code> argument.</p> 
+<pre><code>#{stylesheet 'default.css' /}
+#{stylesheet id:'main', media:'print', src:'print.css', title:'Print stylesheet' /}
+</code></pre> 
+<h2 id="anameverbatimverbatima"><a name="verbatim">verbatim</a></h2> 
+<p>Disables HTML escaping in template output, like the <a href="javaextensions#arawa">raw()</a> Java extension, but for the whole tag body.</p> 
+<pre><code>${'&amp;amp;'}
+#{verbatim}${'&amp;amp;'}#{/verbatim}
+</code></pre> 
+<p>In this example, the first line outputs <code>&amp;amp;</code> while the second line outputs an ampersand. </p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/tags" target="_blank">Documentation: tags — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -2,7 +2,7 @@ h1. Configuration parameters
 
 Configure your Play application by setting values for configuration keys in @conf/application.conf@ file. See also:
 
-* "Main concepts - the conf directory":main#conf
+* "Conceitos principais - the conf directory":main#conf
 * "Managing application.conf in several environments":ids
 * "Put your application in production":production
 
@@ -55,7 +55,7 @@ bc. application.log=DEBUG
 
 Default: @INFO@
 
-See also: "Logging configuration":logs.
+See also: "Configuração de log":logs.
 
 
 h3(#application.log.path). application.log.path
@@ -161,7 +161,7 @@ Default: @false@
 
 h3(#application.web_encoding). application.web_encoding
 
-The text encoding that Play uses when communicating with the web browser and for the "Web Service client":libs#WebServiceclient. You do not normally need to set this, since Play defaults to using @UTF-8@. For example:
+The text encoding that Play uses when communicating with the web browser and for the "Cliente Web Service":libs#WebServiceclient. You do not normally need to set this, since Play defaults to using @UTF-8@. For example:
 
 bc. application.web_encoding=ISO-8859-1
 
@@ -212,7 +212,7 @@ bc. certificate.password=secret
 Default: @secret@
 
 
-h2(#cron). Scheduled jobs
+h2(#cron). Jobs agendados
 
 You can configure cron expressions for scheduled jobs as configuration keys that start with @cron.@ and use the key as the value of a <code>@play.jobs.On</code> or <code>@Every</code> annotation. For example, <code>@On("cron.noon")</code> refers to:
 
@@ -688,7 +688,7 @@ Simple mail configuration key.
 
 Default: @mock@ - use a mock Mailer
 
-See also: "SMTP configuration":emails#smtp.
+See also: "Configuração SMTP":emails#smtp.
 
 
 h3(#mail.smtp.authenticator). mail.smtp.authenticator

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation: faq — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+                <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-13089827-4");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-pt.png"></a>
+            <div id="getLogo">
+                <h3>Play!</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+            </div>
+            <nav>
+                    <b>12% traduzido</b>
+                    <a href="/documentation" class="selected learn">Aprenda</a>
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
+                    <a href="/code" class="code">Código fonte</a>
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Módulos</a>
+                    <a href="/about" class="about">Sobre</a>
+                    <a href="/download" class="download">Download</a>
+            </nav>
+            <div id="download">
+                    <p>
+                        Para obter os últimos pacotes que podem ser usados ​​em um ambiente de produção:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.4.zip" class="button">play-2.0.4.zip</a>
+                 <p> e para  <a href="/download"> todas as versões </a> </p>
+            </div>
+        </header>
+        <section id="top">
+<div class="wrapper">
+    <h1><a href="/documentation/1.2.5">Manuais, tutoriais e referências</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Buscar 1.2.5 no Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocpt.herokuapp.com/documentation/1.2.5">
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Versão 1.2.5</span>
+            <select>
+                <option disabled>Select version</option>
+                                    <option selected value="/documentation/1.2.5">Versão 1.2.5</option>
+                            </select>
+        </span>
+        <span class="versions">
+            <span>Navegar nas APIs</span>
+            <select>
+                <option selected disabled>Selecione a linguagem</option>
+                <option value="http://www.playframework.org/documentation/api/1.2.5/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        <h1 id="FrequentlyAskedQuestions">Frequently Asked Questions</h1> 
+<h2 id="aWheredoIaskquestionsthatarenotansweredherea"><a>Where do I ask questions that are not answered here?</a></h2> 
+<p>The <a href="http://www.playframework.org/community">Comunidade</a> page links to various places where you can read and post about Play. In general, the best place to ask questions is the <a href="http://groups.google.com/group/play-framework">play-framework Google Group</a>.</p> 
+<h2 id="aHowdoesPlaycomparetoframeworkXa"><a>How does Play compare to framework X?</a></h2> 
+<p>Nowadays, you have a very large number of choices for developing web applications. Play being a Java web application framework, let’s compare it to other Java frameworks. Play is built for a ‘share nothing’ architecture (think about it as a stateless framework), so it’s very different from all these Java stateful and components based frameworks like Seam, Tapestry or Wicket. It’s closer to Spring MVC or Struts (or Struts 2), but way more opinionated.</p> 
+<p>However Play is a unique Java framework. It does not really rely on the so-called Java Enterprise standards. It uses Java, but tries to bring all the good things from the frameworks based on scripting languages like Ruby On Rails, Django, Pylons, Symfony, Grails and Cake PHP to the Java world. We really tried to get the best out of the Java platform without getting the pain of traditional Java web development: a slow development cycle, too much abstraction and too much configuration.</p> 
+<h2 id="aWhydontyourenametheplaypackagetoorg.playframeworka"><a>Why don’t you rename the ‘play’ package to ‘org.playframework’?!</a></h2> 
+<p>You are missing the point. Play is not another library that you add to your Servlet container. It’s really a full stack Java framework that runs your application stand-alone. The Java package naming conventions exist to avoid name clashes when you use several different libraries from several vendors. But believe us, you will never put the <code>play.jar</code> library in your own project. This is not the way Play works. Play <b>is the platform</b>. Don’t worry about that.</p> 
+<h2 id="aWhydoIneedPythonIwouldpreferMavena"><a>Why do I need Python (I would prefer Maven)?</a></h2> 
+<p>We need a lot of scripts to manage Play applications, for creating a new application, running it, launching a browser, etc… Of course we could write these in Java directly. But running a Java VM for simple tasks like project creation is very slow. And Java itself is very limited when it comes to OS interaction.</p> 
+<p>Python allowed us to write these scripts in a completely portable way. It’s fast to run, easy to write and available out of the box on most systems. It’s not on Windows, that’s why we bundle a Windows Python binary with the framework.</p> 
+<h2 id="aIsPlayaGroovyframeworka"><a>Is Play a Groovy framework?</a></h2> 
+<p>No. Even though we use Groovy as the base technology for the Play templating system, it’s totally transparent. Also, you can’t directly write any other part of the application (such as controllers, models or other utilities) in Groovy. If you’re looking for a Groovy based framework you should have a look at Grails.</p> 
+<h2 id="aYouguysdontevenknowhowtoprograminJava...a"><a>You guys don’t even know how to program in Java...</a></h2> 
+<p>We are fully aware that we made choices that are pretty uncommon in the Java world, and that Play does not blindly follow all the so-called Java ‘good practices’. But all of the Play team members are very experienced Java developers and we are totally aware of the choices we made and the rules we broke.</p> 
+<p>Java itself is a very generic programming language and not originally designed for web application development. It is a very different thing to write a generic and reusable Java library and to create a web application. A web application itself doesn’t need to be designed to be reusable. You need less abstraction, less configuration. Reusability does exist for web applications, but through web service APIs rather than language-level integration.</p> 
+<p>When the development time tends to zero you can concentrate on your application features and experiment quickly, instead of trying to abstract things for future developments.</p> 
+<h2 id="aIsPlayfasta"><a>Is Play fast?</a></h2> 
+<p>Yes, Play itself is fast. But that doesn’t mean that any particular application will be fast. The embedded HTTP server, the basic routing and the controller invocation stack are very very fast. Used with a modern JVM and Just In Time compiling you can easily get thousands of requests per second. Unfortunately, your application will likely use a database, which will become the bottleneck as usual.</p> 
+<p>The biggest CPU consumer in the Play stack at the moment is the Groovy-based template engine. But as Play applications are easily scalable, it is not really a problem if you need to handle very high traffic: you can balance the load between several servers. We also hope for a performance gain at this level with the new JDK7 and its better support for dynamic languages.</p> 
+<h2 id="aCanIalreadyusePlayforaproductionapplicationa"><a>Can I already use Play for a production application?</a></h2> 
+<p>Sure, <a href="http://www.playframework.org/community/testimonials">a lot of people</a> already use Play in production. The 1.0 branch is now in maintenance mode, which means that we will just fix bugs and keep API compatibility in that branch.</p> 
+<h2 id="aIslibraryXsupporteda"><a>Is library X supported?</a></h2> 
+<p>Play is standard Java, so any standard Java library can easily be used. However keep in mind that Play does not use the Servlet API (although you can get it work in a standard Servlet container using the WAR export feature). So unless the library you want to use relies on the Servlet API, there won’t be any problem.</p> 
+<h2 id="aHowcanIhelpcontributea"><a>How can I help/contribute?</a></h2> 
+<p>We use <a href="http://github.com/playframework/play">GitHub</a> as our main development tool, and launchpad itself is very open. You can just register a GitHub account and fork the code base. Check the <a href="http://play.lighthouseapp.com/projects/57987/contributor-guide">contributor guide</a>.</p> 
+<p>The documentation itself is kept as <a href="http://en.wikipedia.org/wiki/Textile_(markup_language%29">Textile</a> files in the framework source repository, so you can edit it and contribute just as you do with code.</p>
+    </article>
+    <aside>
+    <h3>documentação oficial</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/1.2.5/faq" target="_blank">Documentation: faq — Playframework</a>
+        </p>
+                        <h3>Navegar</h3>
+        <ul>
+            <li id="gotoc"><a href="home">Índice</a></li>
+        </ul>
+        <h3>Conteúdo</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.5/index.html')
+        </script>
+                <h3>Livro</h3>
+                <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+                    </aside>
+</div>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentação</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Licença<//a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribuir<//dt>
+                    <dd><a href="http://github.com/playframework/Play20">Código fonte</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Lista de discussão</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecossistema</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Equipe &amp; apoio</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Suporte</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Módulos</a></dd>
+                </dl>
+            </div>
+            <div class="licence">
+                Play framework está lançado de acordo com a <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
+    </body>
+</html>

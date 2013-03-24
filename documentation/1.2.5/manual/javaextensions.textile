@@ -1,6 +1,6 @@
-h1. Java extensions
+h1. Extensões de Java
 
-Java extensions add convenience methods to objects for use in view templates, making expressions more expressive.
+Extensões de Java add convenience methods to objects for use in view templates, making expressions more expressive.
 
 The code examples show an example template expression, with its result on the next line.
 

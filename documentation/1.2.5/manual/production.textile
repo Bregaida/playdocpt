@@ -40,7 +40,7 @@ bc. %production.application.secret=c12d1c59af499d20f4955d07255ed8ea333
 You can use the @play secret@ command to generate a new secure and random key (at least on a ‘real’ OS). If you plan to distribute your application to several servers, remember to use the @same key@ for all application instances!
 
 
-h2. <a name="logging">Logging configuration</a>
+h2. <a name="logging">Configuração de log</a>
 
 For production it’s a good idea to use rolling log files. Do not send logging to the Console, since it will be written to the @logs/system.out@ file and it will grow without bound!
 
@@ -235,4 +235,4 @@ Note that you can also specify the path to Play framework in an environment vari
 
 p(note). **Continuing the discussion**
  
-Next: %(next)"Deployment options":deployment%.
+Next: %(next)"Opções de deploy":deployment%.

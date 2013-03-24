@@ -4,7 +4,7 @@ Having built our fully-functional blog engine, we will now consider an optional 
 
 h2. <a>Internationalisation and localisation</a>
 
-There are two steps to perform: "internationalisation":http://en.wikipedia.org/wiki/Internationalization_and_localization and "localisation":http://en.wikipedia.org/wiki/Language_localisation. Both are mostly about text. 
+There are two steps to perform: "internationalisation":http://en.wikipedia.org/wiki/Internationalização_and_localization and "localisation":http://en.wikipedia.org/wiki/Language_localisation. Both are mostly about text. 
 
 *Internationalisation*, in programming terms, is a refactoring to remove locale-specific code from the application code. In a web application, this is almost entirely about replacing user-interface text in view templates with references to messages. It also includes formatting non-text data types: dates, currency and other numbers. 
 
@@ -325,6 +325,6 @@ The 'Yet Another Blog Engine' admin interface in Dutch (above) and French (below
 
 !images/guide12-4! 
 
-p(note). Next: Now you have finished the tutorial, move on to The Essential Documentation - %(next)"Main concepts":main%. 
+p(note). Next: Now you have finished the tutorial, move on to The Essential Documentation - %(next)"Conceitos principais":main%. 
 
 p(note). By "Peter Hilton":http://hilton.org.uk/about_ph.phtml, originally published on the "Lunatech Research":http://www.lunatech-research.com/archives/2010/04/12/how-localise-play-framework-web-application blog.

@@ -4,7 +4,7 @@ We’ve now finished the blog engine we wanted to create in this tutorial. Howev
 
 Of course we’ve already written unit tests in order to test all the yabe model layer functionality. And it’s great as it will ensure that the blog engine’s core functionality is well tested. But a web application is not only about the ‘model’ part. We need to ensure that the web interface works as expected. That means testing the yabe blog engine’s controller layer. But we even need to test the UI itself, as for example, our JavaScript code.
 
-h2. <a name="controller">Testing the controller part</a>
+h2. <a name="controller">Testando the controller part</a>
 
 Play gives you a way to test directly the application’s controller part using JUnit. We call these tests **‘Functional tests’**. This is because we want to test the web application’s complete functionality.
 
