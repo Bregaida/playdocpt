@@ -1,5 +1,6 @@
 
 h2. Welcome to playdocbr ( playdocja fork thanks to garbagetown )
+
 h2. Bem-vindo ao  playdocbr ( fork do playdocja graças ao garbagetown )
 
 This project IS NOT made by playframework.org.
@@ -8,12 +9,13 @@ Esse projeto NÃO É criado pelo playframework.org.
 Please DO NOT make any question about the contents of this project to playframework.org.
 Por favor NÃO faça nenhuma pergunta sobre o o conteúdo desse projeto para o playframework.org.
 
-h2. Website
+h2. Web site
 
 http://playdocpt.herokuapp.com/
 
 
 h2. Licence
+
 h2. Licença
 
 This project is distributed under "Apache 2 licence":http://www.apache.org/licenses/LICENSE-2.0.html.
