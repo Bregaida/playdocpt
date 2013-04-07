@@ -380,4 +380,4 @@ This is equivalent to @rm -r ~/.ivy2/cache@.
 
 p(note). **Continuing the discussion**
 
-Next: %(next)"Database evolutions":evolutions%.
+Próximo: %(next)"Database evolutions":evolutions%.

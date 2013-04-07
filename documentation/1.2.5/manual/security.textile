@@ -93,4 +93,4 @@ You can of course add the @checkAuthenticity()@ method call as a "before filter"
 
 p(note). **Continuing the discussion**
  
-Next: %(next)"Play modules":modules%.
+Próximo: %(next)"Play modules":modules%.

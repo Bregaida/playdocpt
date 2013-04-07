@@ -144,4 +144,4 @@ onde @&{%s}@ é a busca de mensagens própria, com o valor do argumento como cha
 
 p(note). **Continuando com a discussão**
 
-Next: %(next)"Cache":cache%.
+Próximo: %(next)"Cache":cache%.

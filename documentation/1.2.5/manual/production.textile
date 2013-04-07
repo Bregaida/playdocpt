@@ -235,4 +235,4 @@ Note that you can also specify the path to Play framework in an environment vari
 
 p(note). **Continuing the discussion**
  
-Next: %(next)"Opções de deploy":deployment%.
+Próximo: %(next)"Opções de deploy":deployment%.

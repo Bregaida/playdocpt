@@ -228,4 +228,4 @@ You can change the web browser compatibility mode used by the headless browser b
 
 p(note). **Continuing the discussion**
  
-Next: %(next)"Security guide":security%.
+Próximo: %(next)"Security guide":security%.

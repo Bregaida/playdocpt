@@ -1,71 +1,87 @@
 h1. Visão geral do Play framework
 
-The Play framework is a clean alternative to bloated Enterprise Java stacks. It focuses on developer productivity and targets RESTful architectures. Play is a perfect companion to *agile software development*.
+O framework Play é uma alternativa limpa para as opções Enterprise Java infladas.
+Ele foca na produtividade do desenvolvedor para as arquiteturas RESTful.
+O Play é o companheiro perfeito para o *desenvolvimento de software ágil*.
 
-The Play framework’s goal is to ease web applications development while sticking with Java. Let’s see how this is possible.
+O objetico do framework Play é facilitar o desenvolvimento de aplicações com Java. Vamos ver como isso é possível.
 
-p(note). **Wanna see some code?**
+p(note). **Quer ver um pouco de código ?**
 
-Check "Five cool things you can do with play":5things, or start directly with the "hello world tutorial":firstapp.
+Veja também "Cinco coisas legais que você pode fazer com play":5things, ou comece direto com "tutorial hello world":firstapp.
 
 
-h2. <a name="java">A Java framework without the pain</a>
+h2. <a name="java">Um framework Java sem dor</a>
 
-Play is a pure Java framework and allows you to keep your preferred development tools and libraries. If you already use Java as a development platform you don’t need to switch to another language, another IDE and other libraries. *Just switch to a more productive Java environment!*
+O Play é um framework em Java puro que permite você usar suas ferramentas e bibliotecas preferidas.
 
-h2. <a name="reload">Fix the bug and hit Reload</a>
+Se você usa Java como plataforma de desenvolvimento, você não precisa mudar para outra linguagem, outra IDE e outras bibliotecas.
 
-The Java EE platform is infamous for low-productivity web application development, mainly due to repeated and tedious compile-package-deploy cycles.
+*Apenas mude para um ambiente Java mais produtivo!*
 
-That’s why we rethought the development cycle to make developing with Play an efficient process.
+h2. <a name="reload">Arrume o bug e faça um reload</a>
 
-The framework compiles your Java sources directly and hot-reloads them into the JVM without the need to restart the server. You can then edit, reload and see your modifications immediately, just as in a <a href="http://en.wikipedia.org/wiki/LAMP_(software_bundle)">LAMP</a> or <a href="http://en.wikipedia.org/wiki/Ruby_on_Rails">Rails</a> environment.
+A plataforma Java EE tem a fama de ter baixa produtividade no desenvolvimento de aplicações web, basicamente por repetidos e tediosos ciclos de compilar-empacotar-publicar.
 
-It’s so fun that you can even work with a simple text editor and skip a full-featured Java IDE if you want.
+Isso é porque nós repensamos o ciclo de deenvolvimento para fazer o desenvolvimento com Play um processo eficiente.
+
+O framework compila seus fontes Java diretamente e publica automaticamente (hot-reloads) na JVM sem a necessidade de reiniciar o servidor.
+Você pode editar, fazer o reload e ver suas modificações imediatamente, assim como nos ambientes <a href="http://en.wikipedia.org/wiki/LAMP_(software_bundle)">LAMP</a> ou <a href="http://en.wikipedia.org/wiki/Ruby_on_Rails">Rails</a>.
+
+É tão divertido que você pode rtabalhar com um simples editor de texto e evitar uma IDE Java completa se quiser.
 
 !images/editor!
 
-Whenever an error occurs, the framework makes its best effort to identify and show you the problem.
+Sempre que um erro ocorre, o framework faz o possível para identificar o que aconteceu e mostra o problema.
 
 !images/guide1-3!
 
-Even the stack traces are stripped down and optimized to make it easier to solve problems. Look how template execution is nicely integrated to the Java stack trace.
+Até mesmo a stack trace é reduzida e otimizada para facilitar a resolução dos problemas.
+Veja como a e execução de template é bem integrada com a stack trace do Java.
 
 !images/stacktrace!
 
-h2. <a>Simple stateless MVC architecture</a>
+h2. <a>Uma simples arquitetura MVC stateless</a>
 
-You’ve got a database on one side and a web browser on the other. Why should you have a state in between?
+Você tem um banco de dados de um lado e um web browser no outro. Por que manter um estado entre eles ?
 
-Stateful and component based Java Web frameworks make it easy to automatically save page state, but that brings a lot of other problems: what happens if the user opens a second window? What if the user hits the browser back button?
+Os framweworks web Java stateful e baseados em componentes facilitam manter o estado da página, mas isso traz vários outros problemas: o que acontece quando o usuário abre uma segunda janela ? E se o usuário pressionar o botão voltar?
 
-The "Share Nothing":http://zef.me/883/the-share-nothing-architecture architecture is promoted by many Web application frameworks from PHP to Ruby on Rails or Django. As the browser is becoming more and more powerful, it is now easy to use Ajax or offline storage to solve the state problems client-side.
+A "arquitetura Share Nothing":http://zef.me/883/the-share-nothing-architecture é promovida por vários frameworks web de PHP até Ruby on Rails ou Django.
+O browser torna-se cada vezz mais poderoso, e agora é fácil de usar Ajax ou offline storage para resolver problema de gravar estado no lado do cliente.
 
-We don’t need to hack the HTTP model anymore to rebuild a fake state over the Web. Another aspect of ‘share nothing’ is to make it easier to render portions of the page in parallel, and to do partial page updates (or progressive enhancements).
+Nós não precisamos hackear mais o modelo HTTP para refazer um falso estado na Web.
+Outro aspecto do ‘share nothing’ é facilitar para renderizar pedaços da página em paralelo, e fazer atualizações parciais de páginas (ou melhorias progressivas).
 
 
-h2. <a name="http">HTTP-to-code mapping</a>
+h2. <a name="http">Mapeamendo HTTP-to-code</a>
 
-If you’re already using another Java Web framework like the Servlet API or the Struts framework, you have already used an abstract view of the HTTP protocol with strange Java APIs and concepts. We think differently. A Web application framework should give you full, straightforward access to HTTP and its concepts. This is a fundamental difference between Play and other Java web application frameworks.
+Se você já usou algum framework web Java como o  Servlet API ou o Struts framework, você já usou uma visão abstrata do protocolo HTTP com APIs estranhas do Java APIs e seus conceitos.
+Nós pensamos diferente.
+Um framework web deve te dar acesso total e direto ao HTTP e seus conceitos. Essa a diferença fundamental entre Play e outros frameworks web Java.
 
-HTTP, the Request/Response pattern, the REST architectural style, content-type negotiation, URI are all major concepts for the Play framework.
+O HTTP, o padrão de Request/Response, o estilo arquitetural de REST, a negociação de content-type, a URI são coneitos principais do framework Play.
 
-For instance, binding a URI pattern to a Java call is just one line:
+Por exemplo, relacionar um padrão de URI para uma chamada Java é feito em apenas uma linha:
 
 bc. GET    /clients/{id}        Clients.show
 
-If Ajax, REST and managing back/forward movement between web pages are some of the issues you face in your day-to-day web development, just give Play a try.
+Se Ajax, REST e manipular movimento back/forward entre páginas web  é algumas de suas tarefas do seu dia a dia de desenvolvimento web, experimente o Play.
 
 
-h2. <a name="templates">Efficient templating engine</a>
+h2. <a name="templates">Engine de template eficiente</a>
 
-We like the idea behind JSP and Expression Language. But why do we need so many configuration files to create a tag library? Why can’t we have full access to the underlying object model? JSP has a lot of limitations and this is indeed frustrating. That’s why we’ve created a custom template system, inspired by JSP but without its constraints!
 
-You and anyone else should be tired of writing things like this:
+Nós gostamos da ideia do JSP e sua expression language.
+Mas por que precisamos de tantos arquivos de configuração para criar uma biblioteca de tag ?
+Por que nõa podemos ter acesso completo ao modelo de objetos ?
+O JSP tem diversas limitações e isso é muito frustrante.
+É por isso que criamos um sistema de templates customizado, inspirado no JSP mas sem suas restrições!
+
+Você e qualquer um pode estar cansado de escrever algo assim:
 
 bc. <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
 <c:choose>
     <c:when test="${emails.unread != null && fn:size(emails.unread)}">
         You have ${fn:size(emails.unread)} unread email(s)!
@@ -75,18 +91,21 @@ bc. <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     </c:otherwise>
 </c:choose>
 
-We think you would certainly prefer to write:
+Nós achamos que você deve preferir algo assim:
 
 bc. You have ${emails.unread ?: 'no'} ${emails.unread?.pluralize('email')} !
 
-The expression language used by the play template engine is "Groovy":http://groovy.codehaus.org/, which provides a syntax consistent with Java. While Play mainly uses the templating system to render HTML responses, you are free to use it to generate any other documents such as e-mail messages, JSON responses, etc.
+A expression language usada pela engine de template do Play é o "Groovy":http://groovy.codehaus.org/, que tem uma sintaxe consistente com o Java.
+Enquanto o Play usa o sistema de templates para renderizar respostas HTML, você pode usar também para gerar outros documentos como mensagens de e-mail messages, respostas JSON, etc.
 
 
-h2. <a>JPA on steroids</a>
+h2. <a>JPA em esteroides</a>
 
-The Java Persistence API (JPA) is the cleanest object-relational mapping (ORM) API available for Java. If you already know it you will be amazed how much simpler it becomes with Play. With nothing to configure, Play will automatically start the JPA Entity Manager and magically synchronize it while the code is reloaded.
+O Java Persistence API (JPA) é o mapeamento objeto-relacional (ORM) mais limpo disponível para Java.
+Se você já conhece vai ficar surpreso de como ele ficou mais simples com Play.
+Com nada para configurar , o Play automaticamente sobe um JPA Entity Manager e sincroniza enquanto o código é carregado.
 
-Moreover if you use the provided @play.db.jpa.Model@ superclass it will help make your code prettier. Have a look:
+Ainda mais se você usar a super classe @play.db.jpa.Model@ para ficar mais simples ainda. Dê uma olhada:
 
 bc. public static void messages(int page) {
     User connectedUser = User.find("byEmail", connected()).first();
@@ -97,26 +116,29 @@ bc. public static void messages(int page) {
     render(connectedUser, messages);
 }
 
-h2. <a>Test driven development (if you like it)</a>
+h2. <a>Test driven development (se você quiser)</a>
 
-The integrated test runner makes it easy for you do <a href="http://en.wikipedia.org/wiki/Test-driven_development">test-driven development</a>. You can write all kinds of tests, from simple unit tests to full acceptance tests, and run them directly in a browser using "Selenium":http://seleniumhq.org/. Code coverage is also measured.
+O executador de testes integrados facilita fazer <a href="http://en.wikipedia.org/wiki/Test-driven_development">test-driven development</a>.
+Você pode escrever todos os tipos de teste, de um simples teste unitário para um teste completo integrado, e roda-los diretamente do browser
+usando "Selenium":http://seleniumhq.org/. A cobertura de códigos testados também é medida.
 
 !images/guide2-2!
 
 h2. <a name="full-stack">Full-stack application framework</a>
 
-The Play framework was initially inspired by our own Java applications. It has all the tools needed to create a modern web application, including:
+O framework Play foi inspirado pelas nossas próprias aplicações Java. Ele tem todas as ferramentas necessárias para criar uma aplicação web moderna, incluindo:
 
-* relational database support through JDBC.
-* object-relational mapping using Hibernate (with the JPA API).
-* integrated cache support, with easy use of the distributed memcached system if needed.
-* straightforward web services consumption either in JSON or XML (we are talking *real* web services here; not the SOAP stuff).
-* OpenID support for distributed authentication.
-* your web application ready to be deployed anywhere (application server, Google App Engine, Cloud, etc…)
-* image manipulation API.
+* suporte a banco de dados relacionais através do JDBC.
+* mapeamento objeto-relacional usando Hibernate (com a API do JPA).
+* suporte a cache integrado, com a facilidade de uso do sistema distribuído do memcached se necessário.
+* web services simples e diretos consumidos em JSON ou XML (estamos falando de *verdadeiros* web services ; e não de SOAP).
+* suporte ao OpenID para autenticação distribuída.
+* sua aplicação web já pode ser publicada em qualquer lugar (servidor de aplicação, Google App Engine, nas nuvens, etc…)
+* API para manipular imagens.
 
-The modular architecture lets you combine a web application with many others. Thanks to "application modules":modules, you can reuse your Java code, templates and static resources (such as JavaScript and CSS files) in a simple way.
+A arquitetura modular deixa você combinar a aplicação web com várias outras.
+Graças aos "módulos de aplicação":modules, você pode reutilizar todo o seu código Java, templates e recursos estáticos (assim como arquivos JavaScript e CSS) de um jeito simples.
 
-p(note). **Give it a try**
+p(note). **Experimente**
 
-"Install the Play framework":install and start developing your first application.
+"Instale o framework Play":install e comece a desenvolver a sua primeira aplicação.

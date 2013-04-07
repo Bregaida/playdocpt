@@ -94,4 +94,4 @@ Você pode abrir o browser em "http://localhost:9000":http://localhost:9000 e ve
 
 p(note). **Your new application is ready!**
 
-Next: %(next)"Configure sua IDE preferida":ide%.
+Próximo: %(next)"Configure sua IDE preferida":ide%.

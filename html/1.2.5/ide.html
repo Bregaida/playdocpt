@@ -40,7 +40,7 @@
                 </figure>
             </div>
             <nav>
-                    <b>12% traduzido</b>
+                    <b>16% traduzido</b>
                     <a href="/documentation" class="selected learn">Aprenda</a>
                     <a href="http://www.playframework.org/community" target="_blank" class="community">Comunidade</a>
                     <a href="/code" class="code">Código fonte</a>
@@ -98,29 +98,30 @@ $(function(){
 
 <div id="content" class="wrapper doc">
     <article>
-        <h1 id="SettingupyourpreferredIDE">Setting-up your preferred IDE</h1> 
-<p>Working with Play is easy. You don’t even need a sophisticated IDE as Play compiles and refreshes the modifications you make to your source files automatically. So you can easily work using a simple text editor.</p> 
-<p>However, using a modern Java IDE provides cool productivity features like auto-completion, on-the-fly compilation, assisted refactoring and debugging. Play supports the <a href="http://www.netbeans.org">NetBeans</a>, <a href="http://www.jetbrains.com/idea/index.html">IntelliJ IDEA</a> and <a href="http://www.eclipse.org">Eclipse</a> platforms.</p> 
+        <h1 id="ConfigurandosuaIDE">Configurando sua IDE</h1> 
+<p>Trabalhar com Play &eacute; f&aacute;cil.<br />Voc&ecirc; n&atilde;o precisa sem usar uma IDE sofisticatada e o Play compila e faz o refresh das modifica&ccedil;&otilde;es que voc&ecirc; fizer no c&oacute;digo fonte automaticamente.<br />Portanto voc&ecirc; pode tranquilamente trabalhar com um simples editor de textos.</p> 
+<p>Entretanto, usando uma IDE Java moderna proporciona interessantes op&ccedil;&otilde;es como auto-completion, compila&ccedil;&atilde;o on-the-fly,assistente de refatora&ccedil;&atilde;o e debug.</p> 
+<p>O Play suporta as platformas: <a href="http://www.netbeans.org">NetBeans</a>, <a href="http://www.jetbrains.com/idea/index.html">IntelliJ IDEA</a> e <a href="http://www.eclipse.org">Eclipse</a> .</p> 
 <h2 id="eclipse"><a>Eclipse</a></h2> 
-<h3 id="Generateconfiguration">Generate configuration</h3> 
-<p>Play provides a command to simplify Eclipse configuration. To transform a Play application into a working Eclipse project, use the <code>eclipsify</code> command:</p> 
+<h3 id="Configuraogeral">Configura&ccedil;&atilde;o geral</h3> 
+<p>O Play proporciona um comando para simplificar a configura&ccedil;&atilde;o do Eclipse.<br />Para transformar uma aplica&ccedil;&atilde;o do Play em um projeto do Eclipse funcionando, use o comando <code>eclipsify</code>:</p> 
 <pre><code># play eclipsify myApp
 </code></pre> 
-<p>You then need to import the application into your Workspace with the <b>File/Import/General/Existing project…</b> menu.</p> 
+<p>Voc&ecirc; precisa importar a aplica&ccedil;&atilde;o para dentro do seu Workspace com a op&ccedil;&atilde;o do menu <b>File/Import/General/Existing project…</b>.</p> 
 <p><img border="0" src="images/eclipse" /></p> 
-<p>If you make any important changes to your application, such as changing the classpath, use <code>eclipsify</code> again to regenerate the configuration files.</p> 
-<p class="note"><b>Do not commit Eclipse configuration files when you work in a team!</b></p> 
-<p>The generated configuration files contain absolute references to your framework installation. These are specific to your own installation. When you work in a team, each developer must keep his Eclipse configuration files private. </p> 
+<p>Se voc&ecirc; fizer alguma mudan&ccedil;a importante na aplica&ccedil;&atilde;o, como mudar o classpath, use <code>eclipsify</code> novamente para regenerar os arquivos de configura&ccedil;&atilde;o.</p> 
+<p class="note"><b>N&atilde;o commite os arquivos de configura&ccedil;&atilde;o do Eclipse quando trabalhar em equipe!</b></p> 
+<p>Os arquivos de configura&ccedil;&atilde;o cont&eacute;m refer&ecirc;ncias absolutas da instala&ccedil;&atilde;o de seu framework.<br />Eles s&atilde;o espec&iacute;ficos de sua instala&ccedil;&atilde;o.<br />Quando trabalhar em equipe, cada desenvolvedor de manter os seus arquivos de configura&ccedil;&atilde;o do Eclipse s&oacute; para ele.</p> 
 <h3 id="Launchers">Launchers</h3> 
-<p>The <code>eclipsify</code> command generates several launchers for the application. For example, running <code>eclipsify</code> on an application called <b>Nice app</b> (see screen shot above) will create the following launchers in the <code>eclipse/</code> folder:</p> 
+<p>O comando <code>eclipsify</code> gera alguns launchers para a sua aplica&ccedil;&atilde;o.<br />Por exemplo, rodando <code>eclipsify</code> em uma aplica&ccedil;&atilde;o chamada <b>Nice app</b> vai criar is seguintes launchers na pasta do <code>eclipse/</code> :</p> 
 <ul> 
- <li><code>Nice app.launch</code> - the main launcher, equivalent to the <code>play test</code> command, which you can use to run your application by right-clicking it and selecting <b>Run As &gt; Nice app</b></li> 
- <li><code>Test Nice app.launch</code> - the test launcher, equivalent to the <code>play test</code> command, which you also run by right-clicking it and selecting <b>Run As &gt; Test Nice app</b></li> 
- <li><code>Connect JPDA Nice app.launch</code> - the JPDA debugging session connector, which you can use to connect the Eclipse debugger to an already-running Play instance and start a debugging session, by right-clicking the launch file and selecting <b>Debug As &gt; Connect JPDA Nice app</b>. Stopping the debugging session will not stop the server.</li> 
+ <li><code>Nice app.launch</code> - o launcher principal, equivalente ao comando <code>play run</code> , que voc&ecirc; pode usar para rodar sua aplica&ccedil;&atilde;o clicando com o bot&atilde;o direito e selecionando <b>Run As &gt; Nice app</b></li> 
+ <li><code>Test Nice app.launch</code> - the test launcher, equivalente ao comando <code>play test</code> command, que voc&ecirc; pode usar para rodar sua aplica&ccedil;&atilde;o clicando com o bot&atilde;o direito e selecionando <b>Run As &gt; Test Nice app</b></li> 
+ <li><code>Connect JPDA Nice app.launch</code> - o conector de debug de sess&atilde;o JPDA, que pode conectar o Eclipse debugger em uma inst&acirc;ncia do Play j&aacute; rodando, clicando com o bot&atilde;o direito e selecionado <b>Debug As &gt; Connect JPDA Nice app</b>. Parar a sess&atilde;o de debug n&atilde;o para o servidor.</li> 
 </ul> 
-<h3 id="PlayEclipseplugin">Play Eclipse plug-in</h3> 
-<p>Additionally, Play comes with an Eclipse plug-in that provides editors for HTML view templates, <code>application.conf</code> and the <code>routes</code> file.</p> 
-<p>To install, copy the JAR file from <code>$PLAY_HOME/support/eclipse</code> to <code>$ECLIPSE_HOME/dropins</code>.</p> 
+<h3 id="plugindoPlayparaoEclipse">plug-in do Play para o Eclipse</h3> 
+<p>Adicionalmente, o Play vem com um plug-in do Eclipse que possui alguns editores para template de HTML, dos arquivos <code>application.conf</code> e <code>routes</code> .</p> 
+<p>Para instalar, copie o arquivo JAR de <code>$PLAY_HOME/support/eclipse</code> para <code>$ECLIPSE_HOME/dropins</code>.</p> 
 <h2 id="netbeans"><a>NetBeans</a></h2> 
 <p>Play provides a command to simplify NetBeans configuration. To transform an existing application to a valid NetBeans project, use the <code>netbeansify</code> command:</p> 
 <pre><code># play netbeansify myApp
@@ -128,8 +129,9 @@ $(function(){
 <p>Then you can just open the application as a NetBeans project.</p> 
 <p><img border="0" src="images/netbeans" /></p> 
 <p>Use the standard <strong>Run</strong> button to start the application. When the application is started you can attach a debugging session at any time using the <strong>Debug</strong> button. Stopping the debugging session doesn’t stop the server.</p> 
-<p>If you make any important change to your application such as changing the classpath, use <code>netbeansify</code> again to regenerate the configuration files. </p> 
-<p class="note"><b>Do not commit the <code>nbproject/</code> directory when you work in a team!</b><br /> <br />The generated configuration files contains absolute references to your framework installation. These are specific to your own installation. When you work in a team on the same application, each developer must keep his NetBeans configuration files private.</p> 
+<p>If you make any important change to your application such as changing the classpath, use <code>netbeansify</code> again to regenerate the configuration files.</p> 
+<p class="note"><b>Do not commit the <code>nbproject/</code> directory when you work in a team!</b></p> 
+<p>The generated configuration files contains absolute references to your framework installation. These are specific to your own installation. When you work in a team on the same application, each developer must keep his NetBeans configuration files private.</p> 
 <h2 id="intellij"><a>IntelliJ IDEA</a></h2> 
 <p>Play provides a command to simplify IntelliJ IDEA configuration. To transform an existing application to a valid IntelliJ IDEA module, use the <code>idealize</code> command:</p> 
 <pre><code># play idealize myApp
@@ -157,7 +159,8 @@ $(function(){
  <li>Click <strong>Add…</strong> and select <strong>Single-Entry Module Library</strong>.</li> 
  <li>Select <code>$PLAY_HOME/modules/testrunner/lib/play-testrunner.jar</code> and click <strong>OK</strong>.</li> 
 </ol> 
-<p class="note"><b>Do not commit the .iml files when you work in a team!</b><br /> <br />The generated configuration files contains absolute references to your framework installation. These are specific to your own installation. When you work in a team on the same application, each developer must keep his IntelliJ IDEA configuration files private.</p> 
+<p class="note"><b>Do not commit the .iml files when you work in a team!</b></p> 
+<p>The generated configuration files contains absolute references to your framework installation. These are specific to your own installation. When you work in a team on the same application, each developer must keep his IntelliJ IDEA configuration files private.</p> 
 <h2 id="textmate"><a>Textmate</a></h2> 
 <p>Install the <a href="http://macromates.com/">Textmate</a> bundle provided at <code>$PLAY_HOME/support/textmate.zip</code> to enable syntax coloring and auto-completion. The bundle also eases navigation between controllers and views.</p> 
 <p><img border="0" src="images/editor" /></p> 
@@ -166,14 +169,15 @@ $(function(){
 <h2 id="custom"><a>Custom configuration</a></h2> 
 <p>As Play applications are standard Java applications, you don’t need a specific plug-in to work with your preferred editor. This, however, requires a little bit of knowledge of how Play works.</p> 
 <h3 id="Classpathsettings">Classpath settings</h3> 
-<p>A Play application classpath is built as follows (in this order): </p> 
+<p>A Play application classpath is built as follows (in this order):</p> 
 <ul> 
  <li>The <code>conf/</code> directory for the application</li> 
  <li>The <code>$PLAY_PATH/framework/play-$version.jar</code></li> 
  <li>All JAR files found in your application’s <code>lib/</code> directory</li> 
  <li>All JAR files found in the <code>$PLAY_PATH/framework/lib/</code> directory</li> 
 </ul> 
-<p class="note"><strong>Tip</strong><br /> <br />If you have any modules enabled, you will need to add all modules’ libraries (from the <code>$module/lib/</code> directory) to the classpath as well.</p> 
+<p class="note"><strong>Tip</strong></p> 
+<p>If you have any modules enabled, you will need to add all modules’ libraries (from the <code>$module/lib/</code> directory) to the classpath as well.</p> 
 <h3 id="Mainclasstorun">Main class to run</h3> 
 <p>To start a Play application, just run the <code>play.server.Server</code> class. Play uses the <code>&quot;application.path&quot;</code> system property to locate the application to run. Typically you pass this value with:</p> 
 <pre><code>java -Dapplication.path=&quot;/app/path&quot;…
@@ -195,7 +199,7 @@ $(function(){
  <li><span>Disconnect the debugger.</span></li> 
 </ol> 
 <p>By using this work-flow you will always have a debugger synchronized with the code loaded in the JVM.</p> 
-<p class="note">Next: <span class="next"><a href="firstapp">‘Hello World’ tutorial</a></span>.</p>
+<p class="note">Pr&oacute;ximo: <span class="next"><a href="firstapp">Tutorial ‘Hello World’</a></span>.</p>
     </article>
     <aside>
     <h3>documentação oficial</h3>

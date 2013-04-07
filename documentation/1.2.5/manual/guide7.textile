@@ -371,4 +371,4 @@ bc. #{set 'moreStyles'}
 
 This is a good start for the administration area!
 
-p(note). Next: %(next)"Adding authentication":guide8%.
+p(note). Próximo: %(next)"Adding authentication":guide8%.

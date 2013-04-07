@@ -135,4 +135,4 @@ Check that the captcha is now fully functional.
 
 Great!
 
-p(note). Next: %(next)"Add tagging support":guide6%. 
+p(note). Próximo: %(next)"Add tagging support":guide6%. 
